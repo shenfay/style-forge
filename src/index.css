@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "PingFang SC", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  /* Style Forge 设计系统颜色 */
+  --sf-bg-white: #FFFFFF;
+  --sf-bg-warm: #F9F8F4;
+  --sf-bg-yellow: #FFFDF5;
+  --sf-bg-green: #F5FAF5;
+
+  --sf-primary-forest: #2E7D32;
+  --sf-primary-grass: #5F7D2E;
+  --sf-primary-teal: #2E7D67;
+  --sf-primary-black: #000000;
+
+  --sf-danger: #DC2626;
+  --sf-danger-bg: #FEF2F2;
+  --sf-warning: #D97706;
+  --sf-warning-bg: #FFFBEB;
+  --sf-safe: #16A34A;
+  --sf-safe-bg: #F0FDF4;
+
+  --sf-text-primary: #1A1A1A;
+  --sf-text-secondary: #666666;
+  --sf-text-muted: #999999;
+  --sf-border: #E5E5E5;
+
+  /* 圆角 */
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

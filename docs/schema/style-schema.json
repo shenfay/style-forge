@@ -1,0 +1,502 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://style-forge.dev/schema/style-config.json",
+  "title": "Style Forge Configuration Schema",
+  "description": "Style Forge 完整数据模型定义，包含配置、组件库和模板",
+  "version": "1.0.0",
+  "type": "object",
+  "required": ["meta", "theme", "components", "templates"],
+  "properties": {
+    "version": {
+      "type": "string",
+      "description": "Schema 版本号"
+    },
+    "meta": {
+      "$ref": "#/definitions/ConfigMeta"
+    },
+    "theme": {
+      "$ref": "#/definitions/ThemeConfig"
+    },
+    "components": {
+      "$ref": "#/definitions/ComponentLibrary"
+    },
+    "templates": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Template"
+      }
+    }
+  },
+  "definitions": {
+    "ConfigMeta": {
+      "type": "object",
+      "description": "配置元信息",
+      "required": ["name", "author", "createdAt"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "配置名称"
+        },
+        "author": {
+          "type": "string",
+          "description": "作者"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date",
+          "description": "创建时间"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date",
+          "description": "更新时间"
+        },
+        "tags": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "标签列表"
+        },
+        "description": {
+          "type": "string",
+          "description": "配置描述"
+        }
+      }
+    },
+
+    "ThemeConfig": {
+      "type": "object",
+      "description": "主题配置",
+      "required": ["colors", "radius", "spacing"],
+      "properties": {
+        "colors": {
+          "$ref": "#/definitions/ColorConfig"
+        },
+        "radius": {
+          "$ref": "#/definitions/RadiusConfig"
+        },
+        "spacing": {
+          "$ref": "#/definitions/SpacingConfig"
+        },
+        "typography": {
+          "$ref": "#/definitions/TypographyConfig"
+        }
+      }
+    },
+
+    "ColorConfig": {
+      "type": "object",
+      "description": "颜色配置",
+      "required": ["background", "primary", "semantic"],
+      "properties": {
+        "background": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/ColorOption" },
+          "description": "页面底色选项"
+        },
+        "primary": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/ColorOption" },
+          "description": "主题色选项"
+        },
+        "semantic": {
+          "$ref": "#/definitions/SemanticColors"
+        }
+      }
+    },
+
+    "ColorOption": {
+      "type": "object",
+      "required": ["id", "name", "value"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "颜色 ID"
+        },
+        "name": {
+          "type": "string",
+          "description": "颜色名称"
+        },
+        "value": {
+          "type": "string",
+          "pattern": "^#[0-9A-Fa-f]{6}$",
+          "description": "颜色值"
+        },
+        "keywords": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "风格关键词"
+        }
+      }
+    },
+
+    "SemanticColors": {
+      "type": "object",
+      "description": "语义色配置",
+      "required": ["danger", "warning", "success"],
+      "properties": {
+        "danger": {
+          "$ref": "#/definitions/SemanticColor"
+        },
+        "warning": {
+          "$ref": "#/definitions/SemanticColor"
+        },
+        "success": {
+          "$ref": "#/definitions/SemanticColor"
+        }
+      }
+    },
+
+    "SemanticColor": {
+      "type": "object",
+      "required": ["bg", "text", "border"],
+      "properties": {
+        "bg": {
+          "type": "string",
+          "description": "背景色"
+        },
+        "text": {
+          "type": "string",
+          "description": "文字色"
+        },
+        "border": {
+          "type": "string",
+          "description": "边框色"
+        }
+      }
+    },
+
+    "RadiusConfig": {
+      "type": "object",
+      "description": "圆角配置",
+      "required": ["small", "medium", "large"],
+      "properties": {
+        "small": {
+          "type": "string",
+          "description": "小圆角"
+        },
+        "medium": {
+          "type": "string",
+          "description": "中圆角"
+        },
+        "large": {
+          "type": "string",
+          "description": "大圆角"
+        }
+      }
+    },
+
+    "SpacingConfig": {
+      "type": "object",
+      "description": "间距配置",
+      "required": ["compact", "normal", "loose"],
+      "properties": {
+        "compact": {
+          "type": "string",
+          "description": "紧凑间距"
+        },
+        "normal": {
+          "type": "string",
+          "description": "正常间距"
+        },
+        "loose": {
+          "type": "string",
+          "description": "宽松间距"
+        }
+      }
+    },
+
+    "TypographyConfig": {
+      "type": "object",
+      "description": "字体配置",
+      "properties": {
+        "fontFamily": {
+          "type": "string",
+          "description": "字体族"
+        },
+        "baseSize": {
+          "type": "string",
+          "description": "基础字号"
+        },
+        "scale": {
+          "type": "number",
+          "description": "字体缩放比例"
+        }
+      }
+    },
+
+    "ComponentLibrary": {
+      "type": "object",
+      "description": "组件库定义",
+      "additionalProperties": {
+        "$ref": "#/definitions/ComponentDefinition"
+      }
+    },
+
+    "ComponentDefinition": {
+      "type": "object",
+      "required": ["name", "variants", "states"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "组件名称"
+        },
+        "description": {
+          "type": "string",
+          "description": "组件描述"
+        },
+        "variants": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/ComponentVariant" },
+          "description": "组件变体"
+        },
+        "states": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/ComponentState" },
+          "description": "组件状态"
+        }
+      }
+    },
+
+    "ComponentVariant": {
+      "type": "object",
+      "required": ["id", "name", "styles"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "变体 ID"
+        },
+        "name": {
+          "type": "string",
+          "description": "变体名称"
+        },
+        "styles": {
+          "type": "object",
+          "description": "样式映射"
+        }
+      }
+    },
+
+    "ComponentState": {
+      "type": "object",
+      "required": ["id", "name", "styles"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "enum": ["default", "hover", "active", "disabled"],
+          "description": "状态 ID"
+        },
+        "name": {
+          "type": "string",
+          "description": "状态名称"
+        },
+        "styles": {
+          "type": "object",
+          "description": "状态样式"
+        }
+      }
+    },
+
+    "Template": {
+      "type": "object",
+      "required": ["id", "name", "scene", "device", "type", "defaultStyle", "layout", "aiPrompt"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "模板唯一标识"
+        },
+        "name": {
+          "type": "string",
+          "description": "模板名称"
+        },
+        "scene": {
+          "type": "string",
+          "enum": ["food", "ecommerce", "saas", "media", "social", "finance"],
+          "description": "场景类型"
+        },
+        "device": {
+          "type": "string",
+          "enum": ["mobile", "desktop"],
+          "description": "设备类型"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["home", "detail", "list", "form", "settings", "result"],
+          "description": "页面类型"
+        },
+        "description": {
+          "type": "string",
+          "description": "模板描述"
+        },
+        "defaultStyle": {
+          "$ref": "#/definitions/StyleConfig"
+        },
+        "layout": {
+          "$ref": "#/definitions/LayoutDefinition"
+        },
+        "componentMap": {
+          "type": "object",
+          "description": "区域到组件的映射"
+        },
+        "aiPrompt": {
+          "$ref": "#/definitions/AIPromptTemplate"
+        }
+      }
+    },
+
+    "StyleConfig": {
+      "type": "object",
+      "description": "8维样式配置",
+      "required": [
+        "backgroundColor",
+        "primaryColor",
+        "cornerRadius",
+        "cardStyle",
+        "titleBarStyle",
+        "switcherStyle",
+        "buttonStyle",
+        "badgeStyle"
+      ],
+      "properties": {
+        "backgroundColor": {
+          "type": "string",
+          "description": "页面底色"
+        },
+        "primaryColor": {
+          "type": "string",
+          "description": "主题色"
+        },
+        "cornerRadius": {
+          "type": "string",
+          "enum": ["small", "medium", "large"],
+          "description": "圆角大小"
+        },
+        "cardStyle": {
+          "type": "string",
+          "enum": ["border", "shadow", "borderless"],
+          "description": "卡片样式"
+        },
+        "titleBarStyle": {
+          "type": "string",
+          "enum": ["white-underline", "frosted-glass", "colored-bg"],
+          "description": "标题栏样式"
+        },
+        "switcherStyle": {
+          "type": "string",
+          "enum": ["underline", "pill", "capsule"],
+          "description": "切换器样式"
+        },
+        "buttonStyle": {
+          "type": "string",
+          "enum": ["gradient", "solid", "wireframe"],
+          "description": "按钮样式"
+        },
+        "badgeStyle": {
+          "type": "string",
+          "enum": ["rounded", "text-only"],
+          "description": "标签样式"
+        }
+      }
+    },
+
+    "LayoutDefinition": {
+      "type": "object",
+      "required": ["type", "regions"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["single-column", "two-column", "grid"],
+          "description": "布局类型"
+        },
+        "regions": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/Region" },
+          "description": "页面区域"
+        },
+        "breakpoints": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/BreakpointLayout" },
+          "description": "响应式断点配置"
+        }
+      }
+    },
+
+    "Region": {
+      "type": "object",
+      "required": ["id", "name", "type", "components"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "区域 ID"
+        },
+        "name": {
+          "type": "string",
+          "description": "区域名称"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["header", "content", "footer", "sidebar"],
+          "description": "区域类型"
+        },
+        "height": {
+          "type": "string",
+          "description": "区域高度"
+        },
+        "components": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "区域内的组件列表"
+        }
+      }
+    },
+
+    "BreakpointLayout": {
+      "type": "object",
+      "description": "响应式断点布局",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "断点名称"
+        },
+        "minWidth": {
+          "type": "number",
+          "description": "最小宽度"
+        },
+        "layout": {
+          "type": "object",
+          "description": "该断点下的布局配置"
+        }
+      }
+    },
+
+    "AIPromptTemplate": {
+      "type": "object",
+      "required": ["title", "sections"],
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "页面标题"
+        },
+        "sections": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/PromptSection" },
+          "description": "提示词段落"
+        }
+      }
+    },
+
+    "PromptSection": {
+      "type": "object",
+      "required": ["heading", "content"],
+      "properties": {
+        "heading": {
+          "type": "string",
+          "description": "段落标题（Markdown 格式）"
+        },
+        "content": {
+          "type": "string",
+          "description": "段落内容"
+        }
+      }
+    }
+  }
+}
