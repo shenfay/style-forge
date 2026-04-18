@@ -2,30 +2,54 @@ import { useState, useEffect } from 'react'
 import { StyleConfigurator } from './components/Configurator/StyleConfigurator'
 import { ScanResultPreview } from './components/Preview/ScanResultPreview'
 import { defaultConfig, type StyleConfig } from './types/config'
-import { encodeConfig, decodeConfig } from './utils/configEncoder'
+import { useUrlConfig } from './hooks/useUrlConfig'
+import { loadTemplates, findTemplate, type TemplateConfig } from './utils/templateLoader'
+import { encodeConfig } from './utils/configEncoder'
 import { generateTailwindConfig, generateCSSVariables } from './utils/tailwindGenerator'
 import { generateAIPrompt } from './utils/promptGenerator'
+import type { PageType } from './types/template'
 
 export default function App() {
+  const [urlConfig] = useUrlConfig()
   const [config, setConfig] = useState<StyleConfig>(defaultConfig)
   const [showExport, setShowExport] = useState<string | null>(null)
+  const [currentTemplate, setCurrentTemplate] = useState<TemplateConfig | null>(null)
 
-  // 从URL加载配置
+  // 加载模板
   useEffect(() => {
-    const params = window.location.search
-    if (params) {
-      const decoded = decodeConfig(params)
-      if (decoded) {
-        setConfig(decoded)
+    const load = async () => {
+      const scene = urlConfig.scene || 'food'
+      const loaded = await loadTemplates(scene)
+
+      // 查找匹配的模板
+      const device = urlConfig.device || 'mobile'
+      const template = urlConfig.template || 'result'
+      const found = findTemplate(scene, device, template as PageType)
+      if (found) {
+        setCurrentTemplate(found)
+        // 使用模板默认配置
+        if (urlConfig.config === undefined) {
+          setConfig(found.defaultStyle)
+        }
       }
     }
-  }, [])
+    load()
+  }, [urlConfig])
 
   // 同步配置到URL
   useEffect(() => {
-    const encoded = encodeConfig(config)
-    const newUrl = `${window.location.pathname}?${encoded}`
-    window.history.replaceState({}, '', newUrl)
+    if (urlConfig.config === undefined || JSON.stringify(urlConfig.config) !== JSON.stringify(config)) {
+      const params = new URLSearchParams()
+      if (urlConfig.scene) params.set('scene', urlConfig.scene)
+      if (urlConfig.device) params.set('device', urlConfig.device)
+      if (urlConfig.template) params.set('template', urlConfig.template)
+      
+      // 编码自定义配置
+      params.set('config', encodeConfig(config))
+      
+      const newUrl = `${window.location.pathname}?${params.toString()}`
+      window.history.replaceState({}, '', newUrl)
+    }
   }, [config])
 
   const handleExport = (type: 'tailwind' | 'css' | 'prompt') => {
@@ -73,7 +97,9 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
           <div>
             <h1 className="text-lg font-semibold text-gray-900">Style Forge</h1>
-            <p className="text-sm text-gray-500">场景化设计配置器 - 实时预览,一键导出</p>
+            <p className="text-sm text-gray-500">
+              场景化设计配置器 - {currentTemplate ? currentTemplate.name : '实时预览，一键导出'}
+            </p>
           </div>
           <div className="flex gap-2">
             <button
@@ -97,14 +123,14 @@ export default function App() {
           </div>
         </div>
       </nav>
-
+  
       <div className="max-w-7xl mx-auto px-6 py-6">
         <div className="grid grid-cols-12 gap-6">
           {/* 左侧配置面板 */}
           <div className="col-span-5">
             <StyleConfigurator config={config} onChange={setConfig} />
           </div>
-
+  
           {/* 右侧预览 */}
           <div className="col-span-7 flex justify-center sticky top-24">
             <div className="w-[375px] h-[812px] bg-white rounded-[40px] shadow-2xl overflow-hidden border-8 border-gray-900">
