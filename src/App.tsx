@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { StyleConfigurator } from './components/Configurator/StyleConfigurator'
 import { ScanResultPreview } from './components/Preview/ScanResultPreview'
+import { MobilePreview } from './components/Preview/MobilePreview'
 import { DesktopPreview } from './components/Preview/DesktopPreview'
 import { SceneSelector } from './components/Configurator/SceneSelector'
 import { TemplateSelector } from './components/Configurator/TemplateSelector'
@@ -200,7 +201,10 @@ export default function App() {
               </div>
             ) : (
               <div className="w-[375px] h-[812px] bg-white rounded-[40px] shadow-2xl overflow-hidden border-8 border-gray-900">
-                <ScanResultPreview config={config} />
+                <MobilePreview 
+                  config={config} 
+                  pageType={currentTemplate?.type || 'result'}
+                />
               </div>
             )}
           </div>
