@@ -1,5 +1,6 @@
 import type { StyleConfig } from '../types/config'
 import { radiusMap } from '../types/config'
+import type { TemplateConfig } from '../types/template'
 
 const colorNames: Record<string, string> = {
   '#FFFFFF': '纯白',
@@ -23,11 +24,26 @@ const styleKeywords: Record<string, string[]> = {
   '#000000': ['高级', '极简', '克制', '专业'],
 }
 
-export function generateAIPrompt(config: StyleConfig, scene: string = '食品扫描小程序扫码结果页'): string {
+export function generateAIPrompt(
+  config: StyleConfig,
+  scene: string = '食品扫描小程序扫码结果页',
+  template?: TemplateConfig
+): string {
   const bgName = colorNames[config.backgroundColor] || config.backgroundColor
   const primaryName = colorNames[config.primaryColor] || config.primaryColor
   const keywords = [...(styleKeywords[config.backgroundColor] || []), ...(styleKeywords[config.primaryColor] || [])]
   const uniqueKeywords = [...new Set(keywords)].slice(0, 6).join('、')
+
+  // 构建页面结构描述
+  let structureSection = ''
+  if (template) {
+    const structureContent = template.aiPrompt.sections
+      .map((s) => `${s.heading}\n${s.content}`)
+      .join('\n\n')
+    structureSection = `\n## 页面结构\n${structureContent}`
+  } else {
+    structureSection = `\n## 组件要求\n1. 风险结论区: 大图标+标题+描述文字\n2. 产品信息卡: 名称+规格列表\n3. 成分分析表: 名称+描述+风险标签\n4. 底部操作栏: 收藏+确认食用按钮`
+  }
 
   return `# UI设计配置提示词
 
@@ -48,12 +64,7 @@ export function generateAIPrompt(config: StyleConfig, scene: string = '食品扫
 - 切换器: ${config.switcherStyle === 'underline' ? '下划线式,彩色文字' : config.switcherStyle === 'pill' ? '药丸容器,圆形背景' : '胶囊样式,带边框'}
 - 按钮: ${config.buttonStyle === 'gradient' ? '渐变背景(135度)' : config.buttonStyle === 'solid' ? '纯色填充(主题色)' : '线框样式(仅边框,无填充)'}
 - 标签: ${config.badgeStyle === 'rounded' ? '圆角底色(半透明背景+彩色文字)' : '纯文字(无背景)'}
-
-## 组件要求
-1. 风险结论区: 大图标+标题+描述文字
-2. 产品信息卡: 名称+规格列表
-3. 成分分析表: 名称+描述+风险标签
-4. 底部操作栏: 收藏+确认食用按钮
+${structureSection}
 
 ## 风格关键词
 ${uniqueKeywords}

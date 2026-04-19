@@ -116,9 +116,17 @@ export default function App() {
   }
 
   const copyPrompt = async () => {
-    const prompt = generateAIPrompt(config)
+    const sceneName = currentTemplate?.name || '设计配置'
+    const prompt = generateAIPrompt(config, sceneName, currentTemplate || undefined)
     await navigator.clipboard.writeText(prompt)
     setShowExport('copied')
+    setTimeout(() => setShowExport(null), 2000)
+  }
+
+  const copyPreviewLink = async () => {
+    const url = window.location.href
+    await navigator.clipboard.writeText(url)
+    setShowExport('link-copied')
     setTimeout(() => setShowExport(null), 2000)
   }
 
@@ -134,6 +142,12 @@ export default function App() {
             </p>
           </div>
           <div className="flex gap-2">
+            <button
+              onClick={copyPreviewLink}
+              className="px-4 py-2 bg-white border border-gray-200 text-gray-700 text-sm font-medium rounded-lg hover:border-gray-900 transition-colors"
+            >
+              {showExport === 'link-copied' ? '已复制!' : '复制预览链接'}
+            </button>
             <button
               onClick={() => handleExport('tailwind')}
               className="px-4 py-2 bg-gray-900 text-white text-sm font-medium rounded-lg hover:bg-gray-800 transition-colors"
