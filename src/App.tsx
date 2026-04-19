@@ -1,18 +1,22 @@
 import { useState, useEffect } from 'react'
 import { StyleConfigurator } from './components/Configurator/StyleConfigurator'
 import { ScanResultPreview } from './components/Preview/ScanResultPreview'
+import { DesktopPreview } from './components/Preview/DesktopPreview'
+import { SceneSelector } from './components/Configurator/SceneSelector'
+import { TemplateSelector } from './components/Configurator/TemplateSelector'
 import { defaultConfig, type StyleConfig } from './types/config'
 import { useUrlConfig } from './hooks/useUrlConfig'
 import { loadTemplates, findTemplate, type TemplateConfig } from './utils/templateLoader'
 import { encodeConfig } from './utils/configEncoder'
 import { generateTailwindConfig, generateCSSVariables } from './utils/tailwindGenerator'
 import { generateAIPrompt } from './utils/promptGenerator'
-import type { PageType } from './types/template'
+import type { SceneType, DeviceType, PageType } from './types/template'
 
 export default function App() {
   const [urlConfig] = useUrlConfig()
   const [config, setConfig] = useState<StyleConfig>(defaultConfig)
   const [showExport, setShowExport] = useState<string | null>(null)
+  const [templates, setTemplates] = useState<TemplateConfig[]>([])
   const [currentTemplate, setCurrentTemplate] = useState<TemplateConfig | null>(null)
 
   // 加载模板
@@ -20,6 +24,7 @@ export default function App() {
     const load = async () => {
       const scene = urlConfig.scene || 'food'
       const loaded = await loadTemplates(scene)
+      setTemplates(loaded)
 
       // 查找匹配的模板
       const device = urlConfig.device || 'mobile'
@@ -51,6 +56,33 @@ export default function App() {
       window.history.replaceState({}, '', newUrl)
     }
   }, [config])
+
+  const handleSceneChange = (scene: SceneType) => {
+    const params = new URLSearchParams()
+    params.set('scene', scene)
+    params.set('device', urlConfig.device || 'mobile')
+    params.set('template', urlConfig.template || 'result')
+    window.history.pushState({}, '', `${window.location.pathname}?${params.toString()}`)
+    window.location.reload()
+  }
+
+  const handleDeviceChange = (device: DeviceType) => {
+    const params = new URLSearchParams()
+    if (urlConfig.scene) params.set('scene', urlConfig.scene)
+    params.set('device', device)
+    if (urlConfig.template) params.set('template', urlConfig.template)
+    window.history.pushState({}, '', `${window.location.pathname}?${params.toString()}`)
+    window.location.reload()
+  }
+
+  const handleTemplateChange = (template: TemplateConfig) => {
+    setConfig(template.defaultStyle)
+    const params = new URLSearchParams()
+    if (urlConfig.scene) params.set('scene', urlConfig.scene)
+    if (urlConfig.device) params.set('device', urlConfig.device)
+    params.set('template', template.type)
+    window.history.pushState({}, '', `${window.location.pathname}?${params.toString()}`)
+  }
 
   const handleExport = (type: 'tailwind' | 'css' | 'prompt') => {
     let content = ''
@@ -127,15 +159,36 @@ export default function App() {
       <div className="max-w-7xl mx-auto px-6 py-6">
         <div className="grid grid-cols-12 gap-6">
           {/* 左侧配置面板 */}
-          <div className="col-span-5">
+          <div className="col-span-4 space-y-4">
+            <SceneSelector
+              selectedScene={urlConfig.scene || 'food'}
+              selectedDevice={urlConfig.device || 'mobile'}
+              selectedTemplate={urlConfig.template || 'result'}
+              onSceneChange={handleSceneChange}
+              onDeviceChange={handleDeviceChange}
+              onTemplateChange={() => {}}
+            />
+            {templates.length > 0 && (
+              <TemplateSelector
+                templates={templates}
+                selectedTemplate={currentTemplate?.type || null}
+                onTemplateChange={handleTemplateChange}
+              />
+            )}
             <StyleConfigurator config={config} onChange={setConfig} />
           </div>
-  
+      
           {/* 右侧预览 */}
-          <div className="col-span-7 flex justify-center sticky top-24">
-            <div className="w-[375px] h-[812px] bg-white rounded-[40px] shadow-2xl overflow-hidden border-8 border-gray-900">
-              <ScanResultPreview config={config} />
-            </div>
+          <div className="col-span-8 flex justify-center sticky top-24">
+            {urlConfig.device === 'desktop' ? (
+              <div className="w-full max-w-6xl h-[800px] bg-white rounded-lg shadow-2xl overflow-hidden border border-gray-200">
+                <DesktopPreview config={config} />
+              </div>
+            ) : (
+              <div className="w-[375px] h-[812px] bg-white rounded-[40px] shadow-2xl overflow-hidden border-8 border-gray-900">
+                <ScanResultPreview config={config} />
+              </div>
+            )}
           </div>
         </div>
       </div>
