@@ -1,0 +1,105 @@
+[
+  {
+    "id": "saas-dashboard-desktop",
+    "name": "数据看板-PC端",
+    "scene": "saas",
+    "device": "desktop",
+    "type": "home",
+    "description": "SaaS 数据看板首页，展示核心业务指标和图表",
+    "defaultStyle": {
+      "backgroundColor": "#F5FAF5",
+      "primaryColor": "#2E7D67",
+      "cornerRadius": "small",
+      "cardStyle": "shadow",
+      "titleBarStyle": "white-underline",
+      "switcherStyle": "underline",
+      "buttonStyle": "solid",
+      "badgeStyle": "rounded"
+    },
+    "layout": {
+      "type": "two-column",
+      "regions": [
+        {
+          "id": "sidebar",
+          "name": "侧边导航",
+          "type": "sidebar",
+          "components": ["logo", "nav-menu", "user-profile"]
+        },
+        {
+          "id": "header",
+          "name": "顶部栏",
+          "type": "header",
+          "height": "64px",
+          "components": ["search", "notifications", "user-menu"]
+        },
+        {
+          "id": "content",
+          "name": "主内容区",
+          "type": "content",
+          "components": ["stats-cards", "charts", "data-table"]
+        }
+      ]
+    },
+    "aiPrompt": {
+      "title": "SaaS 数据看板（PC端）",
+      "sections": [
+        {
+          "heading": "## 页面结构",
+          "content": "左侧导航栏（Logo+菜单+用户信息）、顶部栏（搜索+通知+用户菜单）、主内容区（统计卡片+图表+数据表格）"
+        },
+        {
+          "heading": "## 组件要求",
+          "content": "1. 统计卡片：显示核心指标（用户数、收入、订单等）\n2. 图表区：折线图、柱状图、饼图\n3. 数据表格：支持排序、筛选、分页\n4. 侧边导航：可折叠，带图标和文字"
+        }
+      ]
+    }
+  },
+  {
+    "id": "saas-settings-desktop",
+    "name": "设置页-PC端",
+    "scene": "saas",
+    "device": "desktop",
+    "type": "settings",
+    "description": "SaaS 应用设置页面，包含账号、安全、通知等设置项",
+    "defaultStyle": {
+      "backgroundColor": "#FFFFFF",
+      "primaryColor": "#2E7D67",
+      "cornerRadius": "small",
+      "cardStyle": "border",
+      "titleBarStyle": "white-underline",
+      "switcherStyle": "pill",
+      "buttonStyle": "solid",
+      "badgeStyle": "text-only"
+    },
+    "layout": {
+      "type": "two-column",
+      "regions": [
+        {
+          "id": "sidebar",
+          "name": "设置分类",
+          "type": "sidebar",
+          "components": ["settings-nav"]
+        },
+        {
+          "id": "content",
+          "name": "设置内容",
+          "type": "content",
+          "components": ["settings-form", "save-button"]
+        }
+      ]
+    },
+    "aiPrompt": {
+      "title": "SaaS 设置页（PC端）",
+      "sections": [
+        {
+          "heading": "## 页面结构",
+          "content": "左侧设置分类导航（账号、安全、通知、偏好）、右侧设置表单（输入框、开关、下拉选择）"
+        },
+        {
+          "heading": "## 组件要求",
+          "content": "1. 设置分类：垂直菜单，点击切换右侧内容\n2. 表单字段：标签+输入框+提示文字\n3. 开关组件：用于启用/禁用功能\n4. 保存按钮：固定在底部或右上角"
+        }
+      ]
+    }
+  }
+]

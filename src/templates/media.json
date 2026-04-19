@@ -1,0 +1,119 @@
+[
+  {
+    "id": "media-article-detail-mobile",
+    "name": "文章详情页-移动端",
+    "scene": "media",
+    "device": "mobile",
+    "type": "detail",
+    "description": "内容媒体文章详情页面，适用于博客、新闻等阅读场景",
+    "defaultStyle": {
+      "backgroundColor": "#FFFFFF",
+      "primaryColor": "#000000",
+      "cornerRadius": "small",
+      "cardStyle": "borderless",
+      "titleBarStyle": "white-underline",
+      "switcherStyle": "underline",
+      "buttonStyle": "solid",
+      "badgeStyle": "text-only"
+    },
+    "layout": {
+      "type": "single-column",
+      "regions": [
+        {
+          "id": "header",
+          "name": "顶部导航",
+          "type": "header",
+          "height": "44px",
+          "components": ["back-button", "title", "share-button"]
+        },
+        {
+          "id": "article-header",
+          "name": "文章头部",
+          "type": "content",
+          "components": ["article-title", "author-info", "publish-date"]
+        },
+        {
+          "id": "article-content",
+          "name": "正文内容",
+          "type": "content",
+          "components": ["article-body", "images", "quotes"]
+        },
+        {
+          "id": "article-footer",
+          "name": "文章底部",
+          "type": "footer",
+          "components": ["tags", "like-button", "comment-button"]
+        }
+      ]
+    },
+    "aiPrompt": {
+      "title": "媒体文章详情页（移动端）",
+      "sections": [
+        {
+          "heading": "## 页面结构",
+          "content": "顶部导航栏（返回+标题+分享）、文章头部（标题+作者+日期）、正文内容区（文字+图片+引用）、底部操作栏（标签+点赞+评论）"
+        },
+        {
+          "heading": "## 组件要求",
+          "content": "1. 文章标题：大号字体，加粗\n2. 作者信息：头像+昵称+关注按钮\n3. 正文：16px 基准字号，1.8 倍行高\n4. 图片：全宽显示，带图注\n5. 底部：标签列表+互动按钮"
+        }
+      ]
+    }
+  },
+  {
+    "id": "media-article-list-mobile",
+    "name": "文章列表页-移动端",
+    "scene": "media",
+    "device": "mobile",
+    "type": "list",
+    "description": "内容媒体文章列表页面，展示最新文章或热门文章",
+    "defaultStyle": {
+      "backgroundColor": "#F9F8F4",
+      "primaryColor": "#2E7D32",
+      "cornerRadius": "medium",
+      "cardStyle": "shadow",
+      "titleBarStyle": "frosted-glass",
+      "switcherStyle": "pill",
+      "buttonStyle": "solid",
+      "badgeStyle": "rounded"
+    },
+    "layout": {
+      "type": "single-column",
+      "regions": [
+        {
+          "id": "header",
+          "name": "顶部导航",
+          "type": "header",
+          "height": "56px",
+          "components": ["logo", "search-button"]
+        },
+        {
+          "id": "filters",
+          "name": "筛选栏",
+          "type": "content",
+          "height": "44px",
+          "components": ["category-tabs"]
+        },
+        {
+          "id": "content",
+          "name": "文章列表",
+          "type": "content",
+          "components": ["article-cards", "load-more"]
+        }
+      ]
+    },
+    "aiPrompt": {
+      "title": "媒体文章列表页（移动端）",
+      "sections": [
+        {
+          "heading": "## 页面结构",
+          "content": "顶部导航（Logo+搜索）、分类筛选栏、文章卡片列表、加载更多"
+        },
+        {
+          "heading": "## 组件要求",
+          "content": "1. 分类标签：水平滚动，支持点击筛选\n2. 文章卡片：封面图+标题+摘要+作者+阅读数\n3. 下拉刷新，上拉加载更多\n4. 卡片间距 12px，圆角 8px"
+        }
+      ]
+    }
+  }
+]
