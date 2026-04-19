@@ -1,0 +1,120 @@
+[
+  {
+    "id": "social-feed-mobile",
+    "name": "动态流-移动端",
+    "scene": "social",
+    "device": "mobile",
+    "type": "home",
+    "description": "社交社区动态流页面，展示好友发布的内容",
+    "defaultStyle": {
+      "backgroundColor": "#FFFFFF",
+      "primaryColor": "#2E7D32",
+      "cornerRadius": "medium",
+      "cardStyle": "borderless",
+      "titleBarStyle": "frosted-glass",
+      "switcherStyle": "pill",
+      "buttonStyle": "solid",
+      "badgeStyle": "rounded"
+    },
+    "layout": {
+      "type": "single-column",
+      "regions": [
+        {
+          "id": "header",
+          "name": "顶部导航",
+          "type": "header",
+          "height": "56px",
+          "components": ["logo", "search-button", "message-button"]
+        },
+        {
+          "id": "stories",
+          "name": "故事/状态",
+          "type": "content",
+          "height": "100px",
+          "components": ["story-carousel"]
+        },
+        {
+          "id": "content",
+          "name": "动态列表",
+          "type": "content",
+          "components": ["post-cards", "load-more"]
+        },
+        {
+          "id": "footer",
+          "name": "底部导航",
+          "type": "footer",
+          "height": "56px",
+          "components": ["home-tab", "discover-tab", "post-tab", "notification-tab", "profile-tab"]
+        }
+      ]
+    },
+    "aiPrompt": {
+      "title": "社交动态流（移动端）",
+      "sections": [
+        {
+          "heading": "## 页面结构",
+          "content": "顶部导航（Logo+搜索+消息）、故事/状态轮播区、动态卡片列表、底部导航栏（5个Tab）"
+        },
+        {
+          "heading": "## 组件要求",
+          "content": "1. 故事区：圆形头像横向滚动，未查看带边框\n2. 动态卡片：用户信息+内容+图片+互动按钮（点赞、评论、分享）\n3. 底部导航：首页、发现、发布、通知、我的\n4. 下拉刷新，上拉加载更多"
+        }
+      ]
+    }
+  },
+  {
+    "id": "social-profile-mobile",
+    "name": "个人主页-移动端",
+    "scene": "social",
+    "device": "mobile",
+    "type": "detail",
+    "description": "社交用户个人主页，展示个人信息和发布内容",
+    "defaultStyle": {
+      "backgroundColor": "#F9F8F4",
+      "primaryColor": "#5F7D2E",
+      "cornerRadius": "large",
+      "cardStyle": "shadow",
+      "titleBarStyle": "colored-bg",
+      "switcherStyle": "underline",
+      "buttonStyle": "gradient",
+      "badgeStyle": "rounded"
+    },
+    "layout": {
+      "type": "single-column",
+      "regions": [
+        {
+          "id": "header",
+          "name": "顶部导航",
+          "type": "header",
+          "height": "44px",
+          "components": ["back-button", "title", "settings-button"]
+        },
+        {
+          "id": "profile-header",
+          "name": "个人信息区",
+          "type": "content",
+          "components": ["avatar", "username", "bio", "stats", "action-buttons"]
+        },
+        {
+          "id": "content",
+          "name": "内容区",
+          "type": "content",
+          "components": ["tabs", "content-grid"]
+        }
+      ]
+    },
+    "aiPrompt": {
+      "title": "社交个人主页（移动端）",
+      "sections": [
+        {
+          "heading": "## 页面结构",
+          "content": "顶部导航、个人信息区（头像+昵称+简介+数据统计+操作按钮）、内容切换标签（动态、照片、喜欢）、内容网格"
+        },
+        {
+          "heading": "## 组件要求",
+          "content": "1. 个人信息：大头像、昵称、简介文字\n2. 数据统计：关注数、粉丝数、获赞数\n3. 操作按钮：关注/已关注、发消息\n4. 内容网格：3列图片网格或列表视图"
+        }
+      ]
+    }
+  }
+]

@@ -1,0 +1,127 @@
+[
+  {
+    "id": "finance-account-mobile",
+    "name": "账户总览-移动端",
+    "scene": "finance",
+    "device": "mobile",
+    "type": "home",
+    "description": "金融账户总览页面，展示资产、负债、收益等信息",
+    "defaultStyle": {
+      "backgroundColor": "#FFFFFF",
+      "primaryColor": "#2E7D67",
+      "cornerRadius": "medium",
+      "cardStyle": "shadow",
+      "titleBarStyle": "colored-bg",
+      "switcherStyle": "pill",
+      "buttonStyle": "gradient",
+      "badgeStyle": "rounded"
+    },
+    "layout": {
+      "type": "single-column",
+      "regions": [
+        {
+          "id": "header",
+          "name": "顶部导航",
+          "type": "header",
+          "height": "56px",
+          "components": ["user-avatar", "notification-button", "settings-button"]
+        },
+        {
+          "id": "balance-card",
+          "name": "资产卡片",
+          "type": "content",
+          "components": ["total-balance", "income-expense", "chart-mini"]
+        },
+        {
+          "id": "quick-actions",
+          "name": "快捷操作",
+          "type": "content",
+          "height": "80px",
+          "components": ["transfer", "pay", "invest", "more"]
+        },
+        {
+          "id": "content",
+          "name": "详细内容",
+          "type": "content",
+          "components": ["product-recommendations", "recent-transactions"]
+        },
+        {
+          "id": "footer",
+          "name": "底部导航",
+          "type": "footer",
+          "height": "56px",
+          "components": ["home-tab", "market-tab", "trade-tab", "assets-tab", "profile-tab"]
+        }
+      ]
+    },
+    "aiPrompt": {
+      "title": "金融账户总览（移动端）",
+      "sections": [
+        {
+          "heading": "## 页面结构",
+          "content": "顶部导航（头像+通知+设置）、资产总览卡片（总资产+收益+迷你图表）、快捷操作区（转账、支付、理财等）、产品推荐、最近交易记录、底部导航栏"
+        },
+        {
+          "heading": "## 组件要求",
+          "content": "1. 资产卡片：渐变背景，显示总资产、今日收益、累计收益\n2. 快捷操作：图标+文字，4-6个常用功能\n3. 产品推荐：理财产品卡片（名称+收益率+期限）\n4. 交易记录：时间线样式，显示收支明细"
+        }
+      ]
+    }
+  },
+  {
+    "id": "finance-transaction-list-mobile",
+    "name": "交易记录-移动端",
+    "scene": "finance",
+    "device": "mobile",
+    "type": "list",
+    "description": "金融交易记录列表，展示历史交易明细",
+    "defaultStyle": {
+      "backgroundColor": "#F5FAF5",
+      "primaryColor": "#2E7D67",
+      "cornerRadius": "small",
+      "cardStyle": "border",
+      "titleBarStyle": "white-underline",
+      "switcherStyle": "underline",
+      "buttonStyle": "solid",
+      "badgeStyle": "text-only"
+    },
+    "layout": {
+      "type": "single-column",
+      "regions": [
+        {
+          "id": "header",
+          "name": "顶部导航",
+          "type": "header",
+          "height": "44px",
+          "components": ["back-button", "title", "filter-button"]
+        },
+        {
+          "id": "filters",
+          "name": "筛选栏",
+          "type": "content",
+          "height": "44px",
+          "components": ["date-range", "transaction-type"]
+        },
+        {
+          "id": "content",
+          "name": "交易列表",
+          "type": "content",
+          "components": ["transaction-list", "summary-card"]
+        }
+      ]
+    },
+    "aiPrompt": {
+      "title": "金融交易记录（移动端）",
+      "sections": [
+        {
+          "heading": "## 页面结构",
+          "content": "顶部导航（返回+标题+筛选）、日期和类型筛选栏、交易记录列表（按日期分组）、汇总卡片"
+        },
+        {
+          "heading": "## 组件要求",
+          "content": "1. 交易项：图标+标题+时间+金额（收入绿色，支出红色）\n2. 日期分组：今天、昨天、更早\n3. 筛选：日期范围选择、交易类型（全部/收入/支出）\n4. 汇总：总收入、总支出、净收益"
+        }
+      ]
+    }
+  }
+]
