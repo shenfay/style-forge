@@ -1,5 +1,6 @@
 import type { StyleConfig, PresetConfig } from '../../types/config'
 import { presets } from '../../types/config'
+import { colors } from '../../utils/design-tokens'
 
 interface StyleConfiguratorProps {
   config: StyleConfig
@@ -131,7 +132,7 @@ export function StyleConfigurator({ config, onChange }: StyleConfiguratorProps) 
 function ConfigSection({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className="bg-white border border-gray-200 rounded-lg p-4">
-      <h3 className="text-sm font-medium text-gray-700 mb-3">{title}</h3>
+      <h3 className="text-sm font-medium" style={{ color: colors.gray[700] }}>{title}</h3>
       {children}
     </div>
   )
@@ -148,8 +149,8 @@ function ColorOptions({ options, selected, onChange }: { options: Array<{ name: 
             selected === opt.value ? 'border-gray-900' : 'border-transparent hover:border-gray-300'
           }`}
         >
-          <div className="w-8 h-8 rounded-full border border-gray-200" style={{ background: opt.value }} />
-          <span className="text-xs text-gray-600">{opt.name}</span>
+          <div className="w-8 h-8 rounded-full border" style={{ background: opt.value, borderColor: colors.gray[200] }} />
+          <span className="text-xs" style={{ color: colors.gray[600] }}>{opt.name}</span>
         </button>
       ))}
     </div>
