@@ -1,0 +1,112 @@
+[
+  {
+    "id": "enterprise-dashboard-desktop",
+    "name": "数据看板-PC端",
+    "scene": "enterprise",
+    "device": "desktop",
+    "type": "home",
+    "description": "企业数据看板首页，展示核心业务指标",
+    "defaultStyle": {
+      "backgroundColor": "#F5F7FA",
+      "primaryColor": "#2E7D67",
+      "cornerRadius": "small",
+      "cardStyle": "shadow",
+      "titleBarStyle": "white-underline",
+      "switcherStyle": "underline",
+      "buttonStyle": "solid",
+      "badgeStyle": "rounded"
+    },
+    "layout": {
+      "type": "two-column",
+      "regions": [
+        {
+          "id": "sidebar",
+          "name": "侧边导航",
+          "type": "sidebar",
+          "components": ["logo", "nav-menu", "user-profile"]
+        },
+        {
+          "id": "header",
+          "name": "顶部栏",
+          "type": "header",
+          "height": "64px",
+          "components": ["search", "notifications", "user-menu"]
+        },
+        {
+          "id": "content",
+          "name": "主内容区",
+          "type": "content",
+          "components": ["stats-cards", "charts", "data-table", "quick-actions"]
+        }
+      ]
+    },
+    "aiPrompt": {
+      "title": "企业数据看板（PC端）",
+      "sections": [
+        {
+          "heading": "## 页面结构",
+          "content": "左侧导航栏、顶部栏（搜索+通知+用户）、主内容区（统计卡片+图表+数据表格+快捷操作）"
+        },
+        {
+          "heading": "## 组件要求",
+          "content": "1. 统计卡片：4-6个核心指标\n2. 图表：折线图、柱状图、饼图\n3. 数据表格：分页、排序、筛选\n4. 快捷操作：常用功能入口"
+        }
+      ]
+    }
+  },
+  {
+    "id": "enterprise-workspace-desktop",
+    "name": "工作台-PC端",
+    "scene": "enterprise",
+    "device": "desktop",
+    "type": "home",
+    "description": "企业工作台，展示待办事项和快捷入口",
+    "defaultStyle": {
+      "backgroundColor": "#F5F7FA",
+      "primaryColor": "#2E7D67",
+      "cornerRadius": "medium",
+      "cardStyle": "border",
+      "titleBarStyle": "white-underline",
+      "switcherStyle": "underline",
+      "buttonStyle": "solid",
+      "badgeStyle": "rounded"
+    },
+    "layout": {
+      "type": "two-column",
+      "regions": [
+        {
+          "id": "sidebar",
+          "name": "侧边导航",
+          "type": "sidebar",
+          "components": ["logo", "nav-menu", "user-profile"]
+        },
+        {
+          "id": "header",
+          "name": "顶部栏",
+          "type": "header",
+          "height": "64px",
+          "components": ["breadcrumb", "search", "notifications", "user-menu"]
+        },
+        {
+          "id": "content",
+          "name": "主内容区",
+          "type": "content",
+          "components": ["todo-list", "pending-approvals", "quick-links", "recent-documents"]
+        }
+      ]
+    },
+    "aiPrompt": {
+      "title": "企业工作台（PC端）",
+      "sections": [
+        {
+          "heading": "## 页面结构",
+          "content": "左侧导航栏、顶部栏、主内容区（待办事项+待审批+快捷链接+最近文档）"
+        },
+        {
+          "heading": "## 组件要求",
+          "content": "1. 待办列表：任务名称、截止时间、优先级\n2. 待审批：审批类型、申请人、时间\n3. 快捷链接：常用系统入口\n4. 最近文档：文件名、修改时间、操作"
+        }
+      ]
+    }
+  }
+]

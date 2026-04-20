@@ -5,10 +5,10 @@
     "scene": "social",
     "device": "mobile",
     "type": "home",
-    "description": "社交社区动态流页面，展示好友发布的内容",
+    "description": "社交应用动态流首页，展示好友动态和推荐内容",
     "defaultStyle": {
       "backgroundColor": "#FFFFFF",
-      "primaryColor": "#2E7D32",
+      "primaryColor": "#5865F2",
       "cornerRadius": "medium",
       "cardStyle": "borderless",
       "titleBarStyle": "frosted-glass",
@@ -23,28 +23,33 @@
           "id": "header",
           "name": "顶部导航",
           "type": "header",
-          "height": "56px",
-          "components": ["logo", "search-button", "message-button"]
+          "height": "44px",
+          "components": ["logo", "search-icon", "message-icon"]
         },
         {
           "id": "stories",
-          "name": "故事/状态",
+          "name": "故事栏",
           "type": "content",
-          "height": "100px",
-          "components": ["story-carousel"]
+          "components": ["my-story", "friend-stories"]
         },
         {
-          "id": "content",
+          "id": "create-post",
+          "name": "发布动态",
+          "type": "content",
+          "components": ["avatar", "input-placeholder", "action-buttons"]
+        },
+        {
+          "id": "feed",
           "name": "动态列表",
           "type": "content",
           "components": ["post-cards", "load-more"]
         },
         {
-          "id": "footer",
+          "id": "tabbar",
           "name": "底部导航",
           "type": "footer",
           "height": "56px",
-          "components": ["home-tab", "discover-tab", "post-tab", "notification-tab", "profile-tab"]
+          "components": ["tab-home", "tab-discover", "tab-add", "tab-messages", "tab-profile"]
         }
       ]
     },
@@ -53,11 +58,11 @@
       "sections": [
         {
           "heading": "## 页面结构",
-          "content": "顶部导航（Logo+搜索+消息）、故事/状态轮播区、动态卡片列表、底部导航栏（5个Tab）"
+          "content": "顶部导航栏、好友故事栏、发布动态入口、动态信息流、底部Tab栏"
         },
         {
           "heading": "## 组件要求",
-          "content": "1. 故事区：圆形头像横向滚动，未查看带边框\n2. 动态卡片：用户信息+内容+图片+互动按钮（点赞、评论、分享）\n3. 底部导航：首页、发现、发布、通知、我的\n4. 下拉刷新，上拉加载更多"
+          "content": "1. 故事栏：圆形头像+用户名，支持左右滑动\n2. 发布入口：头像+输入框占位+图片/视频按钮\n3. 动态卡片：用户信息、内容图文、点赞评论分享按钮\n4. 底部Tab：首页、发现、发布、消息、我的"
         }
       ]
     }
@@ -67,16 +72,16 @@
     "name": "个人主页-移动端",
     "scene": "social",
     "device": "mobile",
-    "type": "detail",
-    "description": "社交用户个人主页，展示个人信息和发布内容",
+    "type": "profile",
+    "description": "社交应用个人主页，展示用户资料和动态",
     "defaultStyle": {
-      "backgroundColor": "#F9F8F4",
-      "primaryColor": "#5F7D2E",
-      "cornerRadius": "large",
+      "backgroundColor": "#FFFFFF",
+      "primaryColor": "#5865F2",
+      "cornerRadius": "medium",
       "cardStyle": "shadow",
       "titleBarStyle": "colored-bg",
       "switcherStyle": "underline",
-      "buttonStyle": "gradient",
+      "buttonStyle": "solid",
       "badgeStyle": "rounded"
     },
     "layout": {
@@ -84,22 +89,29 @@
       "regions": [
         {
           "id": "header",
-          "name": "顶部导航",
+          "name": "个人信息区",
           "type": "header",
-          "height": "44px",
-          "components": ["back-button", "title", "settings-button"]
+          "height": "200px",
+          "components": ["cover-photo", "avatar", "username", "bio", "stats", "action-buttons"]
         },
         {
-          "id": "profile-header",
-          "name": "个人信息区",
+          "id": "content-tabs",
+          "name": "内容切换",
           "type": "content",
-          "components": ["avatar", "username", "bio", "stats", "action-buttons"]
+          "components": ["tab-posts", "tab-photos", "tab-likes"]
         },
         {
           "id": "content",
-          "name": "内容区",
+          "name": "内容列表",
           "type": "content",
-          "components": ["tabs", "content-grid"]
+          "components": ["post-grid", "load-more"]
+        },
+        {
+          "id": "tabbar",
+          "name": "底部导航",
+          "type": "footer",
+          "height": "56px",
+          "components": ["tab-home", "tab-discover", "tab-add", "tab-messages", "tab-profile"]
         }
       ]
     },
@@ -108,11 +120,73 @@
       "sections": [
         {
           "heading": "## 页面结构",
-          "content": "顶部导航、个人信息区（头像+昵称+简介+数据统计+操作按钮）、内容切换标签（动态、照片、喜欢）、内容网格"
+          "content": "顶部个人信息区（封面图+头像+用户名+简介+统计数据+操作按钮）、内容Tab切换、动态列表、底部Tab栏"
         },
         {
           "heading": "## 组件要求",
-          "content": "1. 个人信息：大头像、昵称、简介文字\n2. 数据统计：关注数、粉丝数、获赞数\n3. 操作按钮：关注/已关注、发消息\n4. 内容网格：3列图片网格或列表视图"
+          "content": "1. 封面图：支持自定义上传\n2. 统计数据：动态数、粉丝数、关注数\n3. 操作按钮：关注/已关注、发消息\n4. 内容Tab：动态、相册、赞过\n5. 动态网格：3列瀑布流布局"
+        }
+      ]
+    }
+  },
+  {
+    "id": "social-messages-mobile",
+    "name": "消息列表-移动端",
+    "scene": "social",
+    "device": "mobile",
+    "type": "messages",
+    "description": "社交应用消息列表，展示私聊和群聊",
+    "defaultStyle": {
+      "backgroundColor": "#FFFFFF",
+      "primaryColor": "#5865F2",
+      "cornerRadius": "medium",
+      "cardStyle": "borderless",
+      "titleBarStyle": "white-underline",
+      "switcherStyle": "pill",
+      "buttonStyle": "solid",
+      "badgeStyle": "rounded"
+    },
+    "layout": {
+      "type": "single-column",
+      "regions": [
+        {
+          "id": "header",
+          "name": "顶部标题",
+          "type": "header",
+          "height": "44px",
+          "components": ["title", "search-icon", "new-chat-icon"]
+        },
+        {
+          "id": "tabs",
+          "name": "消息分类",
+          "type": "content",
+          "components": ["tab-all", "tab-unread", "tab-groups"]
+        },
+        {
+          "id": "chat-list",
+          "name": "聊天列表",
+          "type": "content",
+          "components": ["chat-items"]
+        },
+        {
+          "id": "tabbar",
+          "name": "底部导航",
+          "type": "footer",
+          "height": "56px",
+          "components": ["tab-home", "tab-discover", "tab-add", "tab-messages", "tab-profile"]
+        }
+      ]
+    },
+    "aiPrompt": {
+      "title": "社交消息列表（移动端）",
+      "sections": [
+        {
+          "heading": "## 页面结构",
+          "content": "顶部标题栏、消息分类Tab、聊天列表、底部Tab栏"
+        },
+        {
+          "heading": "## 组件要求",
+          "content": "1. 聊天项：头像、用户名、最后消息、时间、未读数\n2. Tab切换：全部、未读、群聊\n3. 置顶聊天：特殊标识\n4. 左滑操作：置顶、免打扰、删除"
         }
       ]
     }

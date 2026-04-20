@@ -1,14 +1,88 @@
 [
   {
+    "id": "ecommerce-home-mobile",
+    "name": "商城首页-移动端",
+    "scene": "ecommerce",
+    "device": "mobile",
+    "type": "home",
+    "description": "电商商城移动端首页，展示商品推荐和促销活动",
+    "defaultStyle": {
+      "backgroundColor": "#FFFFFF",
+      "primaryColor": "#FF6B35",
+      "cornerRadius": "medium",
+      "cardStyle": "shadow",
+      "titleBarStyle": "frosted-glass",
+      "switcherStyle": "pill",
+      "buttonStyle": "gradient",
+      "badgeStyle": "rounded"
+    },
+    "layout": {
+      "type": "single-column",
+      "regions": [
+        {
+          "id": "header",
+          "name": "顶部搜索",
+          "type": "header",
+          "height": "44px",
+          "components": ["search-bar", "scan-icon", "message-icon"]
+        },
+        {
+          "id": "banner",
+          "name": "活动轮播",
+          "type": "content",
+          "components": ["promo-swiper", "dots"]
+        },
+        {
+          "id": "categories",
+          "name": "分类导航",
+          "type": "content",
+          "components": ["category-grid"]
+        },
+        {
+          "id": "flash-sale",
+          "name": "限时抢购",
+          "type": "content",
+          "components": ["section-header", "countdown", "product-scroll"]
+        },
+        {
+          "id": "recommendations",
+          "name": "为你推荐",
+          "type": "content",
+          "components": ["product-grid", "load-more"]
+        },
+        {
+          "id": "tabbar",
+          "name": "底部导航",
+          "type": "footer",
+          "height": "56px",
+          "components": ["tab-home", "tab-categories", "tab-cart", "tab-profile"]
+        }
+      ]
+    },
+    "aiPrompt": {
+      "title": "电商商城首页（移动端）",
+      "sections": [
+        {
+          "heading": "## 页面结构",
+          "content": "顶部搜索栏、活动轮播图、分类导航网格、限时抢购专区、商品推荐瀑布流、底部Tab栏"
+        },
+        {
+          "heading": "## 组件要求",
+          "content": "1. 搜索栏：支持文字和扫码搜索\n2. 分类导航：10个分类图标\n3. 限时抢购：倒计时+横向滚动商品\n4. 商品卡片：图片+名称+价格+销量\n5. 底部Tab：首页、分类、购物车、我的"
+        }
+      ]
+    }
+  },
+  {
     "id": "ecommerce-product-detail-mobile",
-    "name": "商品详情页-移动端",
+    "name": "商品详情-移动端",
     "scene": "ecommerce",
     "device": "mobile",
     "type": "detail",
-    "description": "电商商品详情展示页面，适用于移动端小程序或App",
+    "description": "电商商品详情页，展示商品信息和购买选项",
     "defaultStyle": {
       "backgroundColor": "#F9F8F4",
-      "primaryColor": "#2E7D32",
+      "primaryColor": "#FF6B35",
       "cornerRadius": "medium",
       "cardStyle": "shadow",
       "titleBarStyle": "white-underline",
@@ -24,38 +98,44 @@
           "name": "顶部导航",
           "type": "header",
           "height": "44px",
-          "components": ["back-button", "title", "share-button"]
+          "components": ["back-button", "share-button", "more-menu"]
         },
         {
-          "id": "hero-image",
-          "name": "商品主图",
+          "id": "product-images",
+          "name": "商品图片",
           "type": "content",
-          "components": ["product-image", "image-swiper", "favorite-button"]
+          "components": ["image-swiper", "dots", "favorite-button"]
         },
         {
           "id": "product-info",
           "name": "商品信息",
           "type": "content",
-          "components": ["product-title", "price-section", "shipping-info"]
+          "components": ["price-section", "product-title", "shipping-info", "sales-stats"]
+        },
+        {
+          "id": "product-specs",
+          "name": "规格选择",
+          "type": "content",
+          "components": ["sku-selector", "quantity-selector"]
         },
         {
           "id": "product-details",
           "name": "商品详情",
           "type": "content",
-          "components": ["specs-selector", "description", "images-gallery"]
+          "components": ["description-tabs", "detail-images"]
         },
         {
           "id": "reviews",
           "name": "用户评价",
           "type": "content",
-          "components": ["review-summary", "review-list", "review-filters"]
+          "components": ["review-summary", "review-list"]
         },
         {
-          "id": "footer",
+          "id": "action-bar",
           "name": "底部操作栏",
           "type": "footer",
           "height": "56px",
-          "components": ["add-cart-button", "buy-now-button"]
+          "components": ["customer-service", "add-cart-button", "buy-now-button"]
         }
       ]
     },
@@ -64,31 +144,89 @@
       "sections": [
         {
           "heading": "## 页面结构",
-          "content": "顶部导航栏（返回+标题+分享）、商品主图轮播区、价格信息区、规格选择区、商品详情区、用户评价区、底部购买操作栏"
+          "content": "顶部导航、商品图片轮播、价格信息区、规格选择、商品详情图文、用户评价、底部购买操作栏"
         },
         {
           "heading": "## 组件要求",
-          "content": "1. 商品主图：支持左右滑动，带收藏按钮\n2. 价格区：显示当前价、原价、折扣标签\n3. 规格选择：SKU 选择器，弹窗形式\n4. 底部操作：加入购物车、立即购买按钮\n5. 用户评价：评分概览+精选评价列表"
-        },
-        {
-          "heading": "## 交互说明",
-          "content": "- 主图支持左右滑动查看多张图片\n- 点击规格选择弹出底部弹窗\n- 底部操作栏固定，滚动时保持可见\n- 收藏按钮点击后有动画反馈"
+          "content": "1. 图片轮播：支持缩放和手势\n2. 价格区：现价、原价、促销标签\n3. SKU选择器：颜色、尺码等多规格\n4. 详情Tab：商品介绍、规格参数、售后保障\n5. 底部操作：客服、加入购物车、立即购买"
         }
       ]
     }
   },
   {
-    "id": "ecommerce-product-detail-desktop",
-    "name": "商品详情页-PC端",
+    "id": "ecommerce-cart-mobile",
+    "name": "购物车-移动端",
+    "scene": "ecommerce",
+    "device": "mobile",
+    "type": "list",
+    "description": "电商购物车页面，管理待结算商品",
+    "defaultStyle": {
+      "backgroundColor": "#F5F7FA",
+      "primaryColor": "#FF6B35",
+      "cornerRadius": "medium",
+      "cardStyle": "shadow",
+      "titleBarStyle": "white-underline",
+      "switcherStyle": "underline",
+      "buttonStyle": "gradient",
+      "badgeStyle": "rounded"
+    },
+    "layout": {
+      "type": "single-column",
+      "regions": [
+        {
+          "id": "header",
+          "name": "顶部标题",
+          "type": "header",
+          "height": "44px",
+          "components": ["back-button", "title", "edit-button"]
+        },
+        {
+          "id": "cart-items",
+          "name": "购物车商品",
+          "type": "content",
+          "components": ["store-group", "cart-item-list"]
+        },
+        {
+          "id": "recommendations",
+          "name": "猜你喜欢",
+          "type": "content",
+          "components": ["section-title", "product-scroll"]
+        },
+        {
+          "id": "checkout-bar",
+          "name": "结算栏",
+          "type": "footer",
+          "height": "56px",
+          "components": ["select-all", "total-price", "checkout-button"]
+        }
+      ]
+    },
+    "aiPrompt": {
+      "title": "电商购物车页（移动端）",
+      "sections": [
+        {
+          "heading": "## 页面结构",
+          "content": "顶部标题栏（编辑模式）、按店铺分组的购物车商品列表、推荐商品、底部结算栏"
+        },
+        {
+          "heading": "## 组件要求",
+          "content": "1. 购物车项：商品图片、名称、规格、价格、数量加减\n2. 店铺分组：店铺名称+勾选\n3. 结算栏：全选、合计金额、结算按钮\n4. 编辑模式：批量删除、移入收藏"
+        }
+      ]
+    }
+  },
+  {
+    "id": "ecommerce-home-desktop",
+    "name": "商城首页-PC端",
     "scene": "ecommerce",
     "device": "desktop",
-    "type": "detail",
-    "description": "电商商品详情展示页面，适用于PC端网页",
+    "type": "home",
+    "description": "电商商城PC端首页，展示分类导航和商品推荐",
     "defaultStyle": {
       "backgroundColor": "#FFFFFF",
-      "primaryColor": "#2E7D32",
+      "primaryColor": "#FF6B35",
       "cornerRadius": "small",
-      "cardStyle": "shadow",
+      "cardStyle": "border",
       "titleBarStyle": "white-underline",
       "switcherStyle": "underline",
       "buttonStyle": "solid",
@@ -101,105 +239,40 @@
           "id": "header",
           "name": "顶部导航",
           "type": "header",
-          "height": "60px",
-          "components": ["logo", "search-bar", "nav-menu", "cart-button", "user-menu"]
+          "height": "80px",
+          "components": ["logo", "search-bar", "cart-icon", "user-menu"]
         },
         {
-          "id": "breadcrumb",
-          "name": "面包屑导航",
-          "type": "content",
-          "components": ["breadcrumb"]
+          "id": "category-nav",
+          "name": "分类导航",
+          "type": "header",
+          "height": "40px",
+          "components": ["category-menu", "promo-links"]
         },
         {
-          "id": "product-section",
-          "name": "商品展示区",
+          "id": "content",
+          "name": "主内容区",
           "type": "content",
-          "components": ["product-gallery", "product-info-panel", "price-section", "specs-selector", "action-buttons"]
-        },
-        {
-          "id": "product-tabs",
-          "name": "详情标签区",
-          "type": "content",
-          "components": ["tabs", "tab-content"]
+          "components": ["banner-slider", "category-sidebar", "flash-sale", "product-grid"]
         },
         {
           "id": "footer",
           "name": "页脚",
           "type": "footer",
-          "components": ["footer-links", "copyright"]
+          "components": ["service-guarantee", "links", "copyright"]
         }
       ]
     },
     "aiPrompt": {
-      "title": "电商商品详情页（PC端）",
+      "title": "电商商城首页（PC端）",
       "sections": [
         {
           "heading": "## 页面结构",
-          "content": "顶部导航栏（Logo+搜索+菜单+购物车）、面包屑导航、商品展示区（双列布局：左侧图片画廊，右侧信息面板）、详情标签区、页脚"
+          "content": "顶部导航栏（Logo+搜索+购物车+用户）、分类导航条、主内容区（轮播图+左侧分类+限时抢购+商品网格）、页脚"
         },
         {
           "heading": "## 组件要求",
-          "content": "1. 图片画廊：左侧缩略图列表，右侧大图预览\n2. 信息面板：标题、价格、规格选择、购买按钮\n3. 详情标签：商品详情、规格参数、用户评价\n4. 侧边栏：店铺信息、推荐商品"
-        },
-        {
-          "heading": "## 交互说明",
-          "content": "- 图片画廊支持鼠标悬停放大查看\n- 规格选择点击后更新价格\n- 详情标签切换无刷新加载\n- 购物车按钮显示数量徽标"
-        }
-      ]
-    }
-  },
-  {
-    "id": "ecommerce-product-list-mobile",
-    "name": "商品列表页-移动端",
-    "scene": "ecommerce",
-    "device": "mobile",
-    "type": "list",
-    "description": "商品搜索/分类列表页面，适用于移动端",
-    "defaultStyle": {
-      "backgroundColor": "#F5FAF5",
-      "primaryColor": "#2E7D67",
-      "cornerRadius": "medium",
-      "cardStyle": "borderless",
-      "titleBarStyle": "frosted-glass",
-      "switcherStyle": "pill",
-      "buttonStyle": "solid",
-      "badgeStyle": "rounded"
-    },
-    "layout": {
-      "type": "single-column",
-      "regions": [
-        {
-          "id": "header",
-          "name": "搜索栏",
-          "type": "header",
-          "height": "56px",
-          "components": ["search-input", "filter-button"]
-        },
-        {
-          "id": "filters",
-          "name": "筛选栏",
-          "type": "content",
-          "height": "44px",
-          "components": ["sort-dropdown", "filter-tags"]
-        },
-        {
-          "id": "content",
-          "name": "商品列表",
-          "type": "content",
-          "components": ["product-grid", "load-more"]
-        }
-      ]
-    },
-    "aiPrompt": {
-      "title": "电商商品列表页（移动端）",
-      "sections": [
-        {
-          "heading": "## 页面结构",
-          "content": "顶部搜索栏、筛选排序栏、商品列表（网格布局，每行2个）、加载更多按钮"
-        },
-        {
-          "heading": "## 组件要求",
-          "content": "1. 搜索栏：输入框+筛选按钮\n2. 筛选栏：综合排序、销量、价格等\n3. 商品卡片：图片、名称、价格、标签\n4. 下拉加载更多"
+          "content": "1. 搜索栏：支持关键词和分类筛选\n2. 分类侧边栏：多级分类展开\n3. 商品网格：4-5列布局\n4. 悬停效果：商品卡片hover显示快捷操作"
         }
       ]
     }

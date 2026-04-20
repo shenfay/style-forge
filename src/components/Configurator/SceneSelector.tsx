@@ -10,12 +10,12 @@ interface SceneSelectorProps {
 }
 
 const scenes: Array<{ id: SceneType; name: string; icon: string; description: string }> = [
-  { id: 'food', name: '食品健康', icon: '🍎', description: '扫码结果、成分分析' },
-  { id: 'ecommerce', name: '电商零售', icon: '🛒', description: '商品详情、购物车' },
-  { id: 'saas', name: 'SaaS 工具', icon: '📊', description: '数据看板、设置页' },
-  { id: 'media', name: '内容媒体', icon: '📰', description: '文章详情、列表页' },
-  { id: 'social', name: '社交社区', icon: '💬', description: '动态流、个人主页' },
-  { id: 'finance', name: '金融服务', icon: '💰', description: '交易记录、账户' },
+  { id: 'universal', name: '通用页面', icon: '🌐', description: '首页、个人中心、设置' },
+  { id: 'ecommerce', name: '电商零售', icon: '🛒', description: '商品详情、购物车、订单' },
+  { id: 'social', name: '社交社区', icon: '💬', description: '动态流、个人主页、消息' },
+  { id: 'media', name: '内容媒体', icon: '📰', description: '文章详情、视频、资讯' },
+  { id: 'finance', name: '金融服务', icon: '💰', description: '账户、交易、理财' },
+  { id: 'enterprise', name: '企业服务', icon: '📊', description: '数据看板、工作台、审批' },
 ]
 
 const deviceOptions: Array<{ id: DeviceType; name: string; icon: string }> = [
