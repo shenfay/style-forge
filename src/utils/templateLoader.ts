@@ -34,7 +34,7 @@ export function findTemplate(
 }
 
 export function getAllScenes(): SceneType[] {
-  return ['food', 'ecommerce', 'saas', 'media', 'social', 'finance']
+  return ['universal', 'ecommerce', 'social', 'media', 'finance', 'enterprise']
 }
 
 export function preloadTemplates(scenes: SceneType[]): Promise<TemplateConfig[][]> {

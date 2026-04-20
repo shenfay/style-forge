@@ -13,6 +13,8 @@ const pageTypeLabels: Record<PageType, string> = {
   form: '表单页',
   settings: '设置页',
   result: '结果页',
+  profile: '个人中心',
+  messages: '消息中心',
 }
 
 export function TemplateSelector({ templates, selectedTemplate, onTemplateChange }: TemplateSelectorProps) {

@@ -23,13 +23,13 @@ export default function App() {
   // 加载模板
   useEffect(() => {
     const load = async () => {
-      const scene = urlConfig.scene || 'food'
+      const scene = urlConfig.scene || 'universal'
       const loaded = await loadTemplates(scene)
       setTemplates(loaded)
 
       // 查找匹配的模板
       const device = urlConfig.device || 'mobile'
-      const template = urlConfig.template || 'result'
+      const template = urlConfig.template || 'home'
       const found = findTemplate(scene, device, template as PageType)
       if (found) {
         setCurrentTemplate(found)
@@ -62,7 +62,7 @@ export default function App() {
     const params = new URLSearchParams()
     params.set('scene', scene)
     params.set('device', urlConfig.device || 'mobile')
-    params.set('template', urlConfig.template || 'result')
+    params.set('template', urlConfig.template || 'home')
     window.history.pushState({}, '', `${window.location.pathname}?${params.toString()}`)
     window.location.reload()
   }
@@ -202,9 +202,9 @@ export default function App() {
             <div className="mb-6">
               <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">场景</h3>
               <SceneSelector
-                selectedScene={urlConfig.scene || 'food'}
+                selectedScene={urlConfig.scene || 'universal'}
                 selectedDevice={urlConfig.device || 'mobile'}
-                selectedTemplate={urlConfig.template || 'result'}
+                selectedTemplate={urlConfig.template || 'home'}
                 onSceneChange={handleSceneChange}
                 onDeviceChange={handleDeviceChange}
                 onTemplateChange={() => {}}
