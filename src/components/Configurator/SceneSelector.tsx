@@ -32,56 +32,27 @@ export function SceneSelector({
   onTemplateChange,
 }: SceneSelectorProps) {
   return (
-    <div className="space-y-4">
+    <div>
       {/* 场景选择 */}
-      <ConfigSection title="选择场景">
-        <div className="grid grid-cols-3 gap-2">
-          {scenes.map((scene) => (
-            <button
-              key={scene.id}
-              onClick={() => onSceneChange(scene.id)}
-              className={`flex flex-col items-center gap-1 p-3 rounded-lg border-2 transition-all text-left ${
-                selectedScene === scene.id
-                  ? 'border-gray-900 bg-gray-50'
-                  : 'border-gray-200 hover:border-gray-400'
-              }`}
-            >
-              <span className="text-2xl">{scene.icon}</span>
-              <span className="text-xs font-medium">{scene.name}</span>
-              <span className="text-[10px] text-gray-500">{scene.description}</span>
-            </button>
-          ))}
-        </div>
-      </ConfigSection>
-
-      {/* 设备选择 */}
-      <ConfigSection title="设备类型">
-        <div className="flex gap-2">
-          {deviceOptions.map((device) => (
-            <button
-              key={device.id}
-              onClick={() => onDeviceChange(device.id)}
-              className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-lg border-2 transition-all ${
-                selectedDevice === device.id
-                  ? 'border-gray-900 bg-gray-50'
-                  : 'border-gray-200 hover:border-gray-400'
-              }`}
-            >
-              <span className="text-lg">{device.icon}</span>
-              <span className="text-sm font-medium">{device.name}</span>
-            </button>
-          ))}
-        </div>
-      </ConfigSection>
-    </div>
-  )
-}
-
-function ConfigSection({ title, children }: { title: string; children: React.ReactNode }) {
-  return (
-    <div className="bg-white border border-gray-200 rounded-lg p-4">
-      <h3 className="text-sm font-medium text-gray-700 mb-3">{title}</h3>
-      {children}
+      <div className="space-y-1">
+        {scenes.map((scene) => (
+          <button
+            key={scene.id}
+            onClick={() => onSceneChange(scene.id)}
+            className={`w-full flex items-center gap-2 px-3 py-2 rounded-md transition-all text-left ${
+              selectedScene === scene.id
+                ? 'bg-blue-50 text-blue-600'
+                : 'text-gray-700 hover:bg-gray-50'
+            }`}
+          >
+            <span className="text-lg">{scene.icon}</span>
+            <div className="flex-1 min-w-0">
+              <div className="text-sm font-medium">{scene.name}</div>
+              <div className="text-xs text-gray-500 truncate">{scene.description}</div>
+            </div>
+          </button>
+        ))}
+      </div>
     </div>
   )
 }

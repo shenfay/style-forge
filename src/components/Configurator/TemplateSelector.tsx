@@ -18,36 +18,35 @@ const pageTypeLabels: Record<PageType, string> = {
 export function TemplateSelector({ templates, selectedTemplate, onTemplateChange }: TemplateSelectorProps) {
   if (templates.length === 0) {
     return (
-      <div className="bg-white border border-gray-200 rounded-lg p-4">
-        <p className="text-sm text-gray-500">暂无可用模板</p>
-      </div>
+      <div className="text-sm text-gray-500 py-2">暂无可用模板</div>
     )
   }
 
   return (
-    <div className="bg-white border border-gray-200 rounded-lg p-4">
-      <h3 className="text-sm font-medium text-gray-700 mb-3">选择模板</h3>
-      <div className="space-y-2">
-        {templates.map((template) => (
-          <button
-            key={template.id}
-            onClick={() => onTemplateChange(template)}
-            className={`w-full text-left p-3 rounded-lg border-2 transition-all ${
-              selectedTemplate === template.type
-                ? 'border-gray-900 bg-gray-50'
-                : 'border-gray-200 hover:border-gray-400'
-            }`}
-          >
-            <div className="flex items-center justify-between mb-1">
-              <span className="text-sm font-medium">{template.name}</span>
-              <span className="text-[10px] px-2 py-0.5 bg-gray-100 rounded">
-                {pageTypeLabels[template.type]}
-              </span>
-            </div>
-            <p className="text-[11px] text-gray-500">{template.description}</p>
-          </button>
-        ))}
-      </div>
+    <div className="space-y-1">
+      {templates.map((template) => (
+        <button
+          key={template.id}
+          onClick={() => onTemplateChange(template)}
+          className={`w-full flex items-center gap-2 px-3 py-2 rounded-md transition-all text-left ${
+            selectedTemplate === template.type
+              ? 'bg-blue-50 text-blue-600'
+              : 'text-gray-700 hover:bg-gray-50'
+          }`}
+        >
+          <div className="flex-1 min-w-0">
+            <div className="text-sm font-medium">{template.name}</div>
+            <div className="text-xs text-gray-500 truncate">{template.description}</div>
+          </div>
+          <span className={`text-xs px-2 py-0.5 rounded ${
+            selectedTemplate === template.type
+              ? 'bg-blue-100 text-blue-600'
+              : 'bg-gray-100 text-gray-600'
+          }`}>
+            {pageTypeLabels[template.type]}
+          </span>
+        </button>
+      ))}
     </div>
   )
 }

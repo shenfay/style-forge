@@ -13,166 +13,140 @@ export function StyleConfigurator({ config, onChange }: StyleConfiguratorProps) 
   }
 
   return (
-    <div className="space-y-4">
-      {/* 预设模板 */}
-      <ConfigSection title="快速预设">
-        <div className="grid grid-cols-3 gap-2">
-          {presets.map((preset) => (
-            <button
-              key={preset.id}
-              onClick={() => onChange(preset.config)}
-              className={`px-3 py-2 text-xs font-medium rounded-lg border transition-all text-left ${
-                JSON.stringify(config) === JSON.stringify(preset.config)
-                  ? 'bg-gray-900 text-white border-gray-900'
-                  : 'bg-white text-gray-700 border-gray-200 hover:border-gray-400'
-              }`}
-            >
-              <div className="font-medium">{preset.name}</div>
-              <div className="text-[10px] opacity-75 mt-0.5">{preset.description}</div>
-            </button>
-          ))}
+    <div className="space-y-6">
+      {/* 色彩配置 */}
+      <div>
+        <h3 className="text-sm font-semibold text-gray-900 mb-4 flex items-center gap-2">
+          <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+          </svg>
+          色彩配置
+        </h3>
+        <div className="space-y-4">
+          {/* 背景色 */}
+          <div>
+            <label className="text-xs text-gray-600 mb-2 block">背景色 (Background)</label>
+            <div className="flex items-center gap-2">
+              <div className="w-10 h-10 rounded-lg border border-gray-200 shadow-sm" style={{ background: config.backgroundColor }} />
+              <input
+                type="text"
+                value={config.backgroundColor}
+                onChange={(e) => updateConfig('backgroundColor', e.target.value)}
+                className="flex-1 px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+            </div>
+          </div>
+
+          {/* 主题色 */}
+          <div>
+            <label className="text-xs text-gray-600 mb-2 block">主题色 (Primary)</label>
+            <div className="flex items-center gap-2">
+              <div className="w-10 h-10 rounded-lg border border-gray-200 shadow-sm" style={{ background: config.primaryColor }} />
+              <input
+                type="text"
+                value={config.primaryColor}
+                onChange={(e) => updateConfig('primaryColor', e.target.value)}
+                className="flex-1 px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+            </div>
+          </div>
         </div>
-      </ConfigSection>
+      </div>
 
-      {/* 底色 */}
-      <ConfigSection title="页面底色">
-        <ColorOptions
-          options={[
-            { name: '纯白', value: '#FFFFFF' },
-            { name: '暖沙', value: '#F9F8F4' },
-            { name: '淡黄', value: '#FFFDF5' },
-            { name: '淡绿', value: '#F5FAF5' },
-          ]}
-          selected={config.backgroundColor}
-          onChange={(v) => updateConfig('backgroundColor', v)}
-        />
-      </ConfigSection>
+      {/* 形状与结构 */}
+      <div>
+        <h3 className="text-sm font-semibold text-gray-900 mb-4 flex items-center gap-2">
+          <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
+          </svg>
+          形状与结构
+        </h3>
+        <div className="space-y-4">
+          {/* 圆角 */}
+          <div>
+            <label className="text-xs text-gray-600 mb-2 block">圆角半径 (Radius)</label>
+            <div className="grid grid-cols-3 gap-2">
+              {[
+                { label: '0px', value: 'small' },
+                { label: '8px', value: 'medium' },
+                { label: '16px', value: 'large' },
+              ].map((opt) => (
+                <button
+                  key={opt.value}
+                  onClick={() => updateConfig('cornerRadius', opt.value)}
+                  className={`px-3 py-2.5 text-sm rounded-lg transition-all font-medium ${
+                    config.cornerRadius === opt.value
+                      ? 'bg-blue-600 text-white shadow-sm'
+                      : 'bg-gray-50 text-gray-600 hover:bg-gray-100'
+                  }`}
+                >
+                  {opt.label}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
 
-      {/* 主题色 */}
-      <ConfigSection title="主题色">
-        <ColorOptions
-          options={[
-            { name: '森林绿', value: '#2E7D32' },
-            { name: '草绿', value: '#5F7D2E' },
-            { name: '青绿', value: '#2E7D67' },
-            { name: '纯黑', value: '#000000' },
-          ]}
-          selected={config.primaryColor}
-          onChange={(v) => updateConfig('primaryColor', v)}
-        />
-      </ConfigSection>
+      {/* 组件样式 */}
+      <div>
+        <h3 className="text-sm font-semibold text-gray-900 mb-4 flex items-center gap-2">
+          <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h7" />
+          </svg>
+          组件样式
+        </h3>
+        <div className="space-y-4">
+          {/* 标题栏 */}
+          <div>
+            <label className="text-xs text-gray-600 mb-2 block">标题栏样式</label>
+            <div className="space-y-2">
+              {[
+                { label: '纯白+下划线', value: 'white-underline' },
+                { label: '毛玻璃', value: 'frosted-glass' },
+                { label: '彩色底色', value: 'colored-bg' },
+              ].map((opt) => (
+                <button
+                  key={opt.value}
+                  onClick={() => updateConfig('titleBarStyle', opt.value)}
+                  className={`w-full px-3 py-2.5 text-sm text-left rounded-lg transition-all ${
+                    config.titleBarStyle === opt.value
+                      ? 'bg-blue-600 text-white shadow-sm'
+                      : 'bg-gray-50 text-gray-600 hover:bg-gray-100'
+                  }`}
+                >
+                  {opt.label}
+                </button>
+              ))}
+            </div>
+          </div>
 
-      {/* 圆角 */}
-      <ConfigSection title="圆角大小">
-        <OptionButtons
-          options={[
-            { label: '小 8px', value: 'small' },
-            { label: '中 16px', value: 'medium' },
-            { label: '大 24px', value: 'large' },
-          ]}
-          selected={config.cornerRadius}
-          onChange={(v) => updateConfig('cornerRadius', v)}
-        />
-      </ConfigSection>
-
-      {/* 标题栏 */}
-      <ConfigSection title="标题栏样式">
-        <OptionButtons
-          options={[
-            { label: '纯白+下划线', value: 'white-underline' },
-            { label: '毛玻璃', value: 'frosted-glass' },
-            { label: '彩色底色', value: 'colored-bg' },
-          ]}
-          selected={config.titleBarStyle}
-          onChange={(v) => updateConfig('titleBarStyle', v)}
-        />
-      </ConfigSection>
-
-      {/* 切换器 */}
-      <ConfigSection title="风险切换器">
-        <OptionButtons
-          options={[
-            { label: '下划线', value: 'underline' },
-            { label: '药丸容器', value: 'pill' },
-            { label: '胶囊', value: 'capsule' },
-          ]}
-          selected={config.switcherStyle}
-          onChange={(v) => updateConfig('switcherStyle', v)}
-        />
-      </ConfigSection>
-
-      {/* 按钮 */}
-      <ConfigSection title="按钮样式">
-        <OptionButtons
-          options={[
-            { label: '渐变', value: 'gradient' },
-            { label: '纯色', value: 'solid' },
-            { label: '线框', value: 'wireframe' },
-          ]}
-          selected={config.buttonStyle}
-          onChange={(v) => updateConfig('buttonStyle', v)}
-        />
-      </ConfigSection>
-
-      {/* 标签 */}
-      <ConfigSection title="标签样式">
-        <OptionButtons
-          options={[
-            { label: '圆角底色', value: 'rounded' },
-            { label: '纯文字', value: 'text-only' },
-          ]}
-          selected={config.badgeStyle}
-          onChange={(v) => updateConfig('badgeStyle', v)}
-        />
-      </ConfigSection>
+          {/* 按钮 */}
+          <div>
+            <label className="text-xs text-gray-600 mb-2 block">按钮样式</label>
+            <div className="grid grid-cols-3 gap-2">
+              {[
+                { label: '渐变', value: 'gradient' },
+                { label: '纯色', value: 'solid' },
+                { label: '线框', value: 'wireframe' },
+              ].map((opt) => (
+                <button
+                  key={opt.value}
+                  onClick={() => updateConfig('buttonStyle', opt.value)}
+                  className={`px-3 py-2.5 text-sm rounded-lg transition-all font-medium ${
+                    config.buttonStyle === opt.value
+                      ? 'bg-blue-600 text-white shadow-sm'
+                      : 'bg-gray-50 text-gray-600 hover:bg-gray-100'
+                  }`}
+                >
+                  {opt.label}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
 
-function ConfigSection({ title, children }: { title: string; children: React.ReactNode }) {
-  return (
-    <div className="bg-white border border-gray-200 rounded-lg p-4">
-      <h3 className="text-sm font-medium" style={{ color: colors.gray[700] }}>{title}</h3>
-      {children}
-    </div>
-  )
-}
-
-function ColorOptions({ options, selected, onChange }: { options: Array<{ name: string; value: string }>; selected: string; onChange: (v: string) => void }) {
-  return (
-    <div className="grid grid-cols-4 gap-2">
-      {options.map((opt) => (
-        <button
-          key={opt.value}
-          onClick={() => onChange(opt.value)}
-          className={`flex flex-col items-center gap-2 p-3 rounded-lg border-2 transition-all ${
-            selected === opt.value ? 'border-gray-900' : 'border-transparent hover:border-gray-300'
-          }`}
-        >
-          <div className="w-8 h-8 rounded-full border" style={{ background: opt.value, borderColor: colors.gray[200] }} />
-          <span className="text-xs" style={{ color: colors.gray[600] }}>{opt.name}</span>
-        </button>
-      ))}
-    </div>
-  )
-}
-
-function OptionButtons({ options, selected, onChange }: { options: Array<{ label: string; value: string }>; selected: string; onChange: (v: string) => void }) {
-  return (
-    <div className="flex gap-2">
-      {options.map((opt) => (
-        <button
-          key={opt.value}
-          onClick={() => onChange(opt.value)}
-          className={`flex-1 px-3 py-2 text-xs font-medium rounded-lg border transition-all ${
-            selected === opt.value
-              ? 'bg-gray-900 text-white border-gray-900'
-              : 'bg-white text-gray-700 border-gray-200 hover:border-gray-400'
-          }`}
-        >
-          {opt.label}
-        </button>
-      ))}
-    </div>
-  )
-}
