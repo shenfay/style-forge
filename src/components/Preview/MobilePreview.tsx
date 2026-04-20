@@ -21,6 +21,14 @@ export function MobilePreview({ config, pageType }: MobilePreviewProps) {
       return <ListPage config={config} />
     case 'result':
       return <ResultPage config={config} />
+    case 'profile':
+      return <ProfilePage config={config} />
+    case 'messages':
+      return <MessagesPage config={config} />
+    case 'settings':
+      return <SettingsPage config={config} />
+    case 'form':
+      return <FormPage config={config} />
     default:
       return <DefaultPage config={config} />
   }
@@ -244,6 +252,311 @@ function ResultPage({ config }: { config: StyleConfig }) {
         <div className="text-6xl mb-4">✓</div>
         <h2 className="text-xl font-bold mb-2" style={{ color: config.primaryColor }}>操作成功</h2>
         <p className="text-sm" style={{ color: '#666666' }}>您的操作已完成</p>
+      </div>
+    </div>
+  )
+}
+
+// 个人中心页模板
+function ProfilePage({ config }: { config: StyleConfig }) {
+  const radius = getBorderRadius(config.cornerRadius as 'small' | 'medium' | 'large')
+  
+  return (
+    <div className="h-full overflow-y-auto" style={{ background: config.backgroundColor }}>
+      <StatusBar />
+      
+      {/* 个人信息区 */}
+      <div className="px-6 py-8" style={{ background: config.primaryColor }}>
+        <div className="flex items-center gap-4">
+          <div className="w-16 h-16 rounded-full bg-white/20 flex items-center justify-center text-3xl">
+            👤
+          </div>
+          <div className="flex-1">
+            <div className="text-white text-lg font-bold">用户名</div>
+            <div className="text-white/80 text-sm">用户ID: 123456</div>
+          </div>
+          <button className="px-3 py-1 text-xs text-white border border-white/50 rounded" style={{ borderRadius: radius }}>
+            编辑
+          </button>
+        </div>
+        
+        {/* 统计数据 */}
+        <div className="flex justify-around mt-6 pt-4 border-t border-white/20">
+          <div className="text-center">
+            <div className="text-white text-xl font-bold">128</div>
+            <div className="text-white/70 text-xs">动态</div>
+          </div>
+          <div className="text-center">
+            <div className="text-white text-xl font-bold">1.2k</div>
+            <div className="text-white/70 text-xs">粉丝</div>
+          </div>
+          <div className="text-center">
+            <div className="text-white text-xl font-bold">356</div>
+            <div className="text-white/70 text-xs">关注</div>
+          </div>
+        </div>
+      </div>
+
+      {/* 功能菜单 */}
+      <div className="px-6 py-4 space-y-3">
+        {/* 我的订单 */}
+        <Card config={config} className="p-4">
+          <div className="text-sm font-medium mb-3" style={{ color: colors.text.primary }}>我的订单</div>
+          <div className="flex justify-around">
+            {[
+              { icon: '💰', label: '待付款' },
+              { icon: '📦', label: '待发货' },
+              { icon: '🚚', label: '待收货' },
+              { icon: '⭐', label: '待评价' },
+            ].map((item, i) => (
+              <div key={i} className="flex flex-col items-center gap-1">
+                <span className="text-xl">{item.icon}</span>
+                <span className="text-xs" style={{ color: colors.text.secondary }}>{item.label}</span>
+              </div>
+            ))}
+          </div>
+        </Card>
+
+        {/* 常用功能 */}
+        <Card config={config} className="divide-y divide-gray-100">
+          {[
+            { icon: '❤️', label: '我的收藏' },
+            { icon: '📍', label: '收货地址' },
+            { icon: '🎫', label: '优惠券' },
+            { icon: '💳', label: '钱包' },
+          ].map((item, i) => (
+            <div key={i} className="flex items-center justify-between p-4">
+              <div className="flex items-center gap-3">
+                <span className="text-lg">{item.icon}</span>
+                <span className="text-sm" style={{ color: colors.text.primary }}>{item.label}</span>
+              </div>
+              <svg className="w-4 h-4" fill="none" stroke="#999" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+          ))}
+        </Card>
+      </div>
+
+      {/* 底部导航 */}
+      <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-[375px] px-6 py-3" style={{ 
+        background: '#FFFFFF',
+        borderTop: '1px solid #E5E5E5',
+      }}>
+        <div className="flex justify-around">
+          {[
+            { icon: '🏠', label: '首页' },
+            { icon: '🔍', label: '发现' },
+            { icon: '💬', label: '消息' },
+            { icon: '👤', label: '我的' },
+          ].map((tab, i) => (
+            <button key={i} className="flex flex-col items-center gap-1">
+              <span className="text-lg">{tab.icon}</span>
+              <span className="text-[10px]" style={{ color: i === 3 ? config.primaryColor : '#999999' }}>{tab.label}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// 消息列表页模板
+function MessagesPage({ config }: { config: StyleConfig }) {
+  return (
+    <div className="h-full overflow-y-auto" style={{ background: config.backgroundColor }}>
+      <StatusBar />
+      <NavBar config={config} title="消息" />
+
+      {/* 消息分类Tab */}
+      <div className="flex border-b border-gray-200">
+        {['全部', '未读', '群聊'].map((tab, i) => (
+          <button key={i} className="flex-1 py-3 text-sm font-medium" style={{
+            color: i === 0 ? config.primaryColor : '#666666',
+            borderBottom: i === 0 ? `2px solid ${config.primaryColor}` : 'none',
+          }}>
+            {tab}
+          </button>
+        ))}
+      </div>
+
+      {/* 消息列表 */}
+      <div className="divide-y divide-gray-100">
+        {[
+          { name: '张三', msg: '你好，最近怎么样？', time: '10:30', unread: 2 },
+          { name: '李四', msg: '明天的会议几点开始？', time: '09:15', unread: 0 },
+          { name: '产品交流群', msg: '王五: 这个方案不错', time: '昨天', unread: 5 },
+          { name: '赵六', msg: '收到，谢谢！', time: '昨天', unread: 0 },
+          { name: '技术交流群', msg: '系统通知: 版本更新', time: '周一', unread: 0 },
+        ].map((chat, i) => (
+          <div key={i} className="flex items-center gap-3 px-6 py-4">
+            <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center text-xl">
+              {chat.name.includes('群') ? '👥' : '👤'}
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="flex justify-between items-center mb-1">
+                <span className="text-sm font-medium" style={{ color: colors.text.primary }}>{chat.name}</span>
+                <span className="text-xs" style={{ color: colors.text.tertiary }}>{chat.time}</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-xs truncate" style={{ color: colors.text.secondary }}>{chat.msg}</span>
+                {chat.unread > 0 && (
+                  <span className="ml-2 px-2 py-0.5 text-xs text-white rounded-full" style={{
+                    background: config.primaryColor,
+                    minWidth: '18px',
+                    textAlign: 'center',
+                  }}>
+                    {chat.unread}
+                  </span>
+                )}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* 底部导航 */}
+      <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-[375px] px-6 py-3" style={{ 
+        background: '#FFFFFF',
+        borderTop: '1px solid #E5E5E5',
+      }}>
+        <div className="flex justify-around">
+          {[
+            { icon: '🏠', label: '首页' },
+            { icon: '🔍', label: '发现' },
+            { icon: '💬', label: '消息' },
+            { icon: '👤', label: '我的' },
+          ].map((tab, i) => (
+            <button key={i} className="flex flex-col items-center gap-1">
+              <span className="text-lg">{tab.icon}</span>
+              <span className="text-[10px]" style={{ color: i === 2 ? config.primaryColor : '#999999' }}>{tab.label}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// 设置页模板
+function SettingsPage({ config }: { config: StyleConfig }) {
+  return (
+    <div className="h-full overflow-y-auto" style={{ background: config.backgroundColor }}>
+      <StatusBar />
+      <NavBar config={config} title="设置" showBack />
+
+      <div className="px-6 py-4 space-y-3">
+        {/* 账号设置 */}
+        <Card config={config} className="divide-y divide-gray-100">
+          {[
+            { icon: '👤', label: '账号与安全' },
+            { icon: '🔔', label: '通知设置' },
+            { icon: '🔒', label: '隐私设置' },
+          ].map((item, i) => (
+            <div key={i} className="flex items-center justify-between p-4">
+              <div className="flex items-center gap-3">
+                <span className="text-lg">{item.icon}</span>
+                <span className="text-sm" style={{ color: colors.text.primary }}>{item.label}</span>
+              </div>
+              <svg className="w-4 h-4" fill="none" stroke="#999" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+          ))}
+        </Card>
+
+        {/* 系统设置 */}
+        <Card config={config} className="divide-y divide-gray-100">
+          {[
+            { icon: '🌐', label: '语言', value: '简体中文' },
+            { icon: '🎨', label: '主题', value: '浅色' },
+            { icon: '💾', label: '缓存', value: '128MB' },
+          ].map((item, i) => (
+            <div key={i} className="flex items-center justify-between p-4">
+              <div className="flex items-center gap-3">
+                <span className="text-lg">{item.icon}</span>
+                <span className="text-sm" style={{ color: colors.text.primary }}>{item.label}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-xs" style={{ color: colors.text.tertiary }}>{item.value}</span>
+                <svg className="w-4 h-4" fill="none" stroke="#999" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </div>
+            </div>
+          ))}
+        </Card>
+
+        {/* 退出登录 */}
+        <button className="w-full py-3 text-sm font-medium text-red-500">
+          退出登录
+        </button>
+      </div>
+    </div>
+  )
+}
+
+// 表单页模板
+function FormPage({ config }: { config: StyleConfig }) {
+  const radius = getBorderRadius(config.cornerRadius as 'small' | 'medium' | 'large')
+  
+  return (
+    <div className="h-full overflow-y-auto" style={{ background: config.backgroundColor }}>
+      <StatusBar />
+      <NavBar config={config} title="表单" showBack />
+
+      <div className="px-6 py-4 space-y-4">
+        {/* 输入框 */}
+        <Card config={config} className="p-4 space-y-4">
+          <div>
+            <label className="block text-sm font-medium mb-2" style={{ color: colors.text.primary }}>姓名</label>
+            <input 
+              type="text" 
+              className="w-full px-3 py-2 text-sm border outline-none"
+              style={{ 
+                borderRadius: radius,
+                borderColor: colors.border.light,
+              }}
+              placeholder="请输入姓名"
+            />
+          </div>
+          
+          <div>
+            <label className="block text-sm font-medium mb-2" style={{ color: colors.text.primary }}>邮箱</label>
+            <input 
+              type="email" 
+              className="w-full px-3 py-2 text-sm border outline-none"
+              style={{ 
+                borderRadius: radius,
+                borderColor: colors.border.light,
+              }}
+              placeholder="请输入邮箱"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium mb-2" style={{ color: colors.text.primary }}>描述</label>
+            <textarea 
+              className="w-full px-3 py-2 text-sm border outline-none resize-none"
+              style={{ 
+                borderRadius: radius,
+                borderColor: colors.border.light,
+                minHeight: '100px',
+              }}
+              placeholder="请输入描述"
+            />
+          </div>
+        </Card>
+
+        {/* 提交按钮 */}
+        <button className="w-full py-3 text-sm font-medium text-white btn-interactive" style={{
+          borderRadius: radius,
+          background: config.buttonStyle === 'gradient' 
+            ? `linear-gradient(135deg, ${config.primaryColor}, ${config.primaryColor}CC)` 
+            : config.primaryColor,
+        }}>
+          提交
+        </button>
       </div>
     </div>
   )

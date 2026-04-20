@@ -272,7 +272,10 @@ export default function App() {
           <div className="flex items-center justify-center min-h-[calc(100vh-8rem)] p-12">
             {urlConfig.device === 'desktop' ? (
               <div className="w-full max-w-5xl bg-white rounded-lg shadow-sm overflow-hidden border border-gray-200">
-                <DesktopPreview config={config} />
+                <DesktopPreview 
+                  config={config} 
+                  pageType={currentTemplate?.type || 'home'}
+                />
               </div>
             ) : (
               <div className="w-[375px] h-[812px] bg-white rounded-[40px] shadow-xl overflow-hidden border-8 border-gray-900">
