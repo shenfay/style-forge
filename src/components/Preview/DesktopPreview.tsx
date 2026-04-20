@@ -31,13 +31,13 @@ export function DesktopPreview({ config }: DesktopPreviewProps) {
           </nav>
         </div>
         <div className="flex items-center gap-3">
-          <button className="px-4 py-2 text-sm font-medium transition-all" style={{
+          <button className="px-4 py-2 text-sm font-medium btn-interactive" style={{
             borderRadius: radius,
             color: config.primaryColor,
           }}>
             登录
           </button>
-          <button className="px-4 py-2 text-sm font-medium text-white transition-all" style={{
+          <button className="px-4 py-2 text-sm font-medium text-white btn-interactive" style={{
             borderRadius: radius,
             background: config.buttonStyle === 'gradient' 
               ? `linear-gradient(135deg, ${config.primaryColor}, ${config.primaryColor}CC)` 
@@ -59,7 +59,7 @@ export function DesktopPreview({ config }: DesktopPreviewProps) {
             这是一段描述文字，展示产品的主要特点和价值主张。
           </p>
           <div className="flex gap-4">
-            <button className="px-8 py-4 text-base font-medium text-white transition-all" style={{
+            <button className="px-8 py-4 text-base font-medium text-white btn-interactive" style={{
               borderRadius: radius,
               background: config.buttonStyle === 'gradient' 
                 ? `linear-gradient(135deg, ${config.primaryColor}, ${config.primaryColor}CC)` 
@@ -67,7 +67,7 @@ export function DesktopPreview({ config }: DesktopPreviewProps) {
             }}>
               立即开始
             </button>
-            <button className="px-8 py-4 text-base font-medium transition-all" style={{
+            <button className="px-8 py-4 text-base font-medium btn-interactive" style={{
               borderRadius: radius,
               border: config.buttonStyle === 'wireframe' ? `2px solid ${config.primaryColor}` : 'none',
               color: config.buttonStyle === 'wireframe' ? config.primaryColor : '#666666',
@@ -87,7 +87,7 @@ export function DesktopPreview({ config }: DesktopPreviewProps) {
               { title: '特性二', desc: '这是特性二的描述文字' },
               { title: '特性三', desc: '这是特性三的描述文字' },
             ].map((feature, i) => (
-              <div key={i} className="p-6 transition-all hover:shadow-lg" style={{
+              <div key={i} className="p-6 card-interactive" style={{
                 borderRadius: radius,
                 background: '#FFFFFF',
                 border: config.cardStyle === 'border' ? '1px solid #E5E5E5' : 'none',

@@ -57,7 +57,7 @@ function HomePage({ config }: { config: StyleConfig }) {
       {/* 内容区 */}
       <div className="px-6 py-5 pb-24 space-y-4">
         {/* Hero 卡片 */}
-        <div className="p-5" style={{
+        <div className="p-5 card-interactive" style={{
           borderRadius: radius,
           background: `linear-gradient(135deg, ${config.primaryColor}, ${config.primaryColor}CC)`,
         }}>
@@ -67,13 +67,13 @@ function HomePage({ config }: { config: StyleConfig }) {
 
         {/* 功能卡片 */}
         <div className="grid grid-cols-2 gap-3">
-          {[
+          {[  
             { icon: '📊', title: '数据统计' },
             { icon: '🎯', title: '精准推荐' },
             { icon: '💬', title: '互动交流' },
             { icon: '⚙️', title: '个性化设置' },
           ].map((item, i) => (
-            <div key={i} className="p-4 text-center" style={{
+            <div key={i} className="p-4 text-center card-interactive" style={{
               borderRadius: radius,
               background: '#FFFFFF',
               border: config.cardStyle === 'border' ? '1px solid #E5E5E5' : 'none',
@@ -207,14 +207,14 @@ function DetailPage({ config }: { config: StyleConfig }) {
         borderTop: '1px solid #E5E5E5',
       }}>
         <div className="flex gap-3">
-          <button className="flex-1 py-3 text-[13px] font-medium transition-all" style={{
+          <button className="flex-1 py-3 text-[13px] font-medium btn-interactive" style={{
             borderRadius: radius,
             border: `1px solid ${config.primaryColor}`,
             color: config.primaryColor,
           }}>
             收藏
           </button>
-          <button className="flex-1 py-3 text-[13px] font-medium text-white transition-all" style={{
+          <button className="flex-1 py-3 text-[13px] font-medium text-white btn-interactive" style={{
             borderRadius: radius,
             background: config.buttonStyle === 'gradient' 
               ? `linear-gradient(135deg, ${config.primaryColor}, ${config.primaryColor}CC)` 
