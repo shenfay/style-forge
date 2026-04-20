@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import { StyleConfigurator } from './components/Configurator/StyleConfigurator'
-import { ScanResultPreview } from './components/Preview/ScanResultPreview'
 import { MobilePreview } from './components/Preview/MobilePreview'
 import { DesktopPreview } from './components/Preview/DesktopPreview'
 import { SceneSelector } from './components/Configurator/SceneSelector'
@@ -132,83 +131,104 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* 顶部导航 */}
-      <nav className="sticky top-0 z-50 bg-white border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-          <div>
-            <h1 className="text-lg font-semibold text-gray-900">Style Forge</h1>
-            <p className="text-sm text-gray-500">
-              场景化设计配置器 - {currentTemplate ? currentTemplate.name : '实时预览，一键导出'}
-            </p>
+    <div className="h-screen flex flex-col bg-gray-50">
+      {/* 顶栏 - 全局操作与项目状态 */}
+      <header className="h-14 bg-white border-b border-gray-200 flex items-center justify-between px-4 shrink-0">
+        <div className="flex items-center gap-4">
+          <h1 className="text-base font-bold text-gray-900">Style Forge</h1>
+          <div className="h-6 w-px bg-gray-200" />
+          <div className="flex items-center gap-2 text-sm">
+            <span className="text-gray-500">场景:</span>
+            <span className="font-medium text-gray-900">{currentTemplate?.name || '未选择'}</span>
           </div>
-          <div className="flex gap-2">
-            <button
-              onClick={copyPreviewLink}
-              className="px-4 py-2 bg-white border border-gray-200 text-gray-700 text-sm font-medium rounded-lg hover:border-gray-900 transition-colors"
-            >
-              {showExport === 'link-copied' ? '已复制!' : '复制预览链接'}
-            </button>
-            <button
-              onClick={() => handleExport('tailwind')}
-              className="px-4 py-2 bg-gray-900 text-white text-sm font-medium rounded-lg hover:bg-gray-800 transition-colors"
-            >
-              {showExport === 'tailwind' ? '已下载!' : '导出 Tailwind'}
-            </button>
-            <button
-              onClick={() => handleExport('prompt')}
-              className="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition-colors"
-            >
-              {showExport === 'prompt' ? '已下载!' : '导出 AI提示词'}
-            </button>
-            <button
-              onClick={copyPrompt}
-              className="px-4 py-2 bg-white border border-gray-200 text-gray-700 text-sm font-medium rounded-lg hover:border-gray-900 transition-colors"
-            >
-              {showExport === 'copied' ? '已复制!' : '复制提示词'}
-            </button>
+          <div className="h-6 w-px bg-gray-200" />
+          <div className="flex items-center gap-2 text-sm">
+            <span className="text-gray-500">设备:</span>
+            <span className="font-medium text-gray-900">{urlConfig.device === 'desktop' ? 'PC端' : '移动端'}</span>
           </div>
         </div>
-      </nav>
-  
-      <div className="max-w-7xl mx-auto px-6 py-6">
-        <div className="grid grid-cols-12 gap-6">
-          {/* 左侧配置面板 */}
-          <div className="col-span-4 space-y-4">
-            <SceneSelector
-              selectedScene={urlConfig.scene || 'food'}
-              selectedDevice={urlConfig.device || 'mobile'}
-              selectedTemplate={urlConfig.template || 'result'}
-              onSceneChange={handleSceneChange}
-              onDeviceChange={handleDeviceChange}
-              onTemplateChange={() => {}}
-            />
-            {templates.length > 0 && (
-              <TemplateSelector
-                templates={templates}
-                selectedTemplate={currentTemplate?.type || null}
-                onTemplateChange={handleTemplateChange}
+        
+        <div className="flex items-center gap-2">
+          <button
+            onClick={copyPreviewLink}
+            className="px-3 py-1.5 bg-white border border-gray-200 text-gray-700 text-sm font-medium rounded-md hover:border-gray-900 transition-colors"
+          >
+            {showExport === 'link-copied' ? '✓ 已复制' : '复制链接'}
+          </button>
+          <button
+            onClick={copyPrompt}
+            className="px-3 py-1.5 bg-white border border-gray-200 text-gray-700 text-sm font-medium rounded-md hover:border-gray-900 transition-colors"
+          >
+            {showExport === 'copied' ? '✓ 已复制' : '复制提示词'}
+          </button>
+          <button
+            onClick={() => handleExport('tailwind')}
+            className="px-3 py-1.5 bg-gray-900 text-white text-sm font-medium rounded-md hover:bg-gray-800 transition-colors"
+          >
+            {showExport === 'tailwind' ? '✓ 已下载' : '导出 Tailwind'}
+          </button>
+          <button
+            onClick={() => handleExport('prompt')}
+            className="px-3 py-1.5 bg-indigo-600 text-white text-sm font-medium rounded-md hover:bg-indigo-700 transition-colors"
+          >
+            {showExport === 'prompt' ? '✓ 已下载' : '导出 AI提示词'}
+          </button>
+        </div>
+      </header>
+
+      {/* 主体区域 */}
+      <div className="flex-1 flex overflow-hidden">
+        {/* 左侧导航 - 场景与模板 */}
+        <aside className="w-64 bg-white border-r border-gray-200 overflow-y-auto shrink-0">
+          <div className="p-4 space-y-4">
+            <div>
+              <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">场景选择</h3>
+              <SceneSelector
+                selectedScene={urlConfig.scene || 'food'}
+                selectedDevice={urlConfig.device || 'mobile'}
+                selectedTemplate={urlConfig.template || 'result'}
+                onSceneChange={handleSceneChange}
+                onDeviceChange={handleDeviceChange}
+                onTemplateChange={() => {}}
               />
-            )}
-            <StyleConfigurator config={config} onChange={setConfig} />
-          </div>
-      
-          {/* 右侧预览 */}
-          <div className="col-span-8 flex justify-center sticky top-24">
-            {urlConfig.device === 'desktop' ? (
-              <div className="w-full max-w-6xl h-[800px] bg-white rounded-lg shadow-2xl overflow-hidden border border-gray-200">
-                <DesktopPreview config={config} />
-              </div>
-            ) : (
-              <div className="w-[375px] h-[812px] bg-white rounded-[40px] shadow-2xl overflow-hidden border-8 border-gray-900">
-                <MobilePreview 
-                  config={config} 
-                  pageType={currentTemplate?.type || 'result'}
+            </div>
+            
+            {templates.length > 0 && (
+              <div>
+                <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">模板选择</h3>
+                <TemplateSelector
+                  templates={templates}
+                  selectedTemplate={currentTemplate?.type || null}
+                  onTemplateChange={handleTemplateChange}
                 />
               </div>
             )}
           </div>
-        </div>
+        </aside>
+
+        {/* 中部预览 - 核心画布 */}
+        <main className="flex-1 bg-gray-100 overflow-auto flex items-center justify-center p-8">
+          {urlConfig.device === 'desktop' ? (
+            <div className="w-full max-w-5xl bg-white rounded-lg shadow-xl overflow-hidden border border-gray-200">
+              <DesktopPreview config={config} />
+            </div>
+          ) : (
+            <div className="w-[375px] h-[812px] bg-white rounded-[40px] shadow-2xl overflow-hidden border-8 border-gray-900">
+              <MobilePreview 
+                config={config} 
+                pageType={currentTemplate?.type || 'result'}
+              />
+            </div>
+          )}
+        </main>
+
+        {/* 右侧操作面板 - 8维配置 */}
+        <aside className="w-80 bg-white border-l border-gray-200 overflow-y-auto shrink-0">
+          <div className="p-4">
+            <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-4">样式配置</h3>
+            <StyleConfigurator config={config} onChange={setConfig} />
+          </div>
+        </aside>
       </div>
     </div>
   )
