@@ -77,6 +77,7 @@ export default function App() {
   }
 
   const handleTemplateChange = (template: TemplateConfig) => {
+    setCurrentTemplate(template)
     setConfig(template.defaultStyle)
     const params = new URLSearchParams()
     if (urlConfig.scene) params.set('scene', urlConfig.scene)
