@@ -1,11 +1,11 @@
 [
   {
     "id": "ecommerce-home-mobile",
-    "name": "商城首页-移动端",
+    "name": "B2C商城首页",
     "scene": "ecommerce",
     "device": "mobile",
     "type": "home",
-    "description": "电商商城移动端首页，展示商品推荐和促销活动",
+    "description": "B2C电商商城首页，包含搜索、轮播、分类导航、限时抢购、推荐商品等核心模块",
     "defaultStyle": {
       "backgroundColor": "#FFFFFF",
       "primaryColor": "#FF6B35",
@@ -21,65 +21,119 @@
       "regions": [
         {
           "id": "header",
-          "name": "顶部搜索",
+          "name": "顶部搜索栏",
           "type": "header",
           "height": "44px",
-          "components": ["search-bar", "scan-icon", "message-icon"]
+          "components": ["search-bar", "scan-icon", "message-icon"],
+          "description": "固定顶部搜索栏，包含搜索框、扫码图标、消息图标"
         },
         {
           "id": "banner",
-          "name": "活动轮播",
+          "name": "活动轮播图",
           "type": "content",
-          "components": ["promo-swiper", "dots"]
+          "height": "160px",
+          "components": ["promo-swiper", "indicator-dots", "promo-badge"],
+          "description": "全屏轮播图，展示促销活动，带指示器和促销标签"
         },
         {
-          "id": "categories",
+          "id": "notice-bar",
+          "name": "公告栏",
+          "type": "content",
+          "height": "32px",
+          "components": ["notice-icon", "scrolling-text"],
+          "description": "横向滚动公告，展示商城通知和活动信息"
+        },
+        {
+          "id": "category-nav",
           "name": "分类导航",
           "type": "content",
-          "components": ["category-grid"]
+          "height": "auto",
+          "components": ["category-grid", "category-icon", "category-label"],
+          "description": "2行5列分类图标网格，快速导航到各分类页面"
+        },
+        {
+          "id": "promo-cards",
+          "name": "营销卡片",
+          "type": "content",
+          "height": "auto",
+          "components": ["promo-card-left", "promo-card-right-top", "promo-card-right-bottom"],
+          "description": "1+2布局的营销卡片，展示优惠券、新人专享等活动"
         },
         {
           "id": "flash-sale",
           "name": "限时抢购",
           "type": "content",
-          "components": ["section-header", "countdown", "product-scroll"]
+          "height": "auto",
+          "components": ["section-header", "countdown-timer", "product-horizontal-scroll", "more-link"],
+          "description": "限时抢购专区，包含倒计时、横向滚动商品列表、查看更多"
+        },
+        {
+          "id": "brand-showcase",
+          "name": "品牌专区",
+          "type": "content",
+          "height": "auto",
+          "components": ["brand-header", "brand-logo-grid"],
+          "description": "品牌展示区，展示热门品牌Logo和优惠信息"
+        },
+        {
+          "id": "new-arrivals",
+          "name": "新品推荐",
+          "type": "content",
+          "height": "auto",
+          "components": ["section-header", "product-grid-2col", "new-badge"],
+          "description": "双列网格布局展示新品，带新品标签"
         },
         {
           "id": "recommendations",
-          "name": "为你推荐",
+          "name": "猜你喜欢",
           "type": "content",
-          "components": ["product-grid", "load-more"]
+          "height": "auto",
+          "components": ["section-header", "product-waterfall", "load-more-trigger"],
+          "description": "个性化推荐瀑布流，根据用户行为推荐商品，支持下拉加载更多"
         },
         {
           "id": "tabbar",
-          "name": "底部导航",
+          "name": "底部导航栏",
           "type": "footer",
           "height": "56px",
-          "components": ["tab-home", "tab-categories", "tab-cart", "tab-profile"]
+          "components": ["tab-home", "tab-categories", "tab-cart", "tab-profile"],
+          "description": "固定底部导航，包含首页、分类、购物车、我的四个Tab"
         }
       ]
     },
     "aiPrompt": {
-      "title": "电商商城首页（移动端）",
+      "title": "B2C电商商城首页（移动端）",
       "sections": [
         {
-          "heading": "## 页面结构",
-          "content": "顶部搜索栏、活动轮播图、分类导航网格、限时抢购专区、商品推荐瀑布流、底部Tab栏"
+          "heading": "## 页面概述",
+          "content": "典型的B2C电商移动端首页，采用瀑布流布局，整合搜索、营销、分类导航、个性化推荐等核心功能模块，提供流畅的购物体验。"
         },
         {
-          "heading": "## 组件要求",
-          "content": "1. 搜索栏：支持文字和扫码搜索\n2. 分类导航：10个分类图标\n3. 限时抢购：倒计时+横向滚动商品\n4. 商品卡片：图片+名称+价格+销量\n5. 底部Tab：首页、分类、购物车、我的"
+          "heading": "## 页面结构（从上到下）",
+          "content": "1. 顶部搜索栏（固定）\n2. 活动轮播图（160px高度）\n3. 滚动公告栏\n4. 分类导航网格（2行5列）\n5. 营销卡片（1+2布局）\n6. 限时抢购专区\n7. 品牌展示区\n8. 新品推荐（双列）\n9. 猜你喜欢（瀑布流）\n10. 底部导航栏（固定）"
+        },
+        {
+          "heading": "## 核心组件说明",
+          "content": "**搜索栏**：支持文字搜索、扫码搜索、消息通知\n**轮播图**：自动轮播+手动滑动，带指示器和促销标签\n**分类导航**：10个分类入口，2行5列网格布局\n**限时抢购**：实时倒计时+横向滚动商品卡片\n**商品卡片**：商品图、名称、价格（原价/现价）、销量、促销标签\n**瀑布流**：双列不等高布局，触底自动加载\n**底部导航**：4个Tab，带消息数提示"
+        },
+        {
+          "heading": "## 交互要求",
+          "content": "1. 搜索栏吸顶固定\n2. 轮播图支持手势滑动\n3. 公告栏文字自动滚动\n4. 限时抢购倒计时实时更新\n5. 商品卡片点击跳转详情\n6. 瀑布流触底自动加载\n7. 底部导航Tab切换"
+        },
+        {
+          "heading": "## 设计规范",
+          "content": "1. 卡片间距：8-12px\n2. 圆角：8-12px（根据配置）\n3. 阴影：轻阴影或边框\n4. 价格颜色：主题色\n5. 按钮样式：根据配置（渐变/纯色/描边）\n6. 整体风格：简洁、现代、留白充足"
         }
       ]
     }
   },
   {
     "id": "ecommerce-product-detail-mobile",
-    "name": "商品详情-移动端",
+    "name": "商品详情页",
     "scene": "ecommerce",
     "device": "mobile",
     "type": "detail",
-    "description": "电商商品详情页，展示商品信息和购买选项",
+    "description": "B2C电商商品详情页，包含图片轮播、价格信息、规格选择、详情图文、用户评价、购买操作等完整流程",
     "defaultStyle": {
       "backgroundColor": "#F9F8F4",
       "primaryColor": "#FF6B35",
@@ -155,11 +209,11 @@
   },
   {
     "id": "ecommerce-cart-mobile",
-    "name": "购物车-移动端",
+    "name": "购物车页",
     "scene": "ecommerce",
     "device": "mobile",
     "type": "list",
-    "description": "电商购物车页面，管理待结算商品",
+    "description": "B2C电商购物车页，包含商品列表、店铺分组、数量管理、价格汇总、结算等完整购物流程",
     "defaultStyle": {
       "backgroundColor": "#F5F7FA",
       "primaryColor": "#FF6B35",
@@ -211,68 +265,6 @@
         {
           "heading": "## 组件要求",
           "content": "1. 购物车项：商品图片、名称、规格、价格、数量加减\n2. 店铺分组：店铺名称+勾选\n3. 结算栏：全选、合计金额、结算按钮\n4. 编辑模式：批量删除、移入收藏"
-        }
-      ]
-    }
-  },
-  {
-    "id": "ecommerce-home-desktop",
-    "name": "商城首页-PC端",
-    "scene": "ecommerce",
-    "device": "desktop",
-    "type": "home",
-    "description": "电商商城PC端首页，展示分类导航和商品推荐",
-    "defaultStyle": {
-      "backgroundColor": "#FFFFFF",
-      "primaryColor": "#FF6B35",
-      "cornerRadius": "small",
-      "cardStyle": "border",
-      "titleBarStyle": "white-underline",
-      "switcherStyle": "underline",
-      "buttonStyle": "solid",
-      "badgeStyle": "rounded"
-    },
-    "layout": {
-      "type": "two-column",
-      "regions": [
-        {
-          "id": "header",
-          "name": "顶部导航",
-          "type": "header",
-          "height": "80px",
-          "components": ["logo", "search-bar", "cart-icon", "user-menu"]
-        },
-        {
-          "id": "category-nav",
-          "name": "分类导航",
-          "type": "header",
-          "height": "40px",
-          "components": ["category-menu", "promo-links"]
-        },
-        {
-          "id": "content",
-          "name": "主内容区",
-          "type": "content",
-          "components": ["banner-slider", "category-sidebar", "flash-sale", "product-grid"]
-        },
-        {
-          "id": "footer",
-          "name": "页脚",
-          "type": "footer",
-          "components": ["service-guarantee", "links", "copyright"]
-        }
-      ]
-    },
-    "aiPrompt": {
-      "title": "电商商城首页（PC端）",
-      "sections": [
-        {
-          "heading": "## 页面结构",
-          "content": "顶部导航栏（Logo+搜索+购物车+用户）、分类导航条、主内容区（轮播图+左侧分类+限时抢购+商品网格）、页脚"
-        },
-        {
-          "heading": "## 组件要求",
-          "content": "1. 搜索栏：支持关键词和分类筛选\n2. 分类侧边栏：多级分类展开\n3. 商品网格：4-5列布局\n4. 悬停效果：商品卡片hover显示快捷操作"
         }
       ]
     }
