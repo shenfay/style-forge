@@ -310,7 +310,14 @@ export default function App() {
             {activeSection === 'template' && (
               <div className="space-y-6">
                 <div>
-                  <h3 className="text-xs font-normal mb-3" style={{ color: '#999999' }}>场景</h3>
+                  <div className="pb-4 mb-6" style={{ borderBottom: '1px solid #E8E6E1' }}>
+                    <div className="flex items-center gap-3">
+                      <div className="flex items-center justify-center w-8 h-8 rounded-lg text-sm font-medium text-white" style={{ backgroundColor: '#1A1A1A' }}>
+                        01
+                      </div>
+                      <div className="text-base font-medium" style={{ color: '#1A1A1A' }}>场景选择</div>
+                    </div>
+                  </div>
                   <SceneSelector
                     selectedScene={urlConfig.scene || 'ecommerce'}
                     selectedDevice={urlConfig.device || 'desktop'}
@@ -323,7 +330,14 @@ export default function App() {
                 
                 {templates.length > 0 && (
                   <div>
-                    <h3 className="text-xs font-normal mb-3" style={{ color: '#999999' }}>模板</h3>
+                    <div className="pb-4 mb-6" style={{ borderBottom: '1px solid #E8E6E1' }}>
+                      <div className="flex items-center gap-3">
+                        <div className="flex items-center justify-center w-8 h-8 rounded-lg text-sm font-medium text-white" style={{ backgroundColor: '#1A1A1A' }}>
+                          02
+                        </div>
+                        <div className="text-base font-medium" style={{ color: '#1A1A1A' }}>模板选择</div>
+                      </div>
+                    </div>
                     <TemplateSelector
                       templates={templates}
                       selectedTemplate={currentTemplate?.type || null}
