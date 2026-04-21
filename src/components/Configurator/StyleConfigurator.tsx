@@ -4,7 +4,7 @@ import { getBorderRadius } from '../../utils/design-tokens'
 interface StyleConfiguratorProps {
   config: StyleConfig
   onChange: (config: StyleConfig) => void
-  activeSection?: 'scene' | 'colors' | 'shape' | 'components' | 'title'
+  activeSection?: 'colors' | 'shape' | 'spacing' | 'typography'
 }
 
 export function StyleConfigurator({ config, onChange, activeSection }: StyleConfiguratorProps) {
@@ -59,10 +59,10 @@ export function StyleConfigurator({ config, onChange, activeSection }: StyleConf
         return <ColorsSection />
       case 'shape':
         return <ShapeSection />
-      case 'components':
-        return <ComponentsSection />
-      case 'title':
-        return <TitleSection />
+      case 'spacing':
+        return <SpacingSection />
+      case 'typography':
+        return <TypographySection />
       default:
         return null
     }
@@ -124,7 +124,7 @@ export function StyleConfigurator({ config, onChange, activeSection }: StyleConf
     <div>
       <SectionHeader
         number="02"
-        title="形状与结构"
+        title="形状系统"
         subtitle="Shape"
         icon={
           <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -179,44 +179,6 @@ export function StyleConfigurator({ config, onChange, activeSection }: StyleConf
           </div>
         </ConfigItem>
 
-        <ConfigItem label="徽章样式" labelEn="Badge">
-          <div className="grid grid-cols-2 gap-2">
-            {[
-              { label: '圆角', value: 'rounded' },
-              { label: '文字', value: 'text-only' },
-            ].map((opt) => (
-              <button
-                key={opt.value}
-                onClick={() => updateConfig('badgeStyle', opt.value)}
-                className="px-3 py-2.5 text-sm rounded-lg transition-all font-normal"
-                style={{
-                  backgroundColor: config.badgeStyle === opt.value ? '#1A1A1A' : 'transparent',
-                  color: config.badgeStyle === opt.value ? '#FFFFFF' : '#4A4A4A',
-                  border: config.badgeStyle === opt.value ? 'none' : '1px solid #E8E6E1',
-                }}
-              >
-                {opt.label}
-              </button>
-            ))}
-          </div>
-        </ConfigItem>
-      </div>
-    </div>
-  )
-
-  const ComponentsSection = () => (
-    <div>
-      <SectionHeader
-        number="03"
-        title="组件风格"
-        subtitle="Component"
-        icon={
-          <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h7" />
-          </svg>
-        }
-      />
-      <div className="space-y-6">
         <ConfigItem label="按钮样式" labelEn="Button">
           <div className="grid grid-cols-3 gap-2">
             {[
@@ -311,12 +273,121 @@ export function StyleConfigurator({ config, onChange, activeSection }: StyleConf
     </div>
   )
 
-  const TitleSection = () => (
+
+  const SpacingSection = () => (
     <div>
       <SectionHeader
         number="04"
-        title="标题样式"
-        subtitle="Title"
+        title="间距系统"
+        subtitle="Spacing"
+        icon={
+          <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8V4m0 0h4M4 16v4m0 0h4m16-12V4m0 0h-4m4 12v4m0 0h-4" />
+          </svg>
+        }
+      />
+      <div className="space-y-6">
+        <ConfigItem label="内边距" labelEn="Padding">
+          <div className="grid grid-cols-3 gap-2">
+            {[
+              { label: '紧凑', value: 'compact' },
+              { label: '适中', value: 'medium' },
+              { label: '宽松', value: 'relaxed' },
+            ].map((opt) => (
+              <button
+                key={opt.value}
+                onClick={() => updateConfig('padding', opt.value)}
+                className="px-3 py-2.5 text-sm rounded-lg transition-all font-normal"
+                style={{
+                  backgroundColor: config.padding === opt.value ? '#1A1A1A' : 'transparent',
+                  color: config.padding === opt.value ? '#FFFFFF' : '#4A4A4A',
+                  border: config.padding === opt.value ? 'none' : '1px solid #E8E6E1',
+                }}
+              >
+                {opt.label}
+              </button>
+            ))}
+          </div>
+        </ConfigItem>
+
+        <ConfigItem label="卡片间距" labelEn="Card Gap">
+          <div className="grid grid-cols-3 gap-2">
+            {[
+              { label: '小', value: 'small' },
+              { label: '中', value: 'medium' },
+              { label: '大', value: 'large' },
+            ].map((opt) => (
+              <button
+                key={opt.value}
+                onClick={() => updateConfig('cardGap', opt.value)}
+                className="px-3 py-2.5 text-sm rounded-lg transition-all font-normal"
+                style={{
+                  backgroundColor: config.cardGap === opt.value ? '#1A1A1A' : 'transparent',
+                  color: config.cardGap === opt.value ? '#FFFFFF' : '#4A4A4A',
+                  border: config.cardGap === opt.value ? 'none' : '1px solid #E8E6E1',
+                }}
+              >
+                {opt.label}
+              </button>
+            ))}
+          </div>
+        </ConfigItem>
+
+        <ConfigItem label="区块间距" labelEn="Section Gap">
+          <div className="grid grid-cols-3 gap-2">
+            {[
+              { label: '小', value: 'small' },
+              { label: '中', value: 'medium' },
+              { label: '大', value: 'large' },
+            ].map((opt) => (
+              <button
+                key={opt.value}
+                onClick={() => updateConfig('sectionGap', opt.value)}
+                className="px-3 py-2.5 text-sm rounded-lg transition-all font-normal"
+                style={{
+                  backgroundColor: config.sectionGap === opt.value ? '#1A1A1A' : 'transparent',
+                  color: config.sectionGap === opt.value ? '#FFFFFF' : '#4A4A4A',
+                  border: config.sectionGap === opt.value ? 'none' : '1px solid #E8E6E1',
+                }}
+              >
+                {opt.label}
+              </button>
+            ))}
+          </div>
+        </ConfigItem>
+
+        <ConfigItem label="元素间距" labelEn="Element Gap">
+          <div className="grid grid-cols-3 gap-2">
+            {[
+              { label: '紧凑', value: 'compact' },
+              { label: '适中', value: 'medium' },
+              { label: '宽松', value: 'relaxed' },
+            ].map((opt) => (
+              <button
+                key={opt.value}
+                onClick={() => updateConfig('elementGap', opt.value)}
+                className="px-3 py-2.5 text-sm rounded-lg transition-all font-normal"
+                style={{
+                  backgroundColor: config.elementGap === opt.value ? '#1A1A1A' : 'transparent',
+                  color: config.elementGap === opt.value ? '#FFFFFF' : '#4A4A4A',
+                  border: config.elementGap === opt.value ? 'none' : '1px solid #E8E6E1',
+                }}
+              >
+                {opt.label}
+              </button>
+            ))}
+          </div>
+        </ConfigItem>
+      </div>
+    </div>
+  )
+
+  const TypographySection = () => (
+    <div>
+      <SectionHeader
+        number="05"
+        title="文字排版"
+        subtitle="Typography"
         icon={
           <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h7" />
@@ -324,7 +395,7 @@ export function StyleConfigurator({ config, onChange, activeSection }: StyleConf
         }
       />
       <div className="space-y-6">
-        <ConfigItem label="字体字重" labelEn="Weight">
+        <ConfigItem label="标题字重" labelEn="Weight">
           <div className="flex gap-2">
             {[
               { label: '常规', value: 'normal' },
@@ -348,7 +419,7 @@ export function StyleConfigurator({ config, onChange, activeSection }: StyleConf
           </div>
         </ConfigItem>
 
-        <ConfigItem label="位置对齐" labelEn="Align">
+        <ConfigItem label="标题装饰" labelEn="Accent">
           <div className="grid grid-cols-4 gap-2">
             {[
               { value: 'left-accent', icon: '◀', label: '左' },
@@ -373,7 +444,7 @@ export function StyleConfigurator({ config, onChange, activeSection }: StyleConf
           </div>
         </ConfigItem>
 
-        <ConfigItem label="字体大小" labelEn="Size">
+        <ConfigItem label="标题大小" labelEn="Size">
           <div className="grid grid-cols-3 gap-2">
             {[
               { label: '小', value: 'small' },
@@ -389,6 +460,53 @@ export function StyleConfigurator({ config, onChange, activeSection }: StyleConf
                   color: config.titleSize === opt.value ? '#FFFFFF' : '#4A4A4A',
                   border: config.titleSize === opt.value ? 'none' : '1px solid #E8E6E1',
                   fontSize: opt.value === 'small' ? '12px' : opt.value === 'large' ? '16px' : '14px',
+                }}
+              >
+                {opt.label}
+              </button>
+            ))}
+          </div>
+        </ConfigItem>
+
+        <ConfigItem label="正文字号" labelEn="Body Size">
+          <div className="grid grid-cols-3 gap-2">
+            {[
+              { label: '小', value: 'small' },
+              { label: '中', value: 'medium' },
+              { label: '大', value: 'large' },
+            ].map((opt) => (
+              <button
+                key={opt.value}
+                onClick={() => updateConfig('bodySize', opt.value)}
+                className="px-3 py-2.5 text-sm rounded-lg transition-all font-normal"
+                style={{
+                  backgroundColor: config.bodySize === opt.value ? '#1A1A1A' : 'transparent',
+                  color: config.bodySize === opt.value ? '#FFFFFF' : '#4A4A4A',
+                  border: config.bodySize === opt.value ? 'none' : '1px solid #E8E6E1',
+                  fontSize: opt.value === 'small' ? '12px' : opt.value === 'large' ? '16px' : '14px',
+                }}
+              >
+                {opt.label}
+              </button>
+            ))}
+          </div>
+        </ConfigItem>
+
+        <ConfigItem label="行高设置" labelEn="Line Height">
+          <div className="grid grid-cols-3 gap-2">
+            {[
+              { label: '紧凑', value: 'compact' },
+              { label: '适中', value: 'medium' },
+              { label: '宽松', value: 'relaxed' },
+            ].map((opt) => (
+              <button
+                key={opt.value}
+                onClick={() => updateConfig('lineHeight', opt.value)}
+                className="px-3 py-2.5 text-sm rounded-lg transition-all font-normal"
+                style={{
+                  backgroundColor: config.lineHeight === opt.value ? '#1A1A1A' : 'transparent',
+                  color: config.lineHeight === opt.value ? '#FFFFFF' : '#4A4A4A',
+                  border: config.lineHeight === opt.value ? 'none' : '1px solid #E8E6E1',
                 }}
               >
                 {opt.label}

@@ -12,14 +12,14 @@ import { generateTailwindConfig, generateCSSVariables } from './utils/tailwindGe
 import { generateAIPrompt } from './utils/promptGenerator'
 import type { SceneType, DeviceType, PageType } from './types/template'
 
-type ConfigSection = 'scene' | 'colors' | 'shape' | 'components' | 'title'
+type ConfigSection = 'template' | 'colors' | 'shape' | 'spacing' | 'typography'
 
 const menuItems: Array<{ id: ConfigSection; name: string; icon: string }> = [
-  { id: 'scene', name: '场景与模板', icon: '🛒' },
-  { id: 'colors', name: '色彩配置', icon: '🎨' },
-  { id: 'shape', name: '形状与结构', icon: '◻' },
-  { id: 'components', name: '组件风格', icon: '▦' },
-  { id: 'title', name: '标题样式', icon: 'T' },
+  { id: 'template', name: '模板选择', icon: '📋' },
+  { id: 'colors', name: '色彩系统', icon: '🎨' },
+  { id: 'shape', name: '形状系统', icon: '◻' },
+  { id: 'spacing', name: '间距系统', icon: '📏' },
+  { id: 'typography', name: '文字排版', icon: '📝' },
 ]
 
 export default function App() {
@@ -29,7 +29,7 @@ export default function App() {
   const [templates, setTemplates] = useState<TemplateConfig[]>([])
   const [currentTemplate, setCurrentTemplate] = useState<TemplateConfig | null>(null)
   const [showLeftPanel, setShowLeftPanel] = useState(true)
-  const [activeSection, setActiveSection] = useState<ConfigSection>('scene')
+  const [activeSection, setActiveSection] = useState<ConfigSection>('template')
 
   // 加载模板
   useEffect(() => {
@@ -306,8 +306,8 @@ export default function App() {
         {/* 右侧操作面板 - 属性配置 */}
         <aside className="w-80 overflow-y-auto shrink-0 bg-white" style={{ borderLeft: '1px solid #E8E6E1' }}>
           <div className="p-4">
-            {/* 场景与模板 */}
-            {activeSection === 'scene' && (
+            {/* 模板选择 */}
+            {activeSection === 'template' && (
               <div className="space-y-6">
                 <div>
                   <h3 className="text-xs font-normal mb-3" style={{ color: '#999999' }}>场景</h3>
@@ -335,11 +335,11 @@ export default function App() {
             )}
 
             {/* 样式配置 */}
-            {activeSection !== 'scene' && (
+            {activeSection !== 'template' && (
               <StyleConfigurator 
                 config={config} 
                 onChange={setConfig}
-                activeSection={activeSection}
+                activeSection={activeSection as 'colors' | 'shape' | 'spacing' | 'typography'}
               />
             )}
           </div>
