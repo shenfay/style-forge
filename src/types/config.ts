@@ -7,6 +7,11 @@ export interface StyleConfig {
   switcherStyle: 'underline' | 'pill' | 'capsule'
   buttonStyle: 'gradient' | 'solid' | 'wireframe'
   badgeStyle: 'rounded' | 'text-only'
+  // 标题样式配置
+  titleStyle: 'left-accent' | 'right-accent' | 'bottom-accent' | 'plain'
+  titleSize: 'small' | 'medium' | 'large'
+  titleWeight: 'normal' | 'medium' | 'bold'
+  titleColor: string
 }
 
 export interface PresetConfig {
@@ -31,6 +36,10 @@ export const defaultConfig: StyleConfig = {
   switcherStyle: 'underline',
   buttonStyle: 'solid',
   badgeStyle: 'rounded',
+  titleStyle: 'left-accent',
+  titleSize: 'medium',
+  titleWeight: 'bold',
+  titleColor: '#1A1A1A',
 }
 
 export const presets: PresetConfig[] = [
@@ -47,6 +56,10 @@ export const presets: PresetConfig[] = [
       switcherStyle: 'pill',
       buttonStyle: 'solid',
       badgeStyle: 'rounded',
+      titleStyle: 'left-accent',
+      titleSize: 'medium',
+      titleWeight: 'bold',
+      titleColor: '#1A1A1A',
     },
   },
   {
@@ -62,6 +75,10 @@ export const presets: PresetConfig[] = [
       switcherStyle: 'underline',
       buttonStyle: 'wireframe',
       badgeStyle: 'text-only',
+      titleStyle: 'plain',
+      titleSize: 'medium',
+      titleWeight: 'bold',
+      titleColor: '#000000',
     },
   },
   {
@@ -77,6 +94,10 @@ export const presets: PresetConfig[] = [
       switcherStyle: 'underline',
       buttonStyle: 'solid',
       badgeStyle: 'rounded',
+      titleStyle: 'left-accent',
+      titleSize: 'medium',
+      titleWeight: 'bold',
+      titleColor: '#1A1A1A',
     },
   },
   {
@@ -92,6 +113,10 @@ export const presets: PresetConfig[] = [
       switcherStyle: 'pill',
       buttonStyle: 'solid',
       badgeStyle: 'rounded',
+      titleStyle: 'left-accent',
+      titleSize: 'medium',
+      titleWeight: 'bold',
+      titleColor: '#1A1A1A',
     },
   },
   {
@@ -107,6 +132,10 @@ export const presets: PresetConfig[] = [
       switcherStyle: 'pill',
       buttonStyle: 'solid',
       badgeStyle: 'rounded',
+      titleStyle: 'plain',
+      titleSize: 'medium',
+      titleWeight: 'bold',
+      titleColor: '#000000',
     },
   },
   {
@@ -122,6 +151,10 @@ export const presets: PresetConfig[] = [
       switcherStyle: 'underline',
       buttonStyle: 'gradient',
       badgeStyle: 'rounded',
+      titleStyle: 'left-accent',
+      titleSize: 'medium',
+      titleWeight: 'bold',
+      titleColor: '#1A1A1A',
     },
   },
 ]

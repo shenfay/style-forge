@@ -1,4 +1,4 @@
-export type SceneType = 'universal' | 'ecommerce' | 'social' | 'media' | 'finance' | 'enterprise'
+export type SceneType = 'ecommerce'
 export type DeviceType = 'mobile' | 'desktop'
 export type PageType = 'home' | 'detail' | 'list' | 'form' | 'settings' | 'result' | 'profile' | 'messages'
 

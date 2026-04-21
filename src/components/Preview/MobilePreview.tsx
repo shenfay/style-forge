@@ -45,46 +45,116 @@ function HomePage({ config }: { config: StyleConfig }) {
       <NavBar config={config} title="首页" showSearch />
 
       {/* 内容区 */}
-      <div className="px-6 py-5 pb-24 space-y-4">
-        {/* Hero 卡片 */}
-        <Card config={config} interactive variant="gradient" className="p-5">
-          <div className="text-white text-[20px] font-bold mb-2" style={{ fontSize: fontSize['2xl'], fontWeight: fontWeight.bold }}>欢迎回来</div>
-          <div className="text-white/90 text-sm">探索更多精彩内容</div>
+      <div className="px-4 py-4 pb-24 space-y-4">
+        {/* 轮播Banner */}
+        <Card config={config} interactive variant="gradient" className="p-6 h-40 flex flex-col justify-center">
+          <div className="text-white text-[22px] font-bold mb-2" style={{ fontSize: fontSize['3xl'], fontWeight: fontWeight.bold }}>夏日特惠</div>
+          <div className="text-white/90 text-sm mb-3">精选好物低至5折</div>
+          <div className="text-white/80 text-xs">活动时间：4.20-4.30</div>
         </Card>
 
-        {/* 功能卡片 */}
-        <div className="grid grid-cols-2 gap-3">
-          {[  
-            { icon: '📊', title: '数据统计' },
-            { icon: '🎯', title: '精准推荐' },
-            { icon: '💬', title: '互动交流' },
-            { icon: '⚙️', title: '个性化设置' },
-          ].map((item, i) => (
-            <Card key={i} config={config} interactive className="p-4 text-center">
-              <div className="text-2xl mb-2">{item.icon}</div>
-              <div className="text-xs font-medium" style={{ color: colors.text.primary, fontSize: fontSize.xs, fontWeight: fontWeight.medium }}>{item.title}</div>
-            </Card>
-          ))}
+        {/* 快捷功能入口 */}
+        <div className="bg-white rounded-lg p-4" style={{ borderRadius: radius, boxShadow: shadows.sm }}>
+          <div className="grid grid-cols-4 gap-4">
+            {[
+              { icon: '🔥', label: '热门', color: '#FF6B35' },
+              { icon: '⭐', label: '推荐', color: '#FFB800' },
+              { icon: '🎁', label: '福利', color: '#FF4757' },
+              { icon: '💎', label: '会员', color: '#8B5CF6' },
+              { icon: '📱', label: '数码', color: '#3B82F6' },
+              { icon: '👗', label: '服饰', color: '#EC4899' },
+              { icon: '🏠', label: '家居', color: '#10B981' },
+              { icon: '🍔', label: '美食', color: '#F59E0B' },
+            ].map((item, i) => (
+              <div key={i} className="flex flex-col items-center gap-1">
+                <div className="w-12 h-12 rounded-full flex items-center justify-center text-xl" style={{ background: `${item.color}15` }}>
+                  {item.icon}
+                </div>
+                <span className="text-xs" style={{ color: colors.text.secondary, fontSize: fontSize.xs }}>{item.label}</span>
+              </div>
+            ))}
+          </div>
         </div>
 
-        {/* 推荐列表 */}
+        {/* 促销卡片 */}
+        <div className="grid grid-cols-2 gap-3">
+          <Card config={config} className="p-4 bg-gradient-to-br from-orange-50 to-red-50">
+            <div className="text-2xl mb-2">⚡</div>
+            <div className="text-sm font-bold text-orange-600">限时抢购</div>
+            <div className="text-xs text-orange-500 mt-1">距结束 02:15:30</div>
+          </Card>
+          <Card config={config} className="p-4 bg-gradient-to-br from-blue-50 to-purple-50">
+            <div className="text-2xl mb-2">🎉</div>
+            <div className="text-sm font-bold text-blue-600">新人专享</div>
+            <div className="text-xs text-blue-500 mt-1">首单立减20元</div>
+          </Card>
+        </div>
+
+        {/* 推荐商品 */}
         <div className="space-y-3">
-          <div className="text-[14px] font-semibold" style={{ color: colors.text.primary, fontSize: fontSize.lg, fontWeight: fontWeight.semibold }}>热门推荐</div>
-          {[
-            { title: '推荐内容一', desc: '这是推荐内容的描述文字' },
-            { title: '推荐内容二', desc: '这是推荐内容的描述文字' },
-            { title: '推荐内容三', desc: '这是推荐内容的描述文字' },
-          ].map((item, i) => (
-            <Card key={i} config={config} className="p-4">
-              <div className="text-sm font-medium mb-1" style={{ color: colors.text.primary, fontSize: fontSize.base, fontWeight: fontWeight.medium }}>{item.title}</div>
-              <div className="text-xs" style={{ color: colors.text.tertiary, fontSize: fontSize.xs }}>{item.desc}</div>
-            </Card>
-          ))}
+          <div className="flex justify-between items-center px-1">
+            {/* 标题样式 */}
+            <div className="relative" style={{
+              paddingLeft: config.titleStyle === 'left-accent' ? '12px' : '0',
+              paddingRight: config.titleStyle === 'right-accent' ? '12px' : '0',
+              paddingBottom: config.titleStyle === 'bottom-accent' ? '8px' : '0',
+            }}>
+              {/* 背景条 */}
+              {config.titleStyle === 'left-accent' && (
+                <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-5 rounded" style={{ background: config.primaryColor }} />
+              )}
+              {config.titleStyle === 'right-accent' && (
+                <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1 h-5 rounded" style={{ background: config.primaryColor }} />
+              )}
+              {config.titleStyle === 'bottom-accent' && (
+                <div className="absolute bottom-0 left-0 right-0 h-0.5 rounded" style={{ background: config.primaryColor }} />
+              )}
+              <div className="text-[15px] font-semibold" style={{ 
+                color: config.titleColor,
+                fontSize: config.titleSize === 'small' ? '14px' : config.titleSize === 'medium' ? '16px' : '18px',
+                fontWeight: config.titleWeight === 'normal' ? 400 : config.titleWeight === 'medium' ? 500 : 700,
+              }}>为你推荐</div>
+            </div>
+            <button className="text-xs" style={{ color: colors.text.tertiary }}>查看更多 ›</button>
+          </div>
+          
+          {/* 商品网格 */}
+          <div className="grid grid-cols-2 gap-3">
+            {[
+              { title: 'Apple iPhone 15 Pro', price: '¥7999', sales: '2.3万+', tag: '热卖' },
+              { title: 'Sony WH-1000XM5', price: '¥2499', sales: '8563', tag: '新品' },
+              { title: 'Nintendo Switch OLED', price: '¥2099', sales: '1.5万+', tag: '' },
+              { title: 'iPad Air 2024', price: '¥4799', sales: '6234', tag: '优惠' },
+            ].map((item, i) => (
+              <Card key={i} config={config} className="overflow-hidden">
+                <div className="aspect-square bg-gray-100 flex items-center justify-center text-4xl mb-3">
+                  📦
+                </div>
+                <div className="px-3 pb-3">
+                  <div className="text-sm font-medium mb-2 line-clamp-2" style={{ color: colors.text.primary, fontSize: fontSize.sm, fontWeight: fontWeight.medium }}>
+                    {item.title}
+                  </div>
+                  <div className="flex items-end justify-between">
+                    <div className="text-base font-bold" style={{ color: '#FF4757', fontSize: fontSize.lg }}>{item.price}</div>
+                    <div className="text-xs" style={{ color: colors.text.tertiary }}>{item.sales}+人付款</div>
+                  </div>
+                  {item.tag && (
+                    <span className="inline-block mt-2 px-2 py-0.5 text-[10px] rounded" style={{
+                      background: withOpacity(config.primaryColor, 0.1),
+                      color: config.primaryColor,
+                    }}>
+                      {item.tag}
+                    </span>
+                  )}
+                </div>
+              </Card>
+            ))}
+          </div>
         </div>
       </div>
 
       {/* 底部导航 */}
-      <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-[375px] px-6 py-3" style={{ 
+      <div className="px-6 py-3" style={{ 
         background: '#FFFFFF',
         borderTop: '1px solid #E5E5E5',
       }}>
@@ -92,8 +162,8 @@ function HomePage({ config }: { config: StyleConfig }) {
           {[
             { icon: '🏠', label: '首页' },
             { icon: '🔍', label: '发现' },
-            { icon: '➕', label: '发布' },
-            { icon: '🔔', label: '通知' },
+            { icon: '🛒', label: '购物车' },
+            { icon: '💬', label: '消息' },
             { icon: '👤', label: '我的' },
           ].map((tab, i) => (
             <button key={i} className="flex flex-col items-center gap-1">
@@ -339,7 +409,7 @@ function ProfilePage({ config }: { config: StyleConfig }) {
       </div>
 
       {/* 底部导航 */}
-      <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-[375px] px-6 py-3" style={{ 
+      <div className="px-6 py-3" style={{ 
         background: '#FFFFFF',
         borderTop: '1px solid #E5E5E5',
       }}>
@@ -416,7 +486,7 @@ function MessagesPage({ config }: { config: StyleConfig }) {
       </div>
 
       {/* 底部导航 */}
-      <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-[375px] px-6 py-3" style={{ 
+      <div className="px-6 py-3" style={{ 
         background: '#FFFFFF',
         borderTop: '1px solid #E5E5E5',
       }}>
@@ -429,7 +499,7 @@ function MessagesPage({ config }: { config: StyleConfig }) {
           ].map((tab, i) => (
             <button key={i} className="flex flex-col items-center gap-1">
               <span className="text-lg">{tab.icon}</span>
-              <span className="text-[10px]" style={{ color: i === 2 ? config.primaryColor : '#999999' }}>{tab.label}</span>
+              <span className="text-[10px]" style={{ color: i === 3 ? config.primaryColor : '#999999' }}>{tab.label}</span>
             </button>
           ))}
         </div>

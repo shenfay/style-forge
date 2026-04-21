@@ -24,29 +24,30 @@ export function TemplateSelector({ templates, selectedTemplate, onTemplateChange
     )
   }
 
+  // 按页面类型去重，每个类型只保留一个模板
+  const uniqueTemplates = templates.reduce((acc, template) => {
+    if (!acc[template.type]) {
+      acc[template.type] = template
+    }
+    return acc
+  }, {} as Record<PageType, TemplateConfig>)
+
   return (
     <div className="space-y-1">
-      {templates.map((template) => (
+      {Object.values(uniqueTemplates).map((template) => (
         <button
-          key={template.id}
+          key={template.type}
           onClick={() => onTemplateChange(template)}
-          className={`w-full flex items-center gap-2 px-3 py-2 rounded-md transition-all text-left ${
-            selectedTemplate === template.type
-              ? 'bg-blue-50 text-blue-600'
-              : 'text-gray-700 hover:bg-gray-50'
-          }`}
+          className="w-full flex items-center gap-2 transition-all text-left rounded-lg"
+          style={{
+            padding: '10px 12px',
+            backgroundColor: selectedTemplate === template.type ? '#ECEAE5' : 'transparent',
+            color: selectedTemplate === template.type ? '#1A1A1A' : '#4A4A4A',
+          }}
         >
           <div className="flex-1 min-w-0">
-            <div className="text-sm font-medium">{template.name}</div>
-            <div className="text-xs text-gray-500 truncate">{template.description}</div>
+            <div className="text-sm font-normal">{pageTypeLabels[template.type]}</div>
           </div>
-          <span className={`text-xs px-2 py-0.5 rounded ${
-            selectedTemplate === template.type
-              ? 'bg-blue-100 text-blue-600'
-              : 'bg-gray-100 text-gray-600'
-          }`}>
-            {pageTypeLabels[template.type]}
-          </span>
         </button>
       ))}
     </div>
