@@ -12,6 +12,16 @@ import { generateTailwindConfig, generateCSSVariables } from './utils/tailwindGe
 import { generateAIPrompt } from './utils/promptGenerator'
 import type { SceneType, DeviceType, PageType } from './types/template'
 
+type ConfigSection = 'scene' | 'colors' | 'shape' | 'components' | 'title'
+
+const menuItems: Array<{ id: ConfigSection; name: string; icon: string }> = [
+  { id: 'scene', name: '场景与模板', icon: '🛒' },
+  { id: 'colors', name: '色彩配置', icon: '🎨' },
+  { id: 'shape', name: '形状与结构', icon: '◻' },
+  { id: 'components', name: '组件风格', icon: '▦' },
+  { id: 'title', name: '标题样式', icon: 'T' },
+]
+
 export default function App() {
   const [urlConfig] = useUrlConfig()
   const [config, setConfig] = useState<StyleConfig>(defaultConfig)
@@ -19,6 +29,7 @@ export default function App() {
   const [templates, setTemplates] = useState<TemplateConfig[]>([])
   const [currentTemplate, setCurrentTemplate] = useState<TemplateConfig | null>(null)
   const [showLeftPanel, setShowLeftPanel] = useState(true)
+  const [activeSection, setActiveSection] = useState<ConfigSection>('scene')
 
   // 加载模板
   useEffect(() => {
@@ -202,32 +213,29 @@ export default function App() {
           </button>
         )}
 
-        {/* 左侧导航 - 层级结构 */}
-        <aside className={`${showLeftPanel ? 'w-60' : 'w-0'} overflow-y-auto shrink-0 transition-all duration-300`} style={{ backgroundColor: '#F5F3EF', borderRight: '1px solid #E8E6E1' }}>
-          <div className="p-3 min-w-[240px]">
-            {/* 场景选择 */}
-            <div className="mb-6">
-              <h3 className="text-xs font-normal mb-3" style={{ color: '#999999' }}>场景</h3>
-              <SceneSelector
-                selectedScene={urlConfig.scene || 'ecommerce'}
-                selectedDevice={urlConfig.device || 'desktop'}
-                selectedTemplate={urlConfig.template || 'home'}
-                onSceneChange={handleSceneChange}
-                onDeviceChange={handleDeviceChange}
-                onTemplateChange={() => {}}
-              />
+        {/* 左侧导航 - 配置菜单 */}
+        <aside className={`${showLeftPanel ? 'w-56' : 'w-0'} overflow-y-auto shrink-0 transition-all duration-300`} style={{ backgroundColor: '#F5F3EF', borderRight: '1px solid #E8E6E1' }}>
+          <div className="p-3 min-w-[224px]">
+            {/* 配置菜单 */}
+            <div className="space-y-1">
+              {menuItems.map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => setActiveSection(item.id)}
+                  className="w-full flex items-center gap-2 transition-all text-left rounded-lg"
+                  style={{
+                    padding: '10px 12px',
+                    backgroundColor: activeSection === item.id ? '#ECEAE5' : 'transparent',
+                    color: activeSection === item.id ? '#1A1A1A' : '#4A4A4A',
+                  }}
+                >
+                  <span className="text-base">{item.icon}</span>
+                  <div className="flex-1 min-w-0">
+                    <div className="text-sm font-normal">{item.name}</div>
+                  </div>
+                </button>
+              ))}
             </div>
-            
-            {templates.length > 0 && (
-              <div>
-                <h3 className="text-xs font-normal mb-3" style={{ color: '#999999' }}>模板</h3>
-                <TemplateSelector
-                  templates={templates}
-                  selectedTemplate={currentTemplate?.type || null}
-                  onTemplateChange={handleTemplateChange}
-                />
-              </div>
-            )}
           </div>
         </aside>
 
@@ -298,8 +306,42 @@ export default function App() {
         {/* 右侧操作面板 - 属性配置 */}
         <aside className="w-80 overflow-y-auto shrink-0 bg-white" style={{ borderLeft: '1px solid #E8E6E1' }}>
           <div className="p-4">
-            <h3 className="text-xs font-normal mb-4" style={{ color: '#999999' }}>属性面板</h3>
-            <StyleConfigurator config={config} onChange={setConfig} />
+            {/* 场景与模板 */}
+            {activeSection === 'scene' && (
+              <div className="space-y-6">
+                <div>
+                  <h3 className="text-xs font-normal mb-3" style={{ color: '#999999' }}>场景</h3>
+                  <SceneSelector
+                    selectedScene={urlConfig.scene || 'ecommerce'}
+                    selectedDevice={urlConfig.device || 'desktop'}
+                    selectedTemplate={urlConfig.template || 'home'}
+                    onSceneChange={handleSceneChange}
+                    onDeviceChange={handleDeviceChange}
+                    onTemplateChange={() => {}}
+                  />
+                </div>
+                
+                {templates.length > 0 && (
+                  <div>
+                    <h3 className="text-xs font-normal mb-3" style={{ color: '#999999' }}>模板</h3>
+                    <TemplateSelector
+                      templates={templates}
+                      selectedTemplate={currentTemplate?.type || null}
+                      onTemplateChange={handleTemplateChange}
+                    />
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* 样式配置 */}
+            {activeSection !== 'scene' && (
+              <StyleConfigurator 
+                config={config} 
+                onChange={setConfig}
+                activeSection={activeSection}
+              />
+            )}
           </div>
         </aside>
       </div>

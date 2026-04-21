@@ -5,9 +5,10 @@ import { useState } from 'react'
 interface StyleConfiguratorProps {
   config: StyleConfig
   onChange: (config: StyleConfig) => void
+  activeSection?: 'scene' | 'colors' | 'shape' | 'components' | 'title'
 }
 
-export function StyleConfigurator({ config, onChange }: StyleConfiguratorProps) {
+export function StyleConfigurator({ config, onChange, activeSection }: StyleConfiguratorProps) {
   const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({
     colors: true,
     shape: true,
@@ -26,6 +27,12 @@ export function StyleConfigurator({ config, onChange }: StyleConfiguratorProps) 
     onChange({ ...config, [key]: value })
   }
 
+  // 判断是否应该显示该区块
+  const shouldShowSection = (sectionId: string) => {
+    if (!activeSection) return true
+    return activeSection === sectionId
+  }
+
   const SectionHeader = ({ id, number, title, subtitle, icon }: { 
     id: string 
     number: string 
@@ -35,9 +42,9 @@ export function StyleConfigurator({ config, onChange }: StyleConfiguratorProps) 
   }) => (
     <div className="pb-4 mb-4" style={{ borderBottom: '1px solid #E8E6E1' }}>
       <button
-        onClick={() => toggleSection(id)}
+        onClick={() => !activeSection && toggleSection(id)}
         className="w-full flex items-center justify-between group transition-colors rounded-lg"
-        style={{ padding: '10px 12px' }}
+        style={{ padding: '10px 12px', cursor: activeSection ? 'default' : 'pointer' }}
       >
         <div className="flex items-center gap-3">
           <div className="flex items-center justify-center w-6 h-6 rounded text-xs font-normal text-white" style={{ backgroundColor: '#1A1A1A' }}>
@@ -50,14 +57,16 @@ export function StyleConfigurator({ config, onChange }: StyleConfiguratorProps) 
         </div>
         <div className="flex items-center gap-2">
           {icon}
-          <svg
-            className={`w-5 h-5 text-gray-400 transition-transform ${expandedSections[id] ? 'rotate-180' : ''}`}
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-          </svg>
+          {!activeSection && (
+            <svg
+              className={`w-5 h-5 text-gray-400 transition-transform ${expandedSections[id] ? 'rotate-180' : ''}`}
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            </svg>
+          )}
         </div>
       </button>
     </div>
@@ -66,6 +75,7 @@ export function StyleConfigurator({ config, onChange }: StyleConfiguratorProps) 
   return (
     <div className="space-y-6">
       {/* 色彩配置 */}
+      {shouldShowSection('colors') && (
       <div>
         <SectionHeader
           id="colors"
@@ -78,7 +88,7 @@ export function StyleConfigurator({ config, onChange }: StyleConfiguratorProps) 
             </svg>
           }
         />
-        {expandedSections.colors && (
+        {(expandedSections.colors || activeSection === 'colors') && (
           <div className="space-y-4">
           {/* 主题色 */}
           <div className="flex items-center justify-between" style={{ padding: '10px 0' }}>
@@ -116,8 +126,10 @@ export function StyleConfigurator({ config, onChange }: StyleConfiguratorProps) 
           </div>
         )}
       </div>
+      )}
 
       {/* 形状与结构 */}
+      {shouldShowSection('shape') && (
       <div>
         <SectionHeader
           id="shape"
@@ -130,7 +142,7 @@ export function StyleConfigurator({ config, onChange }: StyleConfiguratorProps) 
             </svg>
           }
         />
-        {expandedSections.shape && (
+        {(expandedSections.shape || activeSection === 'shape') && (
           <div className="space-y-4">
           {/* 圆角 - 使用滑块 */}
           <div style={{ padding: '10px 0' }}>
@@ -185,8 +197,10 @@ export function StyleConfigurator({ config, onChange }: StyleConfiguratorProps) 
           </div>
         )}
       </div>
+      )}
 
       {/* 组件样式 */}
+      {shouldShowSection('components') && (
       <div>
         <SectionHeader
           id="components"
@@ -252,8 +266,10 @@ export function StyleConfigurator({ config, onChange }: StyleConfiguratorProps) 
           </div>
         )}
       </div>
+      )}
 
       {/* 标题样式 */}
+      {shouldShowSection('title') && (
       <div>
         <SectionHeader
           id="title"
@@ -366,6 +382,7 @@ export function StyleConfigurator({ config, onChange }: StyleConfiguratorProps) 
           </div>
         )}
       </div>
+      )}
     </div>
   )
 }
