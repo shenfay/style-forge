@@ -12,22 +12,18 @@ export function StyleConfigurator({ config, onChange, activeSection }: StyleConf
     onChange({ ...config, [key]: value })
   }
 
-  const SectionHeader = ({ number, title, subtitle, icon }: { 
+  const SectionHeader = ({ number, title, icon }: { 
     number: string 
     title: string 
-    subtitle?: string
     icon: React.ReactNode 
   }) => (
     <div className="pb-4 mb-6" style={{ borderBottom: '1px solid #E8E6E1' }}>
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="flex items-center justify-center w-6 h-6 rounded text-xs font-normal text-white" style={{ backgroundColor: '#1A1A1A' }}>
+          <div className="flex items-center justify-center w-8 h-8 rounded-lg text-sm font-medium text-white" style={{ backgroundColor: '#1A1A1A' }}>
             {number}
           </div>
-          <div className="text-left">
-            <div className="text-sm font-normal" style={{ color: '#1A1A1A' }}>{title}</div>
-            {subtitle && <div className="text-xs mt-0.5" style={{ color: '#999999' }}>{subtitle}</div>}
-          </div>
+          <div className="text-base font-medium" style={{ color: '#1A1A1A' }}>{title}</div>
         </div>
         <div className="flex items-center gap-2">
           {icon}
@@ -36,17 +32,13 @@ export function StyleConfigurator({ config, onChange, activeSection }: StyleConf
     </div>
   )
 
-  const ConfigItem = ({ label, labelEn, children }: { 
-    label: string 
-    labelEn?: string
+  const ConfigItem = ({ label, children }: { 
+    label: string
     children: React.ReactNode 
   }) => (
     <div className="space-y-3">
-      <div>
-        <div className="text-sm font-normal" style={{ color: '#4A4A4A' }}>
-          {label}
-          {labelEn && <span className="ml-1" style={{ color: '#999999' }}>({labelEn})</span>}
-        </div>
+      <div className="text-sm font-normal" style={{ color: '#4A4A4A' }}>
+        {label}
       </div>
       {children}
     </div>
@@ -72,8 +64,7 @@ export function StyleConfigurator({ config, onChange, activeSection }: StyleConf
     <div>
       <SectionHeader
         number="01"
-        title="色彩配置"
-        subtitle="Colors"
+        title="色彩系统"
         icon={
           <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
@@ -81,7 +72,7 @@ export function StyleConfigurator({ config, onChange, activeSection }: StyleConf
         }
       />
       <div className="space-y-6">
-        <ConfigItem label="主色" labelEn="Primary">
+        <ConfigItem label="主色">
           <div className="flex items-center gap-3">
             <span className="text-sm font-mono flex-1" style={{ color: '#999999' }}>{config.primaryColor}</span>
             <input
@@ -93,7 +84,7 @@ export function StyleConfigurator({ config, onChange, activeSection }: StyleConf
           </div>
         </ConfigItem>
 
-        <ConfigItem label="背景色" labelEn="Background">
+        <ConfigItem label="背景色">
           <div className="flex items-center gap-3">
             <span className="text-sm font-mono flex-1" style={{ color: '#999999' }}>{config.backgroundColor}</span>
             <input
@@ -105,7 +96,7 @@ export function StyleConfigurator({ config, onChange, activeSection }: StyleConf
           </div>
         </ConfigItem>
 
-        <ConfigItem label="标题颜色" labelEn="Title">
+        <ConfigItem label="标题颜色">
           <div className="flex items-center gap-3">
             <span className="text-sm font-mono flex-1" style={{ color: '#999999' }}>{config.titleColor}</span>
             <input
@@ -125,7 +116,6 @@ export function StyleConfigurator({ config, onChange, activeSection }: StyleConf
       <SectionHeader
         number="02"
         title="形状系统"
-        subtitle="Shape"
         icon={
           <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
@@ -133,7 +123,7 @@ export function StyleConfigurator({ config, onChange, activeSection }: StyleConf
         }
       />
       <div className="space-y-6">
-        <ConfigItem label="圆角半径" labelEn="Radius">
+        <ConfigItem label="圆角半径">
           <div className="grid grid-cols-3 gap-2">
             {[
               { label: '小', value: 'small' },
@@ -156,7 +146,7 @@ export function StyleConfigurator({ config, onChange, activeSection }: StyleConf
           </div>
         </ConfigItem>
 
-        <ConfigItem label="卡片样式" labelEn="Card">
+        <ConfigItem label="卡片样式">
           <div className="grid grid-cols-3 gap-2">
             {[
               { label: '边框', value: 'border' },
@@ -179,7 +169,7 @@ export function StyleConfigurator({ config, onChange, activeSection }: StyleConf
           </div>
         </ConfigItem>
 
-        <ConfigItem label="按钮样式" labelEn="Button">
+        <ConfigItem label="按钮样式">
           <div className="grid grid-cols-3 gap-2">
             {[
               { label: '渐变', value: 'gradient' },
@@ -202,7 +192,7 @@ export function StyleConfigurator({ config, onChange, activeSection }: StyleConf
           </div>
         </ConfigItem>
 
-        <ConfigItem label="标签样式" labelEn="Badge">
+        <ConfigItem label="标签样式">
           <div className="grid grid-cols-2 gap-2">
             {[
               { label: '圆角', value: 'rounded' },
@@ -224,7 +214,7 @@ export function StyleConfigurator({ config, onChange, activeSection }: StyleConf
           </div>
         </ConfigItem>
 
-        <ConfigItem label="标题栏样式" labelEn="Title Bar">
+        <ConfigItem label="标题栏样式">
           <div className="grid grid-cols-3 gap-2">
             {[
               { label: '下划线', value: 'white-underline' },
@@ -247,7 +237,7 @@ export function StyleConfigurator({ config, onChange, activeSection }: StyleConf
           </div>
         </ConfigItem>
 
-        <ConfigItem label="切换器样式" labelEn="Switcher">
+        <ConfigItem label="切换器样式">
           <div className="grid grid-cols-3 gap-2">
             {[
               { label: '下划线', value: 'underline' },
@@ -277,9 +267,8 @@ export function StyleConfigurator({ config, onChange, activeSection }: StyleConf
   const SpacingSection = () => (
     <div>
       <SectionHeader
-        number="04"
+        number="03"
         title="间距系统"
-        subtitle="Spacing"
         icon={
           <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8V4m0 0h4M4 16v4m0 0h4m16-12V4m0 0h-4m4 12v4m0 0h-4" />
@@ -287,7 +276,7 @@ export function StyleConfigurator({ config, onChange, activeSection }: StyleConf
         }
       />
       <div className="space-y-6">
-        <ConfigItem label="内边距" labelEn="Padding">
+        <ConfigItem label="内边距">
           <div className="grid grid-cols-3 gap-2">
             {[
               { label: '紧凑', value: 'compact' },
@@ -310,7 +299,7 @@ export function StyleConfigurator({ config, onChange, activeSection }: StyleConf
           </div>
         </ConfigItem>
 
-        <ConfigItem label="卡片间距" labelEn="Card Gap">
+        <ConfigItem label="卡片间距">
           <div className="grid grid-cols-3 gap-2">
             {[
               { label: '小', value: 'small' },
@@ -333,7 +322,7 @@ export function StyleConfigurator({ config, onChange, activeSection }: StyleConf
           </div>
         </ConfigItem>
 
-        <ConfigItem label="区块间距" labelEn="Section Gap">
+        <ConfigItem label="区块间距">
           <div className="grid grid-cols-3 gap-2">
             {[
               { label: '小', value: 'small' },
@@ -356,7 +345,7 @@ export function StyleConfigurator({ config, onChange, activeSection }: StyleConf
           </div>
         </ConfigItem>
 
-        <ConfigItem label="元素间距" labelEn="Element Gap">
+        <ConfigItem label="元素间距">
           <div className="grid grid-cols-3 gap-2">
             {[
               { label: '紧凑', value: 'compact' },
@@ -385,9 +374,8 @@ export function StyleConfigurator({ config, onChange, activeSection }: StyleConf
   const TypographySection = () => (
     <div>
       <SectionHeader
-        number="05"
+        number="04"
         title="文字排版"
-        subtitle="Typography"
         icon={
           <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h7" />
@@ -395,7 +383,7 @@ export function StyleConfigurator({ config, onChange, activeSection }: StyleConf
         }
       />
       <div className="space-y-6">
-        <ConfigItem label="标题字重" labelEn="Weight">
+        <ConfigItem label="标题字重">
           <div className="flex gap-2">
             {[
               { label: '常规', value: 'normal' },
@@ -419,7 +407,7 @@ export function StyleConfigurator({ config, onChange, activeSection }: StyleConf
           </div>
         </ConfigItem>
 
-        <ConfigItem label="标题装饰" labelEn="Accent">
+        <ConfigItem label="标题装饰">
           <div className="grid grid-cols-4 gap-2">
             {[
               { value: 'left-accent', icon: '◀', label: '左' },
@@ -444,7 +432,7 @@ export function StyleConfigurator({ config, onChange, activeSection }: StyleConf
           </div>
         </ConfigItem>
 
-        <ConfigItem label="标题大小" labelEn="Size">
+        <ConfigItem label="标题大小">
           <div className="grid grid-cols-3 gap-2">
             {[
               { label: '小', value: 'small' },
@@ -468,7 +456,7 @@ export function StyleConfigurator({ config, onChange, activeSection }: StyleConf
           </div>
         </ConfigItem>
 
-        <ConfigItem label="正文字号" labelEn="Body Size">
+        <ConfigItem label="正文字号">
           <div className="grid grid-cols-3 gap-2">
             {[
               { label: '小', value: 'small' },
@@ -492,7 +480,7 @@ export function StyleConfigurator({ config, onChange, activeSection }: StyleConf
           </div>
         </ConfigItem>
 
-        <ConfigItem label="行高设置" labelEn="Line Height">
+        <ConfigItem label="行高设置">
           <div className="grid grid-cols-3 gap-2">
             {[
               { label: '紧凑', value: 'compact' },
