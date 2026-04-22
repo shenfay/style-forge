@@ -4,7 +4,7 @@ import { StatusBar } from '../UI/StatusBar'
 import { NavBar } from '../UI/NavBar'
 import { Card } from '../UI/Card'
 import { Placeholder } from './Placeholder'
-import { colors, fontSize, fontWeight, getBorderRadius, shadows, createGradient, withOpacity } from '../../utils/design-tokens'
+import { colors, fontSize, fontWeight, getBorderRadius, shadows, createGradient, withOpacity, generateComponentTokens } from '../../utils/design-tokens'
 
 interface MobilePreviewProps {
   config: StyleConfig
@@ -39,6 +39,7 @@ export function MobilePreview({ config, pageType }: MobilePreviewProps) {
 
 // 首页模板
 function HomePage({ config }: { config: StyleConfig }) {
+  const tokens = generateComponentTokens(config)
   const radius = getBorderRadius(config.cornerRadius as 'small' | 'medium' | 'large')
   
   return (
@@ -146,9 +147,36 @@ function HomePage({ config }: { config: StyleConfig }) {
         {/* 6. 限时抢购 */}
         <div className="bg-white p-3" style={{ borderRadius: radius, boxShadow: shadows.sm }}>
           <div className="flex items-center justify-between mb-3">
-            <div className="flex items-center gap-2">
-              <div className="text-sm font-bold" style={{ color: '#FF4757' }}>限时抢购</div>
-              <div className="flex gap-1">
+            <div className="relative" style={{
+              paddingLeft: config.titleStyle === 'left-accent' ? '12px' : '0',
+              paddingRight: config.titleStyle === 'right-accent' ? '12px' : '0',
+              paddingBottom: config.titleStyle === 'bottom-accent' ? '8px' : '0',
+            }}>
+              {config.titleStyle === 'left-accent' && (
+                <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-4" style={{
+                  backgroundColor: tokens.colors.primary,
+                  borderRadius: '2px',
+                }} />
+              )}
+              {config.titleStyle === 'right-accent' && (
+                <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1 h-4" style={{
+                  backgroundColor: tokens.colors.primary,
+                  borderRadius: '2px',
+                }} />
+              )}
+              {config.titleStyle === 'bottom-accent' && (
+                <div className="absolute bottom-0 left-0 w-8 h-1" style={{
+                  backgroundColor: tokens.colors.primary,
+                  borderRadius: '2px',
+                }} />
+              )}
+              <div className="text-sm font-bold" style={{ 
+                color: tokens.sectionHeader.titleColor,
+                fontSize: tokens.sectionHeader.titleSize,
+                fontWeight: tokens.sectionHeader.titleWeight,
+              }}>限时抢购</div>
+            </div>
+            <div className="flex gap-1">
                 {['02', '15', '30'].map((t, i) => (
                   <div key={i} className="px-1.5 py-0.5 text-xs text-white" style={{
                     borderRadius: 4,
@@ -173,7 +201,35 @@ function HomePage({ config }: { config: StyleConfig }) {
         {/* 7. 品牌专区 */}
         <div className="bg-white p-3" style={{ borderRadius: radius, boxShadow: shadows.sm }}>
           <div className="flex items-center justify-between mb-3">
-            <div className="text-sm font-bold" style={{ color: colors.text.primary }}>品牌专区</div>
+            <div className="relative" style={{
+              paddingLeft: config.titleStyle === 'left-accent' ? '12px' : '0',
+              paddingRight: config.titleStyle === 'right-accent' ? '12px' : '0',
+              paddingBottom: config.titleStyle === 'bottom-accent' ? '8px' : '0',
+            }}>
+              {config.titleStyle === 'left-accent' && (
+                <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-4" style={{
+                  backgroundColor: tokens.colors.primary,
+                  borderRadius: '2px',
+                }} />
+              )}
+              {config.titleStyle === 'right-accent' && (
+                <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1 h-4" style={{
+                  backgroundColor: tokens.colors.primary,
+                  borderRadius: '2px',
+                }} />
+              )}
+              {config.titleStyle === 'bottom-accent' && (
+                <div className="absolute bottom-0 left-0 w-8 h-1" style={{
+                  backgroundColor: tokens.colors.primary,
+                  borderRadius: '2px',
+                }} />
+              )}
+              <div className="text-sm font-bold" style={{ 
+                color: tokens.sectionHeader.titleColor,
+                fontSize: tokens.sectionHeader.titleSize,
+                fontWeight: tokens.sectionHeader.titleWeight,
+              }}>品牌专区</div>
+            </div>
             <button className="text-xs" style={{ color: colors.text.tertiary }}>查看更多 ›</button>
           </div>
           <div className="grid grid-cols-4 gap-2">

@@ -110,3 +110,62 @@ export function withOpacity(color: string, opacity: number): string {
 export function createGradient(color: string, direction: '135deg' | '180deg' | '90deg' = '135deg'): string {
   return `linear-gradient(${direction}, ${color}, ${withOpacity(color, 0.8)})`
 }
+
+// === 组件令牌生成器 ===
+// 将 StyleConfig 映射为组件可用的样式值
+import type { StyleConfig } from '../types/config'
+
+export const generateComponentTokens = (config: StyleConfig) => {
+  return {
+    // Card 组件
+    card: {
+      borderRadius: getBorderRadius(config.cornerRadius as 'small' | 'medium' | 'large'),
+      boxShadow: config.cardStyle === 'shadow' ? shadows.md : 'none',
+      border: config.cardStyle === 'border' ? `1px solid ${colors.border.light}` : 'none',
+      backgroundColor: config.cardBackgroundColor || colors.background.card,
+    },
+    
+    // Button 组件
+    button: {
+      borderRadius: getBorderRadius(config.cornerRadius as 'small' | 'medium' | 'large'),
+      backgroundColor: config.buttonStyle === 'gradient' 
+        ? createGradient(config.primaryColor)
+        : config.buttonStyle === 'wireframe'
+        ? 'transparent'
+        : config.primaryColor,
+      border: config.buttonStyle === 'wireframe' ? `2px solid ${config.primaryColor}` : 'none',
+      color: config.buttonStyle === 'wireframe' ? config.primaryColor : colors.white,
+    },
+    
+    // Tag/Badge 组件
+    tag: {
+      borderRadius: config.badgeStyle === 'rounded' ? borderRadius.pill : borderRadius.small,
+      backgroundColor: withOpacity(config.primaryColor, 0.1),
+      color: config.primaryColor,
+    },
+    
+    // SectionHeader 组件
+    sectionHeader: {
+      titleSize: config.titleSize === 'small' ? fontSize.xl : config.titleSize === 'large' ? fontSize['2xl'] : fontSize['2xl'],
+      titleWeight: config.titleWeight === 'bold' ? fontWeight.bold : config.titleWeight === 'medium' ? fontWeight.medium : fontWeight.normal,
+      titleColor: config.titleColor || colors.text.primary,
+      decoration: config.titleStyle,
+    },
+    
+    // Typography 组件
+    typography: {
+      bodySize: config.bodySize === 'small' ? fontSize.sm : config.bodySize === 'large' ? fontSize.base : fontSize.base,
+      lineHeight: config.lineHeight === 'compact' ? '1.3' : config.lineHeight === 'relaxed' ? '1.8' : '1.5',
+    },
+    
+    // 颜色系统
+    colors: {
+      primary: config.primaryColor,
+      secondary: config.secondaryColor,
+      accent: config.accentColor,
+      background: config.backgroundColor,
+      textPrimary: config.textPrimary,
+      textSecondary: config.textSecondary,
+    },
+  }
+}
