@@ -74,36 +74,87 @@ export function StyleConfigurator({ config, onChange, activeSection }: StyleConf
       <div className="space-y-6">
         <ConfigItem label="主色">
           <div className="flex items-center gap-3">
-            <span className="text-sm font-mono flex-1" style={{ color: '#999999' }}>{config.primaryColor}</span>
+            <div 
+              className="w-10 h-10 rounded-lg cursor-pointer border-2 transition-all hover:scale-105"
+              style={{ 
+                backgroundColor: config.primaryColor,
+                borderColor: '#E8E6E1'
+              }}
+            >
+              <input
+                type="color"
+                value={config.primaryColor}
+                onChange={(e) => updateConfig('primaryColor', e.target.value)}
+                className="opacity-0 w-full h-full cursor-pointer"
+              />
+            </div>
             <input
-              type="color"
+              type="text"
               value={config.primaryColor}
               onChange={(e) => updateConfig('primaryColor', e.target.value)}
-              className="w-10 h-10 rounded cursor-pointer border-0"
+              className="flex-1 px-3 py-2 text-sm font-mono rounded-lg border transition-all"
+              style={{
+                borderColor: '#E8E6E1',
+                color: '#1A1A1A',
+              }}
             />
           </div>
         </ConfigItem>
 
         <ConfigItem label="背景色">
           <div className="flex items-center gap-3">
-            <span className="text-sm font-mono flex-1" style={{ color: '#999999' }}>{config.backgroundColor}</span>
+            <div 
+              className="w-10 h-10 rounded-lg cursor-pointer border-2 transition-all hover:scale-105"
+              style={{ 
+                backgroundColor: config.backgroundColor,
+                borderColor: '#E8E6E1'
+              }}
+            >
+              <input
+                type="color"
+                value={config.backgroundColor}
+                onChange={(e) => updateConfig('backgroundColor', e.target.value)}
+                className="opacity-0 w-full h-full cursor-pointer"
+              />
+            </div>
             <input
-              type="color"
+              type="text"
               value={config.backgroundColor}
               onChange={(e) => updateConfig('backgroundColor', e.target.value)}
-              className="w-10 h-10 rounded cursor-pointer border-0"
+              className="flex-1 px-3 py-2 text-sm font-mono rounded-lg border transition-all"
+              style={{
+                borderColor: '#E8E6E1',
+                color: '#1A1A1A',
+              }}
             />
           </div>
         </ConfigItem>
 
         <ConfigItem label="标题颜色">
           <div className="flex items-center gap-3">
-            <span className="text-sm font-mono flex-1" style={{ color: '#999999' }}>{config.titleColor}</span>
+            <div 
+              className="w-10 h-10 rounded-lg cursor-pointer border-2 transition-all hover:scale-105"
+              style={{ 
+                backgroundColor: config.titleColor,
+                borderColor: '#E8E6E1'
+              }}
+            >
+              <input
+                type="color"
+                value={config.titleColor}
+                onChange={(e) => updateConfig('titleColor', e.target.value)}
+                className="opacity-0 w-full h-full cursor-pointer"
+              />
+            </div>
             <input
-              type="color"
+              type="text"
               value={config.titleColor}
               onChange={(e) => updateConfig('titleColor', e.target.value)}
-              className="w-10 h-10 rounded cursor-pointer border-0"
+              className="flex-1 px-3 py-2 text-sm font-mono rounded-lg border transition-all"
+              style={{
+                borderColor: '#E8E6E1',
+                color: '#1A1A1A',
+              }}
             />
           </div>
         </ConfigItem>
@@ -124,46 +175,48 @@ export function StyleConfigurator({ config, onChange, activeSection }: StyleConf
       />
       <div className="space-y-6">
         <ConfigItem label="圆角半径">
-          <div className="grid grid-cols-3 gap-2">
-            {[
-              { label: '小', value: 'small' },
-              { label: '中', value: 'medium' },
-              { label: '大', value: 'large' },
-            ].map((opt) => (
-              <button
-                key={opt.value}
-                onClick={() => updateConfig('cornerRadius', opt.value)}
-                className="px-3 py-2.5 text-sm rounded-lg transition-all font-normal"
+          <div className="space-y-3">
+            <div className="relative">
+              <input
+                type="range"
+                min="0"
+                max="2"
+                step="1"
+                value={['small', 'medium', 'large'].indexOf(config.cornerRadius)}
+                onChange={(e) => updateConfig('cornerRadius', ['small', 'medium', 'large'][parseInt(e.target.value)])}
+                className="w-full h-2 rounded-lg appearance-none cursor-pointer"
                 style={{
-                  backgroundColor: config.cornerRadius === opt.value ? '#1A1A1A' : 'transparent',
-                  color: config.cornerRadius === opt.value ? '#FFFFFF' : '#4A4A4A',
-                  border: config.cornerRadius === opt.value ? 'none' : '1px solid #E8E6E1',
+                  background: `linear-gradient(to right, #1A1A1A 0%, #1A1A1A ${(['small', 'medium', 'large'].indexOf(config.cornerRadius) / 2) * 100}%, #E8E6E1 ${(['small', 'medium', 'large'].indexOf(config.cornerRadius) / 2) * 100}%, #E8E6E1 100%)`,
                 }}
-              >
-                {opt.label}
-              </button>
-            ))}
+              />
+            </div>
+            <div className="flex justify-between text-xs" style={{ color: '#999999' }}>
+              <span>小 (4px)</span>
+              <span>中 (8px)</span>
+              <span>大 (12px)</span>
+            </div>
           </div>
         </ConfigItem>
 
         <ConfigItem label="卡片样式">
           <div className="grid grid-cols-3 gap-2">
             {[
-              { label: '边框', value: 'border' },
-              { label: '阴影', value: 'shadow' },
-              { label: '无边', value: 'borderless' },
+              { label: '边框', icon: '▭', value: 'border' },
+              { label: '阴影', icon: '▱', value: 'shadow' },
+              { label: '无边', icon: '□', value: 'borderless' },
             ].map((opt) => (
               <button
                 key={opt.value}
                 onClick={() => updateConfig('cardStyle', opt.value)}
-                className="px-3 py-2.5 text-sm rounded-lg transition-all font-normal"
+                className="px-3 py-3 text-sm rounded-lg transition-all flex flex-col items-center gap-1.5 font-normal"
                 style={{
                   backgroundColor: config.cardStyle === opt.value ? '#1A1A1A' : 'transparent',
                   color: config.cardStyle === opt.value ? '#FFFFFF' : '#4A4A4A',
                   border: config.cardStyle === opt.value ? 'none' : '1px solid #E8E6E1',
                 }}
               >
-                {opt.label}
+                <span className="text-lg">{opt.icon}</span>
+                <span>{opt.label}</span>
               </button>
             ))}
           </div>
@@ -172,21 +225,22 @@ export function StyleConfigurator({ config, onChange, activeSection }: StyleConf
         <ConfigItem label="按钮样式">
           <div className="grid grid-cols-3 gap-2">
             {[
-              { label: '渐变', value: 'gradient' },
-              { label: '纯色', value: 'solid' },
-              { label: '线框', value: 'wireframe' },
+              { label: '渐变', icon: '▰', value: 'gradient' },
+              { label: '纯色', icon: '■', value: 'solid' },
+              { label: '线框', icon: '▢', value: 'wireframe' },
             ].map((opt) => (
               <button
                 key={opt.value}
                 onClick={() => updateConfig('buttonStyle', opt.value)}
-                className="px-3 py-2.5 text-sm rounded-lg transition-all font-normal"
+                className="px-3 py-3 text-sm rounded-lg transition-all flex flex-col items-center gap-1.5 font-normal"
                 style={{
                   backgroundColor: config.buttonStyle === opt.value ? '#1A1A1A' : 'transparent',
                   color: config.buttonStyle === opt.value ? '#FFFFFF' : '#4A4A4A',
                   border: config.buttonStyle === opt.value ? 'none' : '1px solid #E8E6E1',
                 }}
               >
-                {opt.label}
+                <span className="text-lg">{opt.icon}</span>
+                <span>{opt.label}</span>
               </button>
             ))}
           </div>
@@ -195,20 +249,21 @@ export function StyleConfigurator({ config, onChange, activeSection }: StyleConf
         <ConfigItem label="标签样式">
           <div className="grid grid-cols-2 gap-2">
             {[
-              { label: '圆角', value: 'rounded' },
-              { label: '文字', value: 'text-only' },
+              { label: '圆角', icon: '●', value: 'rounded' },
+              { label: '文字', icon: 'T', value: 'text-only' },
             ].map((opt) => (
               <button
                 key={opt.value}
                 onClick={() => updateConfig('badgeStyle', opt.value)}
-                className="px-3 py-2.5 text-sm rounded-lg transition-all font-normal"
+                className="px-3 py-3 text-sm rounded-lg transition-all flex flex-col items-center gap-1.5 font-normal"
                 style={{
                   backgroundColor: config.badgeStyle === opt.value ? '#1A1A1A' : 'transparent',
                   color: config.badgeStyle === opt.value ? '#FFFFFF' : '#4A4A4A',
                   border: config.badgeStyle === opt.value ? 'none' : '1px solid #E8E6E1',
                 }}
               >
-                {opt.label}
+                <span className="text-lg">{opt.icon}</span>
+                <span>{opt.label}</span>
               </button>
             ))}
           </div>
@@ -217,21 +272,22 @@ export function StyleConfigurator({ config, onChange, activeSection }: StyleConf
         <ConfigItem label="标题栏样式">
           <div className="grid grid-cols-3 gap-2">
             {[
-              { label: '下划线', value: 'white-underline' },
-              { label: '毛玻璃', value: 'frosted-glass' },
-              { label: '背景色', value: 'colored-bg' },
+              { label: '下划线', icon: '▁', value: 'white-underline' },
+              { label: '毛玻璃', icon: '▤', value: 'frosted-glass' },
+              { label: '背景色', icon: '■', value: 'colored-bg' },
             ].map((opt) => (
               <button
                 key={opt.value}
                 onClick={() => updateConfig('titleBarStyle', opt.value)}
-                className="px-3 py-2.5 text-sm rounded-lg transition-all font-normal"
+                className="px-3 py-3 text-sm rounded-lg transition-all flex flex-col items-center gap-1.5 font-normal"
                 style={{
                   backgroundColor: config.titleBarStyle === opt.value ? '#1A1A1A' : 'transparent',
                   color: config.titleBarStyle === opt.value ? '#FFFFFF' : '#4A4A4A',
                   border: config.titleBarStyle === opt.value ? 'none' : '1px solid #E8E6E1',
                 }}
               >
-                {opt.label}
+                <span className="text-lg">{opt.icon}</span>
+                <span>{opt.label}</span>
               </button>
             ))}
           </div>
@@ -240,21 +296,22 @@ export function StyleConfigurator({ config, onChange, activeSection }: StyleConf
         <ConfigItem label="切换器样式">
           <div className="grid grid-cols-3 gap-2">
             {[
-              { label: '下划线', value: 'underline' },
-              { label: '药丸', value: 'pill' },
-              { label: '胶囊', value: 'capsule' },
+              { label: '下划线', icon: '▁', value: 'underline' },
+              { label: '药丸', icon: '▬', value: 'pill' },
+              { label: '胶囊', icon: '⬮', value: 'capsule' },
             ].map((opt) => (
               <button
                 key={opt.value}
                 onClick={() => updateConfig('switcherStyle', opt.value)}
-                className="px-3 py-2.5 text-sm rounded-lg transition-all font-normal"
+                className="px-3 py-3 text-sm rounded-lg transition-all flex flex-col items-center gap-1.5 font-normal"
                 style={{
                   backgroundColor: config.switcherStyle === opt.value ? '#1A1A1A' : 'transparent',
                   color: config.switcherStyle === opt.value ? '#FFFFFF' : '#4A4A4A',
                   border: config.switcherStyle === opt.value ? 'none' : '1px solid #E8E6E1',
                 }}
               >
-                {opt.label}
+                <span className="text-lg">{opt.icon}</span>
+                <span>{opt.label}</span>
               </button>
             ))}
           </div>
@@ -390,14 +447,14 @@ export function StyleConfigurator({ config, onChange, activeSection }: StyleConf
         <ConfigItem label="标题字重">
           <div className="flex gap-2">
             {[
-              { label: '常规', value: 'normal' },
-              { label: '中等', value: 'medium' },
-              { label: '加粗', value: 'bold' },
+              { label: '常规', value: 'normal', icon: 'T' },
+              { label: '中等', value: 'medium', icon: 'T' },
+              { label: '加粗', value: 'bold', icon: 'T' },
             ].map((opt) => (
               <button
                 key={opt.value}
                 onClick={() => updateConfig('titleWeight', opt.value)}
-                className="flex-1 px-3 py-2.5 text-sm rounded-lg transition-all font-normal"
+                className="flex-1 px-3 py-3 text-sm rounded-lg transition-all flex flex-col items-center gap-1"
                 style={{
                   backgroundColor: config.titleWeight === opt.value ? '#1A1A1A' : 'transparent',
                   color: config.titleWeight === opt.value ? '#FFFFFF' : '#4A4A4A',
@@ -405,7 +462,8 @@ export function StyleConfigurator({ config, onChange, activeSection }: StyleConf
                   fontWeight: opt.value === 'bold' ? 'bold' : opt.value === 'medium' ? 500 : 'normal',
                 }}
               >
-                {opt.label}
+                <span className="text-xl">{opt.icon}</span>
+                <span>{opt.label}</span>
               </button>
             ))}
           </div>
@@ -414,10 +472,10 @@ export function StyleConfigurator({ config, onChange, activeSection }: StyleConf
         <ConfigItem label="标题装饰">
           <div className="space-y-2">
             {[
-              { value: 'left-accent', label: '左侧装饰线' },
-              { value: 'right-accent', label: '右侧装饰线' },
-              { value: 'bottom-accent', label: '底部装饰线' },
-              { value: 'plain', label: '无装饰' },
+              { value: 'left-accent', label: '左侧装饰线', icon: '◀' },
+              { value: 'right-accent', label: '右侧装饰线', icon: '▶' },
+              { value: 'bottom-accent', label: '底部装饰线', icon: '▼' },
+              { value: 'plain', label: '无装饰', icon: '—' },
             ].map((opt) => (
               <label
                 key={opt.value}
@@ -435,15 +493,18 @@ export function StyleConfigurator({ config, onChange, activeSection }: StyleConf
                     onChange={() => updateConfig('titleStyle', opt.value)}
                     className="sr-only"
                   />
-                  <div className="w-4 h-4 rounded-full border-2 transition-all" style={{
+                  <div className="w-4 h-4 rounded-full border-2 transition-all flex items-center justify-center" style={{
                     borderColor: config.titleStyle === opt.value ? '#1A1A1A' : '#D1D1D1',
                   }}>
                     {config.titleStyle === opt.value && (
-                      <div className="w-2 h-2 rounded-full mx-auto mt-0.5" style={{ backgroundColor: '#1A1A1A' }} />
+                      <div className="w-2 h-2 rounded-full" style={{ backgroundColor: '#1A1A1A' }} />
                     )}
                   </div>
                 </div>
-                <span className="text-sm" style={{ color: config.titleStyle === opt.value ? '#1A1A1A' : '#666666' }}>
+                <span className="text-lg" style={{ color: config.titleStyle === opt.value ? '#1A1A1A' : '#999999' }}>
+                  {opt.icon}
+                </span>
+                <span className="text-sm flex-1" style={{ color: config.titleStyle === opt.value ? '#1A1A1A' : '#666666' }}>
                   {opt.label}
                 </span>
               </label>
@@ -453,24 +514,27 @@ export function StyleConfigurator({ config, onChange, activeSection }: StyleConf
 
         <ConfigItem label="标题大小">
           <div className="space-y-3">
-            <div className="relative">
-              <input
-                type="range"
-                min="0"
-                max="2"
-                step="1"
-                value={['small', 'medium', 'large'].indexOf(config.titleSize)}
-                onChange={(e) => updateConfig('titleSize', ['small', 'medium', 'large'][parseInt(e.target.value)])}
-                className="w-full h-2 rounded-lg appearance-none cursor-pointer"
-                style={{
-                  background: `linear-gradient(to right, #1A1A1A 0%, #1A1A1A ${(['small', 'medium', 'large'].indexOf(config.titleSize) / 2) * 100}%, #E8E6E1 ${(['small', 'medium', 'large'].indexOf(config.titleSize) / 2) * 100}%, #E8E6E1 100%)`,
-                }}
-              />
-            </div>
-            <div className="flex justify-between text-xs" style={{ color: '#999999' }}>
-              <span>小</span>
-              <span>中</span>
-              <span>大</span>
+            <div className="grid grid-cols-3 gap-2">
+              {[
+                { label: '小', value: 'small', size: '14px' },
+                { label: '中', value: 'medium', size: '16px' },
+                { label: '大', value: 'large', size: '18px' },
+              ].map((opt) => (
+                <button
+                  key={opt.value}
+                  onClick={() => updateConfig('titleSize', opt.value)}
+                  className="px-3 py-3 text-sm rounded-lg transition-all flex flex-col items-center gap-1"
+                  style={{
+                    backgroundColor: config.titleSize === opt.value ? '#1A1A1A' : 'transparent',
+                    color: config.titleSize === opt.value ? '#FFFFFF' : '#4A4A4A',
+                    border: config.titleSize === opt.value ? 'none' : '1px solid #E8E6E1',
+                    fontSize: opt.size,
+                  }}
+                >
+                  <span className="font-bold">A</span>
+                  <span className="text-xs">{opt.label}</span>
+                </button>
+              ))}
             </div>
           </div>
         </ConfigItem>
