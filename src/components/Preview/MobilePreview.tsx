@@ -176,7 +176,8 @@ function HomePage({ config }: { config: StyleConfig }) {
                 fontWeight: tokens.sectionHeader.titleWeight,
               }}>限时抢购</div>
             </div>
-            <div className="flex gap-1">
+            <div className="flex items-center gap-2">
+              <div className="flex gap-1">
                 {['02', '15', '30'].map((t, i) => (
                   <div key={i} className="px-1.5 py-0.5 text-xs text-white" style={{
                     borderRadius: 4,
@@ -184,8 +185,8 @@ function HomePage({ config }: { config: StyleConfig }) {
                   }}>{t}</div>
                 ))}
               </div>
+              <button className="text-xs" style={{ color: colors.text.tertiary }}>更多 ›</button>
             </div>
-            <button className="text-xs" style={{ color: colors.text.tertiary }}>更多 ›</button>
           </div>
           <div className="flex gap-2 overflow-x-auto">
             {[1, 2, 3, 4].map(i => (
@@ -377,6 +378,7 @@ function HomePage({ config }: { config: StyleConfig }) {
 
 // 详情页模板
 function DetailPage({ config }: { config: StyleConfig }) {
+  const tokens = generateComponentTokens(config)
   const radius = getBorderRadius(config.cornerRadius as 'small' | 'medium' | 'large')
   
   return (
