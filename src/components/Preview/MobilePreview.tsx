@@ -69,7 +69,7 @@ function HomePage({ config }: { config: StyleConfig }) {
       </div>
 
       {/* 内容区 */}
-      <div className="px-3 pb-24 space-y-3">
+      <div className="px-3 pb-20 space-y-3">
         {/* 2. 活动轮播图 */}
         <div className="relative overflow-hidden" style={{ borderRadius: radius }}>
           <Placeholder width={375} height={160} type="banner" />
@@ -358,7 +358,7 @@ function HomePage({ config }: { config: StyleConfig }) {
       </div>
 
       {/* 10. 底部导航栏 */}
-      <div className="absolute bottom-0 left-0 right-0 px-3 py-2" style={{ 
+      <div className="absolute bottom-0 left-0 right-0 px-3 py-2 z-20" style={{ 
         background: '#FFFFFF',
         borderTop: '1px solid #E5E5E5',
       }}>
