@@ -315,7 +315,7 @@ export default function App() {
                       <div className="flex items-center justify-center w-8 h-8 rounded-lg text-sm font-medium text-white" style={{ backgroundColor: '#1A1A1A' }}>
                         01
                       </div>
-                      <div className="text-base font-medium" style={{ color: '#1A1A1A' }}>场景选择</div>
+                      <div className="text-base font-medium" style={{ color: '#1A1A1A' }}>场景</div>
                     </div>
                   </div>
                   <SceneSelector
@@ -335,7 +335,7 @@ export default function App() {
                         <div className="flex items-center justify-center w-8 h-8 rounded-lg text-sm font-medium text-white" style={{ backgroundColor: '#1A1A1A' }}>
                           02
                         </div>
-                        <div className="text-base font-medium" style={{ color: '#1A1A1A' }}>模板选择</div>
+                        <div className="text-base font-medium" style={{ color: '#1A1A1A' }}>模板</div>
                       </div>
                     </div>
                     <TemplateSelector
