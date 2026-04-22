@@ -164,8 +164,8 @@ export const generateComponentTokens = (config: StyleConfig) => {
       titleColor: config.titleColor || colors.text.primary,
       decoration: config.titleStyle,
       // 联动：大标题时增加装饰线粗度和间距
-      decorationThickness: config.titleSize === 'large' ? '3px' : '2px',
-      decorationGap: config.titleSize === 'large' ? '16px' : '12px',
+      decorationThickness: config.titleSize === 'large' ? '4px' : '3px',
+      decorationGap: config.titleSize === 'large' ? '18px' : '14px',
     },
     
     // Typography 组件

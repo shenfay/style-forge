@@ -4,6 +4,8 @@ import { StatusBar } from '../UI/StatusBar'
 import { NavBar } from '../UI/NavBar'
 import { Card } from '../UI/Card'
 import { Placeholder } from './Placeholder'
+import { SectionHeader } from './SectionHeader'
+import { ProductCard } from './ProductCard'
 import { colors, fontSize, fontWeight, getBorderRadius, shadows, createGradient, withOpacity, generateComponentTokens } from '../../utils/design-tokens'
 
 interface MobilePreviewProps {
@@ -41,9 +43,11 @@ export function MobilePreview({ config, pageType }: MobilePreviewProps) {
 function HomePage({ config }: { config: StyleConfig }) {
   const tokens = generateComponentTokens(config)
   const radius = getBorderRadius(config.cornerRadius as 'small' | 'medium' | 'large')
+  const bodyFontSize = tokens.typography.bodySize
+  const lineHeight = tokens.typography.lineHeight
   
   return (
-    <div className="h-full overflow-y-auto relative" style={{ background: config.backgroundColor }}>
+    <div className="h-full overflow-y-auto" style={{ background: config.backgroundColor }}>
       <StatusBar />
 
       {/* 1. 顶部搜索栏 */}
@@ -125,7 +129,7 @@ function HomePage({ config }: { config: StyleConfig }) {
             borderRadius: radius,
             background: 'linear-gradient(135deg, #FF6B35 0%, #FF8E53 100%)',
           }}>
-            <div className="text-white text-sm font-bold">限时抢购</div>
+            <div className="font-bold" style={{ color: colors.white, fontSize: bodyFontSize, lineHeight }}>限时抢购</div>
             <div style={{ color: 'rgba(255,255,255,0.9)', fontSize: tokens.typography.bodySize, marginTop: '4px' }}>距结束 02:15:30</div>
           </div>
           <div className="space-y-2">
@@ -195,8 +199,8 @@ function HomePage({ config }: { config: StyleConfig }) {
             {[1, 2, 3, 4].map(i => (
               <div key={i} className="shrink-0 w-24">
                 <Placeholder width={96} height={96} type="product" text="" />
-                <div style={{ marginTop: '4px', fontSize: tokens.typography.bodySize, fontWeight: fontWeight.bold, color: '#FF4757' }}>¥99</div>
-                <div className="text-[10px] line-through" style={{ color: '#999' }}>¥199</div>
+                <div style={{ marginTop: '4px', fontSize: tokens.typography.bodySize, fontWeight: fontWeight.bold, color: tokens.colors.primary }}>¥99</div>
+                <div className="line-through" style={{ color: '#999', fontSize: bodyFontSize, lineHeight }}>¥199</div>
               </div>
             ))}
           </div>
@@ -249,7 +253,7 @@ function HomePage({ config }: { config: StyleConfig }) {
                 background: '#F9F9F9'
               }}>
                 <Placeholder width={48} height={32} type="brand" text={brand.substring(0, 2)} />
-                <span className="text-[10px]" style={{ color: colors.text.secondary }}>{brand}</span>
+                <span style={{ color: colors.text.secondary, fontSize: bodyFontSize, lineHeight }}>{brand}</span>
               </div>
             ))}
           </div>
@@ -264,18 +268,33 @@ function HomePage({ config }: { config: StyleConfig }) {
               paddingBottom: config.titleStyle === 'bottom-accent' ? '8px' : '0',
             }}>
               {config.titleStyle === 'left-accent' && (
-                <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-5 rounded" style={{ background: config.primaryColor }} />
+                <div className="absolute left-0 top-1/2 -translate-y-1/2" style={{
+                  backgroundColor: tokens.colors.primary,
+                  borderRadius: '2px',
+                  width: tokens.sectionHeader.decorationThickness,
+                  height: tokens.sectionHeader.decorationGap,
+                }} />
               )}
               {config.titleStyle === 'right-accent' && (
-                <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1 h-5 rounded" style={{ background: config.primaryColor }} />
+                <div className="absolute right-0 top-1/2 -translate-y-1/2" style={{
+                  backgroundColor: tokens.colors.primary,
+                  borderRadius: '2px',
+                  width: tokens.sectionHeader.decorationThickness,
+                  height: tokens.sectionHeader.decorationGap,
+                }} />
               )}
               {config.titleStyle === 'bottom-accent' && (
-                <div className="absolute bottom-0 left-0 right-0 h-0.5 rounded" style={{ background: config.primaryColor }} />
+                <div className="absolute bottom-0 left-0" style={{
+                  backgroundColor: tokens.colors.primary,
+                  borderRadius: '2px',
+                  height: tokens.sectionHeader.decorationThickness,
+                  width: tokens.sectionHeader.decorationGap,
+                }} />
               )}
-              <div className="text-[15px] font-semibold" style={{ 
-                color: config.titleColor,
-                fontSize: config.titleSize === 'small' ? '14px' : config.titleSize === 'medium' ? '16px' : '18px',
-                fontWeight: config.titleWeight === 'normal' ? 400 : config.titleWeight === 'medium' ? 500 : 700,
+              <div className="font-semibold" style={{ 
+                color: tokens.sectionHeader.titleColor,
+                fontSize: tokens.sectionHeader.titleSize,
+                fontWeight: tokens.sectionHeader.titleWeight,
               }}>新品推荐</div>
             </div>
             <button style={{ fontSize: tokens.typography.bodySize, color: colors.text.tertiary }}>查看更多 ›</button>
@@ -287,13 +306,15 @@ function HomePage({ config }: { config: StyleConfig }) {
               { title: 'AirPods Pro 2', price: '¥1899', tag: '热卖' },
             ].map((item, i) => (
               <Card key={i} config={config} className="overflow-hidden">
-                <Placeholder width={180} height={180} type="product" />
+                <div className="w-full flex justify-center">
+                  <Placeholder width={180} height={180} type="product" />
+                </div>
                 <div className="px-3 pb-3">
                   <div style={{ color: colors.text.primary, fontSize: tokens.typography.bodySize, fontWeight: fontWeight.medium, marginBottom: '8px', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
                     {item.title}
                   </div>
                   <div className="flex items-center justify-between">
-                    <div className="text-base font-bold" style={{ color: '#FF4757', fontSize: fontSize.lg }}>{item.price}</div>
+                    <div className="text-base font-bold" style={{ color: tokens.colors.primary, fontSize: fontSize.lg }}>{item.price}</div>
                     {item.tag && (
                       <span className="px-2 py-0.5 text-[10px] rounded" style={{
                         background: withOpacity(config.primaryColor, 0.1),
@@ -316,18 +337,33 @@ function HomePage({ config }: { config: StyleConfig }) {
               paddingBottom: config.titleStyle === 'bottom-accent' ? '8px' : '0',
             }}>
               {config.titleStyle === 'left-accent' && (
-                <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-5 rounded" style={{ background: config.primaryColor }} />
+                <div className="absolute left-0 top-1/2 -translate-y-1/2" style={{
+                  backgroundColor: tokens.colors.primary,
+                  borderRadius: '2px',
+                  width: tokens.sectionHeader.decorationThickness,
+                  height: tokens.sectionHeader.decorationGap,
+                }} />
               )}
               {config.titleStyle === 'right-accent' && (
-                <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1 h-5 rounded" style={{ background: config.primaryColor }} />
+                <div className="absolute right-0 top-1/2 -translate-y-1/2" style={{
+                  backgroundColor: tokens.colors.primary,
+                  borderRadius: '2px',
+                  width: tokens.sectionHeader.decorationThickness,
+                  height: tokens.sectionHeader.decorationGap,
+                }} />
               )}
               {config.titleStyle === 'bottom-accent' && (
-                <div className="absolute bottom-0 left-0 right-0 h-0.5 rounded" style={{ background: config.primaryColor }} />
+                <div className="absolute bottom-0 left-0" style={{
+                  backgroundColor: tokens.colors.primary,
+                  borderRadius: '2px',
+                  height: tokens.sectionHeader.decorationThickness,
+                  width: tokens.sectionHeader.decorationGap,
+                }} />
               )}
-              <div className="text-[15px] font-semibold" style={{ 
-                color: config.titleColor,
-                fontSize: config.titleSize === 'small' ? '14px' : config.titleSize === 'medium' ? '16px' : '18px',
-                fontWeight: config.titleWeight === 'normal' ? 400 : config.titleWeight === 'medium' ? 500 : 700,
+              <div className="font-semibold" style={{ 
+                color: tokens.sectionHeader.titleColor,
+                fontSize: tokens.sectionHeader.titleSize,
+                fontWeight: tokens.sectionHeader.titleWeight,
               }}>猜你喜欢</div>
             </div>
             <button style={{ fontSize: tokens.typography.bodySize, color: colors.text.tertiary }}>查看更多 ›</button>
@@ -341,14 +377,16 @@ function HomePage({ config }: { config: StyleConfig }) {
               { title: 'Nintendo Switch', price: '¥2099', sales: '2.1万+' },
             ].map((item, i) => (
               <Card key={i} config={config} className="overflow-hidden">
-                <Placeholder width={180} height={180} type="product" />
+                <div className="w-full flex justify-center">
+                  <Placeholder width={180} height={180} type="product" />
+                </div>
                 <div className="px-3 pb-3">
                   <div style={{ color: colors.text.primary, fontSize: tokens.typography.bodySize, fontWeight: fontWeight.medium, marginBottom: '8px', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
                     {item.title}
                   </div>
                   <div className="flex items-end justify-between">
-                    <div className="text-base font-bold" style={{ color: '#FF4757', fontSize: fontSize.lg }}>{item.price}</div>
-                    <div className="text-xs" style={{ color: colors.text.tertiary }}>{item.sales}人付款</div>
+                    <div className="text-base font-bold" style={{ color: tokens.colors.primary, fontSize: fontSize.lg }}>{item.price}</div>
+                    <div style={{ fontSize: bodyFontSize, lineHeight, color: colors.text.tertiary }}>{item.sales}人付款</div>
                   </div>
                 </div>
               </Card>
@@ -370,13 +408,13 @@ function HomePage({ config }: { config: StyleConfig }) {
             { icon: 'user', label: '我的' },
           ].map((tab, i) => (
             <button key={i} className="flex flex-col items-center gap-1">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={i === 0 ? config.primaryColor : '#999'} strokeWidth="2">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={i === 0 ? config.primaryColor : colors.text.tertiary} strokeWidth="2">
                 {tab.icon === 'home' && <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>}
                 {tab.icon === 'category' && <><circle cx="7" cy="7" r="2"/><circle cx="17" cy="7" r="2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></>}
                 {tab.icon === 'cart' && <><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></>}
                 {tab.icon === 'user' && <><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></>}
               </svg>
-              <span className="text-[10px]" style={{ color: i === 0 ? config.primaryColor : '#999999' }}>{tab.label}</span>
+              <span style={{ fontSize: bodyFontSize, lineHeight, color: i === 0 ? config.primaryColor : colors.text.tertiary }}>{tab.label}</span>
             </button>
           ))}
         </div>
@@ -389,6 +427,8 @@ function HomePage({ config }: { config: StyleConfig }) {
 function DetailPage({ config }: { config: StyleConfig }) {
   const tokens = generateComponentTokens(config)
   const radius = getBorderRadius(config.cornerRadius as 'small' | 'medium' | 'large')
+  const bodyFontSize = tokens.typography.bodySize
+  const lineHeight = tokens.typography.lineHeight
   
   return (
     <div className="h-full overflow-y-auto" style={{ background: config.backgroundColor }}>
@@ -401,7 +441,7 @@ function DetailPage({ config }: { config: StyleConfig }) {
         {/* 标题区 */}
         <div>
           <h1 className="text-[22px] font-bold mb-2" style={{ color: colors.text.primary, fontSize: fontSize['3xl'], fontWeight: fontWeight.bold }}>详情标题</h1>
-          <div className="flex items-center gap-3 text-xs" style={{ color: colors.text.tertiary, fontSize: fontSize.xs }}>
+          <div className="flex items-center gap-3" style={{ color: colors.text.tertiary, fontSize: bodyFontSize, lineHeight }}>
             <span>作者</span>
             <span>2026-04-17</span>
           </div>
@@ -461,7 +501,10 @@ function DetailPage({ config }: { config: StyleConfig }) {
 
 // 列表页模板
 function ListPage({ config }: { config: StyleConfig }) {
+  const tokens = generateComponentTokens(config)
   const radius = getBorderRadius(config.cornerRadius as 'small' | 'medium' | 'large')
+  const bodyFontSize = tokens.typography.bodySize
+  const lineHeight = tokens.typography.lineHeight
   
   return (
     <div className="h-full overflow-y-auto" style={{ background: config.backgroundColor }}>
@@ -475,17 +518,19 @@ function ListPage({ config }: { config: StyleConfig }) {
           border: `1px solid ${colors.border.light}`,
         }}>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={colors.text.tertiary} strokeWidth="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-          <span className="text-sm" style={{ color: colors.text.tertiary }}>搜索...</span>
+          <span style={{ color: colors.text.tertiary, fontSize: bodyFontSize, lineHeight }}>搜索...</span>
         </div>
       </div>
 
       {/* 筛选栏 */}
       <div className="flex gap-2 px-6 py-2 overflow-x-auto">
         {['全部', '分类一', '分类二', '分类三'].map((filter, i) => (
-          <button key={i} className="px-4 py-1.5 text-xs whitespace-nowrap" style={{
+          <button key={i} className="px-4 py-1.5 whitespace-nowrap" style={{
             borderRadius: '999px',
             background: i === 0 ? config.primaryColor : '#FFFFFF',
             color: i === 0 ? '#FFFFFF' : '#666666',
+            fontSize: bodyFontSize,
+            lineHeight,
           }}>
             {filter}
           </button>
@@ -503,7 +548,7 @@ function ListPage({ config }: { config: StyleConfig }) {
         ].map((item, i) => (
           <Card key={i} config={config} className="p-4">
             <div className="flex justify-between items-start mb-2">
-              <div className="text-sm font-medium" style={{ color: colors.text.primary, fontSize: fontSize.base, fontWeight: fontWeight.medium }}>{item.title}</div>
+              <div className="font-medium" style={{ color: colors.text.primary, fontSize: bodyFontSize, lineHeight, fontWeight: fontWeight.medium }}>{item.title}</div>
               {item.tag && (
                 <span className="px-2 py-0.5 text-[10px]" style={{
                   borderRadius: config.badgeStyle === 'rounded' ? '999px' : '0',
@@ -515,7 +560,7 @@ function ListPage({ config }: { config: StyleConfig }) {
                 </span>
               )}
             </div>
-            <div className="text-xs" style={{ color: colors.text.tertiary, fontSize: fontSize.xs }}>{item.desc}</div>
+            <div style={{ color: colors.text.tertiary, fontSize: bodyFontSize, lineHeight }}>{item.desc}</div>
           </Card>
         ))}
       </div>
@@ -525,12 +570,14 @@ function ListPage({ config }: { config: StyleConfig }) {
 
 // 结果页模板（原有扫码结果）
 function ResultPage({ config }: { config: StyleConfig }) {
+  const tokens = generateComponentTokens(config)
+  
   return (
     <div className="h-full flex items-center justify-center p-6" style={{ background: config.backgroundColor }}>
       <div className="text-center">
         <div className="text-6xl mb-4">✓</div>
         <h2 className="text-xl font-bold mb-2" style={{ color: config.primaryColor }}>操作成功</h2>
-        <p className="text-sm" style={{ color: '#666666' }}>您的操作已完成</p>
+        <p className="text-sm" style={{ color: tokens.colors.textSecondary }}>您的操作已完成</p>
       </div>
     </div>
   )
@@ -538,7 +585,10 @@ function ResultPage({ config }: { config: StyleConfig }) {
 
 // 个人中心页模板
 function ProfilePage({ config }: { config: StyleConfig }) {
+  const tokens = generateComponentTokens(config)
   const radius = getBorderRadius(config.cornerRadius as 'small' | 'medium' | 'large')
+  const bodyFontSize = tokens.typography.bodySize
+  const lineHeight = tokens.typography.lineHeight
   
   return (
     <div className="h-full overflow-y-auto" style={{ background: config.backgroundColor }}>
@@ -580,7 +630,7 @@ function ProfilePage({ config }: { config: StyleConfig }) {
       <div className="px-6 py-4 space-y-3">
         {/* 我的订单 */}
         <Card config={config} className="p-4">
-          <div className="text-sm font-medium mb-3" style={{ color: colors.text.primary }}>我的订单</div>
+          <div className="font-medium mb-3" style={{ color: colors.text.primary, fontSize: bodyFontSize, lineHeight }}>我的订单</div>
           <div className="flex justify-around">
             {[
               { icon: '💰', label: '待付款' },
@@ -590,7 +640,7 @@ function ProfilePage({ config }: { config: StyleConfig }) {
             ].map((item, i) => (
               <div key={i} className="flex flex-col items-center gap-1">
                 <span className="text-xl">{item.icon}</span>
-                <span className="text-xs" style={{ color: colors.text.secondary }}>{item.label}</span>
+                <span style={{ color: colors.text.secondary, fontSize: bodyFontSize, lineHeight }}>{item.label}</span>
               </div>
             ))}
           </div>
@@ -607,7 +657,7 @@ function ProfilePage({ config }: { config: StyleConfig }) {
             <div key={i} className="flex items-center justify-between p-4">
               <div className="flex items-center gap-3">
                 <span className="text-lg">{item.icon}</span>
-                <span className="text-sm" style={{ color: colors.text.primary }}>{item.label}</span>
+                <span style={{ color: colors.text.primary, fontSize: bodyFontSize, lineHeight }}>{item.label}</span>
               </div>
               <svg className="w-4 h-4" fill="none" stroke="#999" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -631,7 +681,7 @@ function ProfilePage({ config }: { config: StyleConfig }) {
           ].map((tab, i) => (
             <button key={i} className="flex flex-col items-center gap-1">
               <span className="text-lg">{tab.icon}</span>
-              <span className="text-[10px]" style={{ color: i === 3 ? config.primaryColor : '#999999' }}>{tab.label}</span>
+              <span style={{ fontSize: bodyFontSize, lineHeight, color: i === 3 ? config.primaryColor : colors.text.tertiary }}>{tab.label}</span>
             </button>
           ))}
         </div>
@@ -642,6 +692,10 @@ function ProfilePage({ config }: { config: StyleConfig }) {
 
 // 消息列表页模板
 function MessagesPage({ config }: { config: StyleConfig }) {
+  const tokens = generateComponentTokens(config)
+  const bodyFontSize = tokens.typography.bodySize
+  const lineHeight = tokens.typography.lineHeight
+  
   return (
     <div className="h-full overflow-y-auto" style={{ background: config.backgroundColor }}>
       <StatusBar />
@@ -708,7 +762,7 @@ function MessagesPage({ config }: { config: StyleConfig }) {
           ].map((tab, i) => (
             <button key={i} className="flex flex-col items-center gap-1">
               <span className="text-lg">{tab.icon}</span>
-              <span className="text-[10px]" style={{ color: i === 3 ? config.primaryColor : '#999999' }}>{tab.label}</span>
+              <span style={{ fontSize: bodyFontSize, lineHeight, color: i === 2 ? config.primaryColor : colors.text.tertiary }}>{tab.label}</span>
             </button>
           ))}
         </div>
@@ -843,12 +897,14 @@ function FormPage({ config }: { config: StyleConfig }) {
 
 // 默认页面
 function DefaultPage({ config }: { config: StyleConfig }) {
+  const tokens = generateComponentTokens(config)
+  
   return (
     <div className="h-full flex items-center justify-center p-6" style={{ background: config.backgroundColor }}>
       <div className="text-center">
         <div className="text-6xl mb-4">🚧</div>
-        <h2 className="text-xl font-bold mb-2" style={{ color: '#1A1A1A' }}>页面开发中</h2>
-        <p className="text-sm" style={{ color: '#999999' }}>该模板正在开发中...</p>
+        <h2 className="text-xl font-bold mb-2" style={{ color: tokens.colors.textPrimary }}>页面开发中</h2>
+        <p className="text-sm" style={{ color: tokens.colors.textSecondary }}>该模板正在开发中...</p>
       </div>
     </div>
   )

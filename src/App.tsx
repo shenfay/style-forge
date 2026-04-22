@@ -14,6 +14,14 @@ import type { SceneType, DeviceType, PageType } from './types/template'
 
 type ConfigSection = 'template' | 'colors' | 'shape' | 'spacing' | 'typography'
 
+// 将 TemplateStyle 转换为完整的 StyleConfig
+function templateStyleToStyleConfig(templateStyle: any): StyleConfig {
+  return {
+    ...defaultConfig,
+    ...templateStyle,
+  }
+}
+
 const menuItems: Array<{ id: ConfigSection; name: string; icon: string }> = [
   { id: 'template', name: '模板选择', icon: '📋' },
   { id: 'colors', name: '色彩系统', icon: '🎨' },
@@ -46,7 +54,7 @@ export default function App() {
         setCurrentTemplate(found)
         // 使用模板默认配置
         if (urlConfig.config === undefined) {
-          setConfig(found.defaultStyle)
+          setConfig(templateStyleToStyleConfig(found.defaultStyle))
         }
       }
     }
@@ -95,7 +103,7 @@ export default function App() {
     ) || template
     
     setCurrentTemplate(matchedTemplate)
-    setConfig(matchedTemplate.defaultStyle)
+    setConfig(templateStyleToStyleConfig(matchedTemplate.defaultStyle))
     const params = new URLSearchParams()
     if (urlConfig.scene) params.set('scene', urlConfig.scene)
     if (urlConfig.device) params.set('device', urlConfig.device)
@@ -293,7 +301,7 @@ export default function App() {
                 />
               </div>
             ) : (
-              <div className="w-[375px] h-[812px] bg-white rounded-[40px] shadow-xl overflow-hidden border-8 border-gray-900">
+              <div className="w-[375px] h-[812px] bg-white rounded-[40px] shadow-xl overflow-hidden border-8 border-gray-900 relative">
                 <MobilePreview 
                   config={config} 
                   pageType={currentTemplate?.type || 'result'}

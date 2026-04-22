@@ -1,5 +1,7 @@
 import type { StyleConfig } from '../../types/config'
 import { getBorderRadius } from '../../utils/design-tokens'
+import { ChromePicker } from 'react-color'
+import { useState, useRef, useEffect } from 'react'
 
 interface StyleConfiguratorProps {
   config: StyleConfig
@@ -8,9 +10,79 @@ interface StyleConfiguratorProps {
 }
 
 export function StyleConfigurator({ config, onChange, activeSection }: StyleConfiguratorProps) {
+  const [showColorPicker, setShowColorPicker] = useState<string | null>(null)
+  const colorPickerRef = useRef<HTMLDivElement>(null)
+
+  // 点击外部关闭颜色选择器
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      // 直接检查点击是否在 ref 容器内
+      if (colorPickerRef.current && colorPickerRef.current.contains(event.target as Node)) {
+        return // 点击在选择器容器内，不关闭
+      }
+      setShowColorPicker(null)
+    }
+    
+    if (showColorPicker) {
+      // 使用 capture 阶段，确保在 ChromePicker 处理之前拦截
+      document.addEventListener('mousedown', handleClickOutside, true)
+    }
+    
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside, true)
+    }
+  }, [showColorPicker])
+
   const updateConfig = (key: keyof StyleConfig, value: string) => {
     onChange({ ...config, [key]: value })
   }
+
+  // 颜色选择器字段组件
+  const ColorPickerField = ({ 
+    label, 
+    value, 
+    colorKey 
+  }: { 
+    label: string
+    value: string
+    colorKey: string
+  }) => (
+    <ConfigItem label={label}>
+      <div className="relative">
+        <div className="flex items-center gap-3">
+          <div 
+            className="w-10 h-10 rounded-lg cursor-pointer border-2 transition-all hover:scale-105"
+            style={{ 
+              backgroundColor: value,
+              borderColor: '#E8E6E1'
+            }}
+            onClick={() => setShowColorPicker(showColorPicker === colorKey ? null : colorKey)}
+          />
+          <input
+            type="text"
+            value={value}
+            onChange={(e) => updateConfig(colorKey as keyof StyleConfig, e.target.value)}
+            className="flex-1 px-3 py-2 text-sm font-mono rounded-lg border transition-all"
+            style={{
+              borderColor: '#E8E6E1',
+              color: '#1A1A1A',
+            }}
+          />
+        </div>
+        
+        {/* ChromePicker 颜色选择器 */}
+        {showColorPicker === colorKey && (
+          <div className="absolute z-50 mt-2" ref={colorPickerRef}>
+            <ChromePicker
+              color={value}
+              onChange={(color) => updateConfig(colorKey as keyof StyleConfig, color.hex)}
+              disableAlpha={true}
+            />
+          </div>
+        )}
+      </div>
+    </ConfigItem>
+  )
 
   const SectionHeader = ({ number, title, icon }: { 
     number: string 
@@ -72,92 +144,23 @@ export function StyleConfigurator({ config, onChange, activeSection }: StyleConf
         }
       />
       <div className="space-y-6">
-        <ConfigItem label="主色">
-          <div className="flex items-center gap-3">
-            <div 
-              className="w-10 h-10 rounded-lg cursor-pointer border-2 transition-all hover:scale-105"
-              style={{ 
-                backgroundColor: config.primaryColor,
-                borderColor: '#E8E6E1'
-              }}
-            >
-              <input
-                type="color"
-                value={config.primaryColor}
-                onChange={(e) => updateConfig('primaryColor', e.target.value)}
-                className="opacity-0 w-full h-full cursor-pointer"
-              />
-            </div>
-            <input
-              type="text"
-              value={config.primaryColor}
-              onChange={(e) => updateConfig('primaryColor', e.target.value)}
-              className="flex-1 px-3 py-2 text-sm font-mono rounded-lg border transition-all"
-              style={{
-                borderColor: '#E8E6E1',
-                color: '#1A1A1A',
-              }}
-            />
-          </div>
-        </ConfigItem>
+        <ColorPickerField 
+          label="主色" 
+          value={config.primaryColor} 
+          colorKey="primaryColor" 
+        />
 
-        <ConfigItem label="背景色">
-          <div className="flex items-center gap-3">
-            <div 
-              className="w-10 h-10 rounded-lg cursor-pointer border-2 transition-all hover:scale-105"
-              style={{ 
-                backgroundColor: config.backgroundColor,
-                borderColor: '#E8E6E1'
-              }}
-            >
-              <input
-                type="color"
-                value={config.backgroundColor}
-                onChange={(e) => updateConfig('backgroundColor', e.target.value)}
-                className="opacity-0 w-full h-full cursor-pointer"
-              />
-            </div>
-            <input
-              type="text"
-              value={config.backgroundColor}
-              onChange={(e) => updateConfig('backgroundColor', e.target.value)}
-              className="flex-1 px-3 py-2 text-sm font-mono rounded-lg border transition-all"
-              style={{
-                borderColor: '#E8E6E1',
-                color: '#1A1A1A',
-              }}
-            />
-          </div>
-        </ConfigItem>
+        <ColorPickerField 
+          label="背景色" 
+          value={config.backgroundColor} 
+          colorKey="backgroundColor" 
+        />
 
-        <ConfigItem label="标题颜色">
-          <div className="flex items-center gap-3">
-            <div 
-              className="w-10 h-10 rounded-lg cursor-pointer border-2 transition-all hover:scale-105"
-              style={{ 
-                backgroundColor: config.titleColor,
-                borderColor: '#E8E6E1'
-              }}
-            >
-              <input
-                type="color"
-                value={config.titleColor}
-                onChange={(e) => updateConfig('titleColor', e.target.value)}
-                className="opacity-0 w-full h-full cursor-pointer"
-              />
-            </div>
-            <input
-              type="text"
-              value={config.titleColor}
-              onChange={(e) => updateConfig('titleColor', e.target.value)}
-              className="flex-1 px-3 py-2 text-sm font-mono rounded-lg border transition-all"
-              style={{
-                borderColor: '#E8E6E1',
-                color: '#1A1A1A',
-              }}
-            />
-          </div>
-        </ConfigItem>
+        <ColorPickerField 
+          label="标题颜色" 
+          value={config.titleColor} 
+          colorKey="titleColor" 
+        />
       </div>
     </div>
   )

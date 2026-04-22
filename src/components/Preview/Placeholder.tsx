@@ -33,37 +33,53 @@ export function Placeholder({
 
 // 商品占位图
 function ProductPlaceholder({ width, height, text = '商品图', variant }: { width: number; height: number; text?: string; variant: string }) {
+  // 计算相对尺寸，确保在任何容器中都居中且比例协调
+  const scale = Math.min(width, height) / 100 // 以 100px 为基准，让图形更大
+  const centerX = width / 2
+  const centerY = height / 2
+  
   return (
     <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`} xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id={`grad-${width}-${height}`} x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" style={{ stopColor: '#F3F4F6', stopOpacity: 1 }} />
-          <stop offset="100%" style={{ stopColor: '#E5E7EB', stopOpacity: 1 }} />
+          <stop offset="0%" style={{ stopColor: '#F5F7FA', stopOpacity: 1 }} />
+          <stop offset="100%" style={{ stopColor: '#E4E9F0', stopOpacity: 1 }} />
         </linearGradient>
       </defs>
+      
+      {/* 背景 - 单层渐变 */}
       <rect width="100%" height="100%" fill={`url(#grad-${width}-${height})`} />
-      <g transform={`translate(${width / 2}, ${height / 2})`}>
-        {/* 产品轮廓 */}
-        <rect x="-30" y="-35" width="60" height="70" rx="4" fill="#D1D5DB" opacity="0.3" />
-        <rect x="-25" y="-30" width="50" height="60" rx="3" fill="#D1D5DB" opacity="0.2" />
-        <circle cx="0" cy="-10" r="15" fill="#D1D5DB" opacity="0.4" />
-        <rect x="-20" y="10" width="40" height="3" rx="1.5" fill="#D1D5DB" opacity="0.3" />
-        <rect x="-15" y="18" width="30" height="3" rx="1.5" fill="#D1D5DB" opacity="0.3" />
+      
+      {/* 商品轮廓 - 极简设计，只保留圆形和横线 */}
+      <g transform={`translate(${centerX}, ${centerY})`}>
+        {/* 顶部圆形装饰 - 代表产品主体 */}
+        <circle 
+          cx="0" 
+          cy={-12 * scale} 
+          r={28 * scale} 
+          fill="#E2E8F0" 
+          opacity="0.6" 
+        />
+        {/* 底部横线装饰 - 代表产品信息 */}
+        <rect 
+          x={-32 * scale} 
+          y={18 * scale} 
+          width={64 * scale} 
+          height={6 * scale} 
+          rx={3 * scale} 
+          fill="#E2E8F0" 
+          opacity="0.5" 
+        />
+        <rect 
+          x={-22 * scale} 
+          y={31 * scale} 
+          width={44 * scale} 
+          height={6 * scale} 
+          rx={3 * scale} 
+          fill="#E2E8F0" 
+          opacity="0.5" 
+        />
       </g>
-      {text && (
-        <text 
-          x="50%" 
-          y="50%" 
-          dominantBaseline="middle" 
-          textAnchor="middle" 
-          fontFamily="system-ui, -apple-system, sans-serif" 
-          fontSize={Math.max(12, width / 15)} 
-          fill="#9CA3AF"
-          fontWeight="500"
-        >
-          {text}
-        </text>
-      )}
     </svg>
   )
 }

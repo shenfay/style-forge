@@ -1,106 +1,146 @@
 [
   {
-    "id": "ecommerce-home-mobile",
+    "id": "ecommerce-homepage",
     "name": "B2C商城首页",
     "scene": "ecommerce",
     "device": "mobile",
     "type": "home",
     "description": "B2C电商商城首页，包含搜索、轮播、分类导航、限时抢购、推荐商品等核心模块",
-    "defaultStyle": {
-      "backgroundColor": "#FFFFFF",
-      "primaryColor": "#FF6B35",
-      "cornerRadius": "medium",
-      "cardStyle": "shadow",
-      "titleBarStyle": "frosted-glass",
-      "switcherStyle": "pill",
-      "buttonStyle": "gradient",
-      "badgeStyle": "rounded"
-    },
-    "layout": {
-      "type": "single-column",
-      "regions": [
-        {
-          "id": "header",
-          "name": "顶部搜索栏",
-          "type": "header",
-          "height": "44px",
-          "components": ["search-bar", "scan-icon", "message-icon"],
-          "description": "固定顶部搜索栏，包含搜索框、扫码图标、消息图标"
-        },
-        {
-          "id": "banner",
-          "name": "活动轮播图",
-          "type": "content",
-          "height": "160px",
-          "components": ["promo-swiper", "indicator-dots", "promo-badge"],
-          "description": "全屏轮播图，展示促销活动，带指示器和促销标签"
-        },
-        {
-          "id": "notice-bar",
-          "name": "公告栏",
-          "type": "content",
-          "height": "32px",
-          "components": ["notice-icon", "scrolling-text"],
-          "description": "横向滚动公告，展示商城通知和活动信息"
-        },
-        {
-          "id": "category-nav",
-          "name": "分类导航",
-          "type": "content",
-          "height": "auto",
-          "components": ["category-grid", "category-icon", "category-label"],
-          "description": "2行5列分类图标网格，快速导航到各分类页面"
-        },
-        {
-          "id": "promo-cards",
-          "name": "营销卡片",
-          "type": "content",
-          "height": "auto",
-          "components": ["promo-card-left", "promo-card-right-top", "promo-card-right-bottom"],
-          "description": "1+2布局的营销卡片，展示优惠券、新人专享等活动"
-        },
-        {
-          "id": "flash-sale",
-          "name": "限时抢购",
-          "type": "content",
-          "height": "auto",
-          "components": ["section-header", "countdown-timer", "product-horizontal-scroll", "more-link"],
-          "description": "限时抢购专区，包含倒计时、横向滚动商品列表、查看更多"
-        },
-        {
-          "id": "brand-showcase",
-          "name": "品牌专区",
-          "type": "content",
-          "height": "auto",
-          "components": ["brand-header", "brand-logo-grid"],
-          "description": "品牌展示区，展示热门品牌Logo和优惠信息"
-        },
-        {
-          "id": "new-arrivals",
-          "name": "新品推荐",
-          "type": "content",
-          "height": "auto",
-          "components": ["section-header", "product-grid-2col", "new-badge"],
-          "description": "双列网格布局展示新品，带新品标签"
-        },
-        {
-          "id": "recommendations",
-          "name": "猜你喜欢",
-          "type": "content",
-          "height": "auto",
-          "components": ["section-header", "product-waterfall", "load-more-trigger"],
-          "description": "个性化推荐瀑布流，根据用户行为推荐商品，支持下拉加载更多"
-        },
-        {
-          "id": "tabbar",
-          "name": "底部导航栏",
-          "type": "footer",
-          "height": "56px",
-          "components": ["tab-home", "tab-categories", "tab-cart", "tab-profile"],
-          "description": "固定底部导航，包含首页、分类、购物车、我的四个Tab"
+    "components": [
+      {
+        "type": "Navigation",
+        "props": {
+          "position": "top",
+          "items": ["search-bar", "scan-icon", "message-icon"],
+          "height": "44px"
         }
-      ]
-    },
+      },
+      {
+        "type": "Carousel",
+        "props": {
+          "height": "160px",
+          "items": [],
+          "showIndicator": true,
+          "autoPlay": true
+        }
+      },
+      {
+        "type": "NoticeBar",
+        "props": {
+          "text": "商城公告信息",
+          "scrollable": true
+        }
+      },
+      {
+        "type": "CategoryGrid",
+        "props": {
+          "columns": 5,
+          "rows": 2,
+          "items": [
+            { "name": "数码", "icon": "📱" },
+            { "name": "服饰", "icon": "👕" },
+            { "name": "家居", "icon": "🏠" },
+            { "name": "美食", "icon": "🍔" },
+            { "name": "美妆", "icon": "💄" },
+            { "name": "运动", "icon": "⚽" },
+            { "name": "图书", "icon": "📚" },
+            { "name": "母婴", "icon": "👶" },
+            { "name": "家电", "icon": "📺" },
+            { "name": "更多", "icon": "📦" }
+          ]
+        }
+      },
+      {
+        "type": "SectionHeader",
+        "props": {
+          "title": "限时抢购",
+          "showDecoration": true,
+          "align": "left"
+        }
+      },
+      {
+        "type": "ProductScroll",
+        "props": {
+          "direction": "horizontal",
+          "items": [
+            { "productName": "商品1", "price": 99, "tag": "热卖" },
+            { "productName": "商品2", "price": 199, "tag": "新品" },
+            { "productName": "商品3", "price": 299 },
+            { "productName": "商品4", "price": 399 }
+          ]
+        }
+      },
+      {
+        "type": "SectionHeader",
+        "props": {
+          "title": "品牌专区",
+          "showDecoration": true,
+          "align": "left"
+        }
+      },
+      {
+        "type": "BrandGrid",
+        "props": {
+          "columns": 3,
+          "items": [
+            { "name": "Apple", "logo": "AP" },
+            { "name": "Nike", "logo": "NI" },
+            { "name": "Sony", "logo": "SO" },
+            { "name": "Adidas", "logo": "AD" },
+            { "name": "Samsung", "logo": "SA" },
+            { "name": "Huawei", "logo": "HU" }
+          ]
+        }
+      },
+      {
+        "type": "SectionHeader",
+        "props": {
+          "title": "新品推荐",
+          "showDecoration": true,
+          "align": "left"
+        }
+      },
+      {
+        "type": "ProductGrid",
+        "props": {
+          "columns": 2,
+          "items": [
+            { "productName": "Apple Watch Series 9", "price": 2999, "originalPrice": 3999, "tag": "新品" },
+            { "productName": "AirPods Pro 2", "price": 1899, "tag": "热卖" },
+            { "productName": "MacBook Air M3", "price": 8999, "tag": "新品" },
+            { "productName": "iPad Pro M2", "price": 6799, "tag": "爆款" }
+          ]
+        }
+      },
+      {
+        "type": "SectionHeader",
+        "props": {
+          "title": "猜你喜欢",
+          "showDecoration": true,
+          "align": "left"
+        }
+      },
+      {
+        "type": "ProductGrid",
+        "props": {
+          "columns": 2,
+          "items": [
+            { "productName": "推荐商品1", "price": 299, "sales": "1.2万" },
+            { "productName": "推荐商品2", "price": 599, "sales": "8956" },
+            { "productName": "推荐商品3", "price": 899, "sales": "3421" },
+            { "productName": "推荐商品4", "price": 1299, "sales": "2156" }
+          ]
+        }
+      },
+      {
+        "type": "Navigation",
+        "props": {
+          "position": "bottom",
+          "items": ["home", "categories", "cart", "profile"],
+          "height": "56px"
+        }
+      }
+    ],
     "aiPrompt": {
       "title": "B2C电商商城首页（移动端）",
       "sections": [
@@ -128,7 +168,145 @@
     }
   },
   {
-    "id": "ecommerce-product-detail-mobile",
+    "id": "ecommerce-homepage",
+    "name": "B2C商城首页",
+    "scene": "ecommerce",
+    "device": "pc",
+    "type": "home",
+    "description": "PC端电商商城首页，包含顶部导航、轮播图、分类、限时抢购、品牌专区、新品推荐等模块",
+    "components": [
+      {
+        "type": "Navigation",
+        "props": {
+          "position": "top",
+          "items": ["logo", "search-bar", "cart", "account"],
+          "height": "64px"
+        }
+      },
+      {
+        "type": "Carousel",
+        "props": {
+          "height": "400px",
+          "items": [],
+          "showIndicator": true,
+          "autoPlay": true
+        }
+      },
+      {
+        "type": "CategoryGrid",
+        "props": {
+          "columns": 10,
+          "rows": 1,
+          "items": [
+            { "name": "数码", "icon": "📱" },
+            { "name": "电脑", "icon": "💻" },
+            { "name": "服饰", "icon": "👕" },
+            { "name": "家居", "icon": "🏠" },
+            { "name": "美食", "icon": "🍔" },
+            { "name": "美妆", "icon": "💄" },
+            { "name": "运动", "icon": "⚽" },
+            { "name": "图书", "icon": "📚" },
+            { "name": "母婴", "icon": "👶" },
+            { "name": "家电", "icon": "📺" }
+          ]
+        }
+      },
+      {
+        "type": "SectionHeader",
+        "props": {
+          "title": "限时抢购",
+          "showDecoration": true,
+          "align": "left",
+          "showMore": true
+        }
+      },
+      {
+        "type": "ProductGrid",
+        "props": {
+          "columns": 5,
+          "items": [
+            { "productName": "限时商品1", "price": 99, "originalPrice": 199 },
+            { "productName": "限时商品2", "price": 199, "originalPrice": 399 },
+            { "productName": "限时商品3", "price": 299, "originalPrice": 599 },
+            { "productName": "限时商品4", "price": 399, "originalPrice": 799 },
+            { "productName": "限时商品5", "price": 499, "originalPrice": 999 }
+          ]
+        }
+      },
+      {
+        "type": "SectionHeader",
+        "props": {
+          "title": "品牌专区",
+          "showDecoration": true,
+          "align": "left",
+          "showMore": true
+        }
+      },
+      {
+        "type": "BrandGrid",
+        "props": {
+          "columns": 6,
+          "items": [
+            { "name": "Apple", "logo": "AP" },
+            { "name": "Nike", "logo": "NI" },
+            { "name": "Sony", "logo": "SO" },
+            { "name": "Adidas", "logo": "AD" },
+            { "name": "Samsung", "logo": "SA" },
+            { "name": "Huawei", "logo": "HU" }
+          ]
+        }
+      },
+      {
+        "type": "SectionHeader",
+        "props": {
+          "title": "新品推荐",
+          "showDecoration": true,
+          "align": "left",
+          "showMore": true
+        }
+      },
+      {
+        "type": "ProductGrid",
+        "props": {
+          "columns": 4,
+          "items": [
+            { "productName": "Apple Watch Series 9", "price": 2999, "originalPrice": 3999, "tag": "新品" },
+            { "productName": "AirPods Pro 2", "price": 1899, "tag": "热卖" },
+            { "productName": "MacBook Air M3", "price": 8999, "tag": "新品" },
+            { "productName": "iPad Pro M2", "price": 6799, "tag": "爆款" },
+            { "productName": "iPhone 15 Pro", "price": 7999, "tag": "新品" },
+            { "productName": "Sony WH-1000XM5", "price": 2499, "tag": "热卖" },
+            { "productName": "Nintendo Switch", "price": 2099 },
+            { "productName": "Dyson V15", "price": 4990, "tag": "爆款" }
+          ]
+        }
+      },
+      {
+        "type": "SectionHeader",
+        "props": {
+          "title": "猜你喜欢",
+          "showDecoration": true,
+          "align": "left",
+          "showMore": true
+        }
+      },
+      {
+        "type": "ProductGrid",
+        "props": {
+          "columns": 5,
+          "items": [
+            { "productName": "推荐商品1", "price": 299, "sales": "1.2万人付款" },
+            { "productName": "推荐商品2", "price": 599, "sales": "8956人付款" },
+            { "productName": "推荐商品3", "price": 899, "sales": "3421人付款" },
+            { "productName": "推荐商品4", "price": 1299, "sales": "2156人付款" },
+            { "productName": "推荐商品5", "price": 1599, "sales": "1893人付款" }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "ecommerce-product-detail",
     "name": "商品详情页",
     "scene": "ecommerce",
     "device": "mobile",
@@ -208,7 +386,7 @@
     }
   },
   {
-    "id": "ecommerce-cart-mobile",
+    "id": "ecommerce-cart",
     "name": "购物车页",
     "scene": "ecommerce",
     "device": "mobile",
