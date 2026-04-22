@@ -277,94 +277,98 @@ export function StyleConfigurator({ config, onChange, activeSection }: StyleConf
       />
       <div className="space-y-6">
         <ConfigItem label="内边距">
-          <div className="grid grid-cols-3 gap-2">
-            {[
-              { label: '紧凑', value: 'compact' },
-              { label: '适中', value: 'medium' },
-              { label: '宽松', value: 'relaxed' },
-            ].map((opt) => (
-              <button
-                key={opt.value}
-                onClick={() => updateConfig('padding', opt.value)}
-                className="px-3 py-2.5 text-sm rounded-lg transition-all font-normal"
+          <div className="space-y-3">
+            <div className="relative">
+              <input
+                type="range"
+                min="0"
+                max="2"
+                step="1"
+                value={['compact', 'medium', 'relaxed'].indexOf(config.padding)}
+                onChange={(e) => updateConfig('padding', ['compact', 'medium', 'relaxed'][parseInt(e.target.value)])}
+                className="w-full h-2 rounded-lg appearance-none cursor-pointer"
                 style={{
-                  backgroundColor: config.padding === opt.value ? '#1A1A1A' : 'transparent',
-                  color: config.padding === opt.value ? '#FFFFFF' : '#4A4A4A',
-                  border: config.padding === opt.value ? 'none' : '1px solid #E8E6E1',
+                  background: `linear-gradient(to right, #1A1A1A 0%, #1A1A1A ${(['compact', 'medium', 'relaxed'].indexOf(config.padding) / 2) * 100}%, #E8E6E1 ${(['compact', 'medium', 'relaxed'].indexOf(config.padding) / 2) * 100}%, #E8E6E1 100%)`,
                 }}
-              >
-                {opt.label}
-              </button>
-            ))}
+              />
+            </div>
+            <div className="flex justify-between text-xs" style={{ color: '#999999' }}>
+              <span>紧凑</span>
+              <span>适中</span>
+              <span>宽松</span>
+            </div>
           </div>
         </ConfigItem>
 
         <ConfigItem label="卡片间距">
-          <div className="grid grid-cols-3 gap-2">
-            {[
-              { label: '小', value: 'small' },
-              { label: '中', value: 'medium' },
-              { label: '大', value: 'large' },
-            ].map((opt) => (
-              <button
-                key={opt.value}
-                onClick={() => updateConfig('cardGap', opt.value)}
-                className="px-3 py-2.5 text-sm rounded-lg transition-all font-normal"
+          <div className="space-y-3">
+            <div className="relative">
+              <input
+                type="range"
+                min="0"
+                max="2"
+                step="1"
+                value={['small', 'medium', 'large'].indexOf(config.cardGap)}
+                onChange={(e) => updateConfig('cardGap', ['small', 'medium', 'large'][parseInt(e.target.value)])}
+                className="w-full h-2 rounded-lg appearance-none cursor-pointer"
                 style={{
-                  backgroundColor: config.cardGap === opt.value ? '#1A1A1A' : 'transparent',
-                  color: config.cardGap === opt.value ? '#FFFFFF' : '#4A4A4A',
-                  border: config.cardGap === opt.value ? 'none' : '1px solid #E8E6E1',
+                  background: `linear-gradient(to right, #1A1A1A 0%, #1A1A1A ${(['small', 'medium', 'large'].indexOf(config.cardGap) / 2) * 100}%, #E8E6E1 ${(['small', 'medium', 'large'].indexOf(config.cardGap) / 2) * 100}%, #E8E6E1 100%)`,
                 }}
-              >
-                {opt.label}
-              </button>
-            ))}
+              />
+            </div>
+            <div className="flex justify-between text-xs" style={{ color: '#999999' }}>
+              <span>小</span>
+              <span>中</span>
+              <span>大</span>
+            </div>
           </div>
         </ConfigItem>
 
         <ConfigItem label="区块间距">
-          <div className="grid grid-cols-3 gap-2">
-            {[
-              { label: '小', value: 'small' },
-              { label: '中', value: 'medium' },
-              { label: '大', value: 'large' },
-            ].map((opt) => (
-              <button
-                key={opt.value}
-                onClick={() => updateConfig('sectionGap', opt.value)}
-                className="px-3 py-2.5 text-sm rounded-lg transition-all font-normal"
+          <div className="space-y-3">
+            <div className="relative">
+              <input
+                type="range"
+                min="0"
+                max="2"
+                step="1"
+                value={['small', 'medium', 'large'].indexOf(config.sectionGap)}
+                onChange={(e) => updateConfig('sectionGap', ['small', 'medium', 'large'][parseInt(e.target.value)])}
+                className="w-full h-2 rounded-lg appearance-none cursor-pointer"
                 style={{
-                  backgroundColor: config.sectionGap === opt.value ? '#1A1A1A' : 'transparent',
-                  color: config.sectionGap === opt.value ? '#FFFFFF' : '#4A4A4A',
-                  border: config.sectionGap === opt.value ? 'none' : '1px solid #E8E6E1',
+                  background: `linear-gradient(to right, #1A1A1A 0%, #1A1A1A ${(['small', 'medium', 'large'].indexOf(config.sectionGap) / 2) * 100}%, #E8E6E1 ${(['small', 'medium', 'large'].indexOf(config.sectionGap) / 2) * 100}%, #E8E6E1 100%)`,
                 }}
-              >
-                {opt.label}
-              </button>
-            ))}
+              />
+            </div>
+            <div className="flex justify-between text-xs" style={{ color: '#999999' }}>
+              <span>小</span>
+              <span>中</span>
+              <span>大</span>
+            </div>
           </div>
         </ConfigItem>
 
         <ConfigItem label="元素间距">
-          <div className="grid grid-cols-3 gap-2">
-            {[
-              { label: '紧凑', value: 'compact' },
-              { label: '适中', value: 'medium' },
-              { label: '宽松', value: 'relaxed' },
-            ].map((opt) => (
-              <button
-                key={opt.value}
-                onClick={() => updateConfig('elementGap', opt.value)}
-                className="px-3 py-2.5 text-sm rounded-lg transition-all font-normal"
+          <div className="space-y-3">
+            <div className="relative">
+              <input
+                type="range"
+                min="0"
+                max="2"
+                step="1"
+                value={['compact', 'medium', 'relaxed'].indexOf(config.elementGap)}
+                onChange={(e) => updateConfig('elementGap', ['compact', 'medium', 'relaxed'][parseInt(e.target.value)])}
+                className="w-full h-2 rounded-lg appearance-none cursor-pointer"
                 style={{
-                  backgroundColor: config.elementGap === opt.value ? '#1A1A1A' : 'transparent',
-                  color: config.elementGap === opt.value ? '#FFFFFF' : '#4A4A4A',
-                  border: config.elementGap === opt.value ? 'none' : '1px solid #E8E6E1',
+                  background: `linear-gradient(to right, #1A1A1A 0%, #1A1A1A ${(['compact', 'medium', 'relaxed'].indexOf(config.elementGap) / 2) * 100}%, #E8E6E1 ${(['compact', 'medium', 'relaxed'].indexOf(config.elementGap) / 2) * 100}%, #E8E6E1 100%)`,
                 }}
-              >
-                {opt.label}
-              </button>
-            ))}
+              />
+            </div>
+            <div className="flex justify-between text-xs" style={{ color: '#999999' }}>
+              <span>紧凑</span>
+              <span>适中</span>
+              <span>宽松</span>
+            </div>
           </div>
         </ConfigItem>
       </div>
@@ -408,98 +412,134 @@ export function StyleConfigurator({ config, onChange, activeSection }: StyleConf
         </ConfigItem>
 
         <ConfigItem label="标题装饰">
-          <div className="grid grid-cols-4 gap-2">
+          <div className="space-y-2">
             {[
-              { value: 'left-accent', icon: '◀', label: '左' },
-              { value: 'right-accent', icon: '▶', label: '右' },
-              { value: 'bottom-accent', icon: '▼', label: '下' },
-              { value: 'plain', icon: '—', label: '无' },
+              { value: 'left-accent', label: '左侧装饰线' },
+              { value: 'right-accent', label: '右侧装饰线' },
+              { value: 'bottom-accent', label: '底部装饰线' },
+              { value: 'plain', label: '无装饰' },
             ].map((opt) => (
-              <button
+              <label
                 key={opt.value}
-                onClick={() => updateConfig('titleStyle', opt.value)}
-                className="px-3 py-2.5 text-sm rounded-lg transition-all flex flex-col items-center justify-center gap-1 font-normal"
+                className="flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer transition-all"
                 style={{
-                  backgroundColor: config.titleStyle === opt.value ? '#1A1A1A' : 'transparent',
-                  color: config.titleStyle === opt.value ? '#FFFFFF' : '#4A4A4A',
-                  border: config.titleStyle === opt.value ? 'none' : '1px solid #E8E6E1',
+                  backgroundColor: config.titleStyle === opt.value ? '#F8F8F8' : 'transparent',
                 }}
               >
-                <span>{opt.icon}</span>
-                <span>{opt.label}</span>
-              </button>
+                <div className="relative flex items-center">
+                  <input
+                    type="radio"
+                    name="titleStyle"
+                    value={opt.value}
+                    checked={config.titleStyle === opt.value}
+                    onChange={() => updateConfig('titleStyle', opt.value)}
+                    className="sr-only"
+                  />
+                  <div className="w-4 h-4 rounded-full border-2 transition-all" style={{
+                    borderColor: config.titleStyle === opt.value ? '#1A1A1A' : '#D1D1D1',
+                  }}>
+                    {config.titleStyle === opt.value && (
+                      <div className="w-2 h-2 rounded-full mx-auto mt-0.5" style={{ backgroundColor: '#1A1A1A' }} />
+                    )}
+                  </div>
+                </div>
+                <span className="text-sm" style={{ color: config.titleStyle === opt.value ? '#1A1A1A' : '#666666' }}>
+                  {opt.label}
+                </span>
+              </label>
             ))}
           </div>
         </ConfigItem>
 
         <ConfigItem label="标题大小">
-          <div className="grid grid-cols-3 gap-2">
-            {[
-              { label: '小', value: 'small' },
-              { label: '中', value: 'medium' },
-              { label: '大', value: 'large' },
-            ].map((opt) => (
-              <button
-                key={opt.value}
-                onClick={() => updateConfig('titleSize', opt.value)}
-                className="px-3 py-2.5 text-sm rounded-lg transition-all font-normal"
+          <div className="space-y-3">
+            <div className="relative">
+              <input
+                type="range"
+                min="0"
+                max="2"
+                step="1"
+                value={['small', 'medium', 'large'].indexOf(config.titleSize)}
+                onChange={(e) => updateConfig('titleSize', ['small', 'medium', 'large'][parseInt(e.target.value)])}
+                className="w-full h-2 rounded-lg appearance-none cursor-pointer"
                 style={{
-                  backgroundColor: config.titleSize === opt.value ? '#1A1A1A' : 'transparent',
-                  color: config.titleSize === opt.value ? '#FFFFFF' : '#4A4A4A',
-                  border: config.titleSize === opt.value ? 'none' : '1px solid #E8E6E1',
-                  fontSize: opt.value === 'small' ? '12px' : opt.value === 'large' ? '16px' : '14px',
+                  background: `linear-gradient(to right, #1A1A1A 0%, #1A1A1A ${(['small', 'medium', 'large'].indexOf(config.titleSize) / 2) * 100}%, #E8E6E1 ${(['small', 'medium', 'large'].indexOf(config.titleSize) / 2) * 100}%, #E8E6E1 100%)`,
                 }}
-              >
-                {opt.label}
-              </button>
-            ))}
+              />
+            </div>
+            <div className="flex justify-between text-xs" style={{ color: '#999999' }}>
+              <span>小</span>
+              <span>中</span>
+              <span>大</span>
+            </div>
           </div>
         </ConfigItem>
 
         <ConfigItem label="正文字号">
-          <div className="grid grid-cols-3 gap-2">
-            {[
-              { label: '小', value: 'small' },
-              { label: '中', value: 'medium' },
-              { label: '大', value: 'large' },
-            ].map((opt) => (
-              <button
-                key={opt.value}
-                onClick={() => updateConfig('bodySize', opt.value)}
-                className="px-3 py-2.5 text-sm rounded-lg transition-all font-normal"
-                style={{
-                  backgroundColor: config.bodySize === opt.value ? '#1A1A1A' : 'transparent',
-                  color: config.bodySize === opt.value ? '#FFFFFF' : '#4A4A4A',
-                  border: config.bodySize === opt.value ? 'none' : '1px solid #E8E6E1',
-                  fontSize: opt.value === 'small' ? '12px' : opt.value === 'large' ? '16px' : '14px',
-                }}
-              >
-                {opt.label}
-              </button>
-            ))}
-          </div>
+          <select
+            value={config.bodySize}
+            onChange={(e) => updateConfig('bodySize', e.target.value)}
+            className="w-full px-3 py-2.5 rounded-lg border text-sm transition-all"
+            style={{
+              borderColor: '#E8E6E1',
+              color: '#1A1A1A',
+              backgroundColor: '#FFFFFF',
+            }}
+          >
+            <option value="small">小 (12px)</option>
+            <option value="medium">中 (14px)</option>
+            <option value="large">大 (16px)</option>
+          </select>
         </ConfigItem>
 
         <ConfigItem label="行高设置">
-          <div className="grid grid-cols-3 gap-2">
-            {[
-              { label: '紧凑', value: 'compact' },
-              { label: '适中', value: 'medium' },
-              { label: '宽松', value: 'relaxed' },
-            ].map((opt) => (
-              <button
-                key={opt.value}
-                onClick={() => updateConfig('lineHeight', opt.value)}
-                className="px-3 py-2.5 text-sm rounded-lg transition-all font-normal"
-                style={{
-                  backgroundColor: config.lineHeight === opt.value ? '#1A1A1A' : 'transparent',
-                  color: config.lineHeight === opt.value ? '#FFFFFF' : '#4A4A4A',
-                  border: config.lineHeight === opt.value ? 'none' : '1px solid #E8E6E1',
-                }}
-              >
-                {opt.label}
-              </button>
-            ))}
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => {
+                const currentIndex = ['compact', 'medium', 'relaxed'].indexOf(config.lineHeight)
+                if (currentIndex > 0) {
+                  updateConfig('lineHeight', ['compact', 'medium', 'relaxed'][currentIndex - 1])
+                }
+              }}
+              className="w-8 h-8 flex items-center justify-center rounded-lg transition-all"
+              style={{
+                backgroundColor: ['compact', 'medium', 'relaxed'].indexOf(config.lineHeight) === 0 ? '#F5F5F5' : '#FFFFFF',
+                color: ['compact', 'medium', 'relaxed'].indexOf(config.lineHeight) === 0 ? '#CCCCCC' : '#1A1A1A',
+                border: '1px solid #E8E6E1',
+              }}
+              disabled={['compact', 'medium', 'relaxed'].indexOf(config.lineHeight) === 0}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M5 12h14"/>
+              </svg>
+            </button>
+            <div className="flex-1 text-center">
+              <div className="text-lg font-medium" style={{ color: '#1A1A1A' }}>
+                {{ compact: '1.3', medium: '1.5', relaxed: '1.8' }[config.lineHeight]}
+              </div>
+              <div className="text-xs" style={{ color: '#999999' }}>
+                {{ compact: '紧凑', medium: '适中', relaxed: '宽松' }[config.lineHeight]}
+              </div>
+            </div>
+            <button
+              onClick={() => {
+                const currentIndex = ['compact', 'medium', 'relaxed'].indexOf(config.lineHeight)
+                if (currentIndex < 2) {
+                  updateConfig('lineHeight', ['compact', 'medium', 'relaxed'][currentIndex + 1])
+                }
+              }}
+              className="w-8 h-8 flex items-center justify-center rounded-lg transition-all"
+              style={{
+                backgroundColor: ['compact', 'medium', 'relaxed'].indexOf(config.lineHeight) === 2 ? '#F5F5F5' : '#FFFFFF',
+                color: ['compact', 'medium', 'relaxed'].indexOf(config.lineHeight) === 2 ? '#CCCCCC' : '#1A1A1A',
+                border: '1px solid #E8E6E1',
+              }}
+              disabled={['compact', 'medium', 'relaxed'].indexOf(config.lineHeight) === 2}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M12 5v14M5 12h14"/>
+              </svg>
+            </button>
           </div>
         </ConfigItem>
       </div>
