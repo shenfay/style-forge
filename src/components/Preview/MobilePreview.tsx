@@ -56,7 +56,7 @@ function HomePage({ config }: { config: StyleConfig }) {
             <circle cx="11" cy="11" r="8"/>
             <path d="m21 21-4.35-4.35"/>
           </svg>
-          <span className="text-sm flex-1" style={{ color: '#999' }}>搜索商品</span>
+          <span className="flex-1" style={{ color: '#999', fontSize: tokens.typography.bodySize }}>搜索商品</span>
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#666" strokeWidth="2">
             <path d="M3 7V5a2 2 0 012-2h2M17 3h2a2 2 0 012 2v2M21 17v2a2 2 0 01-2 2h-2M7 21H5a2 2 0 01-2-2v-2"/>
             <rect x="7" y="7" width="10" height="10" rx="1"/>
@@ -91,7 +91,7 @@ function HomePage({ config }: { config: StyleConfig }) {
             <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/>
             <path d="M13.73 21a2 2 0 01-3.46 0"/>
           </svg>
-          <span className="text-xs flex-1 truncate" style={{ color: '#666' }}>商城公告：新用户注册立享8折优惠</span>
+          <span className="flex-1 truncate" style={{ color: '#666', fontSize: tokens.typography.bodySize }}>商城公告：新用户注册立享8折优惠</span>
         </div>
 
         {/* 4. 分类导航 */}
@@ -113,7 +113,7 @@ function HomePage({ config }: { config: StyleConfig }) {
                 <div className="w-12 h-12 rounded-full flex items-center justify-center overflow-hidden" style={{ background: `${item.color}15` }}>
                   <Placeholder width={48} height={48} type="icon" />
                 </div>
-                <span className="text-xs" style={{ color: colors.text.secondary, fontSize: fontSize.xs }}>{item.label}</span>
+                <span style={{ color: colors.text.secondary, fontSize: tokens.typography.bodySize }}>{item.label}</span>
               </div>
             ))}
           </div>
@@ -126,20 +126,20 @@ function HomePage({ config }: { config: StyleConfig }) {
             background: 'linear-gradient(135deg, #FF6B35 0%, #FF8E53 100%)',
           }}>
             <div className="text-white text-sm font-bold">限时抢购</div>
-            <div className="text-white/90 text-xs mt-1">距结束 02:15:30</div>
+            <div style={{ color: 'rgba(255,255,255,0.9)', fontSize: tokens.typography.bodySize, marginTop: '4px' }}>距结束 02:15:30</div>
           </div>
           <div className="space-y-2">
             <div className="p-2" style={{
               borderRadius: radius,
               background: 'linear-gradient(135deg, #3B82F6 0%, #60A5FA 100%)',
             }}>
-              <div className="text-white text-xs font-bold">新人专享</div>
+              <div style={{ color: colors.white, fontSize: tokens.typography.bodySize, fontWeight: fontWeight.bold }}>新人专享</div>
             </div>
             <div className="p-2" style={{
               borderRadius: radius,
               background: 'linear-gradient(135deg, #8B5CF6 0%, #A78BFA 100%)',
             }}>
-              <div className="text-white text-xs font-bold">会员福利</div>
+              <div style={{ color: colors.white, fontSize: tokens.typography.bodySize, fontWeight: fontWeight.bold }}>会员福利</div>
             </div>
           </div>
         </div>
@@ -153,21 +153,27 @@ function HomePage({ config }: { config: StyleConfig }) {
               paddingBottom: config.titleStyle === 'bottom-accent' ? '8px' : '0',
             }}>
               {config.titleStyle === 'left-accent' && (
-                <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-4" style={{
+                <div className="absolute left-0 top-1/2 -translate-y-1/2" style={{
                   backgroundColor: tokens.colors.primary,
                   borderRadius: '2px',
+                  width: tokens.sectionHeader.decorationThickness,
+                  height: tokens.sectionHeader.decorationGap,
                 }} />
               )}
               {config.titleStyle === 'right-accent' && (
-                <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1 h-4" style={{
+                <div className="absolute right-0 top-1/2 -translate-y-1/2" style={{
                   backgroundColor: tokens.colors.primary,
                   borderRadius: '2px',
+                  width: tokens.sectionHeader.decorationThickness,
+                  height: tokens.sectionHeader.decorationGap,
                 }} />
               )}
               {config.titleStyle === 'bottom-accent' && (
-                <div className="absolute bottom-0 left-0 w-8 h-1" style={{
+                <div className="absolute bottom-0 left-0" style={{
                   backgroundColor: tokens.colors.primary,
                   borderRadius: '2px',
+                  height: tokens.sectionHeader.decorationThickness,
+                  width: tokens.sectionHeader.decorationGap,
                 }} />
               )}
               <div className="text-sm font-bold" style={{ 
@@ -179,20 +185,17 @@ function HomePage({ config }: { config: StyleConfig }) {
             <div className="flex items-center gap-2">
               <div className="flex gap-1">
                 {['02', '15', '30'].map((t, i) => (
-                  <div key={i} className="px-1.5 py-0.5 text-xs text-white" style={{
-                    borderRadius: 4,
-                    background: '#FF4757'
-                  }}>{t}</div>
+                  <div style={{ fontSize: tokens.typography.bodySize, color: colors.white }}>{t}</div>
                 ))}
               </div>
-              <button className="text-xs" style={{ color: colors.text.tertiary }}>更多 ›</button>
+              <button style={{ fontSize: tokens.typography.bodySize, color: colors.text.tertiary }}>更多 ›</button>
             </div>
           </div>
           <div className="flex gap-2 overflow-x-auto">
             {[1, 2, 3, 4].map(i => (
               <div key={i} className="shrink-0 w-24">
                 <Placeholder width={96} height={96} type="product" text="" />
-                <div className="mt-1 text-xs font-bold" style={{ color: '#FF4757' }}>¥99</div>
+                <div style={{ marginTop: '4px', fontSize: tokens.typography.bodySize, fontWeight: fontWeight.bold, color: '#FF4757' }}>¥99</div>
                 <div className="text-[10px] line-through" style={{ color: '#999' }}>¥199</div>
               </div>
             ))}
@@ -208,21 +211,27 @@ function HomePage({ config }: { config: StyleConfig }) {
               paddingBottom: config.titleStyle === 'bottom-accent' ? '8px' : '0',
             }}>
               {config.titleStyle === 'left-accent' && (
-                <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-4" style={{
+                <div className="absolute left-0 top-1/2 -translate-y-1/2" style={{
                   backgroundColor: tokens.colors.primary,
                   borderRadius: '2px',
+                  width: tokens.sectionHeader.decorationThickness,
+                  height: tokens.sectionHeader.decorationGap,
                 }} />
               )}
               {config.titleStyle === 'right-accent' && (
-                <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1 h-4" style={{
+                <div className="absolute right-0 top-1/2 -translate-y-1/2" style={{
                   backgroundColor: tokens.colors.primary,
                   borderRadius: '2px',
+                  width: tokens.sectionHeader.decorationThickness,
+                  height: tokens.sectionHeader.decorationGap,
                 }} />
               )}
               {config.titleStyle === 'bottom-accent' && (
-                <div className="absolute bottom-0 left-0 w-8 h-1" style={{
+                <div className="absolute bottom-0 left-0" style={{
                   backgroundColor: tokens.colors.primary,
                   borderRadius: '2px',
+                  height: tokens.sectionHeader.decorationThickness,
+                  width: tokens.sectionHeader.decorationGap,
                 }} />
               )}
               <div className="text-sm font-bold" style={{ 
@@ -231,7 +240,7 @@ function HomePage({ config }: { config: StyleConfig }) {
                 fontWeight: tokens.sectionHeader.titleWeight,
               }}>品牌专区</div>
             </div>
-            <button className="text-xs" style={{ color: colors.text.tertiary }}>查看更多 ›</button>
+            <button style={{ fontSize: tokens.typography.bodySize, color: colors.text.tertiary }}>查看更多 ›</button>
           </div>
           <div className="grid grid-cols-4 gap-2">
             {['Apple', 'Nike', 'Sony', 'Adidas'].map((brand, i) => (
@@ -269,7 +278,7 @@ function HomePage({ config }: { config: StyleConfig }) {
                 fontWeight: config.titleWeight === 'normal' ? 400 : config.titleWeight === 'medium' ? 500 : 700,
               }}>新品推荐</div>
             </div>
-            <button className="text-xs" style={{ color: colors.text.tertiary }}>查看更多 ›</button>
+            <button style={{ fontSize: tokens.typography.bodySize, color: colors.text.tertiary }}>查看更多 ›</button>
           </div>
           
           <div className="grid grid-cols-2 gap-3">
@@ -280,7 +289,7 @@ function HomePage({ config }: { config: StyleConfig }) {
               <Card key={i} config={config} className="overflow-hidden">
                 <Placeholder width={180} height={180} type="product" />
                 <div className="px-3 pb-3">
-                  <div className="text-sm font-medium mb-2 line-clamp-2" style={{ color: colors.text.primary, fontSize: fontSize.sm, fontWeight: fontWeight.medium }}>
+                  <div style={{ color: colors.text.primary, fontSize: tokens.typography.bodySize, fontWeight: fontWeight.medium, marginBottom: '8px', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
                     {item.title}
                   </div>
                   <div className="flex items-center justify-between">
@@ -321,7 +330,7 @@ function HomePage({ config }: { config: StyleConfig }) {
                 fontWeight: config.titleWeight === 'normal' ? 400 : config.titleWeight === 'medium' ? 500 : 700,
               }}>猜你喜欢</div>
             </div>
-            <button className="text-xs" style={{ color: colors.text.tertiary }}>查看更多 ›</button>
+            <button style={{ fontSize: tokens.typography.bodySize, color: colors.text.tertiary }}>查看更多 ›</button>
           </div>
           
           <div className="grid grid-cols-2 gap-3">
@@ -334,7 +343,7 @@ function HomePage({ config }: { config: StyleConfig }) {
               <Card key={i} config={config} className="overflow-hidden">
                 <Placeholder width={180} height={180} type="product" />
                 <div className="px-3 pb-3">
-                  <div className="text-sm font-medium mb-2 line-clamp-2" style={{ color: colors.text.primary, fontSize: fontSize.sm, fontWeight: fontWeight.medium }}>
+                  <div style={{ color: colors.text.primary, fontSize: tokens.typography.bodySize, fontWeight: fontWeight.medium, marginBottom: '8px', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
                     {item.title}
                   </div>
                   <div className="flex items-end justify-between">

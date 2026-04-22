@@ -43,9 +43,9 @@ export const colors = {
 
 // 圆角映射
 export const borderRadius = {
-  small: '8px',
-  medium: '16px',
-  large: '24px',
+  small: '6px',
+  medium: '12px',
+  large: '20px',
   pill: '999px',
 } as const
 
@@ -62,11 +62,11 @@ export const shadows = {
 export const spacing = {
   xs: '4px',
   sm: '8px',
-  md: '12px',
-  lg: '16px',
-  xl: '24px',
-  '2xl': '32px',
-  '3xl': '48px',
+  md: '16px',
+  lg: '24px',
+  xl: '32px',
+  '2xl': '48px',
+  '3xl': '64px',
 } as const
 
 // 字体大小
@@ -116,13 +116,22 @@ export function createGradient(color: string, direction: '135deg' | '180deg' | '
 import type { StyleConfig } from '../types/config'
 
 export const generateComponentTokens = (config: StyleConfig) => {
+  // 配置联动：根据形状配置自动调整其他相关属性
+  const isLargeShape = config.cornerRadius === 'large'
+  const isCompactShape = config.cornerRadius === 'small'
+  
   return {
     // Card 组件
     card: {
       borderRadius: getBorderRadius(config.cornerRadius as 'small' | 'medium' | 'large'),
-      boxShadow: config.cardStyle === 'shadow' ? shadows.md : 'none',
+      // 联动：大圆角时使用更强的阴影，增加视觉层次
+      boxShadow: config.cardStyle === 'shadow' 
+        ? (isLargeShape ? shadows.lg : isCompactShape ? shadows.sm : shadows.md)
+        : 'none',
       border: config.cardStyle === 'border' ? `1px solid ${colors.border.light}` : 'none',
       backgroundColor: config.cardBackgroundColor || colors.background.card,
+      // 联动：大圆角时增加内边距
+      padding: isLargeShape ? spacing.md : isCompactShape ? spacing.sm : spacing.sm,
     },
     
     // Button 组件
@@ -135,6 +144,10 @@ export const generateComponentTokens = (config: StyleConfig) => {
         : config.primaryColor,
       border: config.buttonStyle === 'wireframe' ? `2px solid ${config.primaryColor}` : 'none',
       color: config.buttonStyle === 'wireframe' ? config.primaryColor : colors.white,
+      // 联动：大圆角时增加按钮内边距，更饱满
+      padding: isLargeShape ? '12px 24px' : isCompactShape ? '6px 12px' : '8px 16px',
+      // 联动：根据字重配置调整按钮文字
+      fontWeight: config.titleWeight === 'bold' ? fontWeight.bold : fontWeight.medium,
     },
     
     // Tag/Badge 组件
@@ -146,16 +159,21 @@ export const generateComponentTokens = (config: StyleConfig) => {
     
     // SectionHeader 组件
     sectionHeader: {
-      titleSize: config.titleSize === 'small' ? fontSize.xl : config.titleSize === 'large' ? fontSize['2xl'] : fontSize['2xl'],
-      titleWeight: config.titleWeight === 'bold' ? fontWeight.bold : config.titleWeight === 'medium' ? fontWeight.medium : fontWeight.normal,
+      titleSize: config.titleSize === 'small' ? fontSize.xl : config.titleSize === 'large' ? fontSize['3xl'] : fontSize['2xl'],
+      titleWeight: config.titleWeight === 'bold' ? fontWeight.bold : config.titleWeight === 'medium' ? fontWeight.semibold : fontWeight.medium,
       titleColor: config.titleColor || colors.text.primary,
       decoration: config.titleStyle,
+      // 联动：大标题时增加装饰线粗度和间距
+      decorationThickness: config.titleSize === 'large' ? '3px' : '2px',
+      decorationGap: config.titleSize === 'large' ? '16px' : '12px',
     },
     
     // Typography 组件
     typography: {
-      bodySize: config.bodySize === 'small' ? fontSize.sm : config.bodySize === 'large' ? fontSize.base : fontSize.base,
-      lineHeight: config.lineHeight === 'compact' ? '1.3' : config.lineHeight === 'relaxed' ? '1.8' : '1.5',
+      bodySize: config.bodySize === 'small' ? fontSize.sm : config.bodySize === 'large' ? fontSize.lg : fontSize.base,
+      lineHeight: config.lineHeight === 'compact' ? '1.4' : config.lineHeight === 'relaxed' ? '2.0' : '1.6',
+      // 联动：宽松行高时增加段落间距
+      paragraphGap: config.lineHeight === 'relaxed' ? spacing.md : spacing.sm,
     },
     
     // 颜色系统
