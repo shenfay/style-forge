@@ -1,10 +1,11 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useSearchParams, Link } from 'react-router-dom'
 import { StyleConfigurator, SceneSelector, TemplateSelector } from '../components/Designer'
 import { MobilePreview } from '../components/Preview/MobilePreview'
 import { DesktopPreview } from '../components/Preview/DesktopPreview'
 import { defaultConfig, type StyleConfig } from '../types/config'
 import { useUrlConfig } from '../hooks/useUrlConfig'
+import { useDesignerState } from '../hooks/useDesignerState'
 import { loadTemplates, findTemplate, type TemplateConfig } from '../utils/templateLoader'
 import { encodeConfig } from '../utils/configEncoder'
 import { generateTailwindConfig, generateCSSVariables } from '../utils/tailwindGenerator'
@@ -32,85 +33,21 @@ const menuItems: Array<{ id: ConfigSection; name: string; icon: string }> = [
 export default function DesignerPage() {
   const [searchParams, setSearchParams] = useSearchParams()
   const [urlConfig] = useUrlConfig()
-  const [config, setConfig] = useState<StyleConfig>(defaultConfig)
+  
+  // 使用 Designer 状态管理 Hook
+  const {
+    config,
+    templates,
+    currentTemplate,
+    setConfig,
+    handleSceneChange,
+    handleDeviceChange,
+    handleTemplateChange,
+  } = useDesignerState()
+  
   const [showExport, setShowExport] = useState<string | null>(null)
-  const [templates, setTemplates] = useState<TemplateConfig[]>([])
-  const [currentTemplate, setCurrentTemplate] = useState<TemplateConfig | null>(null)
   const [showLeftPanel, setShowLeftPanel] = useState(true)
   const [activeSection, setActiveSection] = useState<ConfigSection>('template')
-
-  // 加载模板
-  useEffect(() => {
-    const load = async () => {
-      const scene = urlConfig.scene || 'ecommerce'
-      const loaded = await loadTemplates(scene)
-      setTemplates(loaded)
-
-      // 每次都从 URL 重新获取 template，确保刷新后正确加载
-      const params = new URLSearchParams(window.location.search)
-      const templateFromUrl = params.get('template')
-      
-      const device = urlConfig.device || 'desktop'
-      const template = templateFromUrl || urlConfig.template || 'home'
-      const found = findTemplate(scene, device, template as PageType)
-      if (found) {
-        setCurrentTemplate(found)
-        // 使用模板默认配置
-        if (urlConfig.config === undefined) {
-          setConfig(templateStyleToStyleConfig(found.defaultStyle))
-        }
-      }
-    }
-    load()
-  }, [urlConfig.scene, urlConfig.device, urlConfig.config, urlConfig.template])
-
-  // 同步配置到URL
-  useEffect(() => {
-    if (urlConfig.config === undefined || JSON.stringify(urlConfig.config) !== JSON.stringify(config)) {
-      const params = new URLSearchParams()
-      if (urlConfig.scene) params.set('scene', urlConfig.scene)
-      if (urlConfig.device) params.set('device', urlConfig.device)
-      if (urlConfig.template) params.set('template', urlConfig.template)
-      
-      // 编码自定义配置
-      params.set('config', encodeConfig(config))
-      
-      const newUrl = `${window.location.pathname}?${params.toString()}`
-      window.history.replaceState({}, '', newUrl)
-    }
-  }, [config])
-
-  const handleSceneChange = (scene: SceneType) => {
-    const params = new URLSearchParams()
-    params.set('scene', scene)
-    params.set('device', urlConfig.device || 'desktop')
-    params.set('template', urlConfig.template || 'home')
-    window.location.search = params.toString()
-  }
-
-  const handleDeviceChange = (device: DeviceType) => {
-    const params = new URLSearchParams()
-    if (urlConfig.scene) params.set('scene', urlConfig.scene)
-    params.set('device', device)
-    if (urlConfig.template) params.set('template', urlConfig.template)
-    window.location.search = params.toString()
-  }
-
-  const handleTemplateChange = (template: TemplateConfig) => {
-    // 根据当前设备类型查找对应版本的模板
-    const currentDevice = urlConfig.device || 'desktop'
-    const matchedTemplate = templates.find(
-      t => t.type === template.type && t.device === currentDevice
-    ) || template
-    
-    setCurrentTemplate(matchedTemplate)
-    setConfig(templateStyleToStyleConfig(matchedTemplate.defaultStyle))
-    const params = new URLSearchParams()
-    if (urlConfig.scene) params.set('scene', urlConfig.scene)
-    if (urlConfig.device) params.set('device', urlConfig.device)
-    params.set('template', template.type)
-    window.location.search = params.toString()
-  }
 
   const handleExport = (type: 'tailwind' | 'css' | 'prompt') => {
     let content = ''
