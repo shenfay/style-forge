@@ -147,7 +147,7 @@ export default function PlaceholderPage() {
   return (
     <div className="h-screen flex bg-gray-50">
       {/* 左侧导航 */}
-      <aside className="w-64 overflow-y-auto shrink-0 flex flex-col" style={{ backgroundColor: '#FAFAFA', borderRight: '1px solid #E5E4E0' }}>
+      <aside className="w-60 overflow-y-auto shrink-0 flex flex-col" style={{ backgroundColor: '#FAFAFA', borderRight: '1px solid #E5E4E0' }}>
         {/* Logo */}
         <div className="p-4 flex items-center gap-3" style={{ backgroundColor: '#FAFAFA' }}>
           <img src="/favicon.svg" alt="" className="w-8 h-8" />
@@ -175,7 +175,7 @@ export default function PlaceholderPage() {
                   window.open(imageUrl, '_blank')
                 }
               }}
-              className="px-4 py-2 text-sm font-medium rounded-lg cursor-pointer transition-colors"
+              className="px-3 py-1.5 text-sm font-medium rounded-[10px] cursor-pointer transition-colors"
               style={{ backgroundColor: '#F0F0F0', color: '#242424' }}
               disabled={!imageUrl}
             >
@@ -183,7 +183,7 @@ export default function PlaceholderPage() {
             </button>
             <button
               onClick={handleDownload}
-              className="px-4 py-2 text-sm font-medium rounded-lg text-white cursor-pointer transition-colors"
+              className="px-3 py-1.5 text-sm font-medium rounded-[10px] text-white cursor-pointer transition-colors"
               style={{ backgroundColor: '#373737' }}
             >
               下载
