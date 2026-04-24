@@ -30,14 +30,14 @@ export default function HomePage() {
           </div>
           <div className="flex items-center gap-4">
             <a
-              href="/placeholder"
+              href="/placeholder/workbench"
               className="px-4 py-2 text-sm font-medium rounded-lg transition-colors"
               style={{ color: '#242424', backgroundColor: '#F0F0F0' }}
             >
               占位图生成器
             </a>
             <Link
-              to="/workbench"
+              to="/designer/workbench"
               className="px-5 py-2.5 text-sm font-medium rounded-lg text-white transition-colors"
               style={{ backgroundColor: '#373737' }}
             >
@@ -60,7 +60,7 @@ export default function HomePage() {
           </p>
           <div className="flex items-center justify-center gap-4">
             <Link
-              to="/workbench"
+              to="/designer/workbench"
               className="px-8 py-3.5 text-base font-medium rounded-lg text-white transition-all hover:shadow-lg"
               style={{ backgroundColor: '#373737' }}
             >
@@ -227,14 +227,14 @@ export default function HomePage() {
           </p>
           <div className="flex items-center justify-center gap-4">
             <Link
-              to="/workbench"
+              to="/designer/workbench"
               className="px-8 py-3.5 text-base font-medium rounded-lg bg-white transition-all hover:shadow-lg"
               style={{ color: '#09090B' }}
             >
               开始使用
             </Link>
             <a
-              href="/placeholder"
+              href="/placeholder/workbench"
               className="px-8 py-3.5 text-base font-medium rounded-lg transition-colors"
               style={{ color: '#FFFFFF', backgroundColor: 'rgba(255,255,255,0.1)' }}
             >

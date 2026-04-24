@@ -6,6 +6,7 @@ import HomePage from './pages/HomePage.tsx'
 import DesignerPage from './pages/DesignerPage.tsx'
 import PreviewPage from './pages/PreviewPage.tsx'
 import PlaceholderPage from './pages/PlaceholderPage.tsx'
+import PlaceholderImagePage from './pages/PlaceholderImagePage.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -19,8 +20,8 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/designer/workbench" element={<DesignerPage />} />
         
         {/* Placeholder - 占位图生成器 */}
-        <Route path="/placeholder" element={<PlaceholderPage />} />
         <Route path="/placeholder/workbench" element={<PlaceholderPage />} />
+        <Route path="/placeholder" element={<PlaceholderImagePage />} />
         
         {/* 旧的预览路由（保留兼容） */}
         <Route path="/preview/:templateId" element={<PreviewPage />} />
