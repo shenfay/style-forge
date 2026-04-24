@@ -1,5 +1,5 @@
-import type { StyleConfig } from '../../types/config'
-import { getBorderRadius } from '../../utils/design-tokens'
+import type { StyleConfig } from '../../../types/config'
+import { getBorderRadius } from '../../../utils/design-tokens'
 import { ChromePicker } from 'react-color'
 import { useState, useRef, useEffect } from 'react'
 

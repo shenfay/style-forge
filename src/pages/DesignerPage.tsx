@@ -1,10 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useSearchParams, Link } from 'react-router-dom'
-import { StyleConfigurator } from '../components/Configurator/StyleConfigurator'
+import { StyleConfigurator, SceneSelector, TemplateSelector } from '../components/Designer'
 import { MobilePreview } from '../components/Preview/MobilePreview'
 import { DesktopPreview } from '../components/Preview/DesktopPreview'
-import { SceneSelector } from '../components/Configurator/SceneSelector'
-import { TemplateSelector } from '../components/Configurator/TemplateSelector'
 import { defaultConfig, type StyleConfig } from '../types/config'
 import { useUrlConfig } from '../hooks/useUrlConfig'
 import { loadTemplates, findTemplate, type TemplateConfig } from '../utils/templateLoader'
@@ -31,7 +29,7 @@ const menuItems: Array<{ id: ConfigSection; name: string; icon: string }> = [
   { id: 'typography', name: '文字排版', icon: '📝' },
 ]
 
-export default function EditorPage() {
+export default function DesignerPage() {
   const [searchParams, setSearchParams] = useSearchParams()
   const [urlConfig] = useUrlConfig()
   const [config, setConfig] = useState<StyleConfig>(defaultConfig)
