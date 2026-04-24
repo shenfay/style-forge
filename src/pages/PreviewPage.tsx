@@ -9,7 +9,7 @@ import { MobilePreview } from '../components/Preview/MobilePreview'
 import { DesktopPreview } from '../components/Preview/DesktopPreview'
 import { decodeConfig } from '../utils/configEncoder'
 import type { StyleConfig } from '../types/config'
-import { findTemplate, type TemplateConfig } from '../utils/templateLoader'
+import { findTemplate, loadTemplates, type TemplateConfig } from '../utils/templateLoader'
 import type { PageType, SceneType, DeviceType } from '../types/template'
 
 export default function PreviewPage() {
@@ -18,27 +18,34 @@ export default function PreviewPage() {
   const [template, setTemplate] = useState<TemplateConfig | null>(null)
 
   useEffect(() => {
-    // 从 URL 参数获取配置
-    const scene = (searchParams.get('scene') || 'ecommerce') as SceneType
-    const templateType = (searchParams.get('template') || 'home') as PageType
-    const device = (searchParams.get('device') || 'desktop') as DeviceType
-    const configParam = searchParams.get('config')
+    const load = async () => {
+      // 从 URL 参数获取配置
+      const scene = (searchParams.get('scene') || 'ecommerce') as SceneType
+      const templateType = (searchParams.get('template') || 'home') as PageType
+      const device = (searchParams.get('device') || 'desktop') as DeviceType
+      const configParam = searchParams.get('config')
 
-    // 查找模板
-    const found = findTemplate(scene, device, templateType)
-    if (found) {
-      setTemplate(found)
-    }
+      // 先加载模板数据
+      await loadTemplates(scene)
 
-    // 解码配置
-    if (configParam) {
-      try {
-        const decoded = decodeConfig(configParam)
-        setConfig(decoded)
-      } catch (e) {
-        console.error('Failed to decode config:', e)
+      // 再查找模板
+      const found = findTemplate(scene, device, templateType)
+      if (found) {
+        setTemplate(found)
+      }
+
+      // 解码配置
+      if (configParam) {
+        try {
+          const decoded = decodeConfig(configParam)
+          setConfig(decoded)
+        } catch (e) {
+          console.error('Failed to decode config:', e)
+        }
       }
     }
+
+    load()
   }, [searchParams])
 
   if (!template) {
