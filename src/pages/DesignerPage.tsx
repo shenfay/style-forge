@@ -180,7 +180,7 @@ export default function DesignerPage() {
             {/* 预览按钮 */}
             {currentTemplate && (
               <Link
-                to={`/preview/${currentTemplate.id}?device=${urlConfig.device || 'desktop'}`}
+                to={`/designer?scene=${urlConfig.scene || 'ecommerce'}&template=${currentTemplate.type}&device=${urlConfig.device || 'desktop'}&config=${encodeURIComponent(encodeConfig(config))}`}
                 target="_blank"
                 className="px-3 py-1.5 text-sm font-medium rounded-[10px] transition-colors"
                 style={{ color: '#242424', backgroundColor: '#F0F0F0' }}

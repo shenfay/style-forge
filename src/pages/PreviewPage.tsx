@@ -1,25 +1,45 @@
+/**
+ * 预览页面（独立预览模式）
+ * 路由：/designer?scene=xxx&template=xxx&device=xxx&config=xxx
+ */
+
 import { useEffect, useState } from 'react'
-import { useParams, useSearchParams, Link } from 'react-router-dom'
+import { useSearchParams, Link } from 'react-router-dom'
 import { MobilePreview } from '../components/Preview/MobilePreview'
 import { DesktopPreview } from '../components/Preview/DesktopPreview'
-import { defaultConfig, type StyleConfig } from '../types/config'
+import { decodeConfig } from '../utils/configEncoder'
+import type { StyleConfig } from '../types/config'
 import { findTemplate, type TemplateConfig } from '../utils/templateLoader'
-import type { PageType } from '../types/template'
+import type { PageType, SceneType, DeviceType } from '../types/template'
 
 export default function PreviewPage() {
-  const { templateId } = useParams<{ templateId: string }>()
   const [searchParams] = useSearchParams()
-  const [config] = useState<StyleConfig>(defaultConfig)
+  const [config, setConfig] = useState<StyleConfig | null>(null)
   const [template, setTemplate] = useState<TemplateConfig | null>(null)
 
   useEffect(() => {
-    // 查找模板（尝试 mobile 和 desktop）
-    const found = findTemplate('ecommerce', 'mobile', templateId as PageType) ||
-                  findTemplate('ecommerce', 'desktop', templateId as PageType)
+    // 从 URL 参数获取配置
+    const scene = (searchParams.get('scene') || 'ecommerce') as SceneType
+    const templateType = (searchParams.get('template') || 'home') as PageType
+    const device = (searchParams.get('device') || 'desktop') as DeviceType
+    const configParam = searchParams.get('config')
+
+    // 查找模板
+    const found = findTemplate(scene, device, templateType)
     if (found) {
       setTemplate(found)
     }
-  }, [templateId])
+
+    // 解码配置
+    if (configParam) {
+      try {
+        const decoded = decodeConfig(configParam)
+        setConfig(decoded)
+      } catch (e) {
+        console.error('Failed to decode config:', e)
+      }
+    }
+  }, [searchParams])
 
   if (!template) {
     return (
@@ -27,7 +47,7 @@ export default function PreviewPage() {
         <div className="text-center">
           <h1 className="text-2xl font-bold text-white mb-4">模板未找到</h1>
           <Link 
-            to="/workbench" 
+            to="/designer/workbench" 
             className="px-6 py-3 bg-white text-gray-900 rounded-lg hover:bg-gray-100 transition-colors"
           >
             返回编辑器
@@ -37,7 +57,29 @@ export default function PreviewPage() {
     )
   }
 
-  const device = searchParams.get('device') || template.device || 'desktop'
+  const device = (searchParams.get('device') || template.device || 'desktop') as DeviceType
+  const finalConfig = config || {
+    ...template.defaultStyle,
+    // 添加缺失的默认值
+    secondaryColor: template.defaultStyle.primaryColor,
+    accentColor: template.defaultStyle.primaryColor,
+    cardBackgroundColor: '#FFFFFF',
+    titleColor: '#1A1A1A',
+    textPrimary: '#333333',
+    textSecondary: '#666666',
+    successColor: '#52C41A',
+    warningColor: '#FAAD14',
+    errorColor: '#FF4D4F',
+    padding: 'medium' as const,
+    cardGap: 'medium' as const,
+    sectionGap: 'medium' as const,
+    elementGap: 'medium' as const,
+    titleStyle: 'left-accent' as const,
+    titleSize: 'medium' as const,
+    titleWeight: 'bold' as const,
+    bodySize: 'medium' as const,
+    lineHeight: 'medium' as const,
+  }
 
   return (
     <div className="h-screen flex items-center justify-center bg-gray-900">
@@ -46,14 +88,14 @@ export default function PreviewPage() {
         {device === 'desktop' ? (
           <div className="w-full max-w-5xl bg-white rounded-lg shadow-2xl overflow-hidden">
             <DesktopPreview 
-              config={config} 
+              config={finalConfig} 
               pageType={template.type || 'home'}
             />
           </div>
         ) : (
           <div className="w-[375px] h-[812px] bg-white rounded-[40px] shadow-2xl overflow-hidden border-8 border-gray-800">
             <MobilePreview 
-              config={config} 
+              config={finalConfig} 
               pageType={template.type || 'home'}
             />
           </div>
@@ -62,7 +104,7 @@ export default function PreviewPage() {
 
       {/* 浮动退出按钮 */}
       <Link
-        to={`/workbench?template=${templateId}&device=${device}`}
+        to={`/designer/workbench?${searchParams.toString()}`}
         className="fixed bottom-8 left-8 p-3 bg-white/90 backdrop-blur-sm rounded-full shadow-lg hover:bg-white transition-all hover:scale-110"
         title="返回编辑"
       >
@@ -74,7 +116,7 @@ export default function PreviewPage() {
       {/* 设备切换 */}
       <div className="fixed top-8 right-8 flex gap-2">
         <Link
-          to={`/preview/${templateId}?device=mobile`}
+          to={`/designer?${new URLSearchParams({ ...Object.fromEntries(searchParams), device: 'mobile' }).toString()}`}
           className={`p-3 rounded-lg backdrop-blur-sm transition-all ${
             device === 'mobile' 
               ? 'bg-white text-gray-900' 
@@ -87,7 +129,7 @@ export default function PreviewPage() {
           </svg>
         </Link>
         <Link
-          to={`/preview/${templateId}?device=desktop`}
+          to={`/designer?${new URLSearchParams({ ...Object.fromEntries(searchParams), device: 'desktop' }).toString()}`}
           className={`p-3 rounded-lg backdrop-blur-sm transition-all ${
             device === 'desktop' 
               ? 'bg-white text-gray-900' 

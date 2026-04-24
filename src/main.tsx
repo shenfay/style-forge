@@ -11,12 +11,19 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
       <Routes>
+        {/* 首页 */}
         <Route path="/" element={<HomePage />} />
-        <Route path="/workbench" element={<DesignerPage />} />
-        <Route path="/workbench/*" element={<DesignerPage />} />
-        <Route path="/preview/:templateId" element={<PreviewPage />} />
+        
+        {/* Designer - 编辑器 */}
+        <Route path="/designer" element={<PreviewPage />} />
+        <Route path="/designer/workbench" element={<DesignerPage />} />
+        
+        {/* Placeholder - 占位图生成器 */}
         <Route path="/placeholder" element={<PlaceholderPage />} />
-        <Route path="/placeholder/:preset" element={<PlaceholderPage />} />
+        <Route path="/placeholder/workbench" element={<PlaceholderPage />} />
+        
+        {/* 旧的预览路由（保留兼容） */}
+        <Route path="/preview/:templateId" element={<PreviewPage />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>,
