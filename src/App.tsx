@@ -177,6 +177,13 @@ export default function App() {
         </div>
         
         <div className="flex items-center gap-2">
+          <a
+            href="/placeholder"
+            className="px-3 py-1.5 text-sm font-medium rounded-lg transition-colors"
+            style={{ color: '#242424', backgroundColor: '#F0F0F0' }}
+          >
+            占位图生成器
+          </a>
           <button className="px-3 py-1.5 text-sm transition-colors" style={{ color: '#4A4A4A' }}>
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
