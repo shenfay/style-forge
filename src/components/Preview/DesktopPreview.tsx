@@ -55,7 +55,7 @@ function HomePage({ config }: { config: StyleConfig }) {
   const lineHeight = getLineHeight(config)
 
   return (
-    <div className="h-full overflow-y-auto" style={{ background: config.backgroundColor }}>
+    <div style={{ background: config.backgroundColor }}>
       {/* 1. 顶部导航栏 */}
       <header className="sticky top-0 z-10 px-8 py-4" style={{
         background: config.titleBarStyle === 'colored-bg' ? config.primaryColor : '#FFFFFF',
@@ -427,7 +427,7 @@ function DetailPage({ config }: { config: StyleConfig }) {
   const lineHeight = getLineHeight(config)
 
   return (
-    <div className="h-full overflow-y-auto" style={{ background: config.backgroundColor }}>
+    <div style={{ background: config.backgroundColor }}>
       <header className="sticky top-0 z-10 px-8 py-4 flex items-center justify-between" style={{
         background: '#FFFFFF',
         borderBottom: '1px solid #E5E5E5',
@@ -466,7 +466,7 @@ function ListPage({ config }: { config: StyleConfig }) {
   const lineHeight = getLineHeight(config)
 
   return (
-    <div className="h-full overflow-y-auto" style={{ background: config.backgroundColor }}>
+    <div style={{ background: config.backgroundColor }}>
       <header className="sticky top-0 z-10 px-8 py-4 flex items-center justify-between" style={{
         background: '#FFFFFF',
         borderBottom: '1px solid #E5E5E5',
@@ -520,7 +520,7 @@ function ProfilePage({ config }: { config: StyleConfig }) {
   const lineHeight = getLineHeight(config)
 
   return (
-    <div className="h-full overflow-y-auto" style={{ background: config.backgroundColor }}>
+    <div style={{ background: config.backgroundColor }}>
       <header className="sticky top-0 z-10 px-8 py-4 flex items-center justify-between" style={{
         background: '#FFFFFF',
         borderBottom: '1px solid #E5E5E5',
@@ -587,7 +587,7 @@ function SettingsPage({ config }: { config: StyleConfig }) {
   const lineHeight = getLineHeight(config)
 
   return (
-    <div className="h-full overflow-y-auto" style={{ background: config.backgroundColor }}>
+    <div style={{ background: config.backgroundColor }}>
       <header className="sticky top-0 z-10 px-8 py-4 flex items-center justify-between" style={{
         background: '#FFFFFF',
         borderBottom: '1px solid #E5E5E5',

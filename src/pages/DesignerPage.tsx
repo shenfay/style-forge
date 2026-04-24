@@ -239,17 +239,17 @@ export default function DesignerPage() {
           )}
 
           {/* 中部预览 - 核心画布 */}
-          <main className="flex-1 overflow-auto flex items-start justify-center" style={{ backgroundColor: '#FBFBFB', paddingTop: '60px' }}>
+          <main className="flex-1 overflow-auto flex items-start justify-center" style={{ backgroundColor: '#FFFFFF' }}>
             <div className="w-full flex items-start justify-center p-8">
               {urlConfig.device === 'desktop' ? (
-                <div className="w-full max-w-6xl bg-white rounded-lg shadow-sm overflow-hidden border border-gray-200">
+                <div className="w-full max-w-6xl bg-white rounded-lg shadow-sm border border-gray-200">
                   <DesktopPreview 
                     config={config} 
                     pageType={currentTemplate?.type || 'home'}
                   />
                 </div>
               ) : (
-                <div className="w-[375px] h-[812px] bg-white rounded-[40px] shadow-xl overflow-hidden border-8 border-gray-900 relative shrink-0">
+                <div className="w-[375px] h-[812px] bg-white rounded-[40px] shadow-xl border-8 border-gray-900 relative shrink-0">
                   <MobilePreview 
                     config={config} 
                     pageType={currentTemplate?.type || 'result'}

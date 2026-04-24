@@ -22,7 +22,7 @@ export function HomePage({ config }: HomePageProps) {
   const lineHeight = tokens.typography.lineHeight
 
   return (
-    <div className="h-full overflow-y-auto" style={{ background: config.backgroundColor }}>
+    <div className="relative h-full overflow-y-auto" style={{ background: config.backgroundColor }}>
       <StatusBar />
 
       {/* 1. 顶部搜索栏 */}
