@@ -473,7 +473,7 @@ function DetailPage({ config }: { config: StyleConfig }) {
       </div>
 
       {/* 底部操作 */}
-      <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-[375px] px-6 py-4" style={{ 
+      <div className="absolute bottom-0 left-0 right-0 px-6 py-4" style={{ 
         background: '#FFFFFF',
         borderTop: '1px solid #E5E5E5',
       }}>

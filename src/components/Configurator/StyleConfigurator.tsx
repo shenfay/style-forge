@@ -211,7 +211,7 @@ export function StyleConfigurator({ config, onChange, activeSection }: StyleConf
               <button
                 key={opt.value}
                 onClick={() => updateConfig('cardStyle', opt.value)}
-                className="px-3 py-3 text-sm rounded-lg transition-all flex flex-col items-center gap-1.5 font-normal"
+                className="px-3 py-3 text-sm rounded-lg transition-all flex flex-col items-center gap-1.5 font-normal cursor-pointer"
                 style={{
                   backgroundColor: config.cardStyle === opt.value ? '#1A1A1A' : 'transparent',
                   color: config.cardStyle === opt.value ? '#FFFFFF' : '#4A4A4A',
@@ -235,7 +235,7 @@ export function StyleConfigurator({ config, onChange, activeSection }: StyleConf
               <button
                 key={opt.value}
                 onClick={() => updateConfig('buttonStyle', opt.value)}
-                className="px-3 py-3 text-sm rounded-lg transition-all flex flex-col items-center gap-1.5 font-normal"
+                className="px-3 py-3 text-sm rounded-lg transition-all flex flex-col items-center gap-1.5 font-normal cursor-pointer"
                 style={{
                   backgroundColor: config.buttonStyle === opt.value ? '#1A1A1A' : 'transparent',
                   color: config.buttonStyle === opt.value ? '#FFFFFF' : '#4A4A4A',
@@ -258,7 +258,7 @@ export function StyleConfigurator({ config, onChange, activeSection }: StyleConf
               <button
                 key={opt.value}
                 onClick={() => updateConfig('badgeStyle', opt.value)}
-                className="px-3 py-3 text-sm rounded-lg transition-all flex flex-col items-center gap-1.5 font-normal"
+                className="px-3 py-3 text-sm rounded-lg transition-all flex flex-col items-center gap-1.5 font-normal cursor-pointer"
                 style={{
                   backgroundColor: config.badgeStyle === opt.value ? '#1A1A1A' : 'transparent',
                   color: config.badgeStyle === opt.value ? '#FFFFFF' : '#4A4A4A',
@@ -282,7 +282,7 @@ export function StyleConfigurator({ config, onChange, activeSection }: StyleConf
               <button
                 key={opt.value}
                 onClick={() => updateConfig('titleBarStyle', opt.value)}
-                className="px-3 py-3 text-sm rounded-lg transition-all flex flex-col items-center gap-1.5 font-normal"
+                className="px-3 py-3 text-sm rounded-lg transition-all flex flex-col items-center gap-1.5 font-normal cursor-pointer"
                 style={{
                   backgroundColor: config.titleBarStyle === opt.value ? '#1A1A1A' : 'transparent',
                   color: config.titleBarStyle === opt.value ? '#FFFFFF' : '#4A4A4A',
@@ -306,7 +306,7 @@ export function StyleConfigurator({ config, onChange, activeSection }: StyleConf
               <button
                 key={opt.value}
                 onClick={() => updateConfig('switcherStyle', opt.value)}
-                className="px-3 py-3 text-sm rounded-lg transition-all flex flex-col items-center gap-1.5 font-normal"
+                className="px-3 py-3 text-sm rounded-lg transition-all flex flex-col items-center gap-1.5 font-normal cursor-pointer"
                 style={{
                   backgroundColor: config.switcherStyle === opt.value ? '#1A1A1A' : 'transparent',
                   color: config.switcherStyle === opt.value ? '#FFFFFF' : '#4A4A4A',
@@ -457,7 +457,7 @@ export function StyleConfigurator({ config, onChange, activeSection }: StyleConf
               <button
                 key={opt.value}
                 onClick={() => updateConfig('titleWeight', opt.value)}
-                className="flex-1 px-3 py-3 text-sm rounded-lg transition-all flex flex-col items-center gap-1"
+                className="flex-1 px-3 py-3 text-sm rounded-lg transition-all flex flex-col items-center gap-1 cursor-pointer"
                 style={{
                   backgroundColor: config.titleWeight === opt.value ? '#1A1A1A' : 'transparent',
                   color: config.titleWeight === opt.value ? '#FFFFFF' : '#4A4A4A',
@@ -526,7 +526,7 @@ export function StyleConfigurator({ config, onChange, activeSection }: StyleConf
                 <button
                   key={opt.value}
                   onClick={() => updateConfig('titleSize', opt.value)}
-                  className="px-3 py-3 text-sm rounded-lg transition-all flex flex-col items-center gap-1"
+                  className="px-3 py-3 text-sm rounded-lg transition-all flex flex-col items-center gap-1 cursor-pointer"
                   style={{
                     backgroundColor: config.titleSize === opt.value ? '#1A1A1A' : 'transparent',
                     color: config.titleSize === opt.value ? '#FFFFFF' : '#4A4A4A',

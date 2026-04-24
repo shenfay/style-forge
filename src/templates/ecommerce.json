@@ -171,7 +171,7 @@
     "id": "ecommerce-homepage",
     "name": "B2C商城首页",
     "scene": "ecommerce",
-    "device": "pc",
+    "device": "desktop",
     "type": "home",
     "description": "PC端电商商城首页，包含顶部导航、轮播图、分类、限时抢购、品牌专区、新品推荐等模块",
     "components": [
@@ -443,6 +443,143 @@
         {
           "heading": "## 组件要求",
           "content": "1. 购物车项：商品图片、名称、规格、价格、数量加减\n2. 店铺分组：店铺名称+勾选\n3. 结算栏：全选、合计金额、结算按钮\n4. 编辑模式：批量删除、移入收藏"
+        }
+      ]
+    }
+  },
+  {
+    "id": "ecommerce-product-detail-desktop",
+    "name": "商品详情页",
+    "scene": "ecommerce",
+    "device": "desktop",
+    "type": "detail",
+    "description": "PC端电商商品详情页，包含图片画廊、价格信息、规格选择、详情图文、用户评价、购买操作等完整流程",
+    "defaultStyle": {
+      "backgroundColor": "#F9F8F4",
+      "primaryColor": "#FF6B35",
+      "cornerRadius": "medium",
+      "cardStyle": "shadow",
+      "titleBarStyle": "white-underline",
+      "switcherStyle": "pill",
+      "buttonStyle": "gradient",
+      "badgeStyle": "rounded"
+    },
+    "layout": {
+      "type": "two-column",
+      "regions": [
+        {
+          "id": "header",
+          "name": "顶部导航",
+          "type": "header",
+          "height": "64px",
+          "components": ["logo", "search-bar", "cart-icon", "user-menu"]
+        },
+        {
+          "id": "product-content",
+          "name": "商品内容",
+          "type": "content",
+          "components": ["image-gallery", "product-info", "sku-selector", "action-buttons"]
+        },
+        {
+          "id": "product-details",
+          "name": "商品详情",
+          "type": "content",
+          "components": ["description-tabs", "detail-images"]
+        },
+        {
+          "id": "reviews",
+          "name": "用户评价",
+          "type": "content",
+          "components": ["review-summary", "review-list"]
+        },
+        {
+          "id": "footer",
+          "name": "页脚",
+          "type": "footer",
+          "height": "80px",
+          "components": ["footer-links", "copyright"]
+        }
+      ]
+    },
+    "aiPrompt": {
+      "title": "电商商品详情页（PC端）",
+      "sections": [
+        {
+          "heading": "## 页面结构",
+          "content": "顶部导航、商品图片画廊（左侧）、商品信息区（右侧）、商品详情图文、用户评价、页脚"
+        },
+        {
+          "heading": "## 组件要求",
+          "content": "1. 图片画廊：支持放大和缩略图\n2. 价格区：现价、原价、促销标签\n3. SKU选择器：颜色、尺码等多规格\n4. 详情Tab：商品介绍、规格参数、售后保障\n5. 操作按钮：收藏、加入购物车、立即购买"
+        }
+      ]
+    }
+  },
+  {
+    "id": "ecommerce-cart-desktop",
+    "name": "购物车页",
+    "scene": "ecommerce",
+    "device": "desktop",
+    "type": "list",
+    "description": "PC端电商购物车页，包含商品列表、店铺分组、数量管理、价格汇总、结算等完整购物流程",
+    "defaultStyle": {
+      "backgroundColor": "#F5F7FA",
+      "primaryColor": "#FF6B35",
+      "cornerRadius": "medium",
+      "cardStyle": "shadow",
+      "titleBarStyle": "white-underline",
+      "switcherStyle": "underline",
+      "buttonStyle": "gradient",
+      "badgeStyle": "rounded"
+    },
+    "layout": {
+      "type": "two-column",
+      "regions": [
+        {
+          "id": "header",
+          "name": "顶部导航",
+          "type": "header",
+          "height": "64px",
+          "components": ["logo", "search-bar", "cart-icon", "user-menu"]
+        },
+        {
+          "id": "cart-content",
+          "name": "购物车内容",
+          "type": "content",
+          "components": ["cart-table", "store-group", "cart-item-list"]
+        },
+        {
+          "id": "sidebar",
+          "name": "侧边栏",
+          "type": "aside",
+          "components": ["recommendations", "browse-history"]
+        },
+        {
+          "id": "checkout-bar",
+          "name": "结算栏",
+          "type": "footer",
+          "height": "64px",
+          "components": ["select-all", "total-price", "checkout-button"]
+        },
+        {
+          "id": "footer",
+          "name": "页脚",
+          "type": "footer",
+          "height": "80px",
+          "components": ["footer-links", "copyright"]
+        }
+      ]
+    },
+    "aiPrompt": {
+      "title": "电商购物车页（PC端）",
+      "sections": [
+        {
+          "heading": "## 页面结构",
+          "content": "顶部导航栏、购物车商品表格（主内容区）、推荐商品（侧边栏）、底部结算栏、页脚"
+        },
+        {
+          "heading": "## 组件要求",
+          "content": "1. 购物车表格：商品图片、名称、规格、单价、数量、小计、操作\n2. 店铺分组：店铺名称+勾选\n3. 结算栏：全选、合计金额、去结算按钮\n4. 侧边栏：猜你喜欢、浏览历史"
         }
       ]
     }

@@ -34,7 +34,7 @@ export function SceneSelector({
           <button
             key={scene.id}
             onClick={() => onSceneChange(scene.id)}
-            className="w-full flex items-center gap-2 transition-all text-left rounded-lg"
+            className="w-full flex items-center gap-2 transition-all text-left rounded-lg cursor-pointer"
             style={{
               padding: '10px 12px',
               backgroundColor: selectedScene === scene.id ? '#ECEAE5' : 'transparent',

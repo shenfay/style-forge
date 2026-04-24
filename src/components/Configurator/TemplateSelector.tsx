@@ -27,7 +27,7 @@ export function TemplateSelector({ templates, selectedTemplate, onTemplateChange
         <button
           key={template.type}
           onClick={() => onTemplateChange(template)}
-          className="w-full flex items-start gap-2 transition-all text-left rounded-lg"
+          className="w-full flex items-start gap-2 transition-all text-left rounded-lg cursor-pointer"
           style={{
             padding: '10px 12px',
             backgroundColor: selectedTemplate === template.type ? '#ECEAE5' : 'transparent',
