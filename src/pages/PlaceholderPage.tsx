@@ -148,11 +148,11 @@ export default function PlaceholderPage() {
     <div className="h-screen flex bg-gray-50">
       {/* 左侧导航 */}
       <aside className="w-60 overflow-y-auto shrink-0 flex flex-col" style={{ backgroundColor: '#FAFAFA', borderRight: '1px solid #E5E4E0' }}>
-        {/* Logo */}
-        <div className="p-4 flex items-center gap-3" style={{ backgroundColor: '#FAFAFA' }}>
+        {/* Logo - 点击回到首页 */}
+        <Link to="/" className="p-4 flex items-center gap-3" style={{ backgroundColor: '#FAFAFA' }}>
           <img src="/favicon.svg" alt="" className="w-8 h-8" />
           <h1 className="text-base font-medium" style={{ color: '#09090B' }}>Style Forge</h1>
-        </div>
+        </Link>
         
         {/* 预设尺寸库 */}
         <div className="flex-1 min-h-0">

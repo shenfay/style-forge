@@ -99,11 +99,11 @@ export default function DesignerPage() {
     <div className="h-screen flex bg-gray-50">
       {/* 左侧导航 - 到顶 */}
       <aside className={`${showLeftPanel ? 'w-60' : 'w-0'} overflow-y-auto shrink-0 transition-all duration-300 flex flex-col`} style={{ backgroundColor: '#FAFAFA', borderRight: '1px solid #E5E4E0' }}>
-        {/* Logo - 图标 + 文字 */}
-        <div className="p-4 flex items-center gap-3" style={{ backgroundColor: '#FAFAFA' }}>
+        {/* Logo - 图标 + 文字，点击回到首页 */}
+        <Link to="/" className="p-4 flex items-center gap-3" style={{ backgroundColor: '#FAFAFA' }}>
           <img src="/favicon.svg" alt="" className="w-8 h-8" />
           <h1 className="text-base font-medium" style={{ color: '#09090B' }}>Style Forge</h1>
-        </div>
+        </Link>
         
         <div className="p-4 min-w-[240px] flex-1">
           {/* 配置菜单 */}
