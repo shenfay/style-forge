@@ -2,7 +2,7 @@
  * 色彩系统配置区域
  */
 
-import React from 'react'
+import React, { memo, useCallback } from 'react'
 import type { StyleConfig } from '../../../../types/config'
 import { SectionHeader, ColorPickerField } from '../shared'
 
@@ -11,7 +11,7 @@ interface ColorsSectionProps {
   onChange: (key: keyof StyleConfig, value: string) => void
 }
 
-export function ColorsSection({ config, onChange }: ColorsSectionProps) {
+export const ColorsSection = memo(function ColorsSection({ config, onChange }: ColorsSectionProps) {
   return (
     <div>
       <SectionHeader
@@ -47,4 +47,4 @@ export function ColorsSection({ config, onChange }: ColorsSectionProps) {
       </div>
     </div>
   )
-}
+})

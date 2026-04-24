@@ -2,7 +2,7 @@
  * 形状系统配置区域
  */
 
-import React from 'react'
+import React, { memo } from 'react'
 import type { StyleConfig } from '../../../../types/config'
 import { SectionHeader, OptionGroup, RangeSlider } from '../shared'
 
@@ -11,7 +11,7 @@ interface ShapeSectionProps {
   onChange: (key: keyof StyleConfig, value: string) => void
 }
 
-export function ShapeSection({ config, onChange }: ShapeSectionProps) {
+export const ShapeSection = memo(function ShapeSection({ config, onChange }: ShapeSectionProps) {
   return (
     <div>
       <SectionHeader
@@ -92,4 +92,4 @@ export function ShapeSection({ config, onChange }: ShapeSectionProps) {
       </div>
     </div>
   )
-}
+})

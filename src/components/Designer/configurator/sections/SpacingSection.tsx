@@ -2,7 +2,7 @@
  * 间距系统配置区域
  */
 
-import React from 'react'
+import React, { memo } from 'react'
 import type { StyleConfig } from '../../../../types/config'
 import { SectionHeader, RangeSlider } from '../shared'
 
@@ -11,7 +11,7 @@ interface SpacingSectionProps {
   onChange: (key: keyof StyleConfig, value: string) => void
 }
 
-export function SpacingSection({ config, onChange }: SpacingSectionProps) {
+export const SpacingSection = memo(function SpacingSection({ config, onChange }: SpacingSectionProps) {
   return (
     <div>
       <SectionHeader
@@ -70,4 +70,4 @@ export function SpacingSection({ config, onChange }: SpacingSectionProps) {
       </div>
     </div>
   )
-}
+})

@@ -3,6 +3,7 @@
  * 根据页面类型分发到对应的模板组件
  */
 
+import { memo } from 'react'
 import type { StyleConfig } from '../../types/config'
 import type { PageType } from '../../types/template'
 import {
@@ -28,7 +29,7 @@ interface MobilePreviewProps {
  * @param pageType - 页面类型
  * @returns 对应的页面模板组件
  */
-export function MobilePreview({ config, pageType }: MobilePreviewProps) {
+export const MobilePreview = memo(function MobilePreview({ config, pageType }: MobilePreviewProps) {
   // 根据页面类型渲染对应模板
   switch (pageType) {
     case 'home':
@@ -50,4 +51,4 @@ export function MobilePreview({ config, pageType }: MobilePreviewProps) {
     default:
       return <DefaultPage config={config} />
   }
-}
+})

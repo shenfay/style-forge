@@ -2,7 +2,7 @@
  * 文字排版配置区域
  */
 
-import React, { useState } from 'react'
+import React, { memo } from 'react'
 import type { StyleConfig } from '../../../../types/config'
 import { SectionHeader, ConfigItem } from '../shared'
 import { colors, borderRadius, fontSize } from '../../../../tokens'
@@ -12,7 +12,7 @@ interface TypographySectionProps {
   onChange: (key: keyof StyleConfig, value: string) => void
 }
 
-export function TypographySection({ config, onChange }: TypographySectionProps) {
+export const TypographySection = memo(function TypographySection({ config, onChange }: TypographySectionProps) {
   const updateConfig = (key: keyof StyleConfig, value: string) => {
     onChange(key, value)
   }
@@ -199,4 +199,4 @@ export function TypographySection({ config, onChange }: TypographySectionProps) 
       </div>
     </div>
   )
-}
+})
