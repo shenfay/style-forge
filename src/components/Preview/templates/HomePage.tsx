@@ -2,6 +2,7 @@
  * 移动端首页模板
  */
 
+import { Fragment } from 'react'
 import type { StyleConfig } from '../../../types/config'
 import { StatusBar } from '../../UI/StatusBar'
 import { NavBar } from '../../UI/NavBar'
@@ -22,7 +23,7 @@ export function HomePage({ config }: HomePageProps) {
   const lineHeight = tokens.typography.lineHeight
 
   return (
-    <>
+    <Fragment>
       {/* 滚动内容区 */}
       <div className="flex-1 overflow-y-auto" style={{ background: config.backgroundColor }}>
         <StatusBar />
@@ -128,6 +129,7 @@ export function HomePage({ config }: HomePageProps) {
         {/* 6-9. 其他区块（限时抢购、品牌专区、新品推荐、猜你喜欢） */}
         {/* 为简化，保留核心结构，完整实现需要继续提取 */}
       </div>
+      </div>
 
       {/* 底部导航栏 - 始终固定在底部 */}
       <div className="shrink-0 px-3 py-2 z-20" style={{ 
@@ -144,15 +146,15 @@ export function HomePage({ config }: HomePageProps) {
             <button key={i} className="flex flex-col items-center gap-1">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={i === 0 ? config.primaryColor : colors.text.tertiary} strokeWidth="2">
                 {tab.icon === 'home' && <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>}
-                {tab.icon === 'category' && <><circle cx="7" cy="7" r="2"/><circle cx="17" cy="7" r="2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></>}
-                {tab.icon === 'cart' && <><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></>}
-                {tab.icon === 'user' && <><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></>}
+                {tab.icon === 'category' && <g><circle cx="7" cy="7" r="2"/><circle cx="17" cy="7" r="2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></g>}
+                {tab.icon === 'cart' && <g><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></g>}
+                {tab.icon === 'user' && <g><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></g>}
               </svg>
               <span style={{ fontSize: bodyFontSize, lineHeight, color: i === 0 ? config.primaryColor : colors.text.tertiary }}>{tab.label}</span>
             </button>
           ))}
         </div>
       </div>
-    </>
+    </Fragment>
   )
 }
