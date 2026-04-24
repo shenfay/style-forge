@@ -4,6 +4,13 @@
 
 本文档描述 Style Forge 与大语言模型（LLM）的交互方式，帮助 LLM 理解如何使用 Style Forge 生成设计预览和获取配置。
 
+### 核心优势
+
+1. **20维配置系统** - 精细控制色彩、形状、间距、排版等所有设计维度
+2. **配置联动机制** - 自动优化相关属性，确保视觉一致性
+3. **真实UI预览** - 在真实组件中查看效果，而非抽象色板
+4. **一键导出** - 生成 Tailwind Config、CSS Variables 和 AI 提示词
+
 ---
 
 ## 核心原则
@@ -48,10 +55,21 @@ https://style-forge.dev/preview?scene={scene}&device={device}&template={template
 
 | 参数 | 必填 | 说明 | 可选值 |
 |------|------|------|--------|
-| `scene` | 是 | 场景类型 | `food`, `ecommerce`, `saas`, `media`, `social`, `finance` |
+| `scene` | 是 | 场景类型 | `ecommerce`, `food`, `saas`, `media`, `social`, `finance` |
 | `device` | 是 | 设备类型 | `mobile`, `desktop` |
 | `template` | 是 | 页面模板 | `home`, `detail`, `list`, `form`, `settings`, `result` |
 | `config` | 否 | Base64 编码的样式配置 | 从预设配置派生 |
+
+### 场景选择指南
+
+| 场景 | 适用情况 | 示例 |
+|------|---------|------|
+| `ecommerce` | 电商、零售、商城 | 商品详情、购物车、订单 |
+| `food` | 食品、健康、餐饮 | 扫码结果、成分分析 |
+| `saas` | B2B 工具、企业软件 | 数据看板、设置页 |
+| `media` | 博客、新闻、内容平台 | 文章详情、列表页 |
+| `social` | 社交、社区、论坛 | 动态流、个人主页 |
+| `finance` | 金融、理财、保险 | 交易记录、账户详情 |
 
 ### 示例
 
@@ -125,6 +143,50 @@ https://style-forge.dev/preview?scene=ecommerce&device=mobile&template=detail
 
 ---
 
+## 配置系统详解（20维）
+
+当用户在 Style Forge 中调整配置后，导出的 AI 提示词会包含完整的 20 维配置信息：
+
+### 色彩系统（10维）
+
+- **主色** (`primaryColor`) - 品牌核心色，用于按钮、链接、高亮
+- **辅助色** (`secondaryColor`) - 次要交互色，用于次要按钮、标签
+- **强调色** (`accentColor`) - 点缀色，用于图标、装饰元素
+- **页面背景色** (`backgroundColor`) - 全局底色
+- **卡片背景色** (`cardBackgroundColor`) - 容器底色
+- **标题色** (`titleColor`) - 标题文字色
+- **正文色** (`textPrimary`) - 主要文字色
+- **辅助色** (`textSecondary`) - 次要文字色
+- **成功色** (`successColor`) - 正向反馈色
+- **警告色** (`warningColor`) - 警示色
+- **错误色** (`errorColor`) - 负向反馈色
+
+### 形状系统（6维）
+
+- **圆角大小** (`cornerRadius`) - small/medium/large
+- **卡片样式** (`cardStyle`) - border/shadow/borderless
+- **按钮样式** (`buttonStyle`) - gradient/solid/wireframe
+- **标签样式** (`badgeStyle`) - rounded/text-only
+- **标题栏样式** (`titleBarStyle`) - white-underline/frosted-glass/colored-bg
+- **切换器样式** (`switcherStyle`) - underline/pill/capsule
+
+### 间距系统（4维）
+
+- **内边距** (`padding`) - compact/medium/relaxed
+- **卡片间距** (`cardGap`) - small/medium/large
+- **区块间距** (`sectionGap`) - small/medium/large
+- **元素间距** (`elementGap`) - compact/medium/relaxed
+
+### 文字排版（5维）
+
+- **标题装饰** (`titleStyle`) - left-accent/right-accent/bottom-accent/plain
+- **标题大小** (`titleSize`) - small/medium/large
+- **标题字重** (`titleWeight`) - normal/medium/bold
+- **正文字号** (`bodySize`) - small/medium/large
+- **行高** (`lineHeight`) - compact/medium/relaxed
+
+---
+
 ## 导出的 AI 提示词格式
 
 当用户点击「复制提示词」时，会生成以下格式的内容：
@@ -136,27 +198,56 @@ https://style-forge.dev/preview?scene=ecommerce&device=mobile&template=detail
 - 场景：{场景名称}
 - 设备：{设备类型}
 - 页面类型：{页面模板}
+- 模板名称：{模板名称}
 
-## 配色方案
+## 配色方案（10维）
+- 主色: {颜色名称} {颜色值}
+- 辅助色: {颜色名称} {颜色值}
+- 强调色: {颜色名称} {颜色值}
 - 页面底色: {颜色名称} {颜色值}
-- 主题色: {颜色名称} {颜色值}
-- 危险色: 红色 #DC2626
-- 警告色: 橙色 #D97706
-- 安全色: 绿色 #16A34A
+- 卡片背景色: {颜色名称} {颜色值}
+- 标题色: {颜色名称} {颜色值}
+- 正文色: {颜色名称} {颜色值}
+- 辅助文字色: {颜色名称} {颜色值}
+- 成功色: {颜色名称} {颜色值}
+- 警告色: {颜色名称} {颜色值}
+- 错误色: {颜色名称} {颜色值}
 
-## 设计规范
+## 形状系统（6维）
 - 圆角: {圆角大小}
-- 卡片: {卡片样式}
-- 标题栏: {标题栏样式}
-- 切换器: {切换器样式}
-- 按钮: {按钮样式}
-- 标签: {标签样式}
+- 卡片样式: {卡片样式}
+- 按钮样式: {按钮样式}
+- 标签样式: {标签样式}
+- 标题栏样式: {标题栏样式}
+- 切换器样式: {切换器样式}
+
+## 间距系统（4维）
+- 内边距: {内边距}
+- 卡片间距: {卡片间距}
+- 区块间距: {区块间距}
+- 元素间距: {元素间距}
+
+## 文字排版（5维）
+- 标题装饰: {标题装饰}
+- 标题大小: {标题大小}
+- 标题字重: {标题字重}
+- 正文字号: {正文字号}
+- 行高: {行高}
 
 ## 页面结构
 {根据模板生成的页面结构描述}
 
+## 核心组件说明
+{组件及其功能描述}
+
+## 交互要求
+{用户交互行为描述}
+
 ## 风格关键词
 {风格关键词列表}
+
+## 配置联动说明
+{自动优化的相关属性}
 
 ## 预览链接
 {完整的预览 URL}
@@ -166,10 +257,10 @@ https://style-forge.dev/preview?scene=ecommerce&device=mobile&template=detail
 
 ## 交互方式演进
 
-### v1.0（当前阶段）- URL + 提示词
+### v1.0（当前阶段）- URL + 提示词 + 20维配置
 
 - LLM 生成预览 URL
-- 用户预览调整后复制提示词
+- 用户预览调整后复制提示词（包含20维配置）
 - 提示词粘贴回 LLM 继续开发
 
 ### v1.5 - 轻量 API
@@ -198,4 +289,11 @@ A: 用户调整满意后点击「复制提示词」按钮，将生成的 Markdow
 
 ### Q: URL 参数中的 config 是什么？
 
-A: config 是 Base64 编码的样式配置，用于从 URL 恢复用户调整后的具体配置。如果不传，默认为该场景模板的默认配置。
+A: config 是 Base64 编码的样式配置，用于从 URL 恢复用户调整后的具体配置。如果不传，默认为该场景模板的默认配置。当前支持 20 维配置（色彩10 + 形状6 + 间距4 + 排版5）。
+
+### Q: 配置联动是什么？
+
+A: 配置联动是指某些配置项会自动调整相关属性以保持视觉一致性。例如：
+- 选择大圆角时，自动增加阴影强度和内边距
+- 选择大标题时，自动加粗装饰线和增加间距
+- 选择宽松行高时，自动增加段落间距
