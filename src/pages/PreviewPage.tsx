@@ -100,7 +100,7 @@ export default function PreviewPage() {
             />
           </div>
         ) : (
-          <div className="w-[375px] h-[812px] bg-white rounded-[40px] shadow-2xl border-8 border-gray-800 relative overflow-hidden">
+          <div className="w-[375px] h-[812px] bg-white rounded-[40px] shadow-2xl border-8 border-gray-800 overflow-hidden flex flex-col">
             <MobilePreview 
               config={finalConfig} 
               pageType={template.type || 'home'}

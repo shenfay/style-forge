@@ -22,11 +22,13 @@ export function HomePage({ config }: HomePageProps) {
   const lineHeight = tokens.typography.lineHeight
 
   return (
-    <div className="relative h-full overflow-y-auto" style={{ background: config.backgroundColor }}>
-      <StatusBar />
+    <>
+      {/* 滚动内容区 */}
+      <div className="flex-1 overflow-y-auto" style={{ background: config.backgroundColor }}>
+        <StatusBar />
 
-      {/* 1. 顶部搜索栏 */}
-      <div className="sticky top-0 z-10 px-3 py-2" style={{ background: config.backgroundColor }}>
+        {/* 1. 顶部搜索栏 */}
+        <div className="sticky top-0 z-10 px-3 py-2" style={{ background: config.backgroundColor }}>
         <div className="flex items-center gap-2 px-3 py-2" style={{
           borderRadius: radius,
           background: '#F5F5F5',
@@ -48,7 +50,7 @@ export function HomePage({ config }: HomePageProps) {
       </div>
 
       {/* 内容区 */}
-      <div className="px-3 pb-20 space-y-3">
+      <div className="px-3 space-y-3">
         {/* 2. 活动轮播图 */}
         <div className="relative overflow-hidden" style={{ borderRadius: radius }}>
           <Placeholder width={375} height={160} type="banner" />
@@ -127,8 +129,8 @@ export function HomePage({ config }: HomePageProps) {
         {/* 为简化，保留核心结构，完整实现需要继续提取 */}
       </div>
 
-      {/* 10. 底部导航栏 */}
-      <div className="absolute bottom-0 left-0 right-0 px-3 py-2 z-20" style={{ 
+      {/* 底部导航栏 - 始终固定在底部 */}
+      <div className="shrink-0 px-3 py-2 z-20" style={{ 
         background: '#FFFFFF',
         borderTop: '1px solid #E5E5E5',
       }}>
@@ -151,6 +153,6 @@ export function HomePage({ config }: HomePageProps) {
           ))}
         </div>
       </div>
-    </div>
+    </>
   )
 }

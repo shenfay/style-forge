@@ -249,7 +249,7 @@ export default function DesignerPage() {
                   />
                 </div>
               ) : (
-                <div className="w-[375px] h-[812px] bg-white rounded-[40px] shadow-xl border-8 border-gray-900 relative shrink-0 overflow-hidden">
+                <div className="w-[375px] h-[812px] bg-white rounded-[40px] shadow-xl border-8 border-gray-900 shrink-0 overflow-hidden flex flex-col">
                   <MobilePreview 
                     config={config} 
                     pageType={currentTemplate?.type || 'result'}
