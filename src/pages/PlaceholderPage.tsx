@@ -118,8 +118,9 @@ export default function PlaceholderPage() {
 
   // 复制分享链接
   const handleCopyLink = async () => {
-    const url = window.location.href
-    await navigator.clipboard.writeText(url)
+    const url = new URL(window.location.href)
+    url.pathname = '/placeholder'
+    await navigator.clipboard.writeText(url.toString())
     showNotificationMessage('分享链接已复制到剪贴板')
   }
 

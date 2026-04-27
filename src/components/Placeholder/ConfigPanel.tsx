@@ -234,14 +234,14 @@ export function ConfigPanel({ config, onChange, onCopyLink, onCopyImage }: Confi
           className="w-full px-4 py-2.5 text-sm font-medium rounded-lg cursor-pointer transition-colors"
           style={{ backgroundColor: '#F0F0F0', color: '#242424' }}
         >
-          复制分享链接
+          复制链接
         </button>
         <button
           onClick={onCopyImage}
           className="w-full px-4 py-2.5 text-sm font-medium rounded-lg cursor-pointer transition-colors"
           style={{ backgroundColor: '#F0F0F0', color: '#242424' }}
         >
-          复制图片到剪贴板
+          复制图片
         </button>
       </div>
     </div>

@@ -247,7 +247,9 @@ function HomePage({ config }: { config: StyleConfig }) {
                 background: '#FFFFFF',
                 boxShadow: shadows.sm,
               }}>
-                <Placeholder width={80} height={60} type="brand" text={brand.substring(0, 2)} />
+                <div className="w-16 h-16 rounded-full flex items-center justify-center" style={{ background: `${colors.border.light}` }}>
+                  <span style={{ fontSize: '20px', fontWeight: 600, color: '#6B7280' }}>{brand.substring(0, 2)}</span>
+                </div>
                 <span style={{ fontSize: bodyFontSize, lineHeight, fontWeight: 500, color: colors.text.primary }}>{brand}</span>
               </div>
             ))}

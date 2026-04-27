@@ -80,20 +80,20 @@ export function HomePage({ config }: HomePageProps) {
         <div className="bg-white p-4" style={{ borderRadius: radius, boxShadow: shadows.sm }}>
           <div className="grid grid-cols-5 gap-3">
             {[
-              { label: '数码', color: '#3B82F6' },
-              { label: '服饰', color: '#EC4899' },
-              { label: '家居', color: '#10B981' },
-              { label: '美食', color: '#F59E0B' },
-              { label: '美妆', color: '#8B5CF6' },
-              { label: '运动', color: '#EF4444' },
-              { label: '图书', color: '#6366F1' },
-              { label: '母婴', color: '#F97316' },
-              { label: '家电', color: '#14B8A6' },
-              { label: '更多', color: '#6B7280' },
+              { label: '数码', emoji: '📱', color: '#3B82F6' },
+              { label: '服饰', emoji: '👗', color: '#EC4899' },
+              { label: '家居', emoji: '🛋️', color: '#10B981' },
+              { label: '美食', emoji: '🍜', color: '#F59E0B' },
+              { label: '美妆', emoji: '💄', color: '#8B5CF6' },
+              { label: '运动', emoji: '⚽', color: '#EF4444' },
+              { label: '图书', emoji: '📚', color: '#6366F1' },
+              { label: '母婴', emoji: '🍼', color: '#F97316' },
+              { label: '家电', emoji: '🖥️', color: '#14B8A6' },
+              { label: '更多', emoji: '⋯', color: '#6B7280' },
             ].map((item, i) => (
               <div key={i} className="flex flex-col items-center gap-1.5">
-                <div className="w-12 h-12 rounded-full flex items-center justify-center overflow-hidden" style={{ background: `${item.color}15` }}>
-                  <Placeholder width={48} height={48} type="icon" />
+                <div className="w-12 h-12 rounded-full flex items-center justify-center" style={{ background: `${item.color}15` }}>
+                  <span style={{ fontSize: '22px', lineHeight: 1 }}>{item.emoji}</span>
                 </div>
                 <span style={{ color: colors.text.secondary, fontSize: tokens.typography.bodySize }}>{item.label}</span>
               </div>
@@ -182,7 +182,9 @@ export function HomePage({ config }: HomePageProps) {
                 borderRadius: radius,
                 boxShadow: shadows.sm,
               }}>
-                <Placeholder width={48} height={36} type="brand" text={brand.substring(0, 2)} />
+                <div className="w-12 h-12 rounded-full flex items-center justify-center" style={{ background: `${colors.border.light}` }}>
+                  <span style={{ fontSize: '16px', fontWeight: 600, color: '#6B7280' }}>{brand.substring(0, 2)}</span>
+                </div>
                 <span style={{ fontSize: bodyFontSize, lineHeight, fontWeight: 500, color: colors.text.primary }}>{brand}</span>
               </div>
             ))}
