@@ -4,7 +4,7 @@ import { radiusMap } from '../../types/config'
 import { Placeholder } from './Placeholder'
 import { SectionHeader } from './SectionHeader'
 import { ProductCard } from './ProductCard'
-import { colors, shadows, generateComponentTokens } from '../../utils/design-tokens'
+import { colors, fontSize, fontWeight, shadows, withOpacity, generateComponentTokens } from '../../utils/design-tokens'
 
 interface DesktopPreviewProps {
   config: StyleConfig
@@ -440,13 +440,9 @@ function HomePage({ config }: { config: StyleConfig }) {
   )
 }
 
-// 辅助函数：添加透明度
-function withOpacity(color: string, opacity: number): string {
-  const alpha = Math.round(opacity * 255).toString(16).padStart(2, '0')
-  return `${color}${alpha}`
-}
 
-// PC端详情页
+
+// PC端详情页（电商商品详情）
 function DetailPage({ config }: { config: StyleConfig }) {
   const tokens = generateComponentTokens(config)
   const radius = radiusMap[config.cornerRadius]
@@ -454,88 +450,356 @@ function DetailPage({ config }: { config: StyleConfig }) {
   const lineHeight = getLineHeight(config)
 
   return (
-    <div style={{ background: config.backgroundColor }}>
-      <header className="sticky top-0 z-10 px-8 py-4 flex items-center justify-between" style={{
-        background: '#FFFFFF',
-        borderBottom: '1px solid #E5E5E5',
+    <div className="flex flex-col h-full" style={{ background: config.backgroundColor }}>
+      {/* 顶部导航 */}
+      <header className="shrink-0 px-8 py-4 flex items-center justify-between" style={{
+        background: colors.white,
+        borderBottom: `1px solid ${colors.border.light}`,
       }}>
-        <span className="text-lg font-semibold">详情页</span>
-        <button className="px-4 py-2" style={{ color: config.primaryColor, fontSize: bodyFontSize }}>返回</button>
+        <div className="flex items-center gap-8">
+          <span className="text-lg font-semibold" style={{ color: colors.text.primary }}>商品详情</span>
+          <div className="flex gap-6">
+            {['首页', '商品分类', '购物车', '我的'].map((item, i) => (
+              <button key={i} className="text-sm cursor-pointer" style={{ color: i === 1 ? config.primaryColor : colors.text.secondary }}>{item}</button>
+            ))}
+          </div>
+        </div>
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 px-4 py-2" style={{ borderRadius: radius, background: colors.background.card }}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={colors.text.tertiary} strokeWidth="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            <span style={{ color: colors.text.tertiary, fontSize: bodyFontSize }}>搜索商品</span>
+          </div>
+        </div>
       </header>
 
-      <main className="max-w-4xl mx-auto px-8 py-12">
-        <h1 className="text-3xl font-bold mb-4" style={{ color: tokens.colors.textPrimary }}>详情标题</h1>
-        <div className="flex items-center gap-4 mb-8" style={{ color: tokens.colors.textSecondary, fontSize: bodyFontSize, lineHeight }}>
-          <span>作者</span>
-          <span>2026-04-20</span>
-        </div>
+      <main className="flex-1 overflow-y-auto">
+        <div className="max-w-6xl mx-auto px-8 py-6">
+          {/* 商品主体：左图右信息 */}
+          <div className="flex gap-8 mb-8">
+            {/* 左侧商品图 */}
+            <div className="w-[400px] shrink-0">
+              <Placeholder width={400} height={400} type="product" text="Apple Watch" />
+              <div className="flex gap-2 mt-3">
+                {[0, 1, 2, 3, 4].map(i => (
+                  <div key={i} className="w-14 h-14 rounded cursor-pointer" style={{
+                    border: i === 0 ? `2px solid ${config.primaryColor}` : `2px solid ${colors.border.light}`,
+                    overflow: 'hidden',
+                  }}>
+                    <Placeholder width={56} height={56} type="product" />
+                  </div>
+                ))}
+              </div>
+            </div>
 
-        <div className="p-6 mb-8" style={{
-          borderRadius: radius,
-          background: '#FFFFFF',
-          border: config.cardStyle === 'border' ? '1px solid #E5E5E5' : 'none',
-          boxShadow: config.cardStyle === 'shadow' ? '0 2px 8px rgba(0,0,0,0.06)' : 'none',
-        }}>
-          <p style={{ color: '#333333', fontSize: bodyFontSize, lineHeight }}>
-            这是详情内容的正文部分。这里可以展示文章的详细内容，包括文字描述、图片展示等。
-            支持多段落展示，内容排版清晰易读，符合用户阅读习惯。
-          </p>
+            {/* 右侧商品信息 */}
+            <div className="flex-1">
+              {/* 价格区 */}
+              <div className="p-6 mb-4" style={{
+                borderRadius: radius,
+                background: colors.white,
+                border: config.cardStyle === 'border' ? `1px solid ${colors.border.light}` : 'none',
+                boxShadow: config.cardStyle === 'shadow' ? shadows.sm : 'none',
+              }}>
+                <div className="flex items-baseline gap-3 mb-3">
+                  <span className="text-3xl font-bold" style={{ color: config.primaryColor, fontSize: fontSize['3xl'], fontWeight: fontWeight.bold }}>¥2,999</span>
+                  <span className="text-lg line-through" style={{ color: colors.text.tertiary, fontSize: fontSize.lg }}>¥3,999</span>
+                  <span className="px-2 py-0.5 text-xs rounded" style={{
+                    background: withOpacity(config.primaryColor, 0.1),
+                    color: config.primaryColor,
+                    fontSize: fontSize.xs,
+                  }}>立省¥1,000</span>
+                </div>
+                <h1 className="text-xl font-medium mb-4 leading-relaxed" style={{ color: colors.text.primary }}>
+                  Apple Watch Series 9 智能手表 GPS 版 45毫米 午夜色 运动型表带
+                </h1>
+                <div className="flex gap-4" style={{ fontSize: bodyFontSize, color: colors.text.tertiary }}>
+                  <span>已售 1.2万件</span>
+                  <span>好评率 98%</span>
+                </div>
+              </div>
+
+              {/* 促销标签 */}
+              <div className="p-4 mb-4 flex flex-wrap gap-2" style={{
+                borderRadius: radius,
+                background: colors.white,
+                border: config.cardStyle === 'border' ? `1px solid ${colors.border.light}` : 'none',
+                boxShadow: config.cardStyle === 'shadow' ? shadows.sm : 'none',
+              }}>
+                <span style={{ color: colors.text.tertiary, fontSize: bodyFontSize }}>促销：</span>
+                {['满199减30', '领券立减50', '6期免息'].map((tag, i) => (
+                  <span key={i} className="px-2 py-0.5" style={{
+                    borderRadius: config.badgeStyle === 'rounded' ? '999px' : '4px',
+                    background: withOpacity(config.primaryColor, 0.08),
+                    color: config.primaryColor,
+                    fontSize: fontSize.xs,
+                  }}>{tag}</span>
+                ))}
+              </div>
+
+              {/* SKU 选择 */}
+              <div className="p-4 mb-4" style={{
+                borderRadius: radius,
+                background: colors.white,
+                border: config.cardStyle === 'border' ? `1px solid ${colors.border.light}` : 'none',
+                boxShadow: config.cardStyle === 'shadow' ? shadows.sm : 'none',
+              }}>
+                <div className="mb-3">
+                  <span className="text-sm font-medium mr-4" style={{ color: colors.text.primary, fontSize: bodyFontSize }}>颜色</span>
+                  {['午夜色', '星光色', '银色', '深空灰'].map((c, i) => (
+                    <button key={i} className="px-4 py-1.5 mr-2 mb-1 cursor-pointer" style={{
+                      borderRadius: radius,
+                      background: i === 0 ? config.primaryColor : colors.background.card,
+                      color: i === 0 ? colors.white : colors.text.secondary,
+                      border: i === 0 ? 'none' : `1px solid ${colors.border.light}`,
+                      fontSize: bodyFontSize,
+                    }}>{c}</button>
+                  ))}
+                </div>
+                <div>
+                  <span className="text-sm font-medium mr-4" style={{ color: colors.text.primary, fontSize: bodyFontSize }}>尺寸</span>
+                  {['41mm', '45mm', 'Ultra 49mm'].map((s, i) => (
+                    <button key={i} className="px-4 py-1.5 mr-2 cursor-pointer" style={{
+                      borderRadius: radius,
+                      background: i === 1 ? config.primaryColor : colors.background.card,
+                      color: i === 1 ? colors.white : colors.text.secondary,
+                      border: i === 1 ? 'none' : `1px solid ${colors.border.light}`,
+                      fontSize: bodyFontSize,
+                    }}>{s}</button>
+                  ))}
+                </div>
+              </div>
+
+              {/* 操作按钮 */}
+              <div className="flex gap-3">
+                <button className="flex-1 py-3 cursor-pointer" style={{
+                  borderRadius: radius,
+                  border: `1px solid ${config.primaryColor}`,
+                  color: config.primaryColor,
+                  background: colors.white,
+                  fontSize: bodyFontSize,
+                  fontWeight: fontWeight.medium,
+                }}>加入购物车</button>
+                <button className="flex-1 py-3 cursor-pointer" style={{
+                  borderRadius: radius,
+                  background: config.buttonStyle === 'gradient'
+                    ? `linear-gradient(135deg, ${config.primaryColor}, ${config.primaryColor}CC)`
+                    : config.primaryColor,
+                  color: colors.white,
+                  fontSize: bodyFontSize,
+                  fontWeight: fontWeight.medium,
+                }}>立即购买</button>
+              </div>
+            </div>
+          </div>
+
+          {/* 商品详情 Tab */}
+          <div className="p-6 mb-6" style={{
+            borderRadius: radius,
+            background: colors.white,
+            boxShadow: shadows.sm,
+          }}>
+            <div className="flex gap-8 mb-6 border-b" style={{ borderColor: colors.border.light }}>
+              {['商品介绍', '规格参数', '售后保障'].map((tab, i) => (
+                <button key={i} className="pb-3 cursor-pointer" style={{
+                  color: i === 0 ? config.primaryColor : colors.text.tertiary,
+                  fontSize: bodyFontSize,
+                  fontWeight: fontWeight.medium,
+                  borderBottom: i === 0 ? `2px solid ${config.primaryColor}` : '2px solid transparent',
+                }}>{tab}</button>
+              ))}
+            </div>
+            <p style={{ color: colors.text.secondary, fontSize: bodyFontSize, lineHeight }}>
+              Apple Watch Series 9 配备 S9 芯片，支持全天候视网膜显示屏，带来更快的处理和更流畅的交互体验。支持血氧检测、心电图、睡眠监测等健康功能，满足日常运动与健康管理需求。
+            </p>
+          </div>
+
+          {/* 用户评价 */}
+          <div className="p-6 mb-6" style={{
+            borderRadius: radius,
+            background: colors.white,
+            boxShadow: shadows.sm,
+          }}>
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-2">
+                <span className="text-base font-medium" style={{ color: colors.text.primary, fontSize: bodyFontSize, fontWeight: fontWeight.medium }}>用户评价</span>
+                <span className="text-lg font-bold" style={{ color: '#F59E0B', fontWeight: fontWeight.bold }}>4.8</span>
+              </div>
+              <button className="cursor-pointer" style={{ color: colors.text.tertiary, fontSize: bodyFontSize }}>查看全部 ›</button>
+            </div>
+            <div className="grid grid-cols-3 gap-4">
+              {[
+                { name: '张***', content: '非常好用，续航持久，推荐购买！', rating: 5, spec: '午夜色/45mm' },
+                { name: '李***', content: '包装精美，外观时尚，功能强大。', rating: 5, spec: '星光色/41mm' },
+                { name: '王***', content: '物流很快，第二天就到了，好评。', rating: 4, spec: '午夜色/45mm' },
+              ].map((review, i) => (
+                <div key={i} className="p-4" style={{ borderRadius: radius, background: colors.background.card }}>
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-sm font-medium" style={{ color: colors.text.primary, fontSize: bodyFontSize }}>{review.name}</span>
+                    <span className="text-xs" style={{ color: '#F59E0B' }}>{'⭐'.repeat(review.rating)}</span>
+                  </div>
+                  <p style={{ color: colors.text.secondary, fontSize: bodyFontSize, lineHeight }}>{review.content}</p>
+                  <p className="text-xs mt-1" style={{ color: colors.text.tertiary, fontSize: fontSize.xs }}>{review.spec}</p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </main>
     </div>
   )
 }
 
-// PC端列表页
+// PC端购物车页
 function ListPage({ config }: { config: StyleConfig }) {
+  const tokens = generateComponentTokens(config)
   const radius = radiusMap[config.cornerRadius]
   const bodyFontSize = getBodyFontSize(config)
   const lineHeight = getLineHeight(config)
 
   return (
-    <div style={{ background: config.backgroundColor }}>
-      <header className="sticky top-0 z-10 px-8 py-4 flex items-center justify-between" style={{
-        background: '#FFFFFF',
-        borderBottom: '1px solid #E5E5E5',
+    <div className="flex flex-col h-full" style={{ background: config.backgroundColor }}>
+      {/* 顶部导航 */}
+      <header className="shrink-0 px-8 py-4 flex items-center justify-between" style={{
+        background: colors.white,
+        borderBottom: `1px solid ${colors.border.light}`,
       }}>
-        <span className="text-lg font-semibold">列表页</span>
+        <div className="flex items-center gap-8">
+          <span className="text-lg font-semibold" style={{ color: colors.text.primary }}>购物车</span>
+          <div className="flex gap-6">
+            {['首页', '商品分类', '购物车', '我的'].map((item, i) => (
+              <button key={i} className="text-sm cursor-pointer" style={{ color: i === 2 ? config.primaryColor : colors.text.secondary }}>{item}</button>
+            ))}
+          </div>
+        </div>
+        <div className="flex items-center gap-4">
+          <button className="text-sm cursor-pointer" style={{ color: colors.text.tertiary, fontSize: bodyFontSize }}>编辑</button>
+        </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-8 py-8">
-        <div className="flex gap-2 mb-6">
-          {['全部', '分类一', '分类二', '分类三'].map((filter, i) => (
-            <button key={i} className="px-4 py-2" style={{
-              borderRadius: '999px',
-              background: i === 0 ? config.primaryColor : '#FFFFFF',
-              color: i === 0 ? '#FFFFFF' : '#666666',
-              fontSize: bodyFontSize,
-            }}>
-              {filter}
-            </button>
-          ))}
-        </div>
-
-        <div className="grid grid-cols-3 gap-6">
+      <main className="flex-1 overflow-y-auto">
+        <div className="max-w-6xl mx-auto px-8 py-6">
+          {/* 店铺分组 */}
           {[
-            { title: '列表项一', desc: '描述文字' },
-            { title: '列表项二', desc: '描述文字' },
-            { title: '列表项三', desc: '描述文字' },
-            { title: '列表项四', desc: '描述文字' },
-            { title: '列表项五', desc: '描述文字' },
-            { title: '列表项六', desc: '描述文字' },
-          ].map((item, i) => (
-            <div key={i} className="p-6" style={{
+            { name: 'Apple 官方旗舰店', items: [
+              { name: 'Apple Watch Series 9', spec: '午夜色/45mm', price: 2999, count: 1, img: 'Apple Watch' },
+              { name: 'AirPods Pro 2', spec: '白色', price: 1899, count: 2, img: 'AirPods' },
+            ]},
+            { name: '索尼数码专营店', items: [
+              { name: 'Sony WH-1000XM5', spec: '黑色/头戴式', price: 2499, count: 1, img: 'Sony' },
+            ]},
+          ].map((store, si) => (
+            <div key={si} className="mb-6" style={{
               borderRadius: radius,
-              background: '#FFFFFF',
-              border: config.cardStyle === 'border' ? '1px solid #E5E5E5' : 'none',
-              boxShadow: config.cardStyle === 'shadow' ? '0 2px 8px rgba(0,0,0,0.06)' : 'none',
+              background: colors.white,
+              boxShadow: shadows.sm,
+              overflow: 'hidden',
             }}>
-              <h3 className="text-base font-semibold mb-2" style={{ color: '#1A1A1A' }}>{item.title}</h3>
-              <p style={{ color: '#666666', fontSize: bodyFontSize, lineHeight }}>{item.desc}</p>
+              {/* 店铺头 */}
+              <div className="flex items-center gap-2 px-6 py-4" style={{ borderBottom: `1px solid ${colors.border.light}` }}>
+                <div className="w-5 h-5 rounded flex items-center justify-center" style={{
+                  background: config.primaryColor,
+                  borderRadius: 3,
+                }}>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke={colors.white} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                </div>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={colors.text.primary} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                <span className="text-sm font-medium" style={{ color: colors.text.primary, fontSize: bodyFontSize }}>{store.name}</span>
+              </div>
+              {/* 商品列表 */}
+              {store.items.map((item, ii) => (
+                <div key={ii} className="flex items-center gap-4 px-6 py-4" style={{
+                  borderBottom: ii < store.items.length - 1 ? `1px solid ${colors.border.light}` : 'none',
+                }}>
+                  <div className="w-5 h-5 rounded flex items-center justify-center shrink-0" style={{
+                    background: config.primaryColor,
+                    borderRadius: 3,
+                  }}>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke={colors.white} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                  </div>
+                  <div className="w-24 h-24 shrink-0" style={{ borderRadius: radius, overflow: 'hidden' }}>
+                    <Placeholder width={96} height={96} type="product" text={item.img} />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="text-sm font-medium mb-1" style={{ color: colors.text.primary, fontSize: bodyFontSize }}>{item.name}</div>
+                    <div className="text-xs mb-2" style={{ color: colors.text.tertiary, fontSize: fontSize.xs }}>{item.spec}</div>
+                  </div>
+                  <div className="text-sm font-bold w-24 text-right" style={{ color: config.primaryColor, fontSize: bodyFontSize, fontWeight: fontWeight.bold }}>¥{item.price}</div>
+                  <div className="flex items-center gap-2">
+                    <button className="w-7 h-7 flex items-center justify-center cursor-pointer" style={{ borderRadius: radius, background: colors.background.card, border: `1px solid ${colors.border.light}` }}>
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke={colors.text.tertiary} strokeWidth="2.5" strokeLinecap="round"><path d="M5 12h14"/></svg>
+                    </button>
+                    <span className="text-sm w-8 text-center" style={{ color: colors.text.primary, fontSize: bodyFontSize }}>{item.count}</span>
+                    <button className="w-7 h-7 flex items-center justify-center cursor-pointer" style={{ borderRadius: radius, background: colors.background.card, border: `1px solid ${colors.border.light}` }}>
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke={colors.text.tertiary} strokeWidth="2.5" strokeLinecap="round"><path d="M12 5v14m-7-7h14"/></svg>
+                    </button>
+                  </div>
+                  <div className="text-sm font-bold w-24 text-right" style={{ color: config.primaryColor, fontSize: bodyFontSize, fontWeight: fontWeight.bold }}>¥{item.price * item.count}</div>
+                </div>
+              ))}
             </div>
           ))}
+
+          {/* 推荐区 */}
+          <div className="mb-6">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="flex-1 h-px" style={{ background: colors.border.light }} />
+              <span style={{ color: colors.text.tertiary, fontSize: bodyFontSize }}>为你推荐</span>
+              <div className="flex-1 h-px" style={{ background: colors.border.light }} />
+            </div>
+            <div className="grid grid-cols-4 gap-4">
+              {[
+                { name: 'iPhone 15 Pro', price: 7999 },
+                { name: 'iPad Pro M2', price: 6799 },
+                { name: 'MacBook Air M3', price: 8999 },
+                { name: 'Nintendo Switch', price: 2099 },
+              ].map((item, i) => (
+                <div key={i} className="overflow-hidden" style={{
+                  borderRadius: radius,
+                  background: colors.white,
+                  boxShadow: shadows.sm,
+                }}>
+                  <Placeholder width={200} height={200} type="product" text={item.name} />
+                  <div className="p-3">
+                    <div className="text-sm mb-1" style={{ color: colors.text.primary, fontSize: bodyFontSize }}>{item.name}</div>
+                    <div className="text-sm font-bold" style={{ color: config.primaryColor, fontSize: bodyFontSize, fontWeight: fontWeight.bold }}>¥{item.price}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </main>
+
+      {/* 底部结算栏 */}
+      <footer className="shrink-0 px-8 py-4 flex items-center justify-between" style={{
+        background: colors.white,
+        borderTop: `1px solid ${colors.border.light}`,
+      }}>
+        <div className="flex items-center gap-3">
+          <div className="w-5 h-5 rounded flex items-center justify-center" style={{
+            background: config.primaryColor,
+            borderRadius: 3,
+          }}>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke={colors.white} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+          </div>
+          <span className="text-sm" style={{ color: colors.text.primary, fontSize: bodyFontSize }}>全选</span>
+        </div>
+        <div className="flex items-center gap-6">
+          <div>
+            <span style={{ color: colors.text.tertiary, fontSize: bodyFontSize }}>合计：</span>
+            <span className="text-xl font-bold" style={{ color: config.primaryColor, fontSize: fontSize.xl, fontWeight: fontWeight.bold }}>¥9,386</span>
+          </div>
+          <button className="px-10 py-3 cursor-pointer" style={{
+            borderRadius: radius,
+            background: config.buttonStyle === 'gradient'
+              ? `linear-gradient(135deg, ${config.primaryColor}, ${config.primaryColor}CC)`
+              : config.primaryColor,
+            color: colors.white,
+            fontSize: bodyFontSize,
+            fontWeight: fontWeight.medium,
+          }}>结算(4)</button>
+        </div>
+      </footer>
     </div>
   )
 }
