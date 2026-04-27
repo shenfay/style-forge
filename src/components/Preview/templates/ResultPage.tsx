@@ -13,7 +13,7 @@ export function ResultPage({ config }: ResultPageProps) {
   const tokens = generateComponentTokens(config)
 
   return (
-    <div className="h-full flex items-center justify-center p-6" style={{ background: config.backgroundColor }}>
+    <div className="flex-1 flex items-center justify-center p-6" style={{ background: config.backgroundColor }}>
       <div className="text-center">
         <div className="text-6xl mb-4">✓</div>
         <h2 className="text-xl font-bold mb-2" style={{ color: config.primaryColor }}>操作成功</h2>

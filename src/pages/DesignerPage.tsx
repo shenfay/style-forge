@@ -242,7 +242,7 @@ export default function DesignerPage() {
           <main className="flex-1 overflow-auto flex items-start justify-center" style={{ backgroundColor: '#FFFFFF' }}>
             <div className="w-full flex items-start justify-center p-8">
               {urlConfig.device === 'desktop' ? (
-                <div className="w-full max-w-6xl bg-white rounded-lg shadow-sm border border-gray-200">
+                <div className="w-full max-w-5xl bg-white rounded-lg shadow-2xl overflow-hidden border border-gray-200">
                   <DesktopPreview 
                     config={config} 
                     pageType={currentTemplate?.type || 'home'}

@@ -18,7 +18,7 @@ export function ProfilePage({ config }: ProfilePageProps) {
   const lineHeight = tokens.typography.lineHeight
 
   return (
-    <div className="h-full overflow-y-auto" style={{ background: config.backgroundColor }}>
+    <div className="flex-1 overflow-y-auto" style={{ background: config.backgroundColor }}>
       <StatusBar />
       
       {/* 个人信息区 */}

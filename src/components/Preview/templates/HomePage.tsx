@@ -126,8 +126,172 @@ export function HomePage({ config }: HomePageProps) {
           </div>
         </div>
 
-        {/* 6-9. 其他区块（限时抢购、品牌专区、新品推荐、猜你喜欢） */}
-        {/* 为简化，保留核心结构，完整实现需要继续提取 */}
+        {/* 6. 限时抢购 */}
+        <section>
+          <SectionHeader 
+            config={config}
+            title="限时抢购"
+            showDecoration={true}
+            align={config.titleStyle === 'left-accent' ? 'left' : config.titleStyle === 'right-accent' ? 'right' : config.titleStyle === 'bottom-accent' ? 'bottom' : 'left'}
+            onMoreClick={() => {}}
+          />
+          <div className="flex gap-2 overflow-x-auto pb-2">
+            {[1, 2, 3, 4].map(i => (
+              <div key={i} className="shrink-0 w-28 flex flex-col items-center p-2 bg-white" style={{
+                borderRadius: radius,
+                boxShadow: shadows.sm,
+              }}>
+                <div className="w-full flex justify-center mb-2">
+                  <Placeholder width={96} height={96} type="product" />
+                </div>
+                <div className="text-sm font-bold" style={{ color: tokens.colors.primary }}>¥{99 + i * 10}</div>
+                <div className="line-through text-xs" style={{ color: '#999' }}>¥{199 + i * 20}</div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* 7. 品牌专区 */}
+        <section>
+          <div className="flex items-center justify-between mb-3">
+            <div className="relative" style={{
+              paddingLeft: config.titleStyle === 'left-accent' ? '12px' : '0',
+              paddingRight: config.titleStyle === 'right-accent' ? '12px' : '0',
+              paddingBottom: config.titleStyle === 'bottom-accent' ? '8px' : '0',
+            }}>
+              {config.titleStyle === 'left-accent' && (
+                <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-4 rounded" style={{ background: config.primaryColor }} />
+              )}
+              {config.titleStyle === 'right-accent' && (
+                <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1 h-4 rounded" style={{ background: config.primaryColor }} />
+              )}
+              {config.titleStyle === 'bottom-accent' && (
+                <div className="absolute bottom-0 left-0 right-0 h-0.5 rounded" style={{ background: config.primaryColor }} />
+              )}
+              <div className="text-base font-bold" style={{ 
+                color: config.titleColor,
+                fontSize: config.titleSize === 'small' ? '14px' : config.titleSize === 'medium' ? '16px' : '18px',
+                fontWeight: config.titleWeight === 'normal' ? 400 : config.titleWeight === 'medium' ? 500 : 700,
+              }}>品牌专区</div>
+            </div>
+            <button style={{ fontSize: bodyFontSize, lineHeight, color: colors.text.tertiary }}>查看更多 ›</button>
+          </div>
+          <div className="grid grid-cols-3 gap-2">
+            {['Apple', 'Nike', 'Sony', 'Adidas', 'Samsung', 'Huawei'].map((brand, i) => (
+              <div key={i} className="flex flex-col items-center gap-2 p-3 bg-white" style={{
+                borderRadius: radius,
+                boxShadow: shadows.sm,
+              }}>
+                <Placeholder width={48} height={36} type="brand" text={brand.substring(0, 2)} />
+                <span style={{ fontSize: bodyFontSize, lineHeight, fontWeight: 500, color: colors.text.primary }}>{brand}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* 8. 新品推荐 */}
+        <section>
+          <div className="flex items-center justify-between mb-3">
+            <div className="relative" style={{
+              paddingLeft: config.titleStyle === 'left-accent' ? '12px' : '0',
+              paddingRight: config.titleStyle === 'right-accent' ? '12px' : '0',
+              paddingBottom: config.titleStyle === 'bottom-accent' ? '8px' : '0',
+            }}>
+              {config.titleStyle === 'left-accent' && (
+                <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-4 rounded" style={{ background: config.primaryColor }} />
+              )}
+              {config.titleStyle === 'right-accent' && (
+                <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1 h-4 rounded" style={{ background: config.primaryColor }} />
+              )}
+              {config.titleStyle === 'bottom-accent' && (
+                <div className="absolute bottom-0 left-0 right-0 h-0.5 rounded" style={{ background: config.primaryColor }} />
+              )}
+              <div className="text-base font-bold" style={{ 
+                color: config.titleColor,
+                fontSize: config.titleSize === 'small' ? '14px' : config.titleSize === 'medium' ? '16px' : '18px',
+                fontWeight: config.titleWeight === 'normal' ? 400 : config.titleWeight === 'medium' ? 500 : 700,
+              }}>新品推荐</div>
+            </div>
+            <button style={{ fontSize: bodyFontSize, lineHeight, color: colors.text.tertiary }}>查看更多 ›</button>
+          </div>
+          <div className="grid grid-cols-2 gap-2">
+            {[
+              { title: 'Apple Watch Series 9', price: '¥2999', tag: '新品' },
+              { title: 'AirPods Pro 2', price: '¥1899', tag: '热卖' },
+            ].map((item, i) => (
+              <div key={i} className="overflow-hidden flex flex-col bg-white" style={{
+                borderRadius: radius,
+                boxShadow: shadows.sm,
+              }}>
+                <div className="w-full flex justify-center">
+                  <Placeholder width={180} height={180} type="product" />
+                </div>
+                <div className="p-3">
+                  <div className="font-medium mb-2 line-clamp-2" style={{ color: colors.text.primary, fontSize: bodyFontSize, lineHeight }}>{item.title}</div>
+                  <div className="flex items-center justify-between">
+                    <div className="text-base font-bold" style={{ color: tokens.colors.primary }}>{item.price}</div>
+                    {item.tag && (
+                      <span className="px-2 py-0.5 text-xs font-medium rounded" style={{
+                        background: withOpacity(config.primaryColor, 0.1),
+                        color: config.primaryColor,
+                      }}>{item.tag}</span>
+                    )}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* 9. 猜你喜欢 */}
+        <section className="pb-2">
+          <div className="flex items-center justify-between mb-3">
+            <div className="relative" style={{
+              paddingLeft: config.titleStyle === 'left-accent' ? '12px' : '0',
+              paddingRight: config.titleStyle === 'right-accent' ? '12px' : '0',
+              paddingBottom: config.titleStyle === 'bottom-accent' ? '8px' : '0',
+            }}>
+              {config.titleStyle === 'left-accent' && (
+                <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-4 rounded" style={{ background: config.primaryColor }} />
+              )}
+              {config.titleStyle === 'right-accent' && (
+                <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1 h-4 rounded" style={{ background: config.primaryColor }} />
+              )}
+              {config.titleStyle === 'bottom-accent' && (
+                <div className="absolute bottom-0 left-0 right-0 h-0.5 rounded" style={{ background: config.primaryColor }} />
+              )}
+              <div className="text-base font-bold" style={{ 
+                color: config.titleColor,
+                fontSize: config.titleSize === 'small' ? '14px' : config.titleSize === 'medium' ? '16px' : '18px',
+                fontWeight: config.titleWeight === 'normal' ? 400 : config.titleWeight === 'medium' ? 500 : 700,
+              }}>猜你喜欢</div>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-2">
+            {[
+              { title: 'Sony WH-1000XM5', price: '¥2499', sales: '8563人付款' },
+              { title: 'Nintendo Switch OLED', price: '¥2099', sales: '2.1万人付款' },
+              { title: 'Dell XPS 15', price: '¥12999', sales: '4521人付款' },
+              { title: 'Logitech MX Master 3', price: '¥799', sales: '1.5万人付款' },
+            ].map((item, i) => (
+              <div key={i} className="overflow-hidden flex flex-col bg-white" style={{
+                borderRadius: radius,
+                boxShadow: shadows.sm,
+              }}>
+                <div className="w-full flex justify-center">
+                  <Placeholder width={180} height={180} type="product" />
+                </div>
+                <div className="p-3">
+                  <div className="font-medium mb-2 line-clamp-2" style={{ color: colors.text.primary, fontSize: bodyFontSize, lineHeight }}>{item.title}</div>
+                  <div className="flex items-end justify-between">
+                    <div className="text-base font-bold" style={{ color: tokens.colors.primary }}>{item.price}</div>
+                    <div style={{ fontSize: '10px', lineHeight, color: colors.text.tertiary }}>{item.sales}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
       </div>
       </div>
 

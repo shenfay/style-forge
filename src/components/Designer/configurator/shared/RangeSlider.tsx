@@ -40,7 +40,7 @@ export function RangeSlider({ label, options, value, onChange }: RangeSliderProp
             }}
           />
         </div>
-        <div className="flex justify-between text-xs" style={{ color: colors.text.tertiary, fontSize: fontSize.xs }}>
+        <div className="flex justify-between" style={{ color: colors.text.secondary, fontSize: fontSize.sm }}>
           {options.map((opt, idx) => (
             <span key={idx}>{opt.label}</span>
           ))}

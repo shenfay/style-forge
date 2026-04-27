@@ -29,16 +29,16 @@ export function OptionGroup({ label, options, value, onChange, columns = 3 }: Op
           <button
             key={opt.value}
             onClick={() => onChange(opt.value)}
-            className="px-3 py-3 text-sm rounded-lg transition-all flex flex-col items-center gap-1.5 font-normal cursor-pointer"
+            className="px-2 py-1 text-sm rounded-lg flex flex-col items-center gap-0 font-normal cursor-pointer"
             style={{
-              backgroundColor: value === opt.value ? colors.gray[800] : 'transparent',
-              color: value === opt.value ? colors.white : colors.text.secondary,
+              backgroundColor: value === opt.value ? '#ECEAE5' : colors.white,
+              color: value === opt.value ? '#1A1A1A' : colors.text.secondary,
               border: value === opt.value ? 'none' : `1px solid ${colors.border.light}`,
               borderRadius: borderRadius.sm,
             }}
           >
-            {opt.icon && <span className="text-lg">{opt.icon}</span>}
-            <span style={{ fontSize: fontSize.base }}>{opt.label}</span>
+            {opt.icon && <span className="text-base">{opt.icon}</span>}
+            <span style={{ fontSize: fontSize.sm }}>{opt.label}</span>
           </button>
         ))}
       </div>

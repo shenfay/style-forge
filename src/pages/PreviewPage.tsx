@@ -93,7 +93,7 @@ export default function PreviewPage() {
       {/* 预览内容 */}
       <div className="relative py-8">
         {device === 'desktop' ? (
-          <div className="w-full max-w-5xl bg-white rounded-lg shadow-2xl">
+          <div className="w-full max-w-7xl bg-white rounded-lg shadow-2xl overflow-hidden border border-gray-200">
             <DesktopPreview 
               config={finalConfig} 
               pageType={template.type || 'home'}

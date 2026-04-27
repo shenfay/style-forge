@@ -14,7 +14,7 @@ interface ConfigItemProps {
 export function ConfigItem({ label, children }: ConfigItemProps) {
   return (
     <div className="space-y-3">
-      <div className="text-sm font-normal" style={{ color: colors.text.secondary, fontSize: fontSize.base }}>
+      <div style={{ fontSize: '13px', fontWeight: 500, color: colors.gray[600] }}>
         {label}
       </div>
       {children}

@@ -4,7 +4,7 @@
 
 import React, { memo } from 'react'
 import type { StyleConfig } from '../../../../types/config'
-import { SectionHeader, RangeSlider } from '../shared'
+import { SectionHeader, RangeSlider, CollapsePanel } from '../shared'
 
 interface SpacingSectionProps {
   config: StyleConfig
@@ -23,50 +23,58 @@ export const SpacingSection = memo(function SpacingSection({ config, onChange }:
           </svg>
         }
       />
-      <div className="space-y-6">
-        <RangeSlider
-          label="内边距"
-          options={[
-            { label: '紧凑', value: 'compact' },
-            { label: '适中', value: 'medium' },
-            { label: '宽松', value: 'relaxed' },
-          ]}
-          value={config.padding}
-          onChange={(value) => onChange('padding', value)}
-        />
+      <div className="space-y-2">
+        <CollapsePanel title="内边距" defaultExpanded={true}>
+          <RangeSlider
+            label=""
+            options={[
+              { label: '紧凑', value: 'compact' },
+              { label: '适中', value: 'medium' },
+              { label: '宽松', value: 'relaxed' },
+            ]}
+            value={config.padding}
+            onChange={(value) => onChange('padding', value)}
+          />
+        </CollapsePanel>
 
-        <RangeSlider
-          label="卡片间距"
-          options={[
-            { label: '小', value: 'small' },
-            { label: '中', value: 'medium' },
-            { label: '大', value: 'large' },
-          ]}
-          value={config.cardGap}
-          onChange={(value) => onChange('cardGap', value)}
-        />
+        <CollapsePanel title="卡片间距">
+          <RangeSlider
+            label=""
+            options={[
+              { label: '小', value: 'small' },
+              { label: '中', value: 'medium' },
+              { label: '大', value: 'large' },
+            ]}
+            value={config.cardGap}
+            onChange={(value) => onChange('cardGap', value)}
+          />
+        </CollapsePanel>
 
-        <RangeSlider
-          label="区块间距"
-          options={[
-            { label: '小', value: 'small' },
-            { label: '中', value: 'medium' },
-            { label: '大', value: 'large' },
-          ]}
-          value={config.sectionGap}
-          onChange={(value) => onChange('sectionGap', value)}
-        />
+        <CollapsePanel title="区块间距">
+          <RangeSlider
+            label=""
+            options={[
+              { label: '小', value: 'small' },
+              { label: '中', value: 'medium' },
+              { label: '大', value: 'large' },
+            ]}
+            value={config.sectionGap}
+            onChange={(value) => onChange('sectionGap', value)}
+          />
+        </CollapsePanel>
 
-        <RangeSlider
-          label="元素间距"
-          options={[
-            { label: '紧凑', value: 'compact' },
-            { label: '适中', value: 'medium' },
-            { label: '宽松', value: 'relaxed' },
-          ]}
-          value={config.elementGap}
-          onChange={(value) => onChange('elementGap', value)}
-        />
+        <CollapsePanel title="元素间距">
+          <RangeSlider
+            label=""
+            options={[
+              { label: '紧凑', value: 'compact' },
+              { label: '适中', value: 'medium' },
+              { label: '宽松', value: 'relaxed' },
+            ]}
+            value={config.elementGap}
+            onChange={(value) => onChange('elementGap', value)}
+          />
+        </CollapsePanel>
       </div>
     </div>
   )

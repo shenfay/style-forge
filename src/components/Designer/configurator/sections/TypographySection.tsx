@@ -40,16 +40,16 @@ export const TypographySection = memo(function TypographySection({ config, onCha
               <button
                 key={opt.value}
                 onClick={() => updateConfig('titleWeight', opt.value)}
-                className="flex-1 px-3 py-3 text-sm rounded-lg transition-all flex flex-col items-center gap-1 cursor-pointer"
+                className="flex-1 px-2 py-1 text-sm rounded-lg flex flex-col items-center gap-0 cursor-pointer"
                 style={{
-                  backgroundColor: config.titleWeight === opt.value ? colors.gray[800] : 'transparent',
-                  color: config.titleWeight === opt.value ? colors.white : colors.text.secondary,
+                  backgroundColor: config.titleWeight === opt.value ? '#ECEAE5' : 'transparent',
+                  color: config.titleWeight === opt.value ? '#1A1A1A' : colors.text.secondary,
                   border: config.titleWeight === opt.value ? 'none' : `1px solid ${colors.border.light}`,
                   fontWeight: opt.value === 'bold' ? 'bold' : opt.value === 'medium' ? 500 : 'normal',
                 }}
               >
-                <span className="text-xl">T</span>
-                <span style={{ fontSize: fontSize.base }}>{opt.label}</span>
+                <span className="text-base">T</span>
+                <span style={{ fontSize: fontSize.sm }}>{opt.label}</span>
               </button>
             ))}
           </div>
@@ -88,10 +88,10 @@ export const TypographySection = memo(function TypographySection({ config, onCha
                     )}
                   </div>
                 </div>
-                <span className="text-lg" style={{ color: config.titleStyle === opt.value ? colors.gray[800] : colors.text.tertiary }}>
+                <span className="text-base" style={{ color: config.titleStyle === opt.value ? colors.gray[800] : colors.text.tertiary }}>
                   {opt.icon}
                 </span>
-                <span className="text-sm flex-1" style={{ color: config.titleStyle === opt.value ? colors.gray[800] : colors.text.primary }}>
+                <span style={{ fontSize: fontSize.sm, fontWeight: 400, flex: 1, color: config.titleStyle === opt.value ? colors.gray[800] : colors.text.primary }}>
                   {opt.label}
                 </span>
               </label>
@@ -111,16 +111,16 @@ export const TypographySection = memo(function TypographySection({ config, onCha
                 <button
                   key={opt.value}
                   onClick={() => updateConfig('titleSize', opt.value)}
-                  className="px-3 py-3 text-sm rounded-lg transition-all flex flex-col items-center gap-1 cursor-pointer"
+                  className="px-2 py-1 text-sm rounded-lg flex flex-col items-center gap-0 cursor-pointer"
                   style={{
-                    backgroundColor: config.titleSize === opt.value ? colors.gray[800] : 'transparent',
-                    color: config.titleSize === opt.value ? colors.white : colors.text.secondary,
+                    backgroundColor: config.titleSize === opt.value ? '#ECEAE5' : 'transparent',
+                    color: config.titleSize === opt.value ? '#1A1A1A' : colors.text.secondary,
                     border: config.titleSize === opt.value ? 'none' : `1px solid ${colors.border.light}`,
                     fontSize: opt.size,
                   }}
                 >
-                  <span className="font-bold">A</span>
-                  <span className="text-xs">{opt.label}</span>
+                  <span className="font-bold text-base">A</span>
+                  <span style={{ fontSize: fontSize.sm }}>{opt.label}</span>
                 </button>
               ))}
             </div>
@@ -168,10 +168,10 @@ export const TypographySection = memo(function TypographySection({ config, onCha
               </svg>
             </button>
             <div className="flex-1 text-center">
-              <div className="text-lg font-medium" style={{ color: colors.text.primary }}>
+              <div className="text-base font-medium" style={{ color: colors.text.primary }}>
                 {{ compact: '1.3', medium: '1.5', relaxed: '1.8' }[config.lineHeight]}
               </div>
-              <div className="text-xs" style={{ color: colors.text.tertiary }}>
+              <div style={{ fontSize: fontSize.sm, color: colors.text.tertiary }}>
                 {{ compact: '紧凑', medium: '适中', relaxed: '宽松' }[config.lineHeight]}
               </div>
             </div>
