@@ -84,8 +84,9 @@ export function useDesignerState(): UseDesignerStateReturn {
     params.set('scene', scene)
     params.set('device', urlConfig.device || 'desktop')
     params.set('template', urlConfig.template || 'home')
+    params.set('config', encodeConfig(config))
     window.location.search = params.toString()
-  }, [urlConfig.device, urlConfig.template])
+  }, [urlConfig.device, urlConfig.template, config])
 
   // 设备切换
   const handleDeviceChange = useCallback((device: DeviceType) => {
@@ -93,8 +94,9 @@ export function useDesignerState(): UseDesignerStateReturn {
     if (urlConfig.scene) params.set('scene', urlConfig.scene)
     params.set('device', device)
     if (urlConfig.template) params.set('template', urlConfig.template)
+    params.set('config', encodeConfig(config))
     window.location.search = params.toString()
-  }, [urlConfig.scene, urlConfig.template])
+  }, [urlConfig.scene, urlConfig.template, config])
 
   // 模板切换
   const handleTemplateChange = useCallback((template: TemplateConfig) => {
@@ -103,14 +105,18 @@ export function useDesignerState(): UseDesignerStateReturn {
       t => t.type === template.type && t.device === currentDevice
     ) || template
     
+    // 方案A：切换前编码当前config，页面重载后保留用户自定义样式
+    const currentConfig = encodeConfig(config)
+    
     setCurrentTemplate(matchedTemplate)
     setConfig(templateStyleToStyleConfig(matchedTemplate.defaultStyle))
     const params = new URLSearchParams()
     if (urlConfig.scene) params.set('scene', urlConfig.scene)
     if (urlConfig.device) params.set('device', urlConfig.device)
     params.set('template', template.type)
+    params.set('config', currentConfig)
     window.location.search = params.toString()
-  }, [urlConfig.scene, urlConfig.device, templates])
+  }, [urlConfig.scene, urlConfig.device, templates, config])
 
   return {
     config,

@@ -80,6 +80,7 @@ export default function App() {
     params.set('scene', scene)
     params.set('device', urlConfig.device || 'desktop')
     params.set('template', urlConfig.template || 'home')
+    params.set('config', encodeConfig(config))
     window.history.pushState({}, '', `${window.location.pathname}?${params.toString()}`)
     window.location.reload()
   }
@@ -89,6 +90,7 @@ export default function App() {
     if (urlConfig.scene) params.set('scene', urlConfig.scene)
     params.set('device', device)
     if (urlConfig.template) params.set('template', urlConfig.template)
+    params.set('config', encodeConfig(config))
     window.history.pushState({}, '', `${window.location.pathname}?${params.toString()}`)
     window.location.reload()
   }
@@ -101,11 +103,12 @@ export default function App() {
     ) || template
     
     setCurrentTemplate(matchedTemplate)
-    setConfig(templateStyleToStyleConfig(matchedTemplate.defaultStyle))
+    // 方案A：模板切换保留当前config，不重置为模板默认样式
     const params = new URLSearchParams()
     if (urlConfig.scene) params.set('scene', urlConfig.scene)
     if (urlConfig.device) params.set('device', urlConfig.device)
     params.set('template', template.type)
+    params.set('config', encodeConfig(config))
     window.history.pushState({}, '', `${window.location.pathname}?${params.toString()}`)
   }
 

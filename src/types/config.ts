@@ -52,7 +52,7 @@ export const defaultConfig: StyleConfig = {
   primaryColor: '#2E7D32',
   secondaryColor: '#5F7D2E',
   accentColor: '#2E7D67',
-  backgroundColor: '#F9F8F4',
+  backgroundColor: '#FFFFFF',
   cardBackgroundColor: '#FFFFFF',
   titleColor: '#1A1A1A',
   textPrimary: '#333333',
@@ -90,7 +90,7 @@ export const presets: PresetConfig[] = [
     description: '暖沙底色，阴影分层，无边框',
     config: {
       ...defaultConfig,
-      backgroundColor: '#F9F8F4',
+      backgroundColor: '#FFFFFF',
       primaryColor: '#2E7D32',
       cornerRadius: 'large',
       cardStyle: 'shadow',

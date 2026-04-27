@@ -90,7 +90,7 @@ export function DetailPage({ config }: DetailPageProps) {
           </div>
 
           {/* 5. 配送信息 */}
-          <div className="flex items-center justify-between py-3" style={{
+          <div className="flex items-center justify-between py-4" style={{
             borderTop: `1px solid ${colors.border.light}`,
             borderBottom: `1px solid ${colors.border.light}`,
           }}>
@@ -176,7 +176,26 @@ export function DetailPage({ config }: DetailPageProps) {
           {/* 9. 推荐商品 */}
           <div>
             <div className="flex items-center justify-between mb-3">
-              <span className="text-sm font-medium" style={{ color: colors.text.primary, fontSize: bodyFontSize, lineHeight, fontWeight: fontWeight.medium }}>推荐搭配</span>
+              <div className="relative" style={{
+                paddingLeft: config.titleStyle === 'left-accent' ? '12px' : '0',
+                paddingRight: config.titleStyle === 'right-accent' ? '12px' : '0',
+                paddingBottom: config.titleStyle === 'bottom-accent' ? '8px' : '0',
+              }}>
+                {config.titleStyle === 'left-accent' && (
+                  <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-4 rounded" style={{ background: config.primaryColor }} />
+                )}
+                {config.titleStyle === 'right-accent' && (
+                  <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1 h-4 rounded" style={{ background: config.primaryColor }} />
+                )}
+                {config.titleStyle === 'bottom-accent' && (
+                  <div className="absolute bottom-0 left-0 right-0 h-0.5 rounded" style={{ background: config.primaryColor }} />
+                )}
+                <div className="text-base font-bold" style={{ 
+                  color: config.titleColor,
+                  fontSize: config.titleSize === 'small' ? '14px' : config.titleSize === 'medium' ? '16px' : '18px',
+                  fontWeight: config.titleWeight === 'normal' ? 400 : config.titleWeight === 'medium' ? 500 : 700,
+                }}>推荐搭配</div>
+              </div>
             </div>
             <div className="flex gap-3 overflow-x-auto pb-2">
               {[
@@ -189,8 +208,8 @@ export function DetailPage({ config }: DetailPageProps) {
                     <Placeholder width={128} height={128} type="product" text={item.name} />
                   </div>
                   <div className="mt-2">
-                    <div className="text-xs truncate mb-1" style={{ color: colors.text.primary, fontSize: fontSize.xs }}>{item.name}</div>
-                    <div className="text-xs font-bold" style={{ color: config.primaryColor, fontSize: fontSize.xs, fontWeight: fontWeight.bold }}>¥{item.price}</div>
+                    <div className="truncate mb-1" style={{ color: colors.text.primary, fontSize: bodyFontSize, lineHeight }}>{item.name}</div>
+                    <div className="font-bold" style={{ color: config.primaryColor, fontSize: bodyFontSize, fontWeight: fontWeight.bold }}>¥{item.price}</div>
                   </div>
                 </div>
               ))}

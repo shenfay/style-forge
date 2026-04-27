@@ -32,18 +32,18 @@ export function HomePage({ config }: HomePageProps) {
         <div className="sticky top-0 z-10 px-3 py-2" style={{ background: config.backgroundColor }}>
         <div className="flex items-center gap-2 px-3 py-2" style={{
           borderRadius: radius,
-          background: '#F5F5F5',
+          background: colors.background.card,
         }}>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#999" strokeWidth="2">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={colors.text.tertiary} strokeWidth="2">
             <circle cx="11" cy="11" r="8"/>
             <path d="m21 21-4.35-4.35"/>
           </svg>
-          <span className="flex-1" style={{ color: '#999', fontSize: tokens.typography.bodySize }}>搜索商品</span>
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#666" strokeWidth="2">
+          <span className="flex-1" style={{ color: colors.text.tertiary, fontSize: tokens.typography.bodySize }}>搜索商品</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={colors.text.secondary} strokeWidth="2">
             <path d="M3 7V5a2 2 0 012-2h2M17 3h2a2 2 0 012 2v2M21 17v2a2 2 0 01-2 2h-2M7 21H5a2 2 0 01-2-2v-2"/>
             <rect x="7" y="7" width="10" height="10" rx="1"/>
           </svg>
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#666" strokeWidth="2">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={colors.text.secondary} strokeWidth="2">
             <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
             <polyline points="22,6 12,13 2,6"/>
           </svg>
@@ -77,7 +77,7 @@ export function HomePage({ config }: HomePageProps) {
             <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/>
             <path d="M13.73 21a2 2 0 01-3.46 0"/>
           </svg>
-          <span className="flex-1 truncate" style={{ color: '#666', fontSize: tokens.typography.bodySize }}>商城公告：新用户注册立享8折优惠</span>
+          <span className="flex-1 truncate" style={{ color: colors.text.secondary, fontSize: tokens.typography.bodySize }}>商城公告：新用户注册立享8折优惠</span>
         </div>
 
         {/* 4. 分类导航 */}
@@ -155,7 +155,7 @@ export function HomePage({ config }: HomePageProps) {
                   <Placeholder width={96} height={96} type="product" />
                 </div>
                 <div className="text-sm font-bold" style={{ color: tokens.colors.primary }}>¥{99 + i * 10}</div>
-                <div className="line-through text-xs" style={{ color: '#999' }}>¥{199 + i * 20}</div>
+                <div className="line-through text-xs" style={{ color: colors.text.tertiary }}>¥{199 + i * 20}</div>
               </div>
             ))}
           </div>
@@ -320,8 +320,8 @@ export function HomePage({ config }: HomePageProps) {
 
       {/* 底部导航栏 - 始终固定在底部 */}
       <div className="shrink-0 px-3 py-2 z-20" style={{ 
-        background: '#FFFFFF',
-        borderTop: '1px solid #E5E5E5',
+        background: colors.white,
+        borderTop: `1px solid ${colors.border.light}`,
       }}>
         <div className="flex justify-around">
           {[

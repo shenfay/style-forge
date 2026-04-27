@@ -130,10 +130,27 @@ export function ListPage({ config }: ListPageProps) {
 
         {/* 猜你喜欢 */}
         <div>
-          <div className="flex items-center gap-3 mb-4">
-            <div className="flex-1 h-px" style={{ background: colors.border.light }} />
-            <span style={{ color: colors.text.tertiary, fontSize: bodyFontSize, lineHeight }}>猜你喜欢</span>
-            <div className="flex-1 h-px" style={{ background: colors.border.light }} />
+          <div className="flex items-center justify-between mb-3">
+            <div className="relative" style={{
+              paddingLeft: config.titleStyle === 'left-accent' ? '12px' : '0',
+              paddingRight: config.titleStyle === 'right-accent' ? '12px' : '0',
+              paddingBottom: config.titleStyle === 'bottom-accent' ? '8px' : '0',
+            }}>
+              {config.titleStyle === 'left-accent' && (
+                <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-4 rounded" style={{ background: config.primaryColor }} />
+              )}
+              {config.titleStyle === 'right-accent' && (
+                <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1 h-4 rounded" style={{ background: config.primaryColor }} />
+              )}
+              {config.titleStyle === 'bottom-accent' && (
+                <div className="absolute bottom-0 left-0 right-0 h-0.5 rounded" style={{ background: config.primaryColor }} />
+              )}
+              <div className="text-base font-bold" style={{ 
+                color: config.titleColor,
+                fontSize: config.titleSize === 'small' ? '14px' : config.titleSize === 'medium' ? '16px' : '18px',
+                fontWeight: config.titleWeight === 'normal' ? 400 : config.titleWeight === 'medium' ? 500 : 700,
+              }}>猜你喜欢</div>
+            </div>
           </div>
           <div className="grid grid-cols-2 gap-3">
             {[
@@ -145,9 +162,9 @@ export function ListPage({ config }: ListPageProps) {
               <div key={i} className="bg-white overflow-hidden" style={{ borderRadius: radius, boxShadow: shadows.sm }}>
                 <Placeholder width={165} height={165} type="product" text={item.name} />
                 <div className="p-3 space-y-1">
-                  <div className="text-xs line-clamp-1" style={{ color: colors.text.primary, fontSize: fontSize.xs }}>{item.name}</div>
+                  <div className="line-clamp-1" style={{ color: colors.text.primary, fontSize: bodyFontSize, lineHeight }}>{item.name}</div>
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold" style={{ color: config.primaryColor, fontSize: fontSize.xs, fontWeight: fontWeight.bold }}>¥{item.price}</span>
+                    <span className="text-sm font-bold" style={{ color: config.primaryColor, fontSize: bodyFontSize, fontWeight: fontWeight.bold }}>¥{item.price}</span>
                     {item.tag && (
                       <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 text-[10px] font-semibold rounded-full" style={{
                         background: withOpacity(config.primaryColor, 0.1),
