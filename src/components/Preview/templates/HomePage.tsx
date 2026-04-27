@@ -55,10 +55,14 @@ export function HomePage({ config }: HomePageProps) {
         {/* 2. 活动轮播图 */}
         <div className="relative overflow-hidden" style={{ borderRadius: radius }}>
           <Placeholder width={375} height={160} type="banner" />
-          <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1">
+          <div className="absolute bottom-2.5 left-1/2 -translate-x-1/2 flex gap-1.5">
             {[0, 1, 2].map(i => (
-              <div key={i} className="w-1.5 h-1.5 rounded-full" style={{
-                background: i === 0 ? config.primaryColor : 'rgba(255,255,255,0.5)'
+              <div key={i} style={{
+                width: i === 0 ? '14px' : '5px',
+                height: '5px',
+                borderRadius: '999px',
+                background: i === 0 ? config.primaryColor : 'rgba(255,255,255,0.5)',
+                transition: 'width 0.2s ease',
               }} />
             ))}
           </div>
@@ -103,25 +107,31 @@ export function HomePage({ config }: HomePageProps) {
 
         {/* 5. 营销卡片 */}
         <div className="grid grid-cols-3 gap-2">
-          <div className="col-span-2 p-3" style={{
+          <div className="col-span-2 p-3 relative overflow-hidden" style={{
             borderRadius: radius,
             background: 'linear-gradient(135deg, #FF6B35 0%, #FF8E53 100%)',
           }}>
-            <div className="font-bold" style={{ color: colors.white, fontSize: bodyFontSize, lineHeight }}>限时抢购</div>
-            <div style={{ color: 'rgba(255,255,255,0.9)', fontSize: tokens.typography.bodySize, marginTop: '4px' }}>距结束 02:15:30</div>
+            <div className="absolute -right-4 -bottom-4 w-20 h-20 rounded-full" style={{ background: 'rgba(255,255,255,0.08)' }} />
+            <div className="absolute -right-2 -top-6 w-12 h-12 rounded-full" style={{ background: 'rgba(255,255,255,0.06)' }} />
+            <div className="relative z-10">
+              <div className="font-bold" style={{ color: colors.white, fontSize: bodyFontSize, lineHeight }}>限时抢购</div>
+              <div style={{ color: 'rgba(255,255,255,0.9)', fontSize: tokens.typography.bodySize, marginTop: '4px' }}>距结束 02:15:30</div>
+            </div>
           </div>
           <div className="space-y-2">
-            <div className="p-2" style={{
+            <div className="p-2 relative overflow-hidden" style={{
               borderRadius: radius,
               background: 'linear-gradient(135deg, #3B82F6 0%, #60A5FA 100%)',
             }}>
-              <div style={{ color: colors.white, fontSize: tokens.typography.bodySize, fontWeight: fontWeight.bold }}>新人专享</div>
+              <div className="absolute -right-3 -top-3 w-10 h-10 rounded-full" style={{ background: 'rgba(255,255,255,0.08)' }} />
+              <div className="relative" style={{ color: colors.white, fontSize: tokens.typography.bodySize, fontWeight: fontWeight.bold }}>新人专享</div>
             </div>
-            <div className="p-2" style={{
+            <div className="p-2 relative overflow-hidden" style={{
               borderRadius: radius,
               background: 'linear-gradient(135deg, #8B5CF6 0%, #A78BFA 100%)',
             }}>
-              <div style={{ color: colors.white, fontSize: tokens.typography.bodySize, fontWeight: fontWeight.bold }}>会员福利</div>
+              <div className="absolute -right-2 -bottom-4 w-12 h-12 rounded-full" style={{ background: 'rgba(255,255,255,0.08)' }} />
+              <div className="relative" style={{ color: colors.white, fontSize: tokens.typography.bodySize, fontWeight: fontWeight.bold }}>会员福利</div>
             </div>
           </div>
         </div>
@@ -177,15 +187,22 @@ export function HomePage({ config }: HomePageProps) {
             <button style={{ fontSize: bodyFontSize, lineHeight, color: colors.text.tertiary }}>查看更多 ›</button>
           </div>
           <div className="grid grid-cols-3 gap-2">
-            {['Apple', 'Nike', 'Sony', 'Adidas', 'Samsung', 'Huawei'].map((brand, i) => (
+            {[
+              { name: 'Apple', color: '#555555' },
+              { name: 'Nike', color: '#EA4C2C' },
+              { name: 'Sony', color: '#1A1A1A' },
+              { name: 'Adidas', color: '#005E9E' },
+              { name: 'Samsung', color: '#1428A0' },
+              { name: 'Huawei', color: '#CF0A2C' },
+            ].map((brand, i) => (
               <div key={i} className="flex flex-col items-center gap-2 p-3 bg-white" style={{
                 borderRadius: radius,
                 boxShadow: shadows.sm,
               }}>
-                <div className="w-12 h-12 rounded-full flex items-center justify-center" style={{ background: `${colors.border.light}` }}>
-                  <span style={{ fontSize: '16px', fontWeight: 600, color: '#6B7280' }}>{brand.substring(0, 2)}</span>
+                <div className="w-12 h-12 rounded-full flex items-center justify-center" style={{ background: `${brand.color}15` }}>
+                  <span style={{ fontSize: '16px', fontWeight: 600, color: brand.color }}>{brand.name.substring(0, 2)}</span>
                 </div>
-                <span style={{ fontSize: bodyFontSize, lineHeight, fontWeight: 500, color: colors.text.primary }}>{brand}</span>
+                <span style={{ fontSize: bodyFontSize, lineHeight, fontWeight: 500, color: colors.text.primary }}>{brand.name}</span>
               </div>
             ))}
           </div>
@@ -233,10 +250,14 @@ export function HomePage({ config }: HomePageProps) {
                   <div className="flex items-center justify-between">
                     <div className="text-base font-bold" style={{ color: tokens.colors.primary }}>{item.price}</div>
                     {item.tag && (
-                      <span className="px-2 py-0.5 text-xs font-medium rounded" style={{
+                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 text-xs font-semibold rounded-full" style={{
                         background: withOpacity(config.primaryColor, 0.1),
                         color: config.primaryColor,
-                      }}>{item.tag}</span>
+                        border: `0.5px solid ${withOpacity(config.primaryColor, 0.2)}`,
+                      }}>
+                        <span className="w-1.5 h-1.5 rounded-full" style={{ background: config.primaryColor }} />
+                        {item.tag}
+                      </span>
                     )}
                   </div>
                 </div>
@@ -309,12 +330,12 @@ export function HomePage({ config }: HomePageProps) {
             { icon: 'cart', label: '购物车' },
             { icon: 'user', label: '我的' },
           ].map((tab, i) => (
-            <button key={i} className="flex flex-col items-center gap-1">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={i === 0 ? config.primaryColor : colors.text.tertiary} strokeWidth="2">
-                {tab.icon === 'home' && <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>}
-                {tab.icon === 'category' && <g><circle cx="7" cy="7" r="2"/><circle cx="17" cy="7" r="2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></g>}
-                {tab.icon === 'cart' && <g><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></g>}
-                {tab.icon === 'user' && <g><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></g>}
+            <button key={i} className="flex flex-col items-center gap-0.5">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={i === 0 ? config.primaryColor : colors.text.tertiary} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                {tab.icon === 'home' && <><path d="M3 10a1 1 0 0 1 .4-.8l8-6a1 1 0 0 1 1.2 0l8 6a1 1 0 0 1 .4.8V20a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V10Z"/><path d="M9 22V12h6v10"/></>}
+                {tab.icon === 'category' && <><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></>}
+                {tab.icon === 'cart' && <><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></>}
+                {tab.icon === 'user' && <><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></>}
               </svg>
               <span style={{ fontSize: bodyFontSize, lineHeight, color: i === 0 ? config.primaryColor : colors.text.tertiary }}>{tab.label}</span>
             </button>

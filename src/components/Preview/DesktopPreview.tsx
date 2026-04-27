@@ -135,8 +135,12 @@ function HomePage({ config }: { config: StyleConfig }) {
             <Placeholder width={960} height={400} type="banner" />
             <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
               {[0, 1, 2, 3].map(i => (
-                <div key={i} className="w-2.5 h-2.5 rounded-full transition-all" style={{
-                  background: i === 0 ? config.primaryColor : 'rgba(255,255,255,0.5)'
+                <div key={i} style={{
+                  width: i === 0 ? '20px' : '8px',
+                  height: '8px',
+                  borderRadius: '999px',
+                  background: i === 0 ? config.primaryColor : 'rgba(255,255,255,0.5)',
+                  transition: 'width 0.2s ease',
                 }} />
               ))}
             </div>
@@ -157,35 +161,45 @@ function HomePage({ config }: { config: StyleConfig }) {
 
         {/* 5. 营销卡片 */}
         <div className="grid grid-cols-4 gap-4 mb-8">
-          <div className="col-span-2 p-6" style={{
+          <div className="col-span-2 p-6 relative overflow-hidden" style={{
             borderRadius: radius,
             background: 'linear-gradient(135deg, #FF6B35 0%, #FF8E53 100%)',
           }}>
-            <div className="text-white text-xl font-bold mb-2">限时抢购</div>
-            <div style={{ color: 'rgba(255,255,255,0.9)', fontSize: bodyFontSize, lineHeight, marginBottom: '12px' }}>距结束 02:15:30</div>
-            <div className="flex gap-1">
-              {['02', '15', '30'].map((t, i) => (
-                <div key={i} className="px-2 py-1 text-white font-bold" style={{
-                  borderRadius: 4,
-                  background: 'rgba(0,0,0,0.2)',
-                  fontSize: bodyFontSize,
-                }}>{t}</div>
-              ))}
+            <div className="absolute -right-6 -bottom-6 w-32 h-32 rounded-full" style={{ background: 'rgba(255,255,255,0.08)' }} />
+            <div className="absolute -right-3 -top-8 w-16 h-16 rounded-full" style={{ background: 'rgba(255,255,255,0.06)' }} />
+            <div className="relative z-10">
+              <div className="text-white text-xl font-bold mb-2">限时抢购</div>
+              <div style={{ color: 'rgba(255,255,255,0.9)', fontSize: bodyFontSize, lineHeight, marginBottom: '12px' }}>距结束 02:15:30</div>
+              <div className="flex gap-1">
+                {['02', '15', '30'].map((t, i) => (
+                  <div key={i} className="px-2 py-1 text-white font-bold" style={{
+                    borderRadius: 4,
+                    background: 'rgba(0,0,0,0.2)',
+                    fontSize: bodyFontSize,
+                  }}>{t}</div>
+                ))}
+              </div>
             </div>
           </div>
-          <div className="p-6" style={{
+          <div className="p-6 relative overflow-hidden" style={{
             borderRadius: radius,
             background: 'linear-gradient(135deg, #3B82F6 0%, #60A5FA 100%)',
           }}>
-            <div className="text-white text-lg font-bold mb-2">新人专享</div>
-            <div style={{ color: 'rgba(255,255,255,0.9)', fontSize: bodyFontSize, lineHeight }}>注册立享 ¥100 优惠券</div>
+            <div className="absolute -right-4 -top-4 w-20 h-20 rounded-full" style={{ background: 'rgba(255,255,255,0.08)' }} />
+            <div className="relative z-10">
+              <div className="text-white text-lg font-bold mb-2">新人专享</div>
+              <div style={{ color: 'rgba(255,255,255,0.9)', fontSize: bodyFontSize, lineHeight }}>注册立享 ¥100 优惠券</div>
+            </div>
           </div>
-          <div className="p-6" style={{
+          <div className="p-6 relative overflow-hidden" style={{
             borderRadius: radius,
             background: 'linear-gradient(135deg, #8B5CF6 0%, #A78BFA 100%)',
           }}>
-            <div className="text-white text-lg font-bold mb-2">会员福利</div>
-            <div style={{ color: 'rgba(255,255,255,0.9)', fontSize: bodyFontSize, lineHeight }}>积分兑换好礼</div>
+            <div className="absolute -right-3 -bottom-6 w-24 h-24 rounded-full" style={{ background: 'rgba(255,255,255,0.08)' }} />
+            <div className="relative z-10">
+              <div className="text-white text-lg font-bold mb-2">会员福利</div>
+              <div style={{ color: 'rgba(255,255,255,0.9)', fontSize: bodyFontSize, lineHeight }}>积分兑换好礼</div>
+            </div>
           </div>
         </div>
 
@@ -241,16 +255,23 @@ function HomePage({ config }: { config: StyleConfig }) {
             <button style={{ fontSize: bodyFontSize, lineHeight, color: colors.text.tertiary }}>查看更多 ›</button>
           </div>
           <div className="grid grid-cols-6 gap-4">
-            {['Apple', 'Nike', 'Sony', 'Adidas', 'Samsung', 'Huawei'].map((brand, i) => (
+            {[
+              { name: 'Apple', color: '#555555' },
+              { name: 'Nike', color: '#EA4C2C' },
+              { name: 'Sony', color: '#1A1A1A' },
+              { name: 'Adidas', color: '#005E9E' },
+              { name: 'Samsung', color: '#1428A0' },
+              { name: 'Huawei', color: '#CF0A2C' },
+            ].map((brand, i) => (
               <div key={i} className="flex flex-col items-center gap-3 p-6" style={{
                 borderRadius: radius,
                 background: '#FFFFFF',
                 boxShadow: shadows.sm,
               }}>
-                <div className="w-16 h-16 rounded-full flex items-center justify-center" style={{ background: `${colors.border.light}` }}>
-                  <span style={{ fontSize: '20px', fontWeight: 600, color: '#6B7280' }}>{brand.substring(0, 2)}</span>
+                <div className="w-16 h-16 rounded-full flex items-center justify-center" style={{ background: `${brand.color}15` }}>
+                  <span style={{ fontSize: '20px', fontWeight: 600, color: brand.color }}>{brand.name.substring(0, 2)}</span>
                 </div>
-                <span style={{ fontSize: bodyFontSize, lineHeight, fontWeight: 500, color: colors.text.primary }}>{brand}</span>
+                <span style={{ fontSize: bodyFontSize, lineHeight, fontWeight: 500, color: colors.text.primary }}>{brand.name}</span>
               </div>
             ))}
           </div>
@@ -301,10 +322,14 @@ function HomePage({ config }: { config: StyleConfig }) {
                   <div className="flex items-center justify-between">
                     <div className="text-xl font-bold" style={{ color: tokens.colors.primary }}>{item.price}</div>
                     {item.tag && (
-                      <span className="px-3 py-1 text-xs font-medium rounded" style={{
+                      <span className="inline-flex items-center gap-1 px-3 py-1 text-xs font-semibold rounded-full" style={{
                         background: withOpacity(config.primaryColor, 0.1),
                         color: config.primaryColor,
-                      }}>{item.tag}</span>
+                        border: `0.5px solid ${withOpacity(config.primaryColor, 0.2)}`,
+                      }}>
+                        <span className="w-1.5 h-1.5 rounded-full" style={{ background: config.primaryColor }} />
+                        {item.tag}
+                      </span>
                     )}
                   </div>
                 </div>
