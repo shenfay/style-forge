@@ -10,6 +10,7 @@ import { StatusBar } from '../../UI/StatusBar'
 import { NavBar } from '../../UI/NavBar'
 import { Card } from '../../UI/Card'
 import { Placeholder } from '../Placeholder'
+import { ProductCard } from '../ProductCard'
 import { colors, fontSize, fontWeight, getBorderRadius, shadows, withOpacity, generateComponentTokens } from '../../../utils/design-tokens'
 
 interface DetailPageProps {
@@ -199,18 +200,19 @@ export function DetailPage({ config }: DetailPageProps) {
             </div>
             <div className="flex gap-3 overflow-x-auto pb-2">
               {[
-                { name: 'AirPods Pro 2', price: 1899 },
-                { name: '苹果磁吸充电', price: 329 },
-                { name: '运动表带', price: 379 },
+                { name: 'AirPods Pro 2', price: 1899, originalPrice: 2299, sales: '8563' },
+                { name: '苹果磁吸充电', price: 329, originalPrice: 399, sales: '1.2万' },
+                { name: '运动表带', price: 379, originalPrice: 499, sales: '6521' },
               ].map((item, i) => (
                 <div key={i} className="shrink-0 w-32">
-                  <div style={{ borderRadius: radius, overflow: 'hidden' }}>
-                    <Placeholder width={128} height={128} type="product" text={item.name} />
-                  </div>
-                  <div className="mt-2">
-                    <div className="truncate mb-1" style={{ color: colors.text.primary, fontSize: bodyFontSize, lineHeight }}>{item.name}</div>
-                    <div className="font-bold" style={{ color: config.primaryColor, fontSize: bodyFontSize, fontWeight: fontWeight.bold }}>¥{item.price}</div>
-                  </div>
+                  <ProductCard
+                    config={config}
+                    image={<Placeholder width={128} height={128} type="product" text={item.name} />}
+                    productName={item.name}
+                    price={item.price}
+                    originalPrice={item.originalPrice}
+                    sales={item.sales}
+                  />
                 </div>
               ))}
             </div>
@@ -229,7 +231,7 @@ export function DetailPage({ config }: DetailPageProps) {
         {/* 客服 */}
         <button className="flex flex-col items-center gap-0.5 px-3 py-1 cursor-pointer">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={colors.text.tertiary} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M21 12a9 9 0 0 1-9 9m9-9a9 9 0 0 0-9-9m9 9H3m9 9a9 9 0 0 1-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 0 1 9-9"/>
+            <path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"/>
           </svg>
           <span style={{ fontSize: fontSize.xs, color: colors.text.tertiary }}>客服</span>
         </button>
@@ -237,7 +239,7 @@ export function DetailPage({ config }: DetailPageProps) {
         {/* 收藏 */}
         <button className="flex flex-col items-center gap-0.5 px-3 py-1 cursor-pointer">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={colors.text.tertiary} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
           </svg>
           <span style={{ fontSize: fontSize.xs, color: colors.text.tertiary }}>收藏</span>
         </button>
@@ -245,9 +247,9 @@ export function DetailPage({ config }: DetailPageProps) {
         {/* 购物车 */}
         <button className="flex flex-col items-center gap-0.5 px-3 py-1 cursor-pointer">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={colors.text.tertiary} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/>
-            <line x1="3" y1="6" x2="21" y2="6"/>
-            <path d="M16 10a4 4 0 0 1-8 0"/>
+            <circle cx="9" cy="21" r="1.5"/>
+            <circle cx="20" cy="21" r="1.5"/>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
           </svg>
           <span style={{ fontSize: fontSize.xs, color: colors.text.tertiary }}>购物车</span>
         </button>

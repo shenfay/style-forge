@@ -8,7 +8,8 @@ import type { StyleConfig } from '../../../types/config'
 import { StatusBar } from '../../UI/StatusBar'
 import { Card } from '../../UI/Card'
 import { Placeholder } from '../Placeholder'
-import { colors, fontSize, fontWeight, getBorderRadius, shadows, withOpacity, generateComponentTokens } from '../../../utils/design-tokens'
+import { ProductCard } from '../ProductCard'
+import { colors, fontSize, fontWeight, getBorderRadius, generateComponentTokens } from '../../../utils/design-tokens'
 
 interface ListPageProps {
   config: StyleConfig
@@ -154,30 +155,20 @@ export function ListPage({ config }: ListPageProps) {
           </div>
           <div className="grid grid-cols-2 gap-3">
             {[
-              { name: 'iPhone 15 Pro', price: 7999, tag: '新品' },
-              { name: 'iPad Pro M2', price: 6799, tag: '爆款' },
-              { name: 'MacBook Air M3', price: 8999 },
-              { name: 'Nintendo Switch', price: 2099, tag: '推荐' },
+              { name: 'iPhone 15 Pro', price: 7999, originalPrice: 8999, tag: '新品' },
+              { name: 'iPad Pro M2', price: 6799, originalPrice: 7999, tag: '爆款' },
+              { name: 'MacBook Air M3', price: 8999, originalPrice: 10499 },
+              { name: 'Nintendo Switch', price: 2099, originalPrice: 2599, tag: '推荐' },
             ].map((item, i) => (
-              <div key={i} className="bg-white overflow-hidden" style={{ borderRadius: radius, boxShadow: shadows.sm }}>
-                <Placeholder width={165} height={165} type="product" text={item.name} />
-                <div className="p-3 space-y-1">
-                  <div className="line-clamp-1" style={{ color: colors.text.primary, fontSize: bodyFontSize, lineHeight }}>{item.name}</div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm font-bold" style={{ color: config.primaryColor, fontSize: bodyFontSize, fontWeight: fontWeight.bold }}>¥{item.price}</span>
-                    {item.tag && (
-                      <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 text-[10px] font-semibold rounded-full" style={{
-                        background: withOpacity(config.primaryColor, 0.1),
-                        color: config.primaryColor,
-                        border: `0.5px solid ${withOpacity(config.primaryColor, 0.2)}`,
-                      }}>
-                        <span className="w-1 h-1 rounded-full" style={{ background: config.primaryColor }} />
-                        {item.tag}
-                      </span>
-                    )}
-                  </div>
-                </div>
-              </div>
+              <ProductCard
+                key={i}
+                config={config}
+                image={<Placeholder width={165} height={165} type="product" text={item.name} />}
+                productName={item.name}
+                price={item.price}
+                originalPrice={item.originalPrice}
+                tag={item.tag}
+              />
             ))}
           </div>
         </div>

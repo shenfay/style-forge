@@ -304,36 +304,21 @@ function HomePage({ config }: { config: StyleConfig }) {
           </div>
           <div className="grid grid-cols-4 gap-4">
             {[
-              { title: 'Apple Watch Series 9', price: '¥2999', tag: '新品' },
-              { title: 'AirPods Pro 2', price: '¥1899', tag: '热卖' },
-              { title: 'MacBook Air M3', price: '¥8999', tag: '新品' },
-              { title: 'iPad Pro M2', price: '¥6799', tag: '爆款' },
+              { title: 'Apple Watch Series 9', price: 2999, originalPrice: 3499, tag: '新品', sales: '1.2万' },
+              { title: 'AirPods Pro 2', price: 1899, originalPrice: 2299, tag: '热卖', sales: '8563' },
+              { title: 'MacBook Air M3', price: 8999, originalPrice: 10499, tag: '新品', sales: '6234' },
+              { title: 'iPad Pro M2', price: 6799, originalPrice: 7999, tag: '爆款', sales: '4521' },
             ].map((item, i) => (
-              <div key={i} className="overflow-hidden flex flex-col" style={{
-                borderRadius: radius,
-                background: '#FFFFFF',
-                boxShadow: shadows.sm,
-              }}>
-                <div className="w-full flex justify-center">
-                  <Placeholder width={280} height={280} type="product" />
-                </div>
-                <div className="p-4">
-                  <div className="font-medium mb-2 line-clamp-2" style={{ color: colors.text.primary, fontSize: bodyFontSize, lineHeight }}>{item.title}</div>
-                  <div className="flex items-center justify-between">
-                    <div className="text-xl font-bold" style={{ color: tokens.colors.primary }}>{item.price}</div>
-                    {item.tag && (
-                      <span className="inline-flex items-center gap-1 px-3 py-1 text-xs font-semibold rounded-full" style={{
-                        background: withOpacity(config.primaryColor, 0.1),
-                        color: config.primaryColor,
-                        border: `0.5px solid ${withOpacity(config.primaryColor, 0.2)}`,
-                      }}>
-                        <span className="w-1.5 h-1.5 rounded-full" style={{ background: config.primaryColor }} />
-                        {item.tag}
-                      </span>
-                    )}
-                  </div>
-                </div>
-              </div>
+              <ProductCard
+                key={i}
+                config={config}
+                image={<Placeholder width={280} height={280} type="product" />}
+                productName={item.title}
+                price={item.price}
+                originalPrice={item.originalPrice}
+                tag={item.tag}
+                sales={item.sales}
+              />
             ))}
           </div>
         </section>
@@ -364,31 +349,24 @@ function HomePage({ config }: { config: StyleConfig }) {
           </div>
           <div className="grid grid-cols-4 gap-4">
             {[
-              { title: 'Sony WH-1000XM5', price: '¥2499', sales: '8563人付款' },
-              { title: 'Nintendo Switch OLED', price: '¥2099', sales: '2.1万人付款' },
-              { title: 'Dell XPS 15', price: '¥12999', sales: '4521人付款' },
-              { title: 'Logitech MX Master 3', price: '¥799', sales: '1.5万人付款' },
-              { title: 'Kindle Paperwhite', price: '¥1099', sales: '9876人付款' },
-              { title: 'GoPro HERO12', price: '¥3499', sales: '6234人付款' },
-              { title: 'DJI Mini 4 Pro', price: '¥4799', sales: '3456人付款' },
-              { title: 'Bose QC45', price: '¥2299', sales: '7890人付款' },
+              { title: 'Sony WH-1000XM5', price: 2499, originalPrice: 2999, sales: '2.8万' },
+              { title: 'Nintendo Switch OLED', price: 2099, originalPrice: 2599, sales: '1.2万' },
+              { title: 'Dell XPS 15', price: 12999, originalPrice: 14999, sales: '4521' },
+              { title: 'Logitech MX Master 3', price: 799, originalPrice: 999, sales: '8563' },
+              { title: 'Kindle Paperwhite', price: 1099, originalPrice: 1399, sales: '9876' },
+              { title: 'GoPro HERO12', price: 3499, originalPrice: 3999, sales: '6234' },
+              { title: 'DJI Mini 4 Pro', price: 4799, originalPrice: 5499, sales: '3456' },
+              { title: 'Bose QC45', price: 2299, originalPrice: 2799, sales: '7890' },
             ].map((item, i) => (
-              <div key={i} className="overflow-hidden flex flex-col" style={{
-                borderRadius: radius,
-                background: '#FFFFFF',
-                boxShadow: shadows.sm,
-              }}>
-                <div className="w-full flex justify-center">
-                  <Placeholder width={280} height={280} type="product" />
-                </div>
-                <div className="p-4">
-                  <div className="font-medium mb-2 line-clamp-2" style={{ color: colors.text.primary, fontSize: bodyFontSize, lineHeight }}>{item.title}</div>
-                  <div className="flex items-end justify-between">
-                    <div className="text-xl font-bold" style={{ color: tokens.colors.primary }}>{item.price}</div>
-                    <div style={{ fontSize: bodyFontSize, lineHeight, color: colors.text.tertiary }}>{item.sales}</div>
-                  </div>
-                </div>
-              </div>
+              <ProductCard
+                key={i}
+                config={config}
+                image={<Placeholder width={280} height={280} type="product" />}
+                productName={item.title}
+                price={item.price}
+                originalPrice={item.originalPrice}
+                sales={item.sales}
+              />
             ))}
           </div>
         </section>

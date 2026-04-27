@@ -1,5 +1,5 @@
 import type { StyleConfig } from '../../types/config'
-import { generateComponentTokens, getBorderRadius } from '../../utils/design-tokens'
+import { generateComponentTokens } from '../../utils/design-tokens'
 
 interface ProductCardProps {
   config: StyleConfig
@@ -35,16 +35,16 @@ export function ProductCard({
   onClick
 }: ProductCardProps) {
   const tokens = generateComponentTokens(config)
-  const radius = getBorderRadius(config.cornerRadius as 'small' | 'medium' | 'large')
 
   return (
     <div 
       onClick={onClick}
       className="overflow-hidden cursor-pointer transition-all hover:shadow-lg"
       style={{
-        borderRadius: radius,
-        backgroundColor: tokens.colors.background,
-        boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
+        borderRadius: tokens.card.borderRadius,
+        backgroundColor: tokens.card.backgroundColor,
+        boxShadow: tokens.card.boxShadow,
+        border: tokens.card.border,
       }}
     >
       {/* 商品图片 */}

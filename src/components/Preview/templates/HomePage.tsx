@@ -10,7 +10,7 @@ import { Card } from '../../UI/Card'
 import { Placeholder } from '../Placeholder'
 import { SectionHeader } from '../SectionHeader'
 import { ProductCard } from '../ProductCard'
-import { colors, fontSize, fontWeight, getBorderRadius, shadows, createGradient, withOpacity, generateComponentTokens } from '../../../utils/design-tokens'
+import { colors, fontWeight, getBorderRadius, shadows, generateComponentTokens } from '../../../utils/design-tokens'
 
 interface HomePageProps {
   config: StyleConfig
@@ -235,33 +235,19 @@ export function HomePage({ config }: HomePageProps) {
           </div>
           <div className="grid grid-cols-2 gap-2">
             {[
-              { title: 'Apple Watch Series 9', price: '¥2999', tag: '新品' },
-              { title: 'AirPods Pro 2', price: '¥1899', tag: '热卖' },
+              { title: 'Apple Watch Series 9', price: 2999, originalPrice: 3499, tag: '新品', sales: '1.2万' },
+              { title: 'AirPods Pro 2', price: 1899, originalPrice: 2299, tag: '热卖', sales: '8563' },
             ].map((item, i) => (
-              <div key={i} className="overflow-hidden flex flex-col bg-white" style={{
-                borderRadius: radius,
-                boxShadow: shadows.sm,
-              }}>
-                <div className="w-full flex justify-center">
-                  <Placeholder width={180} height={180} type="product" />
-                </div>
-                <div className="p-3">
-                  <div className="font-medium mb-2 line-clamp-2" style={{ color: colors.text.primary, fontSize: bodyFontSize, lineHeight }}>{item.title}</div>
-                  <div className="flex items-center justify-between">
-                    <div className="text-base font-bold" style={{ color: tokens.colors.primary }}>{item.price}</div>
-                    {item.tag && (
-                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 text-xs font-semibold rounded-full" style={{
-                        background: withOpacity(config.primaryColor, 0.1),
-                        color: config.primaryColor,
-                        border: `0.5px solid ${withOpacity(config.primaryColor, 0.2)}`,
-                      }}>
-                        <span className="w-1.5 h-1.5 rounded-full" style={{ background: config.primaryColor }} />
-                        {item.tag}
-                      </span>
-                    )}
-                  </div>
-                </div>
-              </div>
+              <ProductCard
+                key={i}
+                config={config}
+                image={<Placeholder width={180} height={180} type="product" />}
+                productName={item.title}
+                price={item.price}
+                originalPrice={item.originalPrice}
+                tag={item.tag}
+                sales={item.sales}
+              />
             ))}
           </div>
         </section>
@@ -292,26 +278,20 @@ export function HomePage({ config }: HomePageProps) {
           </div>
           <div className="grid grid-cols-2 gap-2">
             {[
-              { title: 'Sony WH-1000XM5', price: '¥2499', sales: '8563人付款' },
-              { title: 'Nintendo Switch OLED', price: '¥2099', sales: '2.1万人付款' },
-              { title: 'Dell XPS 15', price: '¥12999', sales: '4521人付款' },
-              { title: 'Logitech MX Master 3', price: '¥799', sales: '1.5万人付款' },
+              { title: 'Sony WH-1000XM5', price: 2499, originalPrice: 2999, sales: '2.8万' },
+              { title: 'Nintendo Switch OLED', price: 2099, originalPrice: 2599, sales: '1.2万' },
+              { title: 'Dell XPS 15', price: 12999, originalPrice: 14999, sales: '4521' },
+              { title: 'Logitech MX Master 3', price: 799, originalPrice: 999, sales: '8563' },
             ].map((item, i) => (
-              <div key={i} className="overflow-hidden flex flex-col bg-white" style={{
-                borderRadius: radius,
-                boxShadow: shadows.sm,
-              }}>
-                <div className="w-full flex justify-center">
-                  <Placeholder width={180} height={180} type="product" />
-                </div>
-                <div className="p-3">
-                  <div className="font-medium mb-2 line-clamp-2" style={{ color: colors.text.primary, fontSize: bodyFontSize, lineHeight }}>{item.title}</div>
-                  <div className="flex items-end justify-between">
-                    <div className="text-base font-bold" style={{ color: tokens.colors.primary }}>{item.price}</div>
-                    <div style={{ fontSize: '10px', lineHeight, color: colors.text.tertiary }}>{item.sales}</div>
-                  </div>
-                </div>
-              </div>
+              <ProductCard
+                key={i}
+                config={config}
+                image={<Placeholder width={180} height={180} type="product" />}
+                productName={item.title}
+                price={item.price}
+                originalPrice={item.originalPrice}
+                sales={item.sales}
+              />
             ))}
           </div>
         </section>
@@ -334,7 +314,7 @@ export function HomePage({ config }: HomePageProps) {
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={i === 0 ? config.primaryColor : colors.text.tertiary} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                 {tab.icon === 'home' && <><path d="M3 10a1 1 0 0 1 .4-.8l8-6a1 1 0 0 1 1.2 0l8 6a1 1 0 0 1 .4.8V20a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V10Z"/><path d="M9 22V12h6v10"/></>}
                 {tab.icon === 'category' && <><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></>}
-                {tab.icon === 'cart' && <><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></>}
+                {tab.icon === 'cart' && <><circle cx="9" cy="21" r="1.5"/><circle cx="20" cy="21" r="1.5"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></>}
                 {tab.icon === 'user' && <><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></>}
               </svg>
               <span style={{ fontSize: bodyFontSize, lineHeight, color: i === 0 ? config.primaryColor : colors.text.tertiary }}>{tab.label}</span>
