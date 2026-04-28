@@ -16,7 +16,7 @@ export const LandingHomeDesktop = memo(function LandingHomeDesktop({ config }: L
   const radius = getBorderRadius(config.cornerRadius as 'small' | 'medium' | 'large')
 
   return (
-    <div style={{ background: config.backgroundColor }}>
+    <div className="h-full overflow-y-auto" style={{ background: config.backgroundColor }}>
       {/* 顶部导航 */}
       <header className="sticky top-0 z-10 px-8" style={{
         background: '#FFFFFF',

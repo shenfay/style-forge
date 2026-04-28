@@ -17,7 +17,7 @@ export const LandingHomePage = memo(function LandingHomePage({ config }: Landing
   const radius = getBorderRadius(config.cornerRadius as 'small' | 'medium' | 'large')
 
   return (
-    <div style={{ background: config.backgroundColor, minHeight: '100%' }}>
+    <div className="flex-1 overflow-y-auto" style={{ background: config.backgroundColor }}>
       {/* Hero 区 */}
       <div className="px-4 py-10 text-center" style={{ background: 'linear-gradient(135deg, ' + config.primaryColor + '15 0%, ' + config.backgroundColor + ' 100%)' }}>
         <h1 className="text-2xl font-bold mb-3" style={{ color: config.titleColor, fontSize: '28px', lineHeight: '1.3' }}>
