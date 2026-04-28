@@ -8,7 +8,7 @@
 
 ### 产品文档
 
-- [**产品文档**](./product/product-doc.md) - 产品定位、设计系统规范、模板场景体系、竞品对比
+- [**产品文档**](./product/product-documentation.md) - 产品定位、设计系统规范、模板场景体系、竞品对比
 - [**开发计划**](./product/development-plan.md) - 版本规划、开发规范、里程碑、技术栈
 
 ### 技术文档
@@ -16,11 +16,18 @@
 - [**架构设计文档**](./architecture.md) - 系统架构、核心分层、数据流、组件设计模式、扩展性设计
 - [**组件库文档**](./components.md) - 组件架构、配置器组件、预览组件、UI组件、扩展指南
 - [**模板扩展指南**](./template-guide.md) - 模板系统架构、添加新场景、最佳实践、测试清单
+- [**UI 设计规范**](./ui-specification.md) - 设计器界面 UI 规范、布局、颜色、组件样式
+- [**组件命名规范**](./component-naming.md) - 组件命名约定、语义化命名原则
+
+### 规范与 Schema
+
+- [**配置规范**](./schema/config-specification.md) - 配置维度详解、设计令牌映射、应用优先级
+- [**JSON Schema**](./schema/style-schema.json) - 完整的数据模型定义
+- [**模板与组件设计规范**](./template/template-component-spec.md) - 模板开发、组件复用、配置联动规范
 
 ### 集成文档
 
 - [**LLM 集成指南**](./integration/llm-guide.md) - 与大型语言模型的交互方式、URL 参数规范、提示词模板
-- [**JSON Schema**](./schema/style-schema.json) - 完整的数据模型定义
 
 ---
 
@@ -31,23 +38,32 @@
 1. 阅读 [架构设计文档](./architecture.md) 了解系统整体架构
 2. 查看 [开发计划](./product/development-plan.md) 了解技术栈和开发规范
 3. 参考 [组件库文档](./components.md) 了解组件使用方式
+4. 遵循 [组件命名规范](./component-naming.md) 和 [UI 设计规范](./ui-specification.md)
 
 ### 对于设计师
 
-1. 阅读 [产品文档](./product/product-doc.md) 了解 20 维配置矩阵
+1. 阅读 [产品文档](./product/product-documentation.md) 了解 20 维配置矩阵
 2. 查看 [模板扩展指南](./template-guide.md) 了解模板设计原则
 3. 使用 [LLM 集成指南](./integration/llm-guide.md) 导出 AI 提示词
 
 ### 对于想添加场景的贡献者
 
 1. 首先阅读 [模板扩展指南](./template-guide.md)
-2. 参考现有的 [电商场景模板](../src/templates/ecommerce.json)
-3. 遵循模板设计最佳实践
-4. 提交 Pull Request
+2. 参考 [模板与组件设计规范](./template/template-component-spec.md)
+3. 参考现有的 [电商场景模板](../src/templates/ecommerce.json)
+4. 遵循模板设计最佳实践
+5. 提交 Pull Request
 
 ---
 
 ## 📖 文档更新日志
+
+### 2026-04-28
+
+- ✅ 文档结构优化：删除中间产物文档（ARCHITECTURE-REFACTOR.md、DOCUMENTATION-SUMMARY.md）
+- ✅ 文档导航重组：按功能分组（产品/技术/规范/集成）
+- ✅ 新增文档链接：UI 设计规范、组件命名规范、模板与组件设计规范
+- ✅ 更新文档路径：product-doc.md → product-documentation.md
 
 ### 2026-04-19
 
@@ -80,6 +96,7 @@
 ### 场景类型
 
 - `ecommerce` - 电商零售
+- `content` - 内容平台
 - `food` - 食品健康
 - `saas` - SaaS 工具
 - `media` - 内容媒体
@@ -103,14 +120,17 @@ style-forge/
 ├── docs/                      # 文档目录
 │   ├── product/              # 产品文档
 │   ├── integration/          # 集成文档
-│   ├── schema/               # JSON Schema
+│   ├── schema/               # 配置规范与 JSON Schema
+│   ├── template/             # 模板与组件设计规范
 │   └── *.md                  # 技术文档
 ├── src/
 │   ├── components/           # 组件目录
-│   │   ├── Configurator/    # 配置器组件
+│   │   ├── Designer/        # 设计配置器
 │   │   ├── Preview/         # 预览组件
 │   │   └── UI/              # UI 组件
 │   ├── templates/            # 模板 JSON
+│   ├── tokens/               # 设计令牌系统
+│   ├── layout/               # 布局框架
 │   ├── types/                # TypeScript 类型
 │   ├── utils/                # 工具函数
 │   └── hooks/                # React Hooks
@@ -123,7 +143,8 @@ style-forge/
 |------|------|
 | `src/types/config.ts` | 配置类型定义（StyleConfig） |
 | `src/types/template.ts` | 模板类型定义（TemplateConfig） |
-| `src/utils/design-tokens.ts` | 设计令牌系统（配置联动） |
+| `src/tokens/` | 设计令牌系统（颜色/间距/圆角/阴影等） |
+| `src/utils/design-tokens.ts` | 设计令牌生成器（配置联动） |
 | `src/utils/templateLoader.ts` | 模板加载器 |
 | `src/utils/configEncoder.ts` | 配置编解码 |
 | `src/utils/promptGenerator.ts` | AI 提示词生成器 |
@@ -135,11 +156,11 @@ style-forge/
 
 ### Q: 如何快速了解配置系统？
 
-A: 阅读 [产品文档](./product/product-doc.md) 中的"20维配置矩阵"部分，然后查看 [架构设计文档](./architecture.md) 中的"配置联动机制"。
+A: 阅读 [产品文档](./product/product-documentation.md) 中的"20维配置矩阵"部分，然后查看 [配置规范](./schema/config-specification.md) 了解详细的配置映射。
 
 ### Q: 如何添加新的场景？
 
-A: 按照 [模板扩展指南](./template-guide.md) 的步骤操作，参考现有的电商场景模板。
+A: 按照 [模板扩展指南](./template-guide.md) 的步骤操作，遵循 [模板与组件设计规范](./template/template-component-spec.md)，参考现有的电商场景模板。
 
 ### Q: 如何与 LLM 集成？
 
@@ -149,17 +170,28 @@ A: 阅读 [LLM 集成指南](./integration/llm-guide.md)，将提供的 System P
 
 A: 所有配置通过 URL 参数保存和分享，自定义配置会编码为 Base64 格式。
 
+### Q: 组件命名有什么规范？
+
+A: 参考 [组件命名规范](./component-naming.md)，采用 Ant Design 和 Material UI 的国际主流命名约定。
+
+### Q: 设计器界面的 UI 规范是什么？
+
+A: 查看 [UI 设计规范](./ui-specification.md)，包含布局、颜色、文字、按钮、组件等详细规范。
+
 ---
 
 ## 📞 获取帮助
 
-- **产品问题**: 查看 [产品文档](./product/product-doc.md)
+- **产品问题**: 查看 [产品文档](./product/product-documentation.md)
 - **技术问题**: 查看 [架构设计文档](./architecture.md) 和 [组件库文档](./components.md)
-- **模板问题**: 查看 [模板扩展指南](./template-guide.md)
+- **模板问题**: 查看 [模板扩展指南](./template-guide.md) 和 [模板与组件设计规范](./template/template-component-spec.md)
 - **集成问题**: 查看 [LLM 集成指南](./integration/llm-guide.md)
+- **UI 规范问题**: 查看 [UI 设计规范](./ui-specification.md)
+- **命名规范问题**: 查看 [组件命名规范](./component-naming.md)
+- **配置问题**: 查看 [配置规范](./schema/config-specification.md)
 
 ---
 
-**文档版本**: 1.0  
-**最后更新**: 2026-04-19  
+**文档版本**: 1.1  
+**最后更新**: 2026-04-28  
 **维护者**: Style Forge Team

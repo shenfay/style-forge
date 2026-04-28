@@ -14,7 +14,7 @@ Style Forge 的组件分为三大类：
 
 ### 1.1 StyleConfigurator
 
-**文件**: `src/components/Configurator/StyleConfigurator.tsx`
+**文件**: `src/components/Designer/configurator/StyleConfigurator.tsx`
 
 **职责**: 主配置面板，根据当前激活的配置分类显示对应的配置项
 
@@ -67,7 +67,7 @@ interface StyleConfiguratorProps {
 
 ### 1.2 SceneSelector
 
-**文件**: `src/components/Configurator/SceneSelector.tsx`
+**文件**: `src/components/Designer/SceneSelector.tsx`
 
 **职责**: 场景和设备类型选择器
 
@@ -92,7 +92,7 @@ interface SceneSelectorProps {
 
 ### 1.3 TemplateSelector
 
-**文件**: `src/components/Configurator/TemplateSelector.tsx`
+**文件**: `src/components/Designer/TemplateSelector.tsx`
 
 **职责**: 模板列表选择器
 
@@ -109,6 +109,63 @@ interface TemplateSelectorProps {
 - 显示当前场景下的所有可用模板
 - 高亮当前选中的模板
 - 点击切换模板并应用模板默认配置
+
+---
+
+### 1.4 配置区域组件 (sections/)
+
+**文件**: `src/components/Designer/configurator/sections/`
+
+#### ColorsSection
+- 10 维色彩配置面板
+- 使用 ColorPickerField 组件
+
+#### ShapeSection
+- 6 维形状配置面板
+- 使用 VisualOptionGroup 组件
+
+#### SpacingSection
+- 4 维间距配置面板
+- 使用 CollapsePanel 折叠面板
+
+#### TypographySection
+- 5 维文字排版配置面板
+- 使用 OptionGroup 和 RangeSlider 组件
+
+---
+
+### 1.5 共享组件 (shared/)
+
+**文件**: `src/components/Designer/configurator/shared/`
+
+#### CollapsePanel
+- 折叠面板组件
+- 用于间距系统的分组展示
+- 支持默认展开/收起状态
+
+#### ColorPickerField
+- 颜色选择器字段
+- 集成标签和颜色选择器
+
+#### ConfigItem
+- 配置项容器
+- 统一的标签和内容间距
+
+#### OptionGroup
+- 单选选项组
+- 用于形状、间距等配置
+
+#### RangeSlider
+- 滑块选择器
+- 用于连续的数值选择
+
+#### SectionHeader
+- 区域标题组件
+- 带编号和图标
+
+#### VisualOptionGroup
+- 可视化选项组
+- 用于需要视觉预览的配置项（卡片样式、按钮样式等）
 
 ---
 

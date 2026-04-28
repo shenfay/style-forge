@@ -107,7 +107,7 @@ src/templates/
 |------|------|------|------|
 | `id` | string | ✅ | 模板唯一标识（建议格式：`{scene}-{type}-{device}`） |
 | `name` | string | ✅ | 模板显示名称 |
-| `scene` | string | ✅ | 场景类型（`ecommerce`, `food`, `saas` 等） |
+| `scene` | string | ✅ | 场景类型（`ecommerce`, `content`, `food`, `saas`, `media`, `social`, `finance` 等） |
 | `device` | string | ✅ | 设备类型（`mobile` 或 `desktop`） |
 | `type` | string | ✅ | 页面类型（`home`, `detail`, `list`, `profile`, `messages`, `form`, `settings`, `result` 等） |
 | `description` | string | ✅ | 模板描述 |
@@ -198,7 +198,7 @@ export type SceneType = 'ecommerce' | 'content' | 'food' | 'saas' | 'media' | 's
 // src/hooks/useUrlConfig.ts
 
 // 场景白名单
-const VALID_SCENES: SceneType[] = ['food', 'ecommerce', 'saas', 'media', 'social', 'finance', 'content']
+const VALID_SCENES: SceneType[] = ['ecommerce', 'content', 'food', 'saas', 'media', 'social', 'finance']
 
 // 页面类型白名单
 const VALID_PAGE_TYPES = ['home', 'detail', 'list', 'form', 'settings', 'result', 'profile', 'messages']

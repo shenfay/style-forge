@@ -55,7 +55,7 @@ https://style-forge.dev/preview?scene={scene}&device={device}&template={template
 
 | 参数 | 必填 | 说明 | 可选值 |
 |------|------|------|--------|
-| `scene` | 是 | 场景类型 | `ecommerce`, `food`, `saas`, `media`, `social`, `finance` |
+| `scene` | 是 | 场景类型 | `ecommerce`, `content`, `food`, `saas`, `media`, `social`, `finance` |
 | `device` | 是 | 设备类型 | `mobile`, `desktop` |
 | `template` | 是 | 页面模板 | `home`, `detail`, `list`, `form`, `settings`, `result` |
 | `config` | 否 | Base64 编码的样式配置 | 从预设配置派生 |
@@ -65,6 +65,7 @@ https://style-forge.dev/preview?scene={scene}&device={device}&template={template
 | 场景 | 适用情况 | 示例 |
 |------|---------|------|
 | `ecommerce` | 电商、零售、商城 | 商品详情、购物车、订单 |
+| `content` | 内容平台、博客、自媒体 | 文章首页、详情页、作者主页 |
 | `food` | 食品、健康、餐饮 | 扫码结果、成分分析 |
 | `saas` | B2B 工具、企业软件 | 数据看板、设置页 |
 | `media` | 博客、新闻、内容平台 | 文章详情、列表页 |
@@ -102,6 +103,7 @@ https://style-forge.dev/preview?scene=food&device=mobile&template=result
 1. **理解需求** - 分析用户想要创建的页面类型和场景
 2. **选择场景** - 根据页面类型选择合适的场景：
    - 电商相关 → `ecommerce`
+   - 内容平台/博客 → `content`
    - 食品/健康相关 → `food`
    - SaaS/工具相关 → `saas`
    - 内容/媒体相关 → `media`
