@@ -125,13 +125,13 @@ interface TemplateSelectorProps {
 interface MobilePreviewProps {
   config: StyleConfig
   pageType: PageType
+  scene?: SceneType
 }
 ```
 
-**当前实现的页面类型**:
-- `result`: 扫码结果页（完整版）
-- `home`: 电商首页（开发中）
-- `detail`: 商品详情页（开发中）
+**当前实现的页面类型**（按场景）:
+- **电商场景** (`ecommerce`): `home`, `detail`, `list`, `profile`, `settings`, `form`, `result`, `messages`
+- **内容平台** (`content`): `home`, `detail`, `profile`
 
 **布局结构**:
 ```
@@ -151,19 +151,20 @@ MobilePreview
 
 **文件**: `src/components/Preview/DesktopPreview.tsx`
 
-**职责**: PC端预览组件 (1440×900 桌面尺寸)
+**职责**: 桌面端预览组件，按场景和页面类型分发到对应的 React 模板组件
 
 **Props**:
 ```typescript
 interface DesktopPreviewProps {
   config: StyleConfig
   pageType: PageType
+  scene?: SceneType
 }
 ```
 
-**当前实现的页面类型**:
-- `home`: 电商首页（完整版）
-- `detail`: 商品详情页（开发中）
+**当前实现的页面类型**（按场景）:
+- **电商场景** (`ecommerce`): `home`（完整版含搜索/轮播/分类/品牌/商品网格）、`detail`（完整版含图询/规格/评价）
+- **内容平台** (`content`): 独立 PC 组件（ContentHomeDesktop/ContentDetailDesktop/ContentProfileDesktop），使用宽屏三栏布局
 
 **布局结构**:
 ```

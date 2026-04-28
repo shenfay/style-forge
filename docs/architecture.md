@@ -127,7 +127,7 @@ ComponentTokens (组件可用的样式值)
   "name": "B2C商城首页",
   "scene": "ecommerce",
   "device": "mobile | desktop",
-  "type": "home | detail | list | form | settings | result",
+  "type": "home | detail | list | profile | messages | form | settings | result",
   "description": "...",
   "components": [...],
   "defaultStyle": { ... },

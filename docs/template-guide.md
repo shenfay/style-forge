@@ -14,13 +14,17 @@
   │   ├── 首页 (home)
   │   ├── 详情页 (detail)
   │   ├── 列表页 (list)
+  │   ├── 作者页 (profile)
+  │   ├── 消息页 (messages)
   │   ├── 表单页 (form)
   │   ├── 设置页 (settings)
   │   └── 结果页 (result)
-  └── PC端模板 (Desktop Templates)
+  └── 桌面端模板 (Desktop Templates)
       ├── 首页 (home)
       ├── 详情页 (detail)
       ├── 列表页 (list)
+      ├── 作者页 (profile)
+      ├── 消息页 (messages)
       ├── 表单页 (form)
       ├── 设置页 (settings)
       └── 结果页 (result)
@@ -31,11 +35,8 @@
 ```
 src/templates/
 ├── ecommerce.json      # 电商场景
-├── food.json           # 食品场景（待创建）
-├── saas.json           # SaaS场景（待创建）
-├── media.json          # 媒体场景（待创建）
-├── social.json         # 社交场景（待创建）
-└── finance.json        # 金融场景（待创建）
+├── content.json        # 内容平台场景
+└── ...                 # 后续场景按需添加
 ```
 
 ---
@@ -108,7 +109,7 @@ src/templates/
 | `name` | string | ✅ | 模板显示名称 |
 | `scene` | string | ✅ | 场景类型（`ecommerce`, `food`, `saas` 等） |
 | `device` | string | ✅ | 设备类型（`mobile` 或 `desktop`） |
-| `type` | string | ✅ | 页面类型（`home`, `detail`, `list` 等） |
+| `type` | string | ✅ | 页面类型（`home`, `detail`, `list`, `profile`, `messages`, `form`, `settings`, `result` 等） |
 | `description` | string | ✅ | 模板描述 |
 | `components` | array | ❌ | 组件列表（用于动态渲染） |
 | `defaultStyle` | object | ❌ | 默认样式配置 |
@@ -117,36 +118,52 @@ src/templates/
 
 ---
 
-## 添加新场景模板
+# 添加新场景模板
+
+添加一个全新的场景（如从零创建内容平台场景）需要修改以下文件：
+
+| # | 文件 | 操作 |
+|---|------|------|
+| 1 | `src/templates/{scene}.json` | 创建场景模板定义文件 |
+| 2 | `src/types/template.ts` | 扩展 `SceneType` 联合类型 |
+| 3 | `src/hooks/useUrlConfig.ts` | 更新场景和页面类型白名单 |
+| 4 | `src/components/Designer/SceneSelector.tsx` | 添加场景选项 |
+| 5 | `src/components/Preview/templates/index.ts` | 导出新模板组件 |
+| 6 | `src/components/Preview/MobilePreview.tsx` | 注册移动端模板路由 |
+| 7 | `src/components/Preview/DesktopPreview.tsx` | 注册桌面端模板路由 |
+| 8 | `src/utils/templateLoader.ts`（可选） | 模板加载器已自动支持动态导入 |
+
+---
 
 ### 步骤 1: 创建场景 JSON 文件
 
-在 `src/templates/` 目录下创建新文件，例如 `food.json`：
+在 `src/templates/` 目录下创建新文件，例如 `content.json`：
 
 ```json
 [
   {
-    "id": "food-result-mobile",
-    "name": "食品扫码结果页",
-    "scene": "food",
-    "device": "mobile",
-    "type": "result",
-    "description": "食品扫码结果展示页，包含营养成分、安全评分、成分分析等",
+    "id": "content-home-desktop",
+    "name": "内容首页",
+    "scene": "content",
+    "device": "desktop",
+    "type": "home",
+    "description": "内容平台首页，图文杂志风，双列瀑布流",
     "defaultStyle": {
-      "backgroundColor": "#F5FAF5",
-      "primaryColor": "#2E7D67",
+      "backgroundColor": "#F9F8F4",
+      "primaryColor": "#262626",
       "cornerRadius": "medium",
-      "cardStyle": "borderless",
-      "titleBarStyle": "frosted-glass",
+      "cardStyle": "shadow",
+      "titleBarStyle": "white-underline",
       "switcherStyle": "pill",
       "buttonStyle": "solid",
       "badgeStyle": "rounded"
     },
-    "components": [
-      // 组件定义
-    ],
+    "layout": {
+      "type": "two-column",
+      "regions": []
+    },
     "aiPrompt": {
-      "title": "食品扫码结果页（移动端）",
+      "title": "内容平台首页（桌面端）",
       "sections": []
     }
   }
@@ -155,59 +172,141 @@ src/templates/
 
 **注意事项**：
 - 文件必须导出一个数组（`TemplateConfig[]`）
-- 每个场景至少需要定义移动端和 PC 端的对应模板
-- `id` 字段在当前场景内必须唯一
+- 每个场景至少需要定义移动端和桌面端的对应模板
+- `id` 格式：`{scene}-{type}-{device}`（如 `content-home-desktop`）
+- `device` 字段约定：`"desktop"`（不要使用 `"pc"`）
+- 每个场景可以有多个页面类型模板，共用同一个 JSON 文件
+- 对于 `ecommerce` 场景，不需要额外的 `defaultStyle` 字段（使用系统默认配置）
+  其他场景建议提供 `defaultStyle`，以便切换场景时有匹配的默认配色
 
 ---
 
-### 步骤 2: 更新类型定义
-
-如果添加了新的场景类型，需要更新 `SceneType`：
+### 步骤 2: 扩展 SceneType
 
 ```typescript
 // src/types/template.ts
-export type SceneType = 'ecommerce' | 'food' | 'saas' | 'media' | 'social' | 'finance'
+export type SceneType = 'ecommerce' | 'content' | 'food' | 'saas' | 'media' | 'social' | 'finance'
 ```
 
 ---
 
-### 步骤 3: 更新模板加载器
+### 步骤 3: 更新白名单
 
-模板加载器已支持动态导入，无需额外修改：
+`useUrlConfig` 中有两个白名单需要更新：
 
 ```typescript
-// src/utils/templateLoader.ts
-export async function loadTemplates(scene: SceneType): Promise<TemplateConfig[]> {
-  const module = await import(`../templates/${scene}.json`)
-  return module.default
+// src/hooks/useUrlConfig.ts
+
+// 场景白名单
+const VALID_SCENES: SceneType[] = ['food', 'ecommerce', 'saas', 'media', 'social', 'finance', 'content']
+
+// 页面类型白名单
+const VALID_PAGE_TYPES = ['home', 'detail', 'list', 'form', 'settings', 'result', 'profile', 'messages']
+```
+
+如不更新白名单，URL 中的场景/模板参数会被过滤掉，导致切换无效。
+
+---
+
+### 步骤 4: 注册 SceneSelector 选项
+
+```typescript
+// src/components/Designer/SceneSelector.tsx
+{ id: 'content', name: '内容平台', icon: '✍️', description: '文章、专栏、作者主页' },
+```
+
+---
+
+### 步骤 5: 创建模板预览组件
+
+在 `src/components/Preview/templates/` 下创建对应页面类型的 React 组件：
+
+```
+src/components/Preview/templates/
+├── index.ts                     # 组件导出索引
+├── ContentHomePage.tsx          # 内容首页（移动端）
+├── ContentDetailPage.tsx        # 文章详情页（移动端）
+├── ContentProfilePage.tsx       # 作者主页（移动端）
+└── ...
+```
+
+**组件设计规范**：
+- 接收 `config: StyleConfig` 作为唯一参数
+- 通过 `generateComponentTokens(config)` 获取设计令牌
+- 所有样式必须通过设计令牌驱动，禁止硬编码
+- 正文使用 `tokens.typography.bodySize`，标题大小比较使用 `config.bodySize` 而非 token 值
+- 移动端采用 `Fragment > div.flex-1.overflow-y-auto` 滚动模式（避免嵌套 `flex-1`）
+- 桌面端模板如果布局差异较大，应创建独立的 PC 组件文件（如 `ContentDesktopPages.tsx`），而不是直接复用移动端组件
+
+完成后在 `index.ts` 中导出：
+
+```typescript
+// src/components/Preview/templates/index.ts
+export { ContentHomePage } from './ContentHomePage'
+export { ContentDetailPage } from './ContentDetailPage'
+export { ContentProfilePage } from './ContentProfilePage'
+```
+
+---
+
+### 步骤 6: 注册预览路由
+
+**MobilePreview.tsx** — 添加场景分支：
+
+```typescript
+// src/components/Preview/MobilePreview.tsx
+if (scene === 'content') {
+  switch (pageType) {
+    case 'home':
+      return <ContentHomePage config={config} />
+    case 'detail':
+      return <ContentDetailPage config={config} />
+    case 'profile':
+      return <ContentProfilePage config={config} />
+    default:
+      return <DefaultPage config={config} />
+  }
 }
 ```
 
-**如果使用了构建工具**（如 Vite），可能需要更新动态导入的配置：
+**DesktopPreview.tsx** — 同样添加场景分支：
 
 ```typescript
-// vite.config.ts
-export default defineConfig({
-  // ... 其他配置
-  assetsInclude: ['**/*.json'],
-})
+// src/components/Preview/DesktopPreview.tsx
+if (scene === 'content') {
+  return (
+    <div>
+      <header>{/* PC 顶部导航 */}</header>
+      {pageType === 'home' && <ContentHomeDesktop config={config} />}
+      {pageType === 'detail' && <ContentDetailDesktop config={config} />}
+      {pageType === 'profile' && <ContentProfileDesktop config={config} />}
+      <footer>{/* 页脚 */}</footer>
+    </div>
+  )
+}
 ```
+
+**注意事项**：
+- MobilePreview 和 DesktopPreview 需要接收 `scene?: SceneType` prop
+- `App.tsx` 中需要计算 `currentScene` 并传递给预览组件
+- 场景/设备切换时注意保留 URL 中的 `config` 参数
 
 ---
 
-### 步骤 4: 测试模板加载
-
-在浏览器中访问：
+### 步骤 7: 测试验证
 
 ```
-http://localhost:5173/?scene=food&device=mobile&template=result
+http://localhost:5173/designer/workbench?scene=content&device=mobile&template=home&config=...
 ```
 
-**验证点**：
-- [ ] 模板正确加载
-- [ ] 默认样式正确应用
-- [ ] 预览组件正确渲染
-- [ ] URL 参数可分享
+**验证清单**：
+- [ ] 场景切换后模板正确加载
+- [ ] 移动端和桌面端都有对应模板
+- [ ] 所有正文使用 `bodyFontSize` 响应配置变化
+- [ ] 移动端页面可正常滚动（无嵌套 flex-1 问题）
+- [ ] 桌面端布局不像是"拉宽的移动端"
+- [ ] URL 参数可分享且能正确恢复
+- [ ] `tsc --noEmit` 零类型错误
 
 ---
 
@@ -215,7 +314,7 @@ http://localhost:5173/?scene=food&device=mobile&template=result
 
 ### 1. 双端适配原则
 
-为每个页面类型同时定义移动端和 PC 端模板：
+为每个页面类型同时定义移动端和桌面端模板：
 
 ```json
 // 移动端
@@ -232,7 +331,7 @@ http://localhost:5173/?scene=food&device=mobile&template=result
   }
 }
 
-// PC端
+// 桌面端
 {
   "id": "ecommerce-detail-desktop",
   "device": "desktop",
@@ -262,6 +361,7 @@ http://localhost:5173/?scene=food&device=mobile&template=result
 | 媒体 | #FFFDF5 (淡黄) | #5F7D2E (草绿) | 温暖、阅读、舒适 |
 | 社交 | #F5F3EF (暖白) | #2E7D67 (青绿) | 亲和、活跃、互动 |
 | 金融 | #FFFFFF (纯白) | #000000 (纯黑) | 安全、专业、稳重 |
+| **内容** | #F9F8F4 (暖沙) | #262626 (深黑) | 沉浸、阅读、杂志感 |
 
 ---
 

@@ -245,7 +245,7 @@ tokens.spacing = {
   "id": "ecommerce-homepage",
   "name": "电商首页",
   "scene": "ecommerce",
-  "device": "pc",
+  "device": "desktop",
   "description": "电商平台首页模板，包含限时抢购、品牌专区、新品推荐等区块",
   "components": [
     {
@@ -330,7 +330,7 @@ templates/
 {
   "type": "ProductGrid",
   "layout": {
-    "pc": { "columns": 5, "gap": 24 },
+    "desktop": { "columns": 5, "gap": 24 },
     "mobile": { "columns": 2, "gap": 12 }
   }
 }
@@ -385,7 +385,7 @@ cp src/templates/ecommerce.json src/templates/ecommerce-new.json
   "id": "ecommerce-shopping-cart",
   "name": "购物车",
   "scene": "ecommerce",
-  "device": "pc"
+  "device": "desktop"
 }
 ```
 
@@ -441,7 +441,7 @@ interface CarouselProps {
 
 ```tsx
 export function Carousel({ items }: CarouselProps) {
-  const tokens = useDesignTokens()
+  const tokens = generateComponentTokens(config)
   
   return (
     <div style={{
