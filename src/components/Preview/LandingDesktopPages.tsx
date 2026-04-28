@@ -51,35 +51,42 @@ export const LandingHomeDesktop = memo(function LandingHomeDesktop({ config }: L
       </header>
 
       {/* Hero 区 */}
-      <section className="py-24 text-center" style={{
+      <section className="py-20 text-center" style={{
         background: `linear-gradient(180deg, ${config.primaryColor}08 0%, ${config.backgroundColor} 100%)`,
       }}>
         <div className={CONTAINER_MAX + ' px-6'}>
-          <h1 className="mb-5 font-bold" style={{
-            fontSize: '52px',
-            lineHeight: '1.15',
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-6 text-xs font-medium" style={{
+            background: config.primaryColor + '10',
+            color: config.primaryColor,
+          }}>
+            <span>🚀</span>
+            <span>全新 2.0 版本已发布</span>
+          </div>
+          <h1 className="mb-4 font-bold" style={{
+            fontSize: '48px',
+            lineHeight: '1.2',
             color: config.titleColor,
             letterSpacing: '-0.02em',
           }}>
             构建你的下一个伟大产品
           </h1>
-          <p className="mx-auto mb-10" style={{
-            maxWidth: 560,
-            fontSize: '18px',
+          <p className="mx-auto mb-8" style={{
+            maxWidth: 600,
+            fontSize: '17px',
             lineHeight: '1.7',
             color: config.textSecondary,
           }}>
             一站式开发平台，让创意快速落地。无需复杂配置，从想法到上线只需几分钟。
           </p>
-          <div className="flex gap-4 justify-center">
-            <button className="px-8 py-3.5 text-white font-medium cursor-pointer transition-all hover:shadow-lg" style={{
+          <div className="flex gap-3 justify-center mb-12">
+            <button className="px-7 py-3 text-white font-medium cursor-pointer transition-all hover:shadow-lg" style={{
               background: config.primaryColor,
               borderRadius: radius,
               fontSize: '15px',
             }}>
               免费开始使用
             </button>
-            <button className="px-8 py-3.5 font-medium cursor-pointer transition-all hover:bg-gray-50" style={{
+            <button className="px-7 py-3 font-medium cursor-pointer transition-all hover:bg-gray-50" style={{
               border: `1.5px solid ${config.primaryColor}30`,
               color: config.primaryColor,
               borderRadius: radius,
@@ -91,26 +98,26 @@ export const LandingHomeDesktop = memo(function LandingHomeDesktop({ config }: L
           </div>
 
           {/* 产品截图占位 */}
-          <div className="mx-auto mt-16 rounded-2xl overflow-hidden shadow-xl" style={{
-            maxWidth: 960,
+          <div className="mx-auto rounded-2xl overflow-hidden shadow-xl" style={{
+            maxWidth: 900,
             background: 'linear-gradient(135deg, #F8F9FA 0%, #F1F3F5 100%)',
-            height: 480,
+            height: 400,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             border: '1px solid #E5E7EB',
           }}>
             <div className="text-center" style={{ color: '#9CA3AF' }}>
-              <div className="text-7xl mb-4 opacity-60">🖥️</div>
-              <div className="text-base font-medium">产品界面截图占位</div>
-              <div className="text-sm mt-2 opacity-70">960 × 480</div>
+              <div className="text-6xl mb-3 opacity-50">🖥️</div>
+              <div className="text-sm font-medium">产品界面截图占位</div>
+              <div className="text-xs mt-1.5 opacity-60">900 × 400</div>
             </div>
           </div>
         </div>
       </section>
 
       {/* 信任背书 */}
-      <section className="py-12 border-b" style={{ borderColor: '#F0F0F0' }}>
+      <section className="py-10 border-b" style={{ borderColor: '#F0F0F0' }}>
         <div className={`${CONTAINER_MAX} px-6 text-center`}>
           <p className="text-sm mb-8" style={{ color: config.textSecondary, letterSpacing: '0.05em' }}>已被 1000+ 团队信赖</p>
           <div className="flex justify-center items-center gap-12 opacity-50">
@@ -124,14 +131,14 @@ export const LandingHomeDesktop = memo(function LandingHomeDesktop({ config }: L
       </section>
 
       {/* 功能特性 */}
-      <section className="py-24">
+      <section className="py-20">
         <div className={`${CONTAINER_MAX} px-6`}>
           <SectionHeader
             title="为什么选择我们"
             align="center"
             config={config}
           />
-          <div className="grid grid-cols-3 gap-8 mt-14">
+          <div className="grid grid-cols-3 gap-6 mt-10">
             {[
               { icon: '⚡', title: '极速部署', desc: '一键发布到全球 CDN，秒级响应，零运维成本' },
               { icon: '🎨', title: '灵活定制', desc: '丰富的配置选项，按需调整，完美匹配品牌调性' },
@@ -140,18 +147,18 @@ export const LandingHomeDesktop = memo(function LandingHomeDesktop({ config }: L
               { icon: '🔌', title: '无缝集成', desc: '支持主流工具链，API 优先设计，Webhook 扩展' },
               { icon: '💬', title: '专属支持', desc: '7×24 小时在线，资深技术顾问一对一指导' },
             ].map((feature, i) => (
-              <div key={i} className="p-7 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg" style={{
+              <div key={i} className="p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg" style={{
                 background: config.cardBackgroundColor,
                 borderRadius: radius,
                 ...tokens.card,
               }}>
-                <div className="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl mb-5" style={{
+                <div className="w-12 h-12 rounded-xl flex items-center justify-center text-xl mb-4" style={{
                   background: config.primaryColor + '12',
                 }}>
                   {feature.icon}
                 </div>
-                <h3 className="text-base font-semibold mb-2.5" style={{ color: config.titleColor }}>{feature.title}</h3>
-                <p style={{ color: config.textSecondary, fontSize: '14px', lineHeight: '1.7' }}>{feature.desc}</p>
+                <h3 className="text-sm font-semibold mb-2" style={{ color: config.titleColor }}>{feature.title}</h3>
+                <p style={{ color: config.textSecondary, fontSize: '13px', lineHeight: '1.65' }}>{feature.desc}</p>
               </div>
             ))}
           </div>
@@ -159,20 +166,20 @@ export const LandingHomeDesktop = memo(function LandingHomeDesktop({ config }: L
       </section>
 
       {/* 用户评价 */}
-      <section className="py-24" style={{ background: '#F9FAFB' }}>
+      <section className="py-20" style={{ background: '#F9FAFB' }}>
         <div className={`${CONTAINER_MAX} px-6`}>
           <SectionHeader
             title="用户反馈"
             align="center"
             config={config}
           />
-          <div className="grid grid-cols-3 gap-8 mt-14">
+          <div className="grid grid-cols-3 gap-6 mt-10">
             {[
               { name: '张三', role: '独立开发者', company: '个人工作室', content: '帮我节省了 80% 的开发时间，从原型到产品只用了 3 天。' },
               { name: '李四', role: 'CTO', company: 'StartupX', content: '团队协作效率提升了 5 倍，强烈推荐给所有技术团队。' },
               { name: '王五', role: '产品经理', company: 'TechCorp', content: '原型到产品的最佳工具，没有之一。' },
             ].map((item, i) => (
-              <div key={i} className="p-7" style={{
+              <div key={i} className="p-6" style={{
                 background: '#FFFFFF',
                 borderRadius: radius,
                 border: '1px solid #E5E7EB',
@@ -194,20 +201,20 @@ export const LandingHomeDesktop = memo(function LandingHomeDesktop({ config }: L
       </section>
 
       {/* 定价方案 */}
-      <section className="py-24">
+      <section className="py-20">
         <div className={`${CONTAINER_MAX} px-6`}>
           <SectionHeader
             title="简单透明的定价"
             align="center"
             config={config}
           />
-          <div className="grid grid-cols-3 gap-8 mt-14" style={{ maxWidth: 1080, margin: '3.5rem auto 0' }}>
+          <div className="grid grid-cols-3 gap-6 mt-10" style={{ maxWidth: 1000, margin: '2.5rem auto 0' }}>
             {[
               { name: '免费版', price: '¥0', desc: '个人项目起步', features: ['基础功能', '1 个项目', '社区支持', '1GB 存储'], cta: '免费开始', highlight: false },
               { name: '专业版', price: '¥99', desc: '专业开发者首选', features: ['全部功能', '无限项目', '优先支持', '100GB 存储', '自定义域名'], cta: '立即升级', badge: '最受欢迎', highlight: true },
               { name: '团队版', price: '¥299', desc: '高效团队协作', features: ['团队协作', '专属客服', '定制开发', '无限存储', 'SLA 保障', '审计日志'], cta: '联系销售', highlight: false },
             ].map((plan, i) => (
-              <div key={i} className="p-8 relative transition-all duration-200 hover:-translate-y-1" style={{
+              <div key={i} className="p-7 relative transition-all duration-200 hover:-translate-y-1" style={{
                 background: config.cardBackgroundColor,
                 borderRadius: radius,
                 border: plan.highlight ? `2px solid ${config.primaryColor}` : '1px solid #E5E7EB',
@@ -248,10 +255,10 @@ export const LandingHomeDesktop = memo(function LandingHomeDesktop({ config }: L
       </section>
 
       {/* CTA */}
-      <section className="py-24 text-center" style={{ background: config.primaryColor }}>
+      <section className="py-20 text-center" style={{ background: config.primaryColor }}>
         <div className={CONTAINER_MAX + ' px-6'}>
-          <h2 className="text-3xl font-bold mb-4 text-white tracking-tight">准备好开始了吗？</h2>
-          <p className="text-base mb-10" style={{ color: '#FFFFFFD9' }}>免费试用 14 天，无需信用卡，随时取消</p>
+          <h2 className="text-2xl font-bold mb-3 text-white tracking-tight">准备好开始了吗？</h2>
+          <p className="text-sm mb-8" style={{ color: '#FFFFFFD9' }}>免费试用 14 天，无需信用卡，随时取消</p>
           <div className="flex gap-4 justify-center">
             <button className="px-10 py-3.5 bg-white font-semibold rounded cursor-pointer transition-all hover:shadow-xl" style={{
               color: config.primaryColor,
@@ -274,7 +281,7 @@ export const LandingHomeDesktop = memo(function LandingHomeDesktop({ config }: L
       </section>
 
       {/* 页脚 */}
-      <footer className="py-16" style={{ background: '#111827' }}>
+      <footer className="py-12" style={{ background: '#111827' }}>
         <div className={`${CONTAINER_MAX} px-6`}>
           <div className="grid grid-cols-4 gap-12">
             {[
