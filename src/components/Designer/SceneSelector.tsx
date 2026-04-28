@@ -12,6 +12,7 @@ interface SceneSelectorProps {
 const scenes: Array<{ id: SceneType; name: string; icon: string; description: string }> = [
   { id: 'ecommerce', name: '电商零售', icon: '🛒', description: '商品、购物车、订单' },
   { id: 'content', name: '内容平台', icon: '✍️', description: '文章、专栏、作者主页' },
+  { id: 'landing', name: '产品落地页', icon: '🚀', description: '产品介绍、定价、CTA' },
 ]
 
 const deviceOptions: Array<{ id: DeviceType; name: string; icon: string }> = [

@@ -1,6 +1,6 @@
-export type SceneType = 'ecommerce' | 'content'
+export type SceneType = 'ecommerce' | 'content' | 'landing'
 export type DeviceType = 'mobile' | 'desktop'
-export type PageType = 'home' | 'detail' | 'list' | 'form' | 'settings' | 'result' | 'profile' | 'messages'
+export type PageType = 'home' | 'detail' | 'list' | 'form' | 'settings' | 'result' | 'profile' | 'messages' | 'pricing'
 
 export interface TemplateConfig {
   id: string

@@ -1,0 +1,459 @@
+[
+  {
+    "id": "landing-home-mobile",
+    "name": "产品主页",
+    "scene": "landing",
+    "device": "mobile",
+    "type": "home",
+    "description": "SaaS产品落地页，包含Hero区、功能特性、用户评价、定价预览、CTA等核心模块",
+    "components": [
+      {
+        "type": "Hero",
+        "props": {
+          "style": "text-only",
+          "title": "构建你的下一个伟大产品",
+          "subtitle": "一站式开发平台，让创意快速落地",
+          "ctaText": "免费开始",
+          "ctaSecondaryText": "查看演示"
+        }
+      },
+      {
+        "type": "LogoBar",
+        "props": {
+          "title": "已被 1000+ 团队信赖",
+          "logos": ["TeamA", "TeamB", "TeamC", "TeamD", "TeamE"]
+        }
+      },
+      {
+        "type": "SectionHeader",
+        "props": {
+          "title": "核心功能",
+          "showDecoration": true,
+          "align": "center"
+        }
+      },
+      {
+        "type": "FeatureGrid",
+        "props": {
+          "columns": 2,
+          "items": [
+            { "icon": "⚡", "title": "快速部署", "description": "一键发布，秒级上线" },
+            { "icon": "🎨", "title": "灵活定制", "description": "按需配置，随心调整" },
+            { "icon": "📊", "title": "数据分析", "description": "实时监控，洞察趋势" },
+            { "icon": "🔒", "title": "安全可靠", "description": "企业级安全防护" }
+          ]
+        }
+      },
+      {
+        "type": "SectionHeader",
+        "props": {
+          "title": "用户评价",
+          "showDecoration": true,
+          "align": "center"
+        }
+      },
+      {
+        "type": "TestimonialScroll",
+        "props": {
+          "direction": "horizontal",
+          "items": [
+            { "name": "张三", "role": "独立开发者", "content": "帮我节省了80%的开发时间", "avatar": "ZS" },
+            { "name": "李四", "role": "初创团队CTO", "content": "从想法到上线只用了3天", "avatar": "LS" },
+            { "name": "王五", "role": "产品经理", "content": "原型到产品的最佳工具", "avatar": "WW" }
+          ]
+        }
+      },
+      {
+        "type": "PricingPreview",
+        "props": {
+          "highlight": "middle",
+          "plans": [
+            { "name": "免费版", "price": "¥0", "period": "/月", "features": ["基础功能", "1个项目", "社区支持"] },
+            { "name": "专业版", "price": "¥99", "period": "/月", "features": ["全部功能", "无限项目", "优先支持"], "badge": "最受欢迎" },
+            { "name": "团队版", "price": "¥299", "period": "/月", "features": ["团队协作", "专属客服", "定制开发"] }
+          ]
+        }
+      },
+      {
+        "type": "CTABanner",
+        "props": {
+          "title": "准备好开始了吗？",
+          "subtitle": "免费试用14天，无需信用卡",
+          "buttonText": "立即注册"
+        }
+      },
+      {
+        "type": "Footer",
+        "props": {
+          "links": ["关于我们", "隐私政策", "服务条款", "联系我们"],
+          "copyright": "Style Forge · 所有权利保留"
+        }
+      }
+    ],
+    "aiPrompt": {
+      "title": "SaaS产品落地页（移动端）",
+      "sections": [
+        {
+          "heading": "## 页面概述",
+          "content": "典型的产品营销落地页，采用纵向滚动布局，整合Hero展示、功能特性、用户证言、定价方案、行动号召等核心模块，引导用户完成注册转化。"
+        },
+        {
+          "heading": "## 页面结构（从上到下）",
+          "content": "1. Hero区（标题+副标题+双CTA按钮）\n2. 信任背书（合作品牌Logo墙）\n3. 核心功能（2×2网格）\n4. 用户评价（横向滚动卡片）\n5. 定价预览（3列卡片，中间高亮）\n6. CTA横幅（最终转化）\n7. 页脚（链接+版权）"
+        },
+        {
+          "heading": "## 核心组件说明",
+          "content": "**Hero区**：大标题+副标题+主CTA+次要CTA，可配置插图/截图模式\n**功能网格**：图标+标题+描述，2列布局，支持更多功能展开\n**用户评价**：头像+姓名+角色+评价内容，横向滚动展示\n**定价卡片**：方案名称+价格+功能列表+CTA，支持中间高亮模式\n**CTA横幅**：全宽背景，居中文案，醒目按钮"
+        },
+        {
+          "heading": "## 交互要求",
+          "content": "1. Hero区CTA按钮点击跳转注册/演示\n2. 功能卡片点击展开详情（可选）\n3. 用户评价支持左右滑动\n4. 定价卡片点击跳转对应方案详情\n5. CTA横幅按钮跳转注册页"
+        },
+        {
+          "heading": "## 设计规范",
+          "content": "1. Hero区留白充足，标题字号突出（28-32px）\n2. 功能图标使用品牌主色或渐变色\n3. 定价卡片间距12-16px，高亮卡片使用主色边框或阴影加深\n4. CTA按钮使用渐变或实心主色，圆角根据配置（8-24px）\n5. 整体风格：现代、简洁、留白、引导性强"
+        }
+      ]
+    }
+  },
+  {
+    "id": "landing-home-desktop",
+    "name": "产品主页",
+    "scene": "landing",
+    "device": "desktop",
+    "type": "home",
+    "description": "桌面端产品落地页，包含顶部导航、Hero区、功能特性、用户评价、定价方案、CTA等模块，适配1440px宽屏",
+    "components": [
+      {
+        "type": "Navigation",
+        "props": {
+          "position": "top",
+          "items": ["logo", "features-link", "pricing-link", "docs-link", "login", "signup"],
+          "height": "72px"
+        }
+      },
+      {
+        "type": "Hero",
+        "props": {
+          "style": "with-screenshot",
+          "title": "构建你的下一个伟大产品",
+          "subtitle": "一站式开发平台，让创意快速落地。无需复杂配置，从想法到上线只需几分钟。",
+          "ctaText": "免费开始使用",
+          "ctaSecondaryText": "观看演示视频",
+          "screenshotPlaceholder": "产品界面截图占位（1200×600）"
+        }
+      },
+      {
+        "type": "LogoBar",
+        "props": {
+          "title": "已被 1000+ 团队信赖",
+          "logos": ["TechCorp", "StartupX", "DevStudio", "CloudBase", "DataFlow", "AIWorks"],
+          "columns": 6
+        }
+      },
+      {
+        "type": "SectionHeader",
+        "props": {
+          "title": "为什么选择我们",
+          "subtitle": "从开发到部署，全流程覆盖",
+          "showDecoration": true,
+          "align": "center"
+        }
+      },
+      {
+        "type": "FeatureGrid",
+        "props": {
+          "columns": 3,
+          "items": [
+            { "icon": "⚡", "title": "极速部署", "description": "一键发布到全球CDN，秒级响应，无需运维" },
+            { "icon": "🎨", "title": "灵活定制", "description": "丰富的配置选项，按需调整，完美匹配品牌" },
+            { "icon": "📊", "title": "数据洞察", "description": "实时监控关键指标，可视化报表辅助决策" },
+            { "icon": "🔒", "title": "企业安全", "description": "SOC2认证，数据加密，权限管控，审计日志" },
+            { "icon": "🔌", "title": "无缝集成", "description": "支持主流工具链，API优先，Webhook扩展" },
+            { "icon": "💬", "title": "专属支持", "description": "7×24小时在线，技术顾问一对一指导" }
+          ]
+        }
+      },
+      {
+        "type": "SectionHeader",
+        "props": {
+          "title": "用户反馈",
+          "subtitle": "听听他们怎么说",
+          "showDecoration": true,
+          "align": "center"
+        }
+      },
+      {
+        "type": "TestimonialGrid",
+        "props": {
+          "columns": 3,
+          "items": [
+            { "name": "张三", "role": "独立开发者", "company": "个人工作室", "content": "帮我节省了80%的开发时间，从原型到产品只用了3天", "avatar": "ZS" },
+            { "name": "李四", "role": "CTO", "company": "StartupX", "content": "团队协作效率提升了5倍，强烈推荐", "avatar": "LS" },
+            { "name": "王五", "role": "产品经理", "company": "TechCorp", "content": "原型到产品的最佳工具，没有之一", "avatar": "WW" }
+          ]
+        }
+      },
+      {
+        "type": "SectionHeader",
+        "props": {
+          "title": "简单透明的定价",
+          "subtitle": "选择适合你的方案",
+          "showDecoration": true,
+          "align": "center"
+        }
+      },
+      {
+        "type": "PricingTable",
+        "props": {
+          "highlight": "middle",
+          "toggle": true,
+          "plans": [
+            { "name": "免费版", "price": "¥0", "period": "/月", "description": "个人项目起步", "features": ["基础功能", "1个项目", "社区支持", "1GB存储"], "ctaText": "免费开始" },
+            { "name": "专业版", "price": "¥99", "period": "/月", "description": "专业开发者首选", "features": ["全部功能", "无限项目", "优先支持", "100GB存储", "自定义域名"], "badge": "最受欢迎", "ctaText": "立即升级" },
+            { "name": "团队版", "price": "¥299", "period": "/月", "description": "高效团队协作", "features": ["团队协作", "专属客服", "定制开发", "无限存储", "SLA保障", "审计日志"], "ctaText": "联系销售" }
+          ]
+        }
+      },
+      {
+        "type": "FAQSection",
+        "props": {
+          "title": "常见问题",
+          "items": [
+            { "question": "免费版有什么限制？", "answer": "免费版包含核心功能，支持1个项目和1GB存储，适合个人学习和小型项目" },
+            { "question": "可以随时升级或降级吗？", "answer": "可以，随时在账户设置中调整方案，费用按天折算" },
+            { "question": "数据安全如何保障？", "answer": "采用AES-256加密，通过SOC2认证，支持私有化部署" },
+            { "question": "是否支持退款？", "answer": "付费方案支持30天无理由退款" }
+          ]
+        }
+      },
+      {
+        "type": "CTABanner",
+        "props": {
+          "title": "准备好开始了吗？",
+          "subtitle": "免费试用14天，无需信用卡，随时取消",
+          "buttonText": "立即注册",
+          "secondaryButtonText": "预约演示"
+        }
+      },
+      {
+        "type": "Footer",
+        "props": {
+          "columns": 4,
+          "links": {
+            "产品": ["功能介绍", "定价方案", "更新日志", "路线图"],
+            "资源": ["文档中心", "API参考", "教程", "博客"],
+            "公司": ["关于我们", "加入我们", "联系方式", "合作伙伴"],
+            "法律": ["隐私政策", "服务条款", "Cookie设置", "安全声明"]
+          },
+          "copyright": "Style Forge · 所有权利保留"
+        }
+      }
+    ],
+    "aiPrompt": {
+      "title": "SaaS产品落地页（桌面端）",
+      "sections": [
+        {
+          "heading": "## 页面概述",
+          "content": "专业的产品营销落地页，采用1440px宽屏布局，顶部固定导航，纵向滚动展示产品价值主张、功能亮点、用户证言、定价方案和FAQ，最终以CTA横幅引导转化。"
+        },
+        {
+          "heading": "## 页面结构（从上到下）",
+          "content": "1. 顶部导航（Logo+链接+登录/注册按钮，固定吸顶）\n2. Hero区（居中标题+副标题+双CTA+产品截图占位）\n3. 信任背书（6列Logo墙）\n4. 功能特性（3×2网格，图标+标题+描述）\n5. 用户评价（3列卡片网格）\n6. 定价方案（3列对比表，中间高亮，支持月/年切换）\n7. FAQ折叠面板（4个常见问题）\n8. CTA横幅（全宽背景，居中文案+双按钮）\n9. 页脚（4列链接+版权信息）"
+        },
+        {
+          "heading": "## 核心组件说明",
+          "content": "**Hero区**：大标题（40-48px）+副标题+主CTA（实心主色）+次要CTA（描边），下方展示产品截图占位（带阴影和圆角）\n**功能网格**：3列布局，每个功能卡片包含图标（主色圆形背景）、标题（18-20px）、描述（14-16px），hover时轻微上移+阴影加深\n**用户评价**：3列卡片，头像+姓名+角色+公司+评价内容，边框或轻阴影，引用图标装饰\n**定价表**：3列对比，中间卡片使用主色边框或阴影加深，顶部显示'最受欢迎'标签，底部CTA按钮\n**FAQ**：手风琴折叠面板，点击展开/收起，带加减号图标切换"
+        },
+        {
+          "heading": "## 交互要求",
+          "content": "1. 导航吸顶固定，滚动时背景变实色+阴影\n2. Hero区CTA按钮hover时颜色加深或上移2px\n3. 功能卡片hover时轻微上浮（4px）+阴影变化\n4. 定价表支持月付/年付切换（年付显示折扣）\n5. FAQ手风琴展开/收起动画流畅（300ms）\n6. 页脚链接hover时变色+下划线"
+        },
+        {
+          "heading": "## 设计规范",
+          "content": "1. 最大内容宽度：1200px，两侧留白对称\n2. 区块间距：80-120px（桌面端）\n3. 标题装饰：可选下划线、左侧色块、或纯色背景条（根据配置）\n4. CTA按钮：圆角根据配置（8-24px），主色实心或渐变，hover时加深10%\n5. 卡片圆角：根据配置（8-24px），阴影或边框风格统一\n6. 整体风格：专业、现代、留白充足、视觉层次清晰"
+        }
+      ]
+    }
+  },
+  {
+    "id": "landing-pricing-desktop",
+    "name": "定价页",
+    "scene": "landing",
+    "device": "desktop",
+    "type": "pricing",
+    "description": "桌面端定价方案对比页，包含套餐详情、功能对比表、FAQ、CTA等，帮助用户选择合适的方案",
+    "components": [
+      {
+        "type": "Navigation",
+        "props": {
+          "position": "top",
+          "items": ["logo", "features-link", "pricing-link", "docs-link", "login", "signup"],
+          "height": "72px"
+        }
+      },
+      {
+        "type": "SectionHeader",
+        "props": {
+          "title": "选择你的方案",
+          "subtitle": "从个人项目到企业级应用，总有一款适合你",
+          "showDecoration": true,
+          "align": "center"
+        }
+      },
+      {
+        "type": "PricingToggle",
+        "props": {
+          "label": "月付",
+          "labelActive": "年付",
+          "discount": "节省20%"
+        }
+      },
+      {
+        "type": "PricingCards",
+        "props": {
+          "columns": 3,
+          "highlight": "middle",
+          "plans": [
+            {
+              "name": "免费版",
+              "price": "¥0",
+              "period": "/月",
+              "description": "适合个人项目和学习",
+              "features": [
+                "✅ 基础功能",
+                "✅ 1个项目",
+                "✅ 社区支持",
+                "✅ 1GB存储",
+                "❌ 自定义域名",
+                "❌ 优先支持"
+              ],
+              "ctaText": "免费开始",
+              "ctaStyle": "secondary"
+            },
+            {
+              "name": "专业版",
+              "price": "¥79",
+              "originalPrice": "¥99",
+              "period": "/月",
+              "description": "专业开发者的最佳选择",
+              "features": [
+                "✅ 全部功能",
+                "✅ 无限项目",
+                "✅ 优先支持",
+                "✅ 100GB存储",
+                "✅ 自定义域名",
+                "✅ API访问"
+              ],
+              "badge": "最受欢迎",
+              "ctaText": "立即升级",
+              "ctaStyle": "primary"
+            },
+            {
+              "name": "团队版",
+              "price": "¥239",
+              "originalPrice": "¥299",
+              "period": "/月",
+              "description": "高效团队协作与管控",
+              "features": [
+                "✅ 专业版全部功能",
+                "✅ 团队成员（最多20人）",
+                "✅ 专属客服",
+                "✅ 无限存储",
+                "✅ SLA 99.9%保障",
+                "✅ 审计日志"
+              ],
+              "ctaText": "联系销售",
+              "ctaStyle": "secondary"
+            }
+          ]
+        }
+      },
+      {
+        "type": "FeatureComparison",
+        "props": {
+          "title": "功能详细对比",
+          "columns": ["功能", "免费版", "专业版", "团队版"],
+          "rows": [
+            { "category": "核心功能", "items": [
+              { "feature": "项目数量", "free": "1个", "pro": "无限", "team": "无限" },
+              { "feature": "存储空间", "free": "1GB", "pro": "100GB", "team": "无限" },
+              { "feature": "自定义域名", "free": "❌", "pro": "✅", "team": "✅" },
+              { "feature": "API访问", "free": "❌", "pro": "✅", "team": "✅" }
+            ]},
+            { "category": "协作与管理", "items": [
+              { "feature": "团队成员", "free": "1人", "pro": "1人", "team": "最多20人" },
+              { "feature": "权限管理", "free": "❌", "pro": "❌", "team": "✅" },
+              { "feature": "审计日志", "free": "❌", "pro": "❌", "team": "✅" }
+            ]},
+            { "category": "支持与服务", "items": [
+              { "feature": "技术支持", "free": "社区", "pro": "优先", "team": "专属" },
+              { "feature": "SLA保障", "free": "❌", "pro": "99.5%", "team": "99.9%" },
+              { "feature": "定制开发", "free": "❌", "pro": "❌", "team": "✅" }
+            ]}
+          ]
+        }
+      },
+      {
+        "type": "FAQSection",
+        "props": {
+          "title": "常见问题",
+          "items": [
+            { "question": "可以随时升级或降级方案吗？", "answer": "可以。在账户设置中随时调整，升级立即生效，降级在下一个计费周期生效，费用按天折算。" },
+            { "question": "免费版真的永久免费吗？", "answer": "是的。免费版包含核心功能，无时间限制，适合个人项目和学习使用。" },
+            { "question": "年付方案的折扣如何计算？", "answer": "年付享受8折优惠，相当于免费获得2个月。例如专业版月付¥99/月，年付¥79/月（¥948/年）。" },
+            { "question": "是否支持退款？", "answer": "付费方案支持30天无理由退款。超过30天后，可申请按比例退款。" },
+            { "question": "企业定制方案如何联系？", "answer": "请通过'联系销售'按钮提交需求，我们的商务团队会在24小时内与您联系。" }
+          ]
+        }
+      },
+      {
+        "type": "CTABanner",
+        "props": {
+          "title": "还没找到合适的方案？",
+          "subtitle": "告诉我们你的需求，为你量身定制",
+          "buttonText": "联系销售",
+          "secondaryButtonText": "免费试用"
+        }
+      },
+      {
+        "type": "Footer",
+        "props": {
+          "columns": 4,
+          "links": {
+            "产品": ["功能介绍", "定价方案", "更新日志", "路线图"],
+            "资源": ["文档中心", "API参考", "教程", "博客"],
+            "公司": ["关于我们", "加入我们", "联系方式", "合作伙伴"],
+            "法律": ["隐私政策", "服务条款", "Cookie设置", "安全声明"]
+          },
+          "copyright": "Style Forge · 所有权利保留"
+        }
+      }
+    ],
+    "aiPrompt": {
+      "title": "定价方案对比页（桌面端）",
+      "sections": [
+        {
+          "heading": "## 页面概述",
+          "content": "专业的定价方案对比页，帮助用户快速了解不同方案的差异，通过功能对比表、FAQ和CTA引导用户做出选择。"
+        },
+        {
+          "heading": "## 页面结构（从上到下）",
+          "content": "1. 顶部导航（与主页一致）\n2. 标题区（居中标题+副标题）\n3. 月付/年付切换器（年付显示节省金额）\n4. 定价卡片（3列，中间高亮）\n5. 功能对比表（分类展示详细功能差异）\n6. FAQ折叠面板（5个常见问题）\n7. CTA横幅（引导联系销售或试用）\n8. 页脚（4列链接+版权）"
+        },
+        {
+          "heading": "## 核心组件说明",
+          "content": "**定价卡片**：方案名称+价格（大字）+描述+功能列表（✅/❌图标）+CTA按钮，高亮卡片使用主色边框和加深阴影，顶部显示'最受欢迎'标签，年付价格显示原价划线+折扣价\n**功能对比表**：表头固定（浅灰背景），按功能分类（核心功能、协作与管理、支持与服务），行交替背景色提升可读性，高亮列（专业版）使用浅色背景突出显示"
+        },
+        {
+          "heading": "## 交互要求",
+          "content": "1. 月付/年付切换时，价格和折扣标签平滑过渡（300ms）\n2. 定价卡片hover时轻微上浮（4px）\n3. 功能对比表高亮列保持浅色背景，不受hover影响\n4. FAQ手风琴展开/收起动画流畅"
+        },
+        {
+          "heading": "## 设计规范",
+          "content": "1. 最大内容宽度：1200px\n2. 定价卡片间距：24px，最大宽度320px/个，等宽分布\n3. 高亮卡片：主色2px边框+加深阴影+顶部徽章（主色背景+白色文字）\n4. 价格字号：48-56px（专业版），其他方案40-48px\n5. 功能对比表：表头背景#F9F9F9，行交替背景#FFFFFF/#FAFAFA，高亮列背景#F5F5FF"
+        }
+      ]
+    }
+  }
+]

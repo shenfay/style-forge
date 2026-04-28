@@ -23,6 +23,10 @@ import {
   ContentDetailPage,
   ContentProfilePage,
 } from './templates'
+// Landing 场景模板
+import {
+  LandingHomePage,
+} from './templates'
 
 interface MobilePreviewProps {
   config: StyleConfig
@@ -37,6 +41,16 @@ interface MobilePreviewProps {
  * @returns 对应的页面模板组件
  */
 export const MobilePreview = memo(function MobilePreview({ config, pageType, scene }: MobilePreviewProps) {
+  // Landing 场景
+  if (scene === 'landing') {
+    switch (pageType) {
+      case 'home':
+        return <LandingHomePage config={config} />
+      default:
+        return <DefaultPage config={config} />
+    }
+  }
+
   // 内容平台场景
   if (scene === 'content') {
     switch (pageType) {

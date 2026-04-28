@@ -9,6 +9,9 @@ import {
   ContentDetailDesktop,
   ContentProfileDesktop,
 } from './ContentDesktopPages'
+import {
+  LandingHomeDesktop,
+} from './LandingDesktopPages'
 import { colors, fontSize, fontWeight, shadows, withOpacity, generateComponentTokens } from '../../utils/design-tokens'
 
 interface DesktopPreviewProps {
@@ -36,6 +39,11 @@ function getLineHeight(config: StyleConfig): string {
 }
 
 export function DesktopPreview({ config, pageType, scene }: DesktopPreviewProps) {
+  // Landing 场景 - PC 端落地页
+  if (scene === 'landing') {
+    return <LandingHomeDesktop config={config} />
+  }
+
   // 内容平台场景 - PC 端宽屏布局
   if (scene === 'content') {
     return (

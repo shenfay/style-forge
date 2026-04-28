@@ -18,3 +18,6 @@ export { DefaultPage } from './DefaultPage'
 export { ContentHomePage } from './ContentHomePage'
 export { ContentDetailPage } from './ContentDetailPage'
 export { ContentProfilePage } from './ContentProfilePage'
+
+// Landing 场景模板
+export { LandingHomePage } from './LandingHomePage'
