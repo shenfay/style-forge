@@ -18,7 +18,7 @@ export const LandingHomeDesktop = memo(function LandingHomeDesktop({ config }: L
   return (
     <div className="h-full overflow-y-auto" style={{ background: config.backgroundColor }}>
       {/* 顶部导航 */}
-      <header className="sticky top-0 z-10 px-8" style={{
+      <header className="sticky top-0 z-10 px-4" style={{
         background: '#FFFFFF',
         borderBottom: '1px solid #E5E5E5',
         height: '72px',
@@ -47,7 +47,7 @@ export const LandingHomeDesktop = memo(function LandingHomeDesktop({ config }: L
       </header>
 
       {/* Hero 区 */}
-      <div className="px-8 py-20 text-center" style={{
+      <div className="px-4 py-20 text-center" style={{
         background: `linear-gradient(135deg, ${config.primaryColor}10 0%, ${config.backgroundColor} 100%)`,
       }}>
         <h1 className="mx-auto mb-4 font-bold" style={{
@@ -102,7 +102,7 @@ export const LandingHomeDesktop = memo(function LandingHomeDesktop({ config }: L
       </div>
 
       {/* 信任背书 */}
-      <div className="px-8 py-10 text-center" style={{ borderBottom: `1px solid #F0F0F0` }}>
+      <div className="px-4 py-10 text-center" style={{ borderBottom: `1px solid #F0F0F0` }}>
         <p className="text-sm mb-6" style={{ color: config.textSecondary }}>已被 1000+ 团队信赖</p>
         <div className="mx-auto flex justify-between items-center opacity-60" style={{ maxWidth: 900 }}>
           {['TechCorp', 'StartupX', 'DevStudio', 'CloudBase', 'DataFlow', 'AIWorks'].map((name, i) => (
@@ -114,7 +114,7 @@ export const LandingHomeDesktop = memo(function LandingHomeDesktop({ config }: L
       </div>
 
       {/* 功能特性 */}
-      <div className="px-8 py-16">
+      <div className="px-4 py-16">
         <SectionHeader
           title="为什么选择我们"
           align="center"
@@ -147,7 +147,7 @@ export const LandingHomeDesktop = memo(function LandingHomeDesktop({ config }: L
       </div>
 
       {/* 用户评价 */}
-      <div className="px-8 py-16" style={{ background: '#FAFAFA' }}>
+      <div className="px-4 py-16" style={{ background: '#FAFAFA' }}>
         <SectionHeader
           title="用户反馈"
           align="center"
@@ -180,7 +180,7 @@ export const LandingHomeDesktop = memo(function LandingHomeDesktop({ config }: L
       </div>
 
       {/* 定价方案 */}
-      <div className="px-8 py-16">
+      <div className="px-4 py-16">
         <SectionHeader
           title="简单透明的定价"
           align="center"
@@ -231,7 +231,7 @@ export const LandingHomeDesktop = memo(function LandingHomeDesktop({ config }: L
       </div>
 
       {/* CTA */}
-      <div className="px-8 py-16 text-center" style={{ background: config.primaryColor }}>
+      <div className="px-4 py-16 text-center" style={{ background: config.primaryColor }}>
         <h2 className="text-3xl font-bold mb-3 text-white">准备好开始了吗？</h2>
         <p className="text-base mb-6" style={{ color: '#FFFFFFCC' }}>免费试用14天，无需信用卡，随时取消</p>
         <div className="flex gap-4 justify-center">
@@ -252,7 +252,7 @@ export const LandingHomeDesktop = memo(function LandingHomeDesktop({ config }: L
       </div>
 
       {/* 页脚 */}
-      <footer className="px-8 py-12" style={{ background: '#1A1A1A' }}>
+      <footer className="px-4 py-12" style={{ background: '#1A1A1A' }}>
         <div className="mx-auto grid grid-cols-4 gap-8" style={{ maxWidth: 1100 }}>
           {[
             { title: '产品', links: ['功能介绍', '定价方案', '更新日志', '路线图'] },

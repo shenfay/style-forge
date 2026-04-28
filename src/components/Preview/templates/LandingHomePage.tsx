@@ -87,7 +87,7 @@ export const LandingHomePage = memo(function LandingHomePage({ config }: Landing
       </div>
 
       {/* 用户评价 */}
-      <div className="py-6" style={{ background: config.cardBackgroundColor }}>
+      <div className="px-4 py-6" style={{ background: config.cardBackgroundColor }}>
         <SectionHeader
           title="用户评价"
           align="center"
