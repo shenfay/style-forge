@@ -5,7 +5,7 @@
 
 import { memo } from 'react'
 import type { StyleConfig } from '../../types/config'
-import type { PageType } from '../../types/template'
+import type { PageType, SceneType } from '../../types/template'
 import {
   HomePage,
   DetailPage,
@@ -17,10 +17,17 @@ import {
   FormPage,
   DefaultPage,
 } from './templates'
+// 内容平台模板
+import {
+  ContentHomePage,
+  ContentDetailPage,
+  ContentProfilePage,
+} from './templates'
 
 interface MobilePreviewProps {
   config: StyleConfig
   pageType: PageType
+  scene?: SceneType
 }
 
 /**
@@ -29,8 +36,22 @@ interface MobilePreviewProps {
  * @param pageType - 页面类型
  * @returns 对应的页面模板组件
  */
-export const MobilePreview = memo(function MobilePreview({ config, pageType }: MobilePreviewProps) {
-  // 根据页面类型渲染对应模板
+export const MobilePreview = memo(function MobilePreview({ config, pageType, scene }: MobilePreviewProps) {
+  // 内容平台场景
+  if (scene === 'content') {
+    switch (pageType) {
+      case 'home':
+        return <ContentHomePage config={config} />
+      case 'detail':
+        return <ContentDetailPage config={config} />
+      case 'profile':
+        return <ContentProfilePage config={config} />
+      default:
+        return <DefaultPage config={config} />
+    }
+  }
+
+  // 电商场景（默认）
   switch (pageType) {
     case 'home':
       return <HomePage config={config} />

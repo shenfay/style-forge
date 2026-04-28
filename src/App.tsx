@@ -37,6 +37,9 @@ export default function App() {
   const [showLeftPanel, setShowLeftPanel] = useState(true)
   const [activeSection, setActiveSection] = useState<ConfigSection>('template')
 
+  // 当前场景
+  const currentScene = urlConfig.scene || 'ecommerce'
+
   // 加载模板
   useEffect(() => {
     const load = async () => {
@@ -306,13 +309,15 @@ export default function App() {
                 <DesktopPreview 
                   config={config} 
                   pageType={currentTemplate?.type || 'home'}
+                  scene={currentScene}
                 />
               </div>
             ) : (
-              <div className="w-[375px] h-[812px] bg-white rounded-[40px] shadow-xl overflow-hidden border-8 border-gray-900 relative">
+              <div className="w-[375px] h-[812px] bg-white rounded-[40px] shadow-xl overflow-hidden border-8 border-gray-900 relative flex flex-col">
                 <MobilePreview 
                   config={config} 
                   pageType={currentTemplate?.type || 'result'}
+                  scene={currentScene}
                 />
               </div>
             )}

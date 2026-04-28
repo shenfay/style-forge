@@ -1,0 +1,201 @@
+[
+  {
+    "id": "content-home",
+    "name": "图文首页",
+    "scene": "content",
+    "device": "mobile",
+    "type": "home",
+    "description": "内容平台图文杂志首页，双列瀑布流卡片布局",
+    "defaultStyle": {
+      "backgroundColor": "#FFFFFF",
+      "primaryColor": "#FF6B35",
+      "cornerRadius": "medium",
+      "cardStyle": "borderless",
+      "titleBarStyle": "white-underline",
+      "switcherStyle": "pill",
+      "buttonStyle": "solid",
+      "badgeStyle": "rounded"
+    },
+    "layout": {
+      "type": "single-column",
+      "regions": [
+        { "id": "header", "name": "顶部导航", "type": "header", "height": "auto", "components": ["Navigation", "TagTabs"] },
+        { "id": "content", "name": "内容区", "type": "content", "components": ["MasonryGrid"] },
+        { "id": "footer", "name": "底部导航", "type": "footer", "height": "56px", "components": ["BottomNav"] }
+      ]
+    },
+    "aiPrompt": {
+      "title": "内容平台首页",
+      "sections": [
+        { "heading": "场景描述", "content": "内容平台首页，展示图文瀑布流内容" },
+        { "heading": "视觉要求", "content": "图片驱动，卡片式布局，标签导航" }
+      ]
+    }
+  },
+  {
+    "id": "content-detail",
+    "name": "文章详情",
+    "scene": "content",
+    "device": "mobile",
+    "type": "detail",
+    "description": "内容平台文章详情页，包含正文、作者信息、评论和底部操作",
+    "defaultStyle": {
+      "backgroundColor": "#FFFFFF",
+      "primaryColor": "#FF6B35",
+      "cornerRadius": "medium",
+      "cardStyle": "borderless",
+      "titleBarStyle": "white-underline",
+      "switcherStyle": "pill",
+      "buttonStyle": "solid",
+      "badgeStyle": "rounded"
+    },
+    "layout": {
+      "type": "single-column",
+      "regions": [
+        { "id": "header", "name": "导航栏", "type": "header", "height": "auto", "components": ["NavBar"] },
+        { "id": "content", "name": "文章内容", "type": "content", "components": ["ArticleHeader", "ArticleBody", "AuthorInfo", "Comments"] },
+        { "id": "footer", "name": "底部操作", "type": "footer", "height": "56px", "components": ["ActionBar"] }
+      ]
+    },
+    "aiPrompt": {
+      "title": "文章详情页",
+      "sections": [
+        { "heading": "场景描述", "content": "文章详情阅读页" },
+        { "heading": "视觉要求", "content": "阅读体验优先，舒适行距，底部操作栏" }
+      ]
+    }
+  },
+  {
+    "id": "content-profile",
+    "name": "作者主页",
+    "scene": "content",
+    "device": "mobile",
+    "type": "profile",
+    "description": "内容平台作者专栏主页，展示作者信息和文章列表",
+    "defaultStyle": {
+      "backgroundColor": "#FFFFFF",
+      "primaryColor": "#FF6B35",
+      "cornerRadius": "medium",
+      "cardStyle": "borderless",
+      "titleBarStyle": "white-underline",
+      "switcherStyle": "pill",
+      "buttonStyle": "solid",
+      "badgeStyle": "rounded"
+    },
+    "layout": {
+      "type": "single-column",
+      "regions": [
+        { "id": "header", "name": "作者信息", "type": "header", "components": ["AuthorHeader"] },
+        { "id": "content", "name": "文章列表", "type": "content", "components": ["ProfileTabs", "ArticleList"] },
+        { "id": "footer", "name": "底部导航", "type": "footer", "height": "56px", "components": ["BottomNav"] }
+      ]
+    },
+    "aiPrompt": {
+      "title": "作者主页",
+      "sections": [
+        { "heading": "场景描述", "content": "作者个人主页" },
+        { "heading": "视觉要求", "content": "简约现代，突出作者信息和文章" }
+      ]
+    }
+  },
+  {
+    "id": "content-home-desktop",
+    "name": "内容首页（PC）",
+    "scene": "content",
+    "device": "desktop",
+    "type": "home",
+    "description": "内容平台PC端首页，三栏布局",
+    "defaultStyle": {
+      "backgroundColor": "#FFFFFF",
+      "primaryColor": "#FF6B35",
+      "cornerRadius": "medium",
+      "cardStyle": "borderless",
+      "titleBarStyle": "white-underline",
+      "switcherStyle": "pill",
+      "buttonStyle": "solid",
+      "badgeStyle": "rounded"
+    },
+    "layout": {
+      "type": "two-column",
+      "regions": [
+        { "id": "header", "name": "顶部导航", "type": "header", "height": "auto", "components": ["NavBar"] },
+        { "id": "sidebar", "name": "侧边栏", "type": "sidebar", "components": ["CategoryNav"] },
+        { "id": "content", "name": "内容区", "type": "content", "components": ["ArticleGrid"] },
+        { "id": "footer", "name": "底部", "type": "footer", "components": ["Footer"] }
+      ]
+    },
+    "aiPrompt": {
+      "title": "内容首页PC版",
+      "sections": [
+        { "heading": "场景描述", "content": "PC端内容首页" },
+        { "heading": "视觉要求", "content": "三栏布局，左侧导航，中间内容流" }
+      ]
+    }
+  },
+  {
+    "id": "content-detail-desktop",
+    "name": "文章详情（PC）",
+    "scene": "content",
+    "device": "desktop",
+    "type": "detail",
+    "description": "内容平台PC端文章详情页",
+    "defaultStyle": {
+      "backgroundColor": "#FFFFFF",
+      "primaryColor": "#FF6B35",
+      "cornerRadius": "medium",
+      "cardStyle": "borderless",
+      "titleBarStyle": "white-underline",
+      "switcherStyle": "pill",
+      "buttonStyle": "solid",
+      "badgeStyle": "rounded"
+    },
+    "layout": {
+      "type": "two-column",
+      "regions": [
+        { "id": "header", "name": "导航栏", "type": "header", "height": "auto", "components": ["NavBar"] },
+        { "id": "content", "name": "文章区", "type": "content", "components": ["ArticleContent"] },
+        { "id": "sidebar", "name": "侧边栏", "type": "sidebar", "components": ["AuthorCard", "RelatedPosts"] }
+      ]
+    },
+    "aiPrompt": {
+      "title": "文章详情PC版",
+      "sections": [
+        { "heading": "场景描述", "content": "PC端文章详情" },
+        { "heading": "视觉要求", "content": "中间正文，右侧作者卡片和推荐" }
+      ]
+    }
+  },
+  {
+    "id": "content-profile-desktop",
+    "name": "作者主页（PC）",
+    "scene": "content",
+    "device": "desktop",
+    "type": "profile",
+    "description": "内容平台PC端作者主页",
+    "defaultStyle": {
+      "backgroundColor": "#FFFFFF",
+      "primaryColor": "#FF6B35",
+      "cornerRadius": "medium",
+      "cardStyle": "borderless",
+      "titleBarStyle": "white-underline",
+      "switcherStyle": "pill",
+      "buttonStyle": "solid",
+      "badgeStyle": "rounded"
+    },
+    "layout": {
+      "type": "two-column",
+      "regions": [
+        { "id": "header", "name": "导航栏", "type": "header", "height": "auto", "components": ["NavBar"] },
+        { "id": "sidebar", "name": "作者信息", "type": "sidebar", "components": ["AuthorCard"] },
+        { "id": "content", "name": "文章区", "type": "content", "components": ["ArticleList"] }
+      ]
+    },
+    "aiPrompt": {
+      "title": "作者主页PC版",
+      "sections": [
+        { "heading": "场景描述", "content": "PC端作者主页" },
+        { "heading": "视觉要求", "content": "左侧作者卡片，右侧文章列表" }
+      ]
+    }
+  }
+]

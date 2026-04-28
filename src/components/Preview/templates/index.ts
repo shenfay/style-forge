@@ -13,3 +13,8 @@ export { MessagesPage } from './MessagesPage'
 export { SettingsPage } from './SettingsPage'
 export { FormPage } from './FormPage'
 export { DefaultPage } from './DefaultPage'
+
+// 内容平台模板
+export { ContentHomePage } from './ContentHomePage'
+export { ContentDetailPage } from './ContentDetailPage'
+export { ContentProfilePage } from './ContentProfilePage'

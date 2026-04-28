@@ -1,14 +1,20 @@
 import type { StyleConfig } from '../../types/config'
-import type { PageType } from '../../types/template'
+import type { PageType, SceneType } from '../../types/template'
 import { radiusMap } from '../../types/config'
 import { Placeholder } from './Placeholder'
 import { SectionHeader } from './SectionHeader'
 import { ProductCard } from './ProductCard'
+import {
+  ContentHomeDesktop,
+  ContentDetailDesktop,
+  ContentProfileDesktop,
+} from './ContentDesktopPages'
 import { colors, fontSize, fontWeight, shadows, withOpacity, generateComponentTokens } from '../../utils/design-tokens'
 
 interface DesktopPreviewProps {
   config: StyleConfig
   pageType: PageType
+  scene?: SceneType
 }
 
 // 辅助函数：根据配置获取正文字号
@@ -29,8 +35,62 @@ function getLineHeight(config: StyleConfig): string {
   }
 }
 
-export function DesktopPreview({ config, pageType }: DesktopPreviewProps) {
-  // 根据页面类型渲染不同内容
+export function DesktopPreview({ config, pageType, scene }: DesktopPreviewProps) {
+  // 内容平台场景 - PC 端宽屏布局
+  if (scene === 'content') {
+    return (
+      <div style={{ background: config.backgroundColor }}>
+        {/* PC 顶部导航 */}
+        <header className="sticky top-0 z-10 px-8 py-3" style={{
+          background: '#FFFFFF',
+          borderBottom: '1px solid #E5E5E5',
+        }}>
+          <div className="mx-auto flex items-center justify-between" style={{ maxWidth: 1200 }}>
+            <div className="flex items-center gap-8">
+              <span className="text-lg font-bold" style={{ color: config.primaryColor }}>Style Forge</span>
+              <div className="flex gap-6 text-sm" style={{ color: '#666' }}>
+                <span style={{ color: config.primaryColor, fontWeight: 500 }}>首页</span>
+                <span>发现</span>
+                <span>关于</span>
+              </div>
+            </div>
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2 px-3 py-1.5 text-sm rounded cursor-pointer" style={{
+                border: '1px solid #E5E5E5',
+                color: '#666',
+              }}>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+                </svg>
+                搜索
+              </div>
+              <div className="px-4 py-1.5 text-sm rounded cursor-pointer" style={{
+                background: config.primaryColor,
+                color: '#FFFFFF',
+              }}>写文章</div>
+              <div className="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold cursor-pointer" style={{ background: config.primaryColor }}>设</div>
+            </div>
+          </div>
+        </header>
+
+        {/* 主内容区 */}
+        {pageType === 'home' && <ContentHomeDesktop config={config} />}
+        {pageType === 'detail' && <ContentDetailDesktop config={config} />}
+        {pageType === 'profile' && <ContentProfileDesktop config={config} />}
+
+        {/* PC 底部 */}
+        <footer className="px-8 py-6 text-center text-xs" style={{
+          background: '#FAFAFA',
+          borderTop: '1px solid #E5E5E5',
+          color: '#999',
+        }}>
+          Style Forge · 所有权利保留
+        </footer>
+      </div>
+    )
+  }
+
+  // 电商场景（默认）
   switch (pageType) {
     case 'home':
       return <HomePage config={config} />
@@ -64,7 +124,7 @@ function HomePage({ config }: { config: StyleConfig }) {
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-8">
           {/* Logo */}
           <div className="text-xl font-bold" style={{ color: config.titleBarStyle === 'colored-bg' ? '#FFFFFF' : '#1A1A1A' }}>
-            品牌 Logo
+            Style Forge
           </div>
 
           {/* 搜索框 */}

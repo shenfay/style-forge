@@ -46,7 +46,7 @@ function parseUrlParams(): UrlConfig {
   const config: UrlConfig = {}
 
   const scene = params.get('scene')
-  if (scene && ['food', 'ecommerce', 'saas', 'media', 'social', 'finance'].includes(scene)) {
+  if (scene && ['food', 'ecommerce', 'saas', 'media', 'social', 'finance', 'content'].includes(scene)) {
     config.scene = scene as SceneType
   }
 
@@ -56,7 +56,7 @@ function parseUrlParams(): UrlConfig {
   }
 
   const template = params.get('template')
-  if (template && ['home', 'detail', 'list', 'form', 'settings', 'result'].includes(template)) {
+  if (template && ['home', 'detail', 'list', 'form', 'settings', 'result', 'profile', 'messages'].includes(template)) {
     config.template = template as PageType
   }
 

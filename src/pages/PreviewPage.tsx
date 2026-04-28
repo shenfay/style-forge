@@ -17,6 +17,9 @@ export default function PreviewPage() {
   const [config, setConfig] = useState<StyleConfig | null>(null)
   const [template, setTemplate] = useState<TemplateConfig | null>(null)
 
+  // 从 URL 读取当前场景
+  const scene = (searchParams.get('scene') || 'ecommerce') as SceneType
+
   useEffect(() => {
     const load = async () => {
       // 从 URL 参数获取配置
@@ -97,6 +100,7 @@ export default function PreviewPage() {
             <DesktopPreview 
               config={finalConfig} 
               pageType={template.type || 'home'}
+              scene={scene}
             />
           </div>
         ) : (
@@ -104,6 +108,7 @@ export default function PreviewPage() {
             <MobilePreview 
               config={finalConfig} 
               pageType={template.type || 'home'}
+              scene={scene}
             />
           </div>
         )}

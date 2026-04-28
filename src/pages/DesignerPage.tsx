@@ -246,6 +246,7 @@ export default function DesignerPage() {
                   <DesktopPreview 
                     config={config} 
                     pageType={currentTemplate?.type || 'home'}
+                    scene={urlConfig.scene || 'ecommerce'}
                   />
                 </div>
               ) : (
@@ -253,6 +254,7 @@ export default function DesignerPage() {
                   <MobilePreview 
                     config={config} 
                     pageType={currentTemplate?.type || 'result'}
+                    scene={urlConfig.scene || 'ecommerce'}
                   />
                 </div>
               )}
