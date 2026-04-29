@@ -11,6 +11,7 @@ import {
 } from './ContentDesktopPages'
 import {
   LandingHomeDesktop,
+  LandingPricingDesktop,
 } from './LandingDesktopPages'
 import { colors, fontSize, fontWeight, shadows, withOpacity, generateComponentTokens } from '../../utils/design-tokens'
 
@@ -41,6 +42,9 @@ function getLineHeight(config: StyleConfig): string {
 export function DesktopPreview({ config, pageType, scene }: DesktopPreviewProps) {
   // Landing 场景 - PC 端落地页
   if (scene === 'landing') {
+    if (pageType === 'pricing') {
+      return <LandingPricingDesktop config={config} />
+    }
     return <LandingHomeDesktop config={config} />
   }
 

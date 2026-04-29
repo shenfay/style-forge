@@ -455,5 +455,135 @@
         }
       ]
     }
+  },
+  {
+    "id": "landing-pricing-mobile",
+    "name": "定价页",
+    "scene": "landing",
+    "device": "mobile",
+    "type": "pricing",
+    "description": "移动端定价方案对比页，包含套餐卡片、功能对比、FAQ、CTA等，帮助用户选择合适的方案",
+    "components": [
+      {
+        "type": "SectionHeader",
+        "props": {
+          "title": "选择你的方案",
+          "subtitle": "从个人项目到企业级应用",
+          "showDecoration": true,
+          "align": "center"
+        }
+      },
+      {
+        "type": "PricingToggle",
+        "props": {
+          "label": "月付",
+          "labelActive": "年付",
+          "discount": "节省20%"
+        }
+      },
+      {
+        "type": "PricingCards",
+        "props": {
+          "direction": "vertical",
+          "highlight": "middle",
+          "plans": [
+            {
+              "name": "免费版",
+              "price": "¥0",
+              "period": "/月",
+              "description": "适合个人项目和学习",
+              "features": ["基础功能", "1个项目", "社区支持", "1GB存储"],
+              "ctaText": "免费开始",
+              "ctaStyle": "secondary"
+            },
+            {
+              "name": "专业版",
+              "price": "¥79",
+              "originalPrice": "¥99",
+              "period": "/月",
+              "description": "专业开发者的最佳选择",
+              "features": ["全部功能", "无限项目", "优先支持", "100GB存储", "自定义域名", "API访问"],
+              "badge": "最受欢迎",
+              "ctaText": "立即升级",
+              "ctaStyle": "primary"
+            },
+            {
+              "name": "团队版",
+              "price": "¥239",
+              "originalPrice": "¥299",
+              "period": "/月",
+              "description": "高效团队协作与管控",
+              "features": ["专业版全部功能", "团队成员（最多20人）", "专属客服", "无限存储", "SLA 99.9%保障", "审计日志"],
+              "ctaText": "联系销售",
+              "ctaStyle": "secondary"
+            }
+          ]
+        }
+      },
+      {
+        "type": "FeatureComparison",
+        "props": {
+          "title": "功能对比",
+          "columns": ["功能", "免费版", "专业版", "团队版"],
+          "rows": [
+            { "category": "核心功能", "items": [
+              { "feature": "项目数量", "free": "1个", "pro": "无限", "team": "无限" },
+              { "feature": "存储空间", "free": "1GB", "pro": "100GB", "team": "无限" },
+              { "feature": "自定义域名", "free": "❌", "pro": "✅", "team": "✅" }
+            ]},
+            { "category": "支持与服务", "items": [
+              { "feature": "技术支持", "free": "社区", "pro": "优先", "team": "专属" },
+              { "feature": "SLA保障", "free": "❌", "pro": "99.5%", "team": "99.9%" }
+            ]}
+          ]
+        }
+      },
+      {
+        "type": "FAQSection",
+        "props": {
+          "title": "常见问题",
+          "items": [
+            { "question": "可以随时升级或降级方案吗？", "answer": "可以。在账户设置中随时调整，升级立即生效，降级在下一个计费周期生效。" },
+            { "question": "免费版真的永久免费吗？", "answer": "是的。免费版包含核心功能，无时间限制，适合个人项目和学习使用。" },
+            { "question": "年付方案的折扣如何计算？", "answer": "年付享受8折优惠，相当于免费获得2个月。" },
+            { "question": "是否支持退款？", "answer": "付费方案支持30天无理由退款。" }
+          ]
+        }
+      },
+      {
+        "type": "CTABanner",
+        "props": {
+          "title": "还没找到合适的方案？",
+          "subtitle": "告诉我们你的需求，为你量身定制",
+          "buttonText": "联系销售",
+          "secondaryButtonText": "免费试用"
+        }
+      }
+    ],
+    "aiPrompt": {
+      "title": "定价方案对比页（移动端）",
+      "sections": [
+        {
+          "heading": "## 页面概述",
+          "content": "移动端定价方案对比页，采用纵向滚动布局，包含定价卡片、功能对比表、FAQ和CTA，帮助用户快速了解不同方案并做出选择。"
+        },
+        {
+          "heading": "## 页面结构（从上到下）",
+          "content": "1. 标题区（居中标题+副标题）\n2. 月付/年付切换器（年付显示节省金额）\n3. 定价卡片（纵向排列，中间高亮）\n4. 功能对比表（简化版，横向滚动）\n5. FAQ折叠面板（4个常见问题）\n6. CTA横幅（引导联系销售或试用）"
+        },
+        {
+          "heading": "## 核心组件说明",
+          "content": "**定价卡片**：方案名称+价格（大字）+描述+功能列表（✅图标）+CTA按钮，高亮卡片使用主色边框和加深阴影，顶部显示'最受欢迎'标签\n**功能对比表**：简化版表格，支持横向滚动，表头固定，按功能分类展示"
+        },
+        {
+          "heading": "## 交互要求",
+          "content": "1. 月付/年付切换时，价格和折扣标签平滑过渡（300ms）\n2. 定价卡片点击可展开详情（可选）\n3. FAQ手风琴展开/收起动画流畅"
+        },
+        {
+          "heading": "## 设计规范",
+          "content": "1. 定价卡片间距：16px，全宽显示\n2. 高亮卡片：主色2px边框+加深阴影+顶部徽章\n3. 价格字号：36-40px（专业版），其他方案32-36px\n4. 功能对比表：支持横向滚动，最小宽度600px"
+        }
+      ]
+    }
   }
 ]

@@ -4,8 +4,8 @@
 
 import { memo } from 'react'
 import type { StyleConfig } from '../../../types/config'
-import { Placeholder } from '../Placeholder'
 import { SectionHeader } from '../SectionHeader'
+import { StatusBar } from '../../UI/StatusBar'
 import { getBorderRadius, generateComponentTokens } from '../../../utils/design-tokens'
 
 interface LandingHomePageProps {
@@ -18,6 +18,7 @@ export const LandingHomePage = memo(function LandingHomePage({ config }: Landing
 
   return (
     <div className="flex-1 overflow-y-auto" style={{ background: config.backgroundColor }}>
+      <StatusBar />
       {/* Hero 区 */}
       <div className="px-4 py-10 text-center" style={{ background: 'linear-gradient(135deg, ' + config.primaryColor + '15 0%, ' + config.backgroundColor + ' 100%)' }}>
         <h1 className="text-2xl font-bold mb-3" style={{ color: config.titleColor, fontSize: '28px', lineHeight: '1.3' }}>

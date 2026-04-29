@@ -26,6 +26,7 @@ import {
 // Landing 场景模板
 import {
   LandingHomePage,
+  LandingPricingMobile,
 } from './templates'
 
 interface MobilePreviewProps {
@@ -46,6 +47,8 @@ export const MobilePreview = memo(function MobilePreview({ config, pageType, sce
     switch (pageType) {
       case 'home':
         return <LandingHomePage config={config} />
+      case 'pricing':
+        return <LandingPricingMobile config={config} />
       default:
         return <DefaultPage config={config} />
     }

@@ -21,3 +21,5 @@ export { ContentProfilePage } from './ContentProfilePage'
 
 // Landing 场景模板
 export { LandingHomePage } from './LandingHomePage'
+export { LandingPricingDesktop } from '../LandingPricingDesktop'
+export { LandingPricingMobile } from '../LandingPricingMobile'
