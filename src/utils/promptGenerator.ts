@@ -2,47 +2,79 @@ import type { StyleConfig } from '../types/config'
 import { radiusMap } from '../types/config'
 import type { TemplateConfig } from '../types/template'
 
-const colorNames: Record<string, string> = {
-  '#FFFFFF': '纯白',
-  '#F9F8F4': '暖沙',
-  '#FFFDF5': '淡黄',
-  '#F5FAF5': '淡绿',
-  '#2E7D32': '森林绿',
-  '#5F7D2E': '草绿',
-  '#2E7D67': '青绿',
-  '#000000': '纯黑',
+// 颜色命名辅助函数
+function getColorName(hex: string): string {
+  const colorNames: Record<string, string> = {
+    '#FFFFFF': '纯白',
+    '#F9F8F4': '暖沙',
+    '#FFFDF5': '淡黄',
+    '#F5FAF5': '淡绿',
+    '#2E7D32': '森林绿',
+    '#5F7D2E': '草绿',
+    '#2E7D67': '青绿',
+    '#000000': '纯黑',
+    '#333333': '深灰',
+    '#666666': '中灰',
+    '#1A1A1A': '墨黑',
+    '#52C41A': '亮绿',
+    '#FAAD14': '金黄',
+    '#FF4D4F': '亮红',
+    '#DC2626': '危险红',
+    '#D97706': '警告橙',
+    '#16A34A': '安全绿',
+  }
+  return colorNames[hex.toUpperCase()] || hex
 }
 
-const styleKeywords: Record<string, string[]> = {
-  '#F9F8F4': ['温暖', '舒适', '食品', '农业'],
-  '#FFFFFF': ['极简', '专业', '现代', '科技'],
-  '#FFFDF5': ['自然', '柔和', '温馨', '亲和'],
-  '#F5FAF5': ['清新', '医疗', '清洁', '健康'],
-  '#2E7D32': ['安全', '可靠', '自然', '信任'],
-  '#5F7D2E': ['自然', '有机', '健康', '活力'],
-  '#2E7D67': ['专业', '信任', '健康', '冷静'],
-  '#000000': ['高级', '极简', '克制', '专业'],
+// 风格关键词映射
+function getStyleKeywords(config: StyleConfig): string[] {
+  const keywords: string[] = []
+  
+  // 基于背景色
+  const bgKeywords: Record<string, string[]> = {
+    '#F9F8F4': ['温暖', '舒适', '食品', '农业'],
+    '#FFFFFF': ['极简', '专业', '现代', '科技'],
+    '#FFFDF5': ['自然', '柔和', '温馨', '亲和'],
+    '#F5FAF5': ['清新', '医疗', '清洁', '健康'],
+  }
+  keywords.push(...(bgKeywords[config.backgroundColor] || ['现代', '简洁']))
+  
+  // 基于主色
+  const primaryKeywords: Record<string, string[]> = {
+    '#2E7D32': ['安全', '可靠', '自然', '信任'],
+    '#5F7D2E': ['自然', '有机', '健康', '活力'],
+    '#2E7D67': ['专业', '信任', '健康', '冷静'],
+    '#000000': ['高级', '极简', '克制', '专业'],
+  }
+  keywords.push(...(primaryKeywords[config.primaryColor] || ['现代', '专业']))
+  
+  // 基于圆角
+  if (config.cornerRadius === 'large') keywords.push('圆润', '亲和')
+  else if (config.cornerRadius === 'small') keywords.push('锐利', '严谨')
+  
+  // 基于按钮样式
+  if (config.buttonStyle === 'gradient') keywords.push('渐变', '活力')
+  else if (config.buttonStyle === 'wireframe') keywords.push('线框', '克制')
+  
+  return [...new Set(keywords)].slice(0, 8)
 }
 
 export function generateAIPrompt(
   config: StyleConfig,
-  scene: string = '食品扫描小程序扫码结果页',
+  scene: string = '电商小程序',
   template?: TemplateConfig
 ): string {
-  const bgName = colorNames[config.backgroundColor] || config.backgroundColor
-  const primaryName = colorNames[config.primaryColor] || config.primaryColor
-  const keywords = [...(styleKeywords[config.backgroundColor] || []), ...(styleKeywords[config.primaryColor] || [])]
-  const uniqueKeywords = [...new Set(keywords)].slice(0, 6).join('、')
+  const bgName = getColorName(config.backgroundColor)
+  const primaryName = getColorName(config.primaryColor)
+  const keywords = getStyleKeywords(config).join('、')
 
   // 构建页面结构描述
   let structureSection = ''
-  if (template) {
+  if (template?.aiPrompt?.sections) {
     const structureContent = template.aiPrompt.sections
       .map((s) => `${s.heading}\n${s.content}`)
       .join('\n\n')
     structureSection = `\n## 页面结构\n${structureContent}`
-  } else {
-    structureSection = `\n## 组件要求\n1. 风险结论区: 大图标+标题+描述文字\n2. 产品信息卡: 名称+规格列表\n3. 成分分析表: 名称+描述+风险标签\n4. 底部操作栏: 收藏+确认食用按钮`
   }
 
   return `# UI设计配置提示词
@@ -50,23 +82,50 @@ export function generateAIPrompt(
 ## 项目背景
 设计一个${scene}
 
-## 配色方案
-- 页面底色: ${bgName}色 ${config.backgroundColor}
-- 主题色: ${primaryName}色 ${config.primaryColor}
-- 危险色: 红色 #DC2626 (用于警告/错误)
-- 警告色: 橙色 #D97706 (注意/提醒)
-- 安全色: 绿色 #16A34A (成功/通过)
+## 配色方案（10维）
+### 品牌色
+- 主色: ${primaryName} ${config.primaryColor}
+- 辅助色: ${getColorName(config.secondaryColor)} ${config.secondaryColor}
+- 强调色: ${getColorName(config.accentColor)} ${config.accentColor}
 
-## 设计规范
-- 圆角: ${radiusMap[config.cornerRadius]} (${config.cornerRadius === 'small' ? '小' : config.cornerRadius === 'medium' ? '中' : '大'}圆角, 用于按钮、卡片、标签)
-- 卡片: ${config.cardStyle === 'border' ? '边框样式' : config.cardStyle === 'shadow' ? '纯阴影样式' : '无边框无阴影,纯排版布局'}
-- 标题栏: ${config.titleBarStyle === 'white-underline' ? '纯白背景+下划线分割' : config.titleBarStyle === 'frosted-glass' ? '毛玻璃效果(背景模糊)' : '彩色底色(使用主题色)'}
-- 切换器: ${config.switcherStyle === 'underline' ? '下划线式,彩色文字' : config.switcherStyle === 'pill' ? '药丸容器,圆形背景' : '胶囊样式,带边框'}
-- 按钮: ${config.buttonStyle === 'gradient' ? '渐变背景(135度)' : config.buttonStyle === 'solid' ? '纯色填充(主题色)' : '线框样式(仅边框,无填充)'}
-- 标签: ${config.badgeStyle === 'rounded' ? '圆角底色(半透明背景+彩色文字)' : '纯文字(无背景)'}
+### 背景色
+- 页面底色: ${bgName} ${config.backgroundColor}
+- 卡片背景: ${getColorName(config.cardBackgroundColor)} ${config.cardBackgroundColor}
+
+### 文字色
+- 标题色: ${getColorName(config.titleColor)} ${config.titleColor}
+- 正文色: ${getColorName(config.textPrimary)} ${config.textPrimary}
+- 辅助色: ${getColorName(config.textSecondary)} ${config.textSecondary}
+
+### 语义色
+- 成功色: ${getColorName(config.successColor)} ${config.successColor}
+- 警告色: ${getColorName(config.warningColor)} ${config.warningColor}
+- 错误色: ${getColorName(config.errorColor)} ${config.errorColor}
+
+## 设计规范（15维）
+### 形状系统（6维）
+- 圆角: ${radiusMap[config.cornerRadius]} (${config.cornerRadius})
+- 卡片: ${config.cardStyle === 'border' ? '边框样式' : config.cardStyle === 'shadow' ? '阴影样式' : '无边框无阴影'}
+- 按钮: ${config.buttonStyle === 'gradient' ? '渐变背景' : config.buttonStyle === 'solid' ? '纯色填充' : '线框样式'}
+- 标签: ${config.badgeStyle === 'rounded' ? '圆角底色' : '纯文字'}
+- 标题栏: ${config.titleBarStyle === 'white-underline' ? '白色背景+下划线' : config.titleBarStyle === 'frosted-glass' ? '毛玻璃效果' : '彩色背景'}
+- 切换器: ${config.switcherStyle === 'underline' ? '下划线式' : config.switcherStyle === 'pill' ? '药丸形' : '胶囊形'}
+
+### 间距系统（4维）
+- 内边距: ${config.padding}
+- 卡片间距: ${config.cardGap}
+- 区块间距: ${config.sectionGap}
+- 元素间距: ${config.elementGap}
+
+### 文字排版（5维）
+- 标题装饰: ${config.titleStyle}
+- 标题大小: ${config.titleSize}
+- 标题字重: ${config.titleWeight}
+- 正文字号: ${config.bodySize}
+- 行高: ${config.lineHeight}
 ${structureSection}
 
 ## 风格关键词
-${uniqueKeywords}
+${keywords}
 `
 }

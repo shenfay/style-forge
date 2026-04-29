@@ -9,6 +9,7 @@ import { useDesignerState } from '../hooks/useDesignerState'
 import { encodeConfig } from '../utils/configEncoder'
 import { generateTailwindConfig, generateCSSVariables } from '../utils/tailwindGenerator'
 import { generateAIPrompt } from '../utils/promptGenerator'
+import { generateSkillDoc } from '../utils/skillGenerator'
 
 type ConfigSection = 'template' | 'colors' | 'shape' | 'spacing' | 'typography'
 
@@ -38,7 +39,7 @@ export default function DesignerPage() {
   const [showLeftPanel, setShowLeftPanel] = useState(true)
   const [activeSection, setActiveSection] = useState<ConfigSection>('template')
 
-  const handleExport = (type: 'tailwind' | 'css' | 'prompt') => {
+  const handleExport = (type: 'tailwind' | 'css' | 'prompt' | 'skill') => {
     let content = ''
     let filename = ''
     const mimeType = 'text/plain'
@@ -53,8 +54,15 @@ export default function DesignerPage() {
         filename = 'style-forge.css'
         break
       case 'prompt':
-        content = generateAIPrompt(config)
+        const sceneName = currentTemplate?.name || '设计配置'
+        content = generateAIPrompt(config, sceneName, currentTemplate || undefined)
         filename = 'ai-prompt.md'
+        break
+      case 'skill':
+        const sceneLabel = urlConfig.scene || 'ecommerce'
+        const deviceLabel = urlConfig.device || 'mobile'
+        content = generateSkillDoc(config, sceneLabel, deviceLabel, currentTemplate || undefined)
+        filename = 'design-spec.md'
         break
     }
 
@@ -188,10 +196,20 @@ export default function DesignerPage() {
                 导出
               </button>
               {showExport === 'menu' && (
-                <div className="absolute right-0 top-full mt-2 w-48 bg-white rounded-lg shadow-lg border py-2 z-50" style={{ borderColor: '#E5E4E0' }}>
+                <div className="absolute right-0 top-full mt-2 w-56 bg-white rounded-lg shadow-lg border py-2 z-50" style={{ borderColor: '#E5E4E0' }}>
+                  <div className="px-4 py-2 text-xs font-medium text-gray-500 uppercase tracking-wide">配置代码</div>
                   <button onClick={() => handleExport('tailwind')} className="w-full px-4 py-2 text-left text-sm hover:bg-gray-50 cursor-pointer">Tailwind 配置</button>
                   <button onClick={() => handleExport('css')} className="w-full px-4 py-2 text-left text-sm hover:bg-gray-50 cursor-pointer">CSS 变量</button>
-                  <button onClick={() => handleExport('prompt')} className="w-full px-4 py-2 text-left text-sm hover:bg-gray-50 cursor-pointer">AI 提示词</button>
+                  <div className="border-t my-2" style={{ borderColor: '#E5E4E0' }} />
+                  <div className="px-4 py-2 text-xs font-medium text-gray-500 uppercase tracking-wide">AI / LLM</div>
+                  <button onClick={() => handleExport('prompt')} className="w-full px-4 py-2 text-left text-sm hover:bg-gray-50 cursor-pointer">
+                    <div className="font-medium">AI 提示词</div>
+                    <div className="text-xs text-gray-500">快速对话使用</div>
+                  </button>
+                  <button onClick={() => handleExport('skill')} className="w-full px-4 py-2 text-left text-sm hover:bg-gray-50 cursor-pointer">
+                    <div className="font-medium">完整设计规范</div>
+                    <div className="text-xs text-gray-500">LLM 代码生成</div>
+                  </button>
                   <div className="border-t my-2" style={{ borderColor: '#E5E4E0' }} />
                   <button onClick={copyPrompt} className="w-full px-4 py-2 text-left text-sm hover:bg-gray-50 cursor-pointer">复制提示词</button>
                   <button onClick={copyPreviewLink} className="w-full px-4 py-2 text-left text-sm hover:bg-gray-50 cursor-pointer">复制预览链接</button>

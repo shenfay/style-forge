@@ -8,6 +8,7 @@ import { loadTemplates, findTemplate, type TemplateConfig } from './utils/templa
 import { encodeConfig } from './utils/configEncoder'
 import { generateTailwindConfig, generateCSSVariables } from './utils/tailwindGenerator'
 import { generateAIPrompt } from './utils/promptGenerator'
+import { generateSkillDoc } from './utils/skillGenerator'
 import type { SceneType, DeviceType, PageType } from './types/template'
 
 type ConfigSection = 'template' | 'colors' | 'shape' | 'spacing' | 'typography'
@@ -115,7 +116,7 @@ export default function App() {
     window.history.pushState({}, '', `${window.location.pathname}?${params.toString()}`)
   }
 
-  const handleExport = (type: 'tailwind' | 'css' | 'prompt') => {
+  const handleExport = (type: 'tailwind' | 'css' | 'prompt' | 'skill') => {
     let content = ''
     let filename = ''
     const mimeType = 'text/plain'
@@ -130,8 +131,15 @@ export default function App() {
         filename = 'style-forge.css'
         break
       case 'prompt':
-        content = generateAIPrompt(config)
+        const sceneName = currentTemplate?.name || '设计配置'
+        content = generateAIPrompt(config, sceneName, currentTemplate || undefined)
         filename = 'ai-prompt.md'
+        break
+      case 'skill':
+        const sceneLabel = urlConfig.scene || 'ecommerce'
+        const deviceLabel = urlConfig.device || 'mobile'
+        content = generateSkillDoc(config, sceneLabel, deviceLabel, currentTemplate || undefined)
+        filename = 'design-spec.md'
         break
     }
 
