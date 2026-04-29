@@ -3,21 +3,46 @@
  */
 
 import { Link } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useSEOMeta } from '../hooks/useSEOMeta'
 
 export default function HomePage() {
-  // SEO Meta
-  useEffect(() => {
-    document.title = 'Style Forge - 场景化 UI 设计配置器'
-    document.querySelector('meta[name="description"]')?.setAttribute(
-      'content',
-      '场景化 UI 设计配置器，在真实组件中预览效果，一键导出 Tailwind Config 和 AI 提示词。支持 6 大场景、13+ 模板，移动端/PC 端双端预览。'
-    )
-
-    return () => {
-      document.title = 'Style Forge - 场景化 UI 设计配置器'
-    }
-  }, [])
+  useSEOMeta({
+    title: 'Style Forge - 场景化 UI 设计配置器',
+    description:
+      '场景化 UI 设计配置器，在真实组件中预览效果，一键导出 Tailwind Config 和 AI 提示词。支持 6 大场景、13+ 模板，移动端/PC 端双端预览。',
+    robots: 'index, follow',
+    canonical: 'https://style.atmedia.fun',
+    og: {
+      title: 'Style Forge - 场景化 UI 设计配置器',
+      description: '在真实组件中预览 UI 效果，一键导出 Tailwind Config 和 AI 提示词',
+      image: 'https://style.atmedia.fun/og-image.png',
+      url: 'https://style.atmedia.fun',
+      type: 'website',
+    },
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'WebApplication',
+      name: 'Style Forge',
+      description:
+        '场景化 UI 设计配置器，在真实组件中预览效果，一键导出 Tailwind Config 和 AI 提示词',
+      url: 'https://style.atmedia.fun',
+      applicationCategory: 'DesignApplication',
+      operatingSystem: 'Any',
+      offers: {
+        '@type': 'Offer',
+        price: '0',
+        priceCurrency: 'USD',
+      },
+      featureList: [
+        '8维配置矩阵',
+        '双端预览（移动端+PC端）',
+        '6大场景13+模板',
+        'Tailwind Config 导出',
+        'AI 提示词导出',
+        'URL 参数分享',
+      ],
+    },
+  })
 
   return (
     <div className="min-h-screen bg-white">

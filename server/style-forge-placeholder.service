@@ -1,0 +1,16 @@
+[Unit]
+Description=Style Forge Placeholder Service
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+WorkingDirectory=/var/www/style.atmedia.fun
+ExecStart=/usr/bin/node /var/www/style.atmedia.fun/server/placeholder.mjs
+Restart=always
+RestartSec=5
+Environment=PLACEHOLDER_PORT=3001
+Environment=PLACEHOLDER_HOST=127.0.0.1
+
+[Install]
+WantedBy=multi-user.target

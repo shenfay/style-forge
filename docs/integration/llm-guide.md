@@ -48,7 +48,7 @@
 ### 基本格式
 
 ```
-https://style-forge.dev/preview?scene={scene}&device={device}&template={template}
+https://style.atmedia.fun/preview?scene={scene}&device={device}&template={template}
 ```
 
 ### 参数说明
@@ -76,13 +76,13 @@ https://style-forge.dev/preview?scene={scene}&device={device}&template={template
 
 ```
 # 电商商品详情页（移动端）
-https://style-forge.dev/preview?scene=ecommerce&device=mobile&template=detail
+https://style.atmedia.fun/preview?scene=ecommerce&device=mobile&template=detail
 
 # SaaS 数据看板（PC端）
-https://style-forge.dev/preview?scene=saas&device=desktop&template=home
+https://style.atmedia.fun/preview?scene=saas&device=desktop&template=home
 
 # 食品扫码结果页（移动端）
-https://style-forge.dev/preview?scene=food&device=mobile&template=result
+https://style.atmedia.fun/preview?scene=food&device=mobile&template=result
 ```
 
 ---
@@ -119,7 +119,7 @@ https://style-forge.dev/preview?scene=food&device=mobile&template=result
    - 表单页 → `form`
    - 设置页 → `settings`
    - 结果页 → `result`
-5. **生成预览链接** - 格式：`https://style-forge.dev/preview?scene={scene}&device={device}&template={template}`
+5. **生成预览链接** - 格式：`https://style.atmedia.fun/preview?scene={scene}&device={device}&template={template}`
 6. **引导用户** - 告诉用户先预览调整设计方向
 
 ## 示例对话
@@ -131,7 +131,7 @@ https://style-forge.dev/preview?scene=food&device=mobile&template=result
 
 请先打开以下链接，在 Style Forge 中预览设计方向：
 ```
-https://style-forge.dev/preview?scene=ecommerce&device=mobile&template=detail
+https://style.atmedia.fun/preview?scene=ecommerce&device=mobile&template=detail
 ```
 
 调整配色、圆角等配置直到满意后，点击「复制提示词」，然后粘贴给我，我会基于这个设计方向帮你生成代码。

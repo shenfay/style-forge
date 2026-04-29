@@ -10,6 +10,7 @@ import { encodeConfig } from '../utils/configEncoder'
 import { generateTailwindConfig, generateCSSVariables } from '../utils/tailwindGenerator'
 import { generateAIPrompt } from '../utils/promptGenerator'
 import { generateSkillDoc } from '../utils/skillGenerator'
+import { useSEOMeta } from '../hooks/useSEOMeta'
 
 type ConfigSection = 'template' | 'colors' | 'shape' | 'spacing' | 'typography'
 
@@ -34,6 +35,23 @@ export default function DesignerPage() {
     handleDeviceChange,
     handleTemplateChange,
   } = useDesignerState()
+
+  // SEO
+  const sceneName = urlConfig.scene === 'landing' ? 'Landing Page' : urlConfig.scene === 'content' ? '内容社区' : '电商'
+  const templateName = currentTemplate?.name || '设计配置'
+  useSEOMeta({
+    title: `编辑器 - Style Forge | ${templateName} 设计`,
+    description: `使用 Style Forge 场景化编辑器配置 ${sceneName} 场景的 ${templateName} 样式，实时预览效果，一键导出配置代码。`,
+    robots: 'index, follow',
+    canonical: 'https://style.atmedia.fun/designer/workbench',
+    og: {
+      title: `Style Forge 编辑器 - ${templateName}`,
+      description: `配置 ${sceneName} 场景的 ${templateName} 设计样式，支持 Tailwind/AI Prompt 导出。`,
+      image: 'https://style.atmedia.fun/og-image.png',
+      url: 'https://style.atmedia.fun/designer/workbench',
+      type: 'website',
+    },
+  })
   
   const [showExport, setShowExport] = useState<string | null>(null)
   const [showLeftPanel, setShowLeftPanel] = useState(true)

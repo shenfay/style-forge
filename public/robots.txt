@@ -1,0 +1,10 @@
+# Style Forge - Robots
+# 搜索引擎通过页面级别的 <meta name="robots"> 控制索引，robots.txt 仅做爬取限制
+
+User-agent: *
+Allow: /
+
+# 预览页面通过 noindex 标签控制，允许爬虫访问以便读取 meta 指令和跟踪链接
+# 编辑页和占位图页均可被索引
+
+Sitemap: https://style.atmedia.fun/sitemap.xml

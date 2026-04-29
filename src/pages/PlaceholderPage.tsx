@@ -20,6 +20,7 @@ import {
   downloadFile,
   copyImageToClipboard,
 } from '../utils/placeholderGenerator'
+import { useSEOMeta } from '../hooks/useSEOMeta'
 
 export default function PlaceholderPage() {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -76,18 +77,30 @@ export default function PlaceholderPage() {
   }, [config])
 
   // SEO Meta
-  useEffect(() => {
-    document.title = '占位图生成器 - Style Forge | 免费图片占位符工具'
-    document.querySelector('meta[name="description"]')?.setAttribute(
-      'content',
-      '免费在线占位图生成器，支持自定义尺寸、颜色、文字、圆角、边框，一键下载 PNG/JPG/WebP/SVG 格式。'
-    )
-
-    return () => {
-      // 恢复默认标题
-      document.title = 'Style Forge - 场景化 UI 设计配置器'
-    }
-  }, [])
+  useSEOMeta({
+    title: '占位图生成器 - Style Forge | 免费图片占位符工具',
+    description:
+      '免费在线占位图生成器，支持自定义尺寸、颜色、文字、圆角、边框，一键下载 PNG/JPG/WebP/SVG 格式。',
+    robots: 'index, follow',
+    canonical: 'https://style.atmedia.fun/placeholder/workbench',
+    og: {
+      title: '占位图生成器 - Style Forge',
+      description: '免费在线占位图生成器，自定义尺寸/颜色/文字，一键下载多种格式',
+      image: 'https://style.atmedia.fun/og-image.png',
+      url: 'https://style.atmedia.fun/placeholder/workbench',
+      type: 'website',
+    },
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'WebApplication',
+      name: 'Style Forge 占位图生成器',
+      description: '免费在线占位图生成器，支持自定义尺寸、颜色、文字、圆角、边框，一键下载 PNG/JPG/WebP/SVG 格式。',
+      url: 'https://style.atmedia.fun/placeholder/workbench',
+      applicationCategory: 'DesignApplication',
+      operatingSystem: 'Any',
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    },
+  })
 
   // 处理配置变更
   const handleConfigChange = (partial: Partial<PlaceholderConfig>) => {

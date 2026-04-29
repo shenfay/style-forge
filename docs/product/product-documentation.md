@@ -162,7 +162,7 @@
 ### URL 参数规范
 
 ```
-https://style-forge.dev/preview?scene={scene}&device={device}&template={template}&config={base64}
+https://style.atmedia.fun/preview?scene={scene}&device={device}&template={template}&config={base64}
 ```
 
 | 参数 | 必填 | 说明 | 可选值 |

@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://style-forge.dev/schema/style-config.json",
+  "$id": "https://style.atmedia.fun/schema/style-config.json",
   "title": "Style Forge Configuration Schema",
   "description": "Style Forge 完整数据模型定义，包含配置、组件库和模板",
   "version": "1.0.0",

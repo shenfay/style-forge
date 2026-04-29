@@ -11,6 +11,7 @@ import { decodeConfig } from '../utils/configEncoder'
 import type { StyleConfig } from '../types/config'
 import { findTemplate, loadTemplates, type TemplateConfig } from '../utils/templateLoader'
 import type { PageType, SceneType, DeviceType } from '../types/template'
+import { useSEOMeta } from '../hooks/useSEOMeta'
 
 export default function PreviewPage() {
   const [searchParams] = useSearchParams()
@@ -19,6 +20,27 @@ export default function PreviewPage() {
 
   // 从 URL 读取当前场景
   const scene = (searchParams.get('scene') || 'ecommerce') as SceneType
+  const templateType = (searchParams.get('template') || 'home') as PageType
+  const device = (searchParams.get('device') || 'desktop') as DeviceType
+
+  // SEO: noindex + canonical→编辑页
+  const sceneLabels: Record<string, string> = { ecommerce: '电商', landing: '落地页', content: '内容社区' }
+  const sceneLabel = sceneLabels[scene] || scene
+  const templateLabels: Record<string, string> = { home: '首页', list: '列表页', detail: '详情页', profile: '个人中心', settings: '设置页', form: '表单页', result: '结果页', messages: '消息页', landing: '首页', pricing: '定价页', 'content-home': '首页', 'content-detail': '详情页', 'content-profile': '个人中心' }
+  const templateLabel = templateLabels[templateType] || templateType
+  const canonicalUrl = `/designer/workbench?scene=${scene}&template=${templateType}&device=${device}`
+  useSEOMeta({
+    title: `预览 - ${sceneLabel}${templateLabel} | Style Forge`,
+    description: `Style Forge 设计预览：${sceneLabel}场景的${templateLabel}模板，包含色彩、形状、间距、排版等配置效果展示。`,
+    robots: 'noindex, follow',
+    canonical: canonicalUrl,
+    og: {
+      title: `${sceneLabel}${templateLabel} - Style Forge 设计预览`,
+      description: `查看 ${sceneLabel} 场景下 ${templateLabel} 模板的设计配置效果`,
+      image: 'https://style.atmedia.fun/og-image.png',
+      type: 'website',
+    },
+  })
 
   useEffect(() => {
     const load = async () => {
@@ -67,7 +89,6 @@ export default function PreviewPage() {
     )
   }
 
-  const device = (searchParams.get('device') || template.device || 'desktop') as DeviceType
   const finalConfig = config || {
     ...template.defaultStyle,
     // 添加缺失的默认值

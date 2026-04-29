@@ -7,6 +7,7 @@ import DesignerPage from './pages/DesignerPage.tsx'
 import PreviewPage from './pages/PreviewPage.tsx'
 import PlaceholderPage from './pages/PlaceholderPage.tsx'
 import PlaceholderImagePage from './pages/PlaceholderImagePage.tsx'
+import NotFoundPage from './pages/NotFoundPage.tsx'
 
 createRoot(document.querySelector('#root')!).render(
   <StrictMode>
@@ -25,6 +26,9 @@ createRoot(document.querySelector('#root')!).render(
         
         {/* 旧的预览路由（保留兼容） */}
         <Route path="/preview/:templateId" element={<PreviewPage />} />
+        
+        {/* 404 catch-all */}
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>,
