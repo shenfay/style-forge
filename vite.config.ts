@@ -52,6 +52,9 @@ function generateSvg(width: number, height: number, options: Record<string, stri
 
 // https://vite.dev/config/
 export default defineConfig({
+  server: {
+    allowedHosts: ['.atmedia.fun'],
+  },
   plugins: [react(), tailwindcss(), {
     name: 'placeholder-image',
     configureServer(server) {
