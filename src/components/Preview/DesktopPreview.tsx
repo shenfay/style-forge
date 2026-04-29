@@ -133,7 +133,7 @@ function HomePage({ config }: { config: StyleConfig }) {
         background: config.titleBarStyle === 'colored-bg' ? config.primaryColor : '#FFFFFF',
         borderBottom: config.titleBarStyle === 'white-underline' ? '1px solid #E5E5E5' : 'none',
       }}>
-        <div className="max-w-7xl mx-auto flex items-center justify-between gap-8">
+        <div className="mx-auto flex items-center justify-between gap-8">
           {/* Logo */}
           <div className="text-xl font-bold" style={{ color: config.titleBarStyle === 'colored-bg' ? '#FFFFFF' : '#1A1A1A' }}>
             Style Forge
@@ -175,7 +175,7 @@ function HomePage({ config }: { config: StyleConfig }) {
       </header>
 
       {/* 主内容区 */}
-      <main className="max-w-7xl mx-auto px-8 py-6">
+      <main className="mx-auto px-8 py-6">
         {/* 2-3. 左侧分类 + 右侧轮播图 */}
         <div className="flex gap-4 mb-6" style={{ height: '400px' }}>
           {/* 左侧分类导航 */}
@@ -446,7 +446,7 @@ function HomePage({ config }: { config: StyleConfig }) {
 
       {/* 10. 页脚 */}
       <footer className="px-8 py-12" style={{ borderTop: '1px solid #E5E5E5', background: '#FAFAFA' }}>
-        <div className="max-w-7xl mx-auto">
+        <div className="mx-auto">
           <div className="grid grid-cols-4 gap-8 mb-8">
             <div>
               <h4 className="text-base font-bold mb-4" style={{ color: colors.text.primary }}>关于我们</h4>
@@ -523,7 +523,7 @@ function DetailPage({ config }: { config: StyleConfig }) {
       </header>
 
       <main className="flex-1 overflow-y-auto">
-        <div className="max-w-6xl mx-auto px-8 py-6">
+        <div className="mx-auto px-8 py-6">
           {/* 商品主体：左图右信息 */}
           <div className="flex gap-8 mb-8">
             {/* 左侧商品图 */}
@@ -727,7 +727,7 @@ function ListPage({ config }: { config: StyleConfig }) {
       </header>
 
       <main className="flex-1 overflow-y-auto">
-        <div className="max-w-6xl mx-auto px-8 py-6">
+        <div className="mx-auto px-8 py-6">
           {/* 店铺分组 */}
           {[
             { name: 'Apple 官方旗舰店', items: [
@@ -869,7 +869,7 @@ function ProfilePage({ config }: { config: StyleConfig }) {
         <span className="text-lg font-semibold">个人中心</span>
       </header>
 
-      <main className="max-w-4xl mx-auto px-8 py-8">
+      <main className="mx-auto px-8 py-8">
         <div className="flex items-center gap-6 mb-8 p-6" style={{
           borderRadius: radius,
           background: '#FFFFFF',
@@ -936,7 +936,7 @@ function SettingsPage({ config }: { config: StyleConfig }) {
         <span className="text-lg font-semibold">设置</span>
       </header>
 
-      <main className="max-w-4xl mx-auto px-8 py-8 space-y-6">
+      <main className="mx-auto px-8 py-8 space-y-6">
         <div className="p-6" style={{
           borderRadius: radius,
           background: '#FFFFFF',

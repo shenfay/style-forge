@@ -25,7 +25,7 @@ export function ContentHomeDesktop({ config }: { config: StyleConfig }) {
   ]
 
   return (
-    <div className="flex gap-8 px-8 py-6 mx-auto" style={{ maxWidth: 1200, background: config.backgroundColor, minHeight: 'calc(100vh - 120px)' }}>
+    <div className="flex gap-8 px-8 py-6 mx-auto" style={{ background: config.backgroundColor, minHeight: 'calc(100vh - 120px)' }}>
       {/* 左侧 - 分类导航 */}
       <aside className="w-48 shrink-0">
         <div className="space-y-1 sticky top-6">
@@ -144,7 +144,7 @@ export function ContentDetailDesktop({ config }: { config: StyleConfig }) {
   const lineHeight = tokens.typography.lineHeight
 
   return (
-    <div className="flex gap-8 px-8 py-6 mx-auto" style={{ maxWidth: 1200, background: config.backgroundColor, minHeight: 'calc(100vh - 120px)' }}>
+    <div className="flex gap-8 px-8 py-6 mx-auto" style={{ background: config.backgroundColor, minHeight: 'calc(100vh - 120px)' }}>
       {/* 中间 - 文章正文 */}
       <main className="flex-1 min-w-0 max-w-3xl mx-auto">
         <div className="mb-4">
@@ -315,7 +315,7 @@ export function ContentProfileDesktop({ config }: { config: StyleConfig }) {
   ]
 
   return (
-    <div className="flex gap-8 px-8 py-6 mx-auto" style={{ maxWidth: 1200, background: config.backgroundColor, minHeight: 'calc(100vh - 120px)' }}>
+    <div className="flex gap-8 px-8 py-6 mx-auto" style={{ background: config.backgroundColor, minHeight: 'calc(100vh - 120px)' }}>
       {/* 左侧 - 作者信息卡片 */}
       <aside className="w-64 shrink-0">
         <div className="sticky top-6 p-6 rounded-lg border text-center" style={{ borderColor: colors.border.light }}>

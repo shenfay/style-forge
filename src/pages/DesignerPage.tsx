@@ -1,26 +1,16 @@
 import { useState } from 'react'
-import { useSearchParams, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { StyleConfigurator, SceneSelector, TemplateSelector } from '../components/Designer'
 import { MobilePreview } from '../components/Preview/MobilePreview'
 import { DesktopPreview } from '../components/Preview/DesktopPreview'
 import { defaultConfig, type StyleConfig } from '../types/config'
 import { useUrlConfig } from '../hooks/useUrlConfig'
 import { useDesignerState } from '../hooks/useDesignerState'
-import { loadTemplates, findTemplate, type TemplateConfig } from '../utils/templateLoader'
 import { encodeConfig } from '../utils/configEncoder'
 import { generateTailwindConfig, generateCSSVariables } from '../utils/tailwindGenerator'
 import { generateAIPrompt } from '../utils/promptGenerator'
-import type { SceneType, DeviceType, PageType } from '../types/template'
 
 type ConfigSection = 'template' | 'colors' | 'shape' | 'spacing' | 'typography'
-
-// 将 TemplateStyle 转换为完整的 StyleConfig
-function templateStyleToStyleConfig(templateStyle: any): StyleConfig {
-  return {
-    ...defaultConfig,
-    ...templateStyle,
-  }
-}
 
 const menuItems: Array<{ id: ConfigSection; name: string; icon: string }> = [
   { id: 'template', name: '模板选择', icon: '📋' },
@@ -31,7 +21,6 @@ const menuItems: Array<{ id: ConfigSection; name: string; icon: string }> = [
 ]
 
 export default function DesignerPage() {
-  const [searchParams, setSearchParams] = useSearchParams()
   const [urlConfig] = useUrlConfig()
   
   // 使用 Designer 状态管理 Hook
@@ -52,7 +41,7 @@ export default function DesignerPage() {
   const handleExport = (type: 'tailwind' | 'css' | 'prompt') => {
     let content = ''
     let filename = ''
-    let mimeType = 'text/plain'
+    const mimeType = 'text/plain'
 
     switch (type) {
       case 'tailwind':
@@ -242,7 +231,7 @@ export default function DesignerPage() {
           <main className="flex-1 overflow-auto flex items-start justify-center" style={{ backgroundColor: '#FFFFFF' }}>
             <div className="w-full flex items-start justify-center p-8">
               {urlConfig.device === 'desktop' ? (
-                <div className="w-full max-w-5xl bg-white rounded-lg shadow-2xl overflow-hidden border border-gray-200">
+                <div className="w-4/5 bg-white rounded-lg shadow-2xl overflow-hidden border border-gray-200">
                   <DesktopPreview 
                     config={config} 
                     pageType={currentTemplate?.type || 'home'}

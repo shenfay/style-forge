@@ -94,9 +94,9 @@ export default function PreviewPage() {
   return (
     <div className="h-screen flex items-start justify-center overflow-y-auto bg-white">
       {/* 预览内容 */}
-      <div className="relative py-8">
+      <div className="relative py-8 w-full flex justify-center">
         {device === 'desktop' ? (
-          <div className="w-full max-w-7xl bg-white rounded-lg shadow-2xl overflow-hidden border border-gray-200">
+          <div className="w-4/5 bg-white rounded-lg shadow-2xl overflow-hidden border border-gray-200">
             <DesktopPreview 
               config={finalConfig} 
               pageType={template.type || 'home'}

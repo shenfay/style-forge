@@ -118,7 +118,7 @@ export default function App() {
   const handleExport = (type: 'tailwind' | 'css' | 'prompt') => {
     let content = ''
     let filename = ''
-    let mimeType = 'text/plain'
+    const mimeType = 'text/plain'
 
     switch (type) {
       case 'tailwind':

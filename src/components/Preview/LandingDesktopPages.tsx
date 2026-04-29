@@ -10,7 +10,7 @@ interface LandingHomeDesktopProps {
   config: StyleConfig
 }
 
-const CONTAINER_MAX = 'max-w-6xl mx-auto'
+const CONTAINER_MAX = 'mx-auto'
 
 export const LandingHomeDesktop = memo(function LandingHomeDesktop({ config }: LandingHomeDesktopProps) {
   const tokens = generateComponentTokens(config)

@@ -8,7 +8,7 @@ import PreviewPage from './pages/PreviewPage.tsx'
 import PlaceholderPage from './pages/PlaceholderPage.tsx'
 import PlaceholderImagePage from './pages/PlaceholderImagePage.tsx'
 
-createRoot(document.getElementById('root')!).render(
+createRoot(document.querySelector('#root')!).render(
   <StrictMode>
     <BrowserRouter>
       <Routes>

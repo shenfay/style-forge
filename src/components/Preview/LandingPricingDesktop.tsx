@@ -10,7 +10,7 @@ interface LandingPricingDesktopProps {
   config: StyleConfig
 }
 
-const CONTAINER_MAX = 'max-w-6xl mx-auto'
+const CONTAINER_MAX = 'mx-auto'
 
 export const LandingPricingDesktop = memo(function LandingPricingDesktop({ config }: LandingPricingDesktopProps) {
   const tokens = generateComponentTokens(config)
