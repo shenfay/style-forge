@@ -32,12 +32,12 @@ function processTextTemplate(text, width, height) {
 }
 
 function generateSvg(width, height, options) {
-  const bgColor = options.bg || '#CCCCCC'
-  const textColor = options.text || '#666666'
+  const bgColor = options.bg ? (options.bg.startsWith('#') ? options.bg : `#${options.bg}`) : '#CCCCCC'
+  const textColor = options.text ? (options.text.startsWith('#') ? options.text : `#${options.text}`) : '#666666'
   const content = options.content || '{width}x{height}'
   const fontSize = parseInt(options.fontSize || '48', 10) + 'px'
   const radius = parseInt(options.radius || '0', 10)
-  const borderColor = options.borderColor || '#999999'
+  const borderColor = options.borderColor ? (options.borderColor.startsWith('#') ? options.borderColor : `#${options.borderColor}`) : '#999999'
   const borderWidth = parseFloat(options.borderWidth || '0')
 
   const displayText = processTextTemplate(content, width, height)
