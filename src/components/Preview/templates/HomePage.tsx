@@ -10,7 +10,7 @@ import { Card } from '../../UI/Card'
 import { Placeholder } from '../Placeholder'
 import { SectionHeader } from '../SectionHeader'
 import { ProductCard } from '../ProductCard'
-import { colors, fontWeight, getBorderRadius, shadows, generateComponentTokens } from '../../../utils/design-tokens'
+import { colors, fontWeight, getBorderRadius, shadows, generateComponentTokens } from '../../../utils/tokenResolver'
 
 interface HomePageProps {
   config: StyleConfig

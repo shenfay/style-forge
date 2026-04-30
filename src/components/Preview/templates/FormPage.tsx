@@ -6,7 +6,7 @@ import type { StyleConfig } from '../../../types/config'
 import { StatusBar } from '../../UI/StatusBar'
 import { NavBar } from '../../UI/NavBar'
 import { Card } from '../../UI/Card'
-import { colors, getBorderRadius } from '../../../utils/design-tokens'
+import { colors, getBorderRadius } from '../../../utils/tokenResolver'
 
 interface FormPageProps {
   config: StyleConfig

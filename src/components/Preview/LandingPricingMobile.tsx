@@ -4,7 +4,7 @@
 
 import { memo, useState } from 'react'
 import type { StyleConfig } from '../../types/config'
-import { getBorderRadius, generateComponentTokens, colors } from '../../utils/design-tokens'
+import { getBorderRadius, generateComponentTokens, colors } from '../../utils/tokenResolver'
 import { StatusBar } from '../UI/StatusBar'
 
 interface LandingPricingMobileProps {

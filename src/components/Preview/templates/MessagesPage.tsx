@@ -5,7 +5,7 @@
 import type { StyleConfig } from '../../../types/config'
 import { StatusBar } from '../../UI/StatusBar'
 import { NavBar } from '../../UI/NavBar'
-import { colors, generateComponentTokens } from '../../../utils/design-tokens'
+import { colors, generateComponentTokens } from '../../../utils/tokenResolver'
 
 interface MessagesPageProps {
   config: StyleConfig

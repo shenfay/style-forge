@@ -13,7 +13,7 @@ import {
   LandingHomeDesktop,
   LandingPricingDesktop,
 } from './LandingDesktopPages'
-import { colors, fontSize, fontWeight, shadows, withOpacity, generateComponentTokens } from '../../utils/design-tokens'
+import { colors, fontSize, fontWeight, shadows, withOpacity, generateComponentTokens } from '../../utils/tokenResolver'
 
 interface DesktopPreviewProps {
   config: StyleConfig

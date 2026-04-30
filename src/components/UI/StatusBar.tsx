@@ -1,4 +1,4 @@
-import { colors, fontSize } from '../../utils/design-tokens'
+import { colors, fontSize } from '../../utils/tokenResolver'
 
 interface StatusBarProps {
   time?: string

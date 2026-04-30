@@ -4,7 +4,7 @@
 
 import { memo } from 'react'
 import type { StyleConfig } from '../../types/config'
-import { getBorderRadius, generateComponentTokens, colors } from '../../utils/design-tokens'
+import { getBorderRadius, generateComponentTokens, colors } from '../../utils/tokenResolver'
 
 interface LandingHomeDesktopProps {
   config: StyleConfig

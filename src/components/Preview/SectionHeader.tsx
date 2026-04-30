@@ -1,5 +1,5 @@
 import type { StyleConfig } from '../../types/config'
-import { generateComponentTokens, getBorderRadius } from '../../utils/design-tokens'
+import { generateComponentTokens, getBorderRadius } from '../../utils/tokenResolver'
 
 interface SectionHeaderProps {
   config: StyleConfig

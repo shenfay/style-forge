@@ -1,5 +1,5 @@
 import type { StyleConfig } from '../../types/config'
-import { colors, getBorderRadius, shadows } from '../../utils/design-tokens'
+import { colors, getBorderRadius, shadows } from '../../utils/tokenResolver'
 
 interface CardProps {
   config: StyleConfig

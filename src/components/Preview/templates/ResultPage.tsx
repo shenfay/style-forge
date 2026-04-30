@@ -3,7 +3,7 @@
  */
 
 import type { StyleConfig } from '../../../types/config'
-import { generateComponentTokens } from '../../../utils/design-tokens'
+import { generateComponentTokens } from '../../../utils/tokenResolver'
 
 interface ResultPageProps {
   config: StyleConfig

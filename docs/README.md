@@ -144,7 +144,7 @@ style-forge/
 | `src/types/config.ts` | 配置类型定义（StyleConfig） |
 | `src/types/template.ts` | 模板类型定义（TemplateConfig） |
 | `src/tokens/` | 设计令牌系统（颜色/间距/圆角/阴影等） |
-| `src/utils/design-tokens.ts` | 设计令牌生成器（配置联动） |
+| `src/utils/tokenResolver.ts` | 令牌解析器（配置联动） |
 | `src/utils/templateLoader.ts` | 模板加载器 |
 | `src/utils/configEncoder.ts` | 配置编解码 |
 | `src/utils/promptGenerator.ts` | AI 提示词生成器 |

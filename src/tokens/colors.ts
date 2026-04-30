@@ -41,4 +41,7 @@ export const colors = {
   },
 } as const
 
+// 扩展色值（不在 gray 对象中以避免 TS 类型推断问题）
+export const gray25 = '#FCFCFC'
+
 export type ColorToken = typeof colors

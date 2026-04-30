@@ -8,7 +8,7 @@ import { Fragment } from 'react'
 import type { StyleConfig } from '../../../types/config'
 import { StatusBar } from '../../UI/StatusBar'
 import { Placeholder } from '../Placeholder'
-import { colors, fontSize, fontWeight, getBorderRadius, shadows, withOpacity, generateComponentTokens } from '../../../utils/design-tokens'
+import { colors, fontSize, fontWeight, getBorderRadius, shadows, withOpacity, generateComponentTokens } from '../../../utils/tokenResolver'
 
 interface ContentHomePageProps {
   config: StyleConfig

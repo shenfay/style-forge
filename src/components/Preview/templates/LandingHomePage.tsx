@@ -6,7 +6,7 @@ import { memo } from 'react'
 import type { StyleConfig } from '../../../types/config'
 import { SectionHeader } from '../SectionHeader'
 import { StatusBar } from '../../UI/StatusBar'
-import { getBorderRadius, generateComponentTokens } from '../../../utils/design-tokens'
+import { getBorderRadius, generateComponentTokens } from '../../../utils/tokenResolver'
 
 interface LandingHomePageProps {
   config: StyleConfig

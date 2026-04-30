@@ -1,103 +1,43 @@
 /**
- * 设计令牌系统
- * 统一管理颜色、圆角、间距、阴影等设计常量
+ * 设计令牌工具
+ * 提供令牌辅助函数和组件令牌生成器
+ * 所有基础令牌从 src/tokens/ 导入，保持单一数据源
  */
 
 // 颜色系统
-export const colors = {
-  // 中性色
-  white: '#FFFFFF',
-  black: '#000000',
-  gray: {
-    50: '#FAFAFA',
-    100: '#F5F5F5',
-    200: '#E5E5E5',
-    300: '#D4D4D4',
-    400: '#A3A3A3',
-    500: '#737373',
-    600: '#525252',
-    700: '#404040',
-    800: '#262626',
-    900: '#171717',
-  },
-  
-  // 文本色
-  text: {
-    primary: '#1A1A1A',
-    secondary: '#666666',
-    tertiary: '#999999',
-  },
-  
-  // 边框色
-  border: {
-    light: '#E5E5E5',
-    medium: '#D4D4D4',
-  },
-  
-  // 背景色
-  background: {
-    page: '#FAFAFA',
-    card: '#FFFFFF',
-  },
-} as const
+import { colors as _colors } from '../tokens/colors'
+export { _colors as colors }
+export type { ColorToken } from '../tokens/colors'
 
-// 圆角映射
-export const borderRadius = {
-  small: '6px',
-  medium: '12px',
-  large: '20px',
-  pill: '999px',
-} as const
+// 圆角系统
+import { borderRadius as _borderRadius } from '../tokens/border-radius'
+export { _borderRadius as borderRadius }
+export type { BorderRadiusToken } from '../tokens/border-radius'
 
 // 阴影系统
-export const shadows = {
-  sm: '0 1px 2px rgba(0,0,0,0.04)',
-  md: '0 2px 8px rgba(0,0,0,0.06)',
-  lg: '0 4px 12px rgba(0,0,0,0.08)',
-  xl: '0 8px 24px rgba(0,0,0,0.12)',
-  '2xl': '0 16px 48px rgba(0,0,0,0.16)',
-} as const
+import { shadows as _shadows } from '../tokens/shadows'
+export { _shadows as shadows }
+export type { ShadowToken } from '../tokens/shadows'
 
 // 间距系统
-export const spacing = {
-  xs: '4px',
-  sm: '8px',
-  md: '16px',
-  lg: '24px',
-  xl: '32px',
-  '2xl': '48px',
-  '3xl': '64px',
-} as const
+import { spacing as _spacing } from '../tokens/spacing'
+export { _spacing as spacing }
+export type { SpacingToken } from '../tokens/spacing'
 
-// 字体大小
-export const fontSize = {
-  xs: '10px',
-  sm: '11px',
-  base: '13px',
-  lg: '14px',
-  xl: '16px',
-  '2xl': '20px',
-  '3xl': '22px',
-} as const
-
-// 字体粗细
-export const fontWeight = {
-  normal: '400',
-  medium: '500',
-  semibold: '600',
-  bold: '700',
-} as const
+// 字体系统
+import { fontSize as _fontSize, fontWeight as _fontWeight, lineHeight as _lineHeight } from '../tokens/typography'
+export { _fontSize as fontSize, _fontWeight as fontWeight, _lineHeight as lineHeight }
+export type { FontSizeToken, FontWeightToken, LineHeightToken } from '../tokens/typography'
 
 // 过渡动画
-export const transitions = {
-  fast: '150ms cubic-bezier(0.4, 0, 0.2, 1)',
-  base: '200ms cubic-bezier(0.4, 0, 0.2, 1)',
-  slow: '300ms cubic-bezier(0.4, 0, 0.2, 1)',
-} as const
+import { transitions as _transitions } from '../tokens/transitions'
+export { _transitions as transitions }
+export type { TransitionToken } from '../tokens/transitions'
 
 // 辅助函数:获取圆角值
 export function getBorderRadius(size: 'small' | 'medium' | 'large'): string {
-  return borderRadius[size]
+  const mapping = { small: 'sm' as const, medium: 'md' as const, large: 'lg' as const }
+  return _borderRadius[mapping[size]]
 }
 
 // 辅助函数:生成主题色透明度
@@ -126,12 +66,12 @@ export const generateComponentTokens = (config: StyleConfig) => {
       borderRadius: getBorderRadius(config.cornerRadius as 'small' | 'medium' | 'large'),
       // 联动：大圆角时使用更强的阴影，增加视觉层次
       boxShadow: config.cardStyle === 'shadow' 
-        ? (isLargeShape ? shadows.lg : isCompactShape ? shadows.sm : shadows.md)
+        ? (isLargeShape ? _shadows.lg : isCompactShape ? _shadows.sm : _shadows.md)
         : 'none',
-      border: config.cardStyle === 'border' ? `1px solid ${colors.border.light}` : 'none',
-      backgroundColor: config.cardBackgroundColor || colors.background.card,
+      border: config.cardStyle === 'border' ? `1px solid ${_colors.border.light}` : 'none',
+      backgroundColor: config.cardBackgroundColor || _colors.background.card,
       // 联动：大圆角时增加内边距
-      padding: isLargeShape ? spacing.md : isCompactShape ? spacing.sm : spacing.sm,
+      padding: isLargeShape ? _spacing.md : isCompactShape ? _spacing.sm : _spacing.sm,
     },
     
     // Button 组件
@@ -143,25 +83,25 @@ export const generateComponentTokens = (config: StyleConfig) => {
         ? 'transparent'
         : config.primaryColor,
       border: config.buttonStyle === 'wireframe' ? `2px solid ${config.primaryColor}` : 'none',
-      color: config.buttonStyle === 'wireframe' ? config.primaryColor : colors.white,
+      color: config.buttonStyle === 'wireframe' ? config.primaryColor : _colors.white,
       // 联动：大圆角时增加按钮内边距，更饱满
       padding: isLargeShape ? '12px 24px' : isCompactShape ? '6px 12px' : '8px 16px',
       // 联动：根据字重配置调整按钮文字
-      fontWeight: config.titleWeight === 'bold' ? fontWeight.bold : fontWeight.medium,
+      fontWeight: config.titleWeight === 'bold' ? _fontWeight.bold : _fontWeight.medium,
     },
     
     // Tag/Badge 组件
     tag: {
-      borderRadius: config.badgeStyle === 'rounded' ? borderRadius.pill : borderRadius.small,
+      borderRadius: config.badgeStyle === 'rounded' ? _borderRadius.pill : _borderRadius.sm,
       backgroundColor: withOpacity(config.primaryColor, 0.1),
       color: config.primaryColor,
     },
     
     // SectionHeader 组件
     sectionHeader: {
-      titleSize: config.titleSize === 'small' ? fontSize.xl : config.titleSize === 'large' ? fontSize['3xl'] : fontSize['2xl'],
-      titleWeight: config.titleWeight === 'bold' ? fontWeight.bold : config.titleWeight === 'medium' ? fontWeight.semibold : fontWeight.medium,
-      titleColor: config.titleColor || colors.text.primary,
+      titleSize: config.titleSize === 'small' ? _fontSize.xl : config.titleSize === 'large' ? _fontSize['3xl'] : _fontSize['2xl'],
+      titleWeight: config.titleWeight === 'bold' ? _fontWeight.bold : config.titleWeight === 'medium' ? _fontWeight.semibold : _fontWeight.medium,
+      titleColor: config.titleColor || _colors.text.primary,
       decoration: config.titleStyle,
       // 联动：大标题时增加装饰线粗度和间距
       decorationThickness: config.titleSize === 'large' ? '4px' : '3px',
@@ -170,10 +110,10 @@ export const generateComponentTokens = (config: StyleConfig) => {
     
     // Typography 组件
     typography: {
-      bodySize: config.bodySize === 'small' ? fontSize.sm : config.bodySize === 'large' ? fontSize.lg : fontSize.base,
+      bodySize: config.bodySize === 'small' ? _fontSize.sm : config.bodySize === 'large' ? _fontSize.lg : _fontSize.base,
       lineHeight: config.lineHeight === 'compact' ? '1.4' : config.lineHeight === 'relaxed' ? '2.0' : '1.6',
       // 联动：宽松行高时增加段落间距
-      paragraphGap: config.lineHeight === 'relaxed' ? spacing.md : spacing.sm,
+      paragraphGap: config.lineHeight === 'relaxed' ? _spacing.md : _spacing.sm,
     },
     
     // 颜色系统

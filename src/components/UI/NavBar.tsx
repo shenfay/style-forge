@@ -1,6 +1,5 @@
 import type { StyleConfig } from '../../types/config'
-import { colors, fontSize, fontWeight } from '../../utils/design-tokens'
-import { createGradient, withOpacity } from '../../utils/design-tokens'
+import { colors, fontSize, fontWeight, createGradient, withOpacity } from '../../utils/tokenResolver'
 
 interface NavBarProps {
   config: StyleConfig

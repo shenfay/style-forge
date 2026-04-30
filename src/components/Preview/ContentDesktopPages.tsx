@@ -5,7 +5,7 @@
 
 import type { StyleConfig } from '../../types/config'
 import { Placeholder } from './Placeholder'
-import { colors, fontSize, fontWeight, getBorderRadius, withOpacity, generateComponentTokens } from '../../utils/design-tokens'
+import { colors, fontSize, fontWeight, getBorderRadius, withOpacity, generateComponentTokens } from '../../utils/tokenResolver'
 
 /* ==================== PC 内容首页 ==================== */
 

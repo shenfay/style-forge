@@ -105,7 +105,7 @@ StyleConfig {
 
 #### 2.2 配置联动机制
 
-**设计令牌系统** (`design-tokens.ts`):
+**设计令牌系统** (`tokenResolver.ts`):
 
 ```
 StyleConfig (用户配置)
@@ -184,11 +184,11 @@ URL 变化 → useUrlConfig Hook 解析 → 解码 Base64 → 更新 config stat
 | 工具文件 | 功能 | 主要函数 |
 |---------|------|---------|
 | `configEncoder.ts` | 配置编解码 | `encodeConfig()`, `decodeConfig()` |
-| `design-tokens.ts` | 设计令牌生成 | `generateComponentTokens()` |
+| `tokenResolver.ts` | 令牌解析器 | `generateComponentTokens()` |
 | `tailwindGenerator.ts` | Tailwind 配置生成 | `generateTailwindConfig()`, `generateCSSVariables()` |
 | `promptGenerator.ts` | AI 提示词生成 | `generateAIPrompt()` |
 | `templateLoader.ts` | 模板加载 | `loadTemplates()`, `findTemplate()` |
-| `config-helpers.ts` | 配置辅助函数 | 各种配置相关的辅助函数 |
+| `configHelpers.ts` | 配置辅助函数 | 各种配置相关的辅助函数 |
 
 #### 4.2 导出功能
 

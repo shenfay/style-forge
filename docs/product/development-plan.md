@@ -40,7 +40,7 @@
   - [x] URL 参数解析与生成（useUrlConfig Hook）
   - [x] 20 维配置面板完善（色彩/形状/间距/排版）
   - [x] 配置编解码（configEncoder）
-  - [x] 配置联动（design-tokens.ts）
+  - [x] 配置联动（tokenResolver.ts）
 
 - [x] **导出功能**
   - [x] AI 提示词导出（promptGenerator）

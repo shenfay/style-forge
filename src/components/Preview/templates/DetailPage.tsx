@@ -11,7 +11,7 @@ import { NavBar } from '../../UI/NavBar'
 import { Card } from '../../UI/Card'
 import { Placeholder } from '../Placeholder'
 import { ProductCard } from '../ProductCard'
-import { colors, fontSize, fontWeight, getBorderRadius, shadows, withOpacity, generateComponentTokens } from '../../../utils/design-tokens'
+import { colors, fontSize, fontWeight, getBorderRadius, shadows, withOpacity, generateComponentTokens } from '../../../utils/tokenResolver'
 
 interface DetailPageProps {
   config: StyleConfig

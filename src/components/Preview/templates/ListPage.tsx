@@ -9,7 +9,7 @@ import { StatusBar } from '../../UI/StatusBar'
 import { Card } from '../../UI/Card'
 import { Placeholder } from '../Placeholder'
 import { ProductCard } from '../ProductCard'
-import { colors, fontSize, fontWeight, getBorderRadius, generateComponentTokens } from '../../../utils/design-tokens'
+import { colors, fontSize, fontWeight, getBorderRadius, generateComponentTokens } from '../../../utils/tokenResolver'
 
 interface ListPageProps {
   config: StyleConfig

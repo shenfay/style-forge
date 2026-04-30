@@ -412,7 +412,7 @@ const DesktopPreview = ({ config, pageType }) => {
 ```tsx
 // src/components/Preview/NewComponent.tsx
 import type { StyleConfig } from '../../types/config'
-import { generateComponentTokens } from '../../utils/design-tokens'
+import { generateComponentTokens } from '../../utils/tokenResolver'
 
 interface NewComponentProps {
   config: StyleConfig
@@ -506,7 +506,7 @@ export const defaultConfig: StyleConfig = {
 **步骤 4**: 添加联动逻辑
 
 ```typescript
-// src/utils/design-tokens.ts
+// src/utils/tokenResolver.ts
 export const generateComponentTokens = (config: StyleConfig) => {
   return {
     // ... 现有令牌
