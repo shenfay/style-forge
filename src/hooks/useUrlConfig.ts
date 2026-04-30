@@ -63,7 +63,10 @@ function parseUrlParams(): UrlConfig {
   const encoded = params.get('config')
   if (encoded) {
     try {
-      config.config = decodeConfig(encoded)
+      const decoded = decodeConfig(encoded)
+      if (decoded) {
+        config.config = decoded
+      }
     } catch (e) {
       console.error('Failed to decode config from URL:', e)
     }

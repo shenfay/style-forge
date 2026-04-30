@@ -1,4 +1,4 @@
-import type { StyleConfig } from '../types/config'
+import { defaultConfig, type StyleConfig } from '../types/config'
 
 const paramMapping = {
   backgroundColor: 'bg',
@@ -68,13 +68,14 @@ export function decodeConfig(searchParams: string | URLSearchParams): StyleConfi
   const primary = params.get('primary')
 
   return {
+    ...defaultConfig,
     backgroundColor: bg ? `#${bg}` : '#F9F8F4',
     primaryColor: primary ? `#${primary}` : '#2E7D32',
-    cornerRadius: reverseValues.radius[params.get('radius') || ''] || 'medium',
-    cardStyle: reverseValues.card[params.get('card') || ''] || 'borderless',
-    titleBarStyle: reverseValues.title[params.get('title') || ''] || 'white-underline',
-    switcherStyle: reverseValues.switch[params.get('switch') || ''] || 'underline',
-    buttonStyle: reverseValues.button[params.get('button') || ''] || 'solid',
-    badgeStyle: reverseValues.badge[params.get('badge') || ''] || 'rounded',
+    cornerRadius: (reverseValues.radius[params.get('radius') || ''] as StyleConfig['cornerRadius']) || 'medium',
+    cardStyle: (reverseValues.card[params.get('card') || ''] as StyleConfig['cardStyle']) || 'borderless',
+    titleBarStyle: (reverseValues.title[params.get('title') || ''] as StyleConfig['titleBarStyle']) || 'white-underline',
+    switcherStyle: (reverseValues.switch[params.get('switch') || ''] as StyleConfig['switcherStyle']) || 'underline',
+    buttonStyle: (reverseValues.button[params.get('button') || ''] as StyleConfig['buttonStyle']) || 'solid',
+    badgeStyle: (reverseValues.badge[params.get('badge') || ''] as StyleConfig['badgeStyle']) || 'rounded',
   }
 }

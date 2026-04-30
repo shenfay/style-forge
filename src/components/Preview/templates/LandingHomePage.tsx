@@ -71,9 +71,9 @@ export const LandingHomePage = memo(function LandingHomePage({ config }: Landing
             { icon: '🔒', title: '安全可靠', desc: '企业级安全防护' },
           ].map((feature, i) => (
             <div key={i} className="p-3" style={{
+              ...tokens.card,
               background: config.cardBackgroundColor,
               borderRadius: radius,
-              ...tokens.card,
             }}>
               <div className="w-8 h-8 rounded-full flex items-center justify-center text-base mb-2" style={{
                 background: config.primaryColor + '15',
