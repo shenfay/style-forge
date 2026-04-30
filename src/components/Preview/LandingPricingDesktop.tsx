@@ -285,7 +285,7 @@ export const LandingPricingDesktop = memo(function LandingPricingDesktop({ confi
                     </tr>
                     {category.items.map((item, ii) => (
                       <tr key={`item-${ci}-${ii}`} style={{ 
-                        backgroundColor: ii % 2 === 0 ? colors.background.card : colors.gray[25],
+                        backgroundColor: ii % 2 === 0 ? colors.background.card : colors.gray['25'],
                       }}>
                         <td className="px-6 py-4 text-sm" style={{ color: tokens.colors.textPrimary }}>{item.feature}</td>
                         <td className="px-6 py-4 text-sm text-center" style={{ color: tokens.colors.textSecondary }}>{item.free}</td>
