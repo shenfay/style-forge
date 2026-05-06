@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { StyleConfigurator, SceneSelector, TemplateSelector } from '../components/Designer'
 import { MobilePreview } from '../components/Preview/MobilePreview'
 import { DesktopPreview } from '../components/Preview/DesktopPreview'
@@ -11,19 +12,22 @@ import { generateTailwindConfig, generateCSSVariables } from '../utils/tailwindG
 import { generateAIPrompt } from '../utils/promptGenerator'
 import { generateSkillDoc } from '../utils/skillGenerator'
 import { useSEOMeta } from '../hooks/useSEOMeta'
+import { LanguageSwitcher } from '../i18n/LanguageSwitcher'
 
 type ConfigSection = 'template' | 'colors' | 'shape' | 'spacing' | 'typography'
 
-const menuItems: Array<{ id: ConfigSection; name: string; icon: string }> = [
-  { id: 'template', name: '模板选择', icon: '📋' },
-  { id: 'colors', name: '色彩系统', icon: '🎨' },
-  { id: 'shape', name: '形状系统', icon: '◻' },
-  { id: 'spacing', name: '间距系统', icon: '📏' },
-  { id: 'typography', name: '文字排版', icon: '📝' },
-]
-
 export default function DesignerPage() {
+  const { t } = useTranslation('designer')
+  const { t: tc } = useTranslation('common')
   const [urlConfig] = useUrlConfig()
+
+  const menuItems: Array<{ id: ConfigSection; name: string; icon: string }> = [
+    { id: 'template', name: t('menu.templateSelect'), icon: '📋' },
+    { id: 'colors', name: t('menu.colorSystem'), icon: '🎨' },
+    { id: 'shape', name: t('menu.shapeSystem'), icon: '◻' },
+    { id: 'spacing', name: t('menu.spacingSystem'), icon: '📏' },
+    { id: 'typography', name: t('menu.typography'), icon: '📝' },
+  ]
   
   // 使用 Designer 状态管理 Hook
   const {
@@ -37,16 +41,16 @@ export default function DesignerPage() {
   } = useDesignerState()
 
   // SEO
-  const sceneName = urlConfig.scene === 'landing' ? 'Landing Page' : urlConfig.scene === 'content' ? '内容社区' : '电商'
+  const sceneName = urlConfig.scene === 'landing' ? 'Landing Page' : urlConfig.scene === 'content' ? t('sceneLabels.content') : t('sceneLabels.ecommerce')
   const templateName = currentTemplate?.name || '设计配置'
   useSEOMeta({
-    title: `编辑器 - Style Forge | ${templateName} 设计`,
-    description: `使用 Style Forge 场景化编辑器配置 ${sceneName} 场景的 ${templateName} 样式，实时预览效果，一键导出配置代码。`,
+    title: `${tc('nav.styleForge')} | ${templateName} - ${t('menu.templateSelect')}`,
+    description: `${tc('nav.styleForge')} ${sceneName} ${t('menu.templateSelect')}`,
     robots: 'index, follow',
     canonical: 'https://style.atmedia.fun/designer/workbench',
     og: {
-      title: `Style Forge 编辑器 - ${templateName}`,
-      description: `配置 ${sceneName} 场景的 ${templateName} 设计样式，支持 Tailwind/AI Prompt 导出。`,
+      title: `${tc('nav.styleForge')} - ${templateName}`,
+      description: `${sceneName} ${t('menu.templateSelect')}`,
       image: 'https://style.atmedia.fun/og-image.png',
       url: 'https://style.atmedia.fun/designer/workbench',
       type: 'website',
@@ -168,7 +172,7 @@ export default function DesignerPage() {
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
               </svg>
-              <span className="text-xs">移动</span>
+              <span className="text-xs">{tc('device.mobile')}</span>
             </button>
             <button
               onClick={() => handleDeviceChange('desktop')}
@@ -181,7 +185,7 @@ export default function DesignerPage() {
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
               </svg>
-              <span className="text-xs">桌面</span>
+              <span className="text-xs">{tc('device.desktop')}</span>
             </button>
           </div>
         </div>
@@ -191,7 +195,7 @@ export default function DesignerPage() {
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* 顶栏 - 简洁全局操作 */}
         <header className="h-15 flex items-center justify-end px-6 shrink-0 border-b" style={{ backgroundColor: '#FFFFFF', borderColor: '#E5E4E0' }}>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             {/* 预览按钮 */}
             {currentTemplate && (
               <Link
@@ -200,7 +204,7 @@ export default function DesignerPage() {
                 className="px-3 py-1.5 text-sm font-medium rounded-[10px] transition-colors"
                 style={{ color: '#242424', backgroundColor: '#F0F0F0' }}
               >
-                预览
+                {tc('actions.preview')}
               </Link>
             )}
             
@@ -211,29 +215,31 @@ export default function DesignerPage() {
                 className="px-3 py-1.5 text-sm font-medium rounded-[10px] transition-colors text-white" 
                 style={{ backgroundColor: '#373737' }}
               >
-                导出
+                {tc('actions.export')}
               </button>
               {showExport === 'menu' && (
                 <div className="absolute right-0 top-full mt-2 w-56 bg-white rounded-lg shadow-lg border py-2 z-50" style={{ borderColor: '#E5E4E0' }}>
-                  <div className="px-4 py-2 text-xs font-medium text-gray-500 uppercase tracking-wide">配置代码</div>
-                  <button onClick={() => handleExport('tailwind')} className="w-full px-4 py-2 text-left text-sm hover:bg-gray-50 cursor-pointer">Tailwind 配置</button>
-                  <button onClick={() => handleExport('css')} className="w-full px-4 py-2 text-left text-sm hover:bg-gray-50 cursor-pointer">CSS 变量</button>
+                  <div className="px-4 py-2 text-xs font-medium text-gray-500 uppercase tracking-wide">{t('export.configCode')}</div>
+                  <button onClick={() => handleExport('tailwind')} className="w-full px-4 py-2 text-left text-sm hover:bg-gray-50 cursor-pointer">{t('export.tailwindConfig')}</button>
+                  <button onClick={() => handleExport('css')} className="w-full px-4 py-2 text-left text-sm hover:bg-gray-50 cursor-pointer">{t('export.cssVariables')}</button>
                   <div className="border-t my-2" style={{ borderColor: '#E5E4E0' }} />
-                  <div className="px-4 py-2 text-xs font-medium text-gray-500 uppercase tracking-wide">AI / LLM</div>
+                  <div className="px-4 py-2 text-xs font-medium text-gray-500 uppercase tracking-wide">{t('export.aiLLM')}</div>
                   <button onClick={() => handleExport('prompt')} className="w-full px-4 py-2 text-left text-sm hover:bg-gray-50 cursor-pointer">
-                    <div className="font-medium">AI 提示词</div>
-                    <div className="text-xs text-gray-500">快速对话使用</div>
+                    <div className="font-medium">{t('export.aiPrompt')}</div>
+                    <div className="text-xs text-gray-500">{t('export.aiPromptDesc')}</div>
                   </button>
                   <button onClick={() => handleExport('skill')} className="w-full px-4 py-2 text-left text-sm hover:bg-gray-50 cursor-pointer">
-                    <div className="font-medium">完整设计规范</div>
-                    <div className="text-xs text-gray-500">LLM 代码生成</div>
+                    <div className="font-medium">{t('export.skillDoc')}</div>
+                    <div className="text-xs text-gray-500">{t('export.skillDocDesc')}</div>
                   </button>
                   <div className="border-t my-2" style={{ borderColor: '#E5E4E0' }} />
-                  <button onClick={copyPrompt} className="w-full px-4 py-2 text-left text-sm hover:bg-gray-50 cursor-pointer">复制提示词</button>
-                  <button onClick={copyPreviewLink} className="w-full px-4 py-2 text-left text-sm hover:bg-gray-50 cursor-pointer">复制预览链接</button>
+                  <button onClick={copyPrompt} className="w-full px-4 py-2 text-left text-sm hover:bg-gray-50 cursor-pointer">{t('export.copyPrompt')}</button>
+                  <button onClick={copyPreviewLink} className="w-full px-4 py-2 text-left text-sm hover:bg-gray-50 cursor-pointer">{t('export.copyPreviewLink')}</button>
                 </div>
               )}
             </div>
+            <div className="border-l h-5" style={{ borderColor: '#E5E4E0' }} />
+            <LanguageSwitcher />
           </div>
         </header>
 
@@ -298,7 +304,7 @@ export default function DesignerPage() {
                         <div className="flex items-center justify-center w-8 h-8 rounded-lg text-sm font-medium text-white" style={{ backgroundColor: '#373737' }}>
                           01
                         </div>
-                        <div className="text-base font-medium" style={{ color: '#242424' }}>场景</div>
+                        <div className="text-base font-medium" style={{ color: '#242424' }}>{t('templateSection.scene')}</div>
                       </div>
                     </div>
                     <SceneSelector
@@ -318,7 +324,7 @@ export default function DesignerPage() {
                           <div className="flex items-center justify-center w-8 h-8 rounded-lg text-sm font-medium text-white" style={{ backgroundColor: '#373737' }}>
                             02
                           </div>
-                          <div className="text-base font-medium" style={{ color: '#242424' }}>模板</div>
+                          <div className="text-base font-medium" style={{ color: '#242424' }}>{t('templateSection.template')}</div>
                         </div>
                       </div>
                       <TemplateSelector

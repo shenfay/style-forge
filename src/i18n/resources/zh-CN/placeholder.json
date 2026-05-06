@@ -1,0 +1,40 @@
+{
+  "config": {
+    "size": "尺寸",
+    "color": "颜色",
+    "text": "文字",
+    "style": "样式",
+    "format": "格式"
+  },
+  "size": {
+    "width": "宽度",
+    "height": "高度",
+    "label": "{width} × {height}"
+  },
+  "color": {
+    "bgColor": "背景色",
+    "textColor": "文字颜色",
+    "transparent": "透明",
+    "placeholder": "#CCCCCC 或 transparent",
+    "textPlaceholder": "#666666"
+  },
+  "text": {
+    "content": "内容（支持 {braceWidth} {braceHeight}）",
+    "fontSize": "字体大小：{size}px"
+  },
+  "style": {
+    "borderRadius": "圆角：{radius}px",
+    "borderWidth": "边框宽度：{width}px",
+    "borderColor": "边框颜色"
+  },
+  "sizePresets": {
+    "socialMedia": "社交媒体",
+    "deviceScreen": "设备屏幕",
+    "adSlots": "广告位",
+    "commonSizes": "常用尺寸"
+  },
+  "redirect": {
+    "message": "正在重定向到占位图生成器...",
+    "button": "前往占位图生成器"
+  }
+}

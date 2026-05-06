@@ -3,6 +3,7 @@
  */
 
 import React, { memo } from 'react'
+import { useTranslation } from 'react-i18next'
 import type { StyleConfig } from '../../../../types/config'
 import { SectionHeader, RangeSlider, VisualOptionGroup } from '../shared'
 
@@ -12,11 +13,12 @@ interface ShapeSectionProps {
 }
 
 export const ShapeSection = memo(function ShapeSection({ config, onChange }: ShapeSectionProps) {
+  const { t } = useTranslation('designer')
   return (
     <div>
       <SectionHeader
         number="02"
-        title="形状系统"
+        title={t('section.shape')}
         icon={
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ color: '#999999' }}>
             <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
@@ -25,22 +27,22 @@ export const ShapeSection = memo(function ShapeSection({ config, onChange }: Sha
       />
       <div className="space-y-6">
         <RangeSlider
-          label="圆角半径"
+          label={t('shape.cornerRadius')}
           options={[
             { label: '0', value: 'none' },
-            { label: '小 (4px)', value: 'small' },
-            { label: '中 (8px)', value: 'medium' },
-            { label: '大 (12px)', value: 'large' },
+            { label: `${t('spacing.small')} (4px)`, value: 'small' },
+            { label: `${t('spacing.medium_opt')} (8px)`, value: 'medium' },
+            { label: `${t('spacing.large')} (12px)`, value: 'large' },
           ]}
           value={config.cornerRadius}
           onChange={(value) => onChange('cornerRadius', value)}
         />
 
         <VisualOptionGroup
-          label="卡片样式"
+          label={t('shape.cardStyle')}
           options={[
             {
-              label: '边框',
+              label: t('shape.border'),
               value: 'border',
               preview: (
                 <svg width="32" height="24" viewBox="0 0 32 24">
@@ -49,7 +51,7 @@ export const ShapeSection = memo(function ShapeSection({ config, onChange }: Sha
               ),
             },
             {
-              label: '阴影',
+              label: t('shape.shadow'),
               value: 'shadow',
               preview: (
                 <svg width="32" height="24" viewBox="0 0 32 24">
@@ -63,7 +65,7 @@ export const ShapeSection = memo(function ShapeSection({ config, onChange }: Sha
               ),
             },
             {
-              label: '无边',
+              label: t('shape.borderless'),
               value: 'borderless',
               preview: (
                 <svg width="32" height="24" viewBox="0 0 32 24">
@@ -77,10 +79,10 @@ export const ShapeSection = memo(function ShapeSection({ config, onChange }: Sha
         />
 
         <VisualOptionGroup
-          label="按钮样式"
+          label={t('shape.buttonStyle')}
           options={[
             {
-              label: '渐变',
+              label: t('shape.gradient'),
               value: 'gradient',
               preview: (
                 <svg width="48" height="20" viewBox="0 0 48 20">
@@ -95,7 +97,7 @@ export const ShapeSection = memo(function ShapeSection({ config, onChange }: Sha
               ),
             },
             {
-              label: '纯色',
+              label: t('shape.solid'),
               value: 'solid',
               preview: (
                 <svg width="48" height="20" viewBox="0 0 48 20">
@@ -104,7 +106,7 @@ export const ShapeSection = memo(function ShapeSection({ config, onChange }: Sha
               ),
             },
             {
-              label: '线框',
+              label: t('shape.wireframe'),
               value: 'wireframe',
               preview: (
                 <svg width="48" height="20" viewBox="0 0 48 20">
@@ -118,10 +120,10 @@ export const ShapeSection = memo(function ShapeSection({ config, onChange }: Sha
         />
 
         <VisualOptionGroup
-          label="标签样式"
+          label={t('shape.badgeStyle')}
           options={[
             {
-              label: '圆角',
+              label: t('shape.rounded'),
               value: 'rounded',
               preview: (
                 <svg width="40" height="20" viewBox="0 0 40 20">
@@ -130,7 +132,7 @@ export const ShapeSection = memo(function ShapeSection({ config, onChange }: Sha
               ),
             },
             {
-              label: '文字',
+              label: t('shape.textOnly'),
               value: 'text-only',
               preview: (
                 <svg width="40" height="20" viewBox="0 0 40 20">
@@ -145,10 +147,10 @@ export const ShapeSection = memo(function ShapeSection({ config, onChange }: Sha
         />
 
         <VisualOptionGroup
-          label="标题栏样式"
+          label={t('shape.titleBarStyle')}
           options={[
             {
-              label: '下划线',
+              label: t('shape.underline'),
               value: 'white-underline',
               preview: (
                 <svg width="60" height="24" viewBox="0 0 60 24">
@@ -158,7 +160,7 @@ export const ShapeSection = memo(function ShapeSection({ config, onChange }: Sha
               ),
             },
             {
-              label: '毛玻璃',
+              label: t('shape.frostedGlass'),
               value: 'frosted-glass',
               preview: (
                 <svg width="60" height="24" viewBox="0 0 60 24">
@@ -167,7 +169,7 @@ export const ShapeSection = memo(function ShapeSection({ config, onChange }: Sha
               ),
             },
             {
-              label: '背景色',
+              label: t('shape.coloredBg'),
               value: 'colored-bg',
               preview: (
                 <svg width="60" height="24" viewBox="0 0 60 24">
@@ -181,10 +183,10 @@ export const ShapeSection = memo(function ShapeSection({ config, onChange }: Sha
         />
 
         <VisualOptionGroup
-          label="切换器样式"
+          label={t('shape.switcherStyle')}
           options={[
             {
-              label: '下划线',
+              label: t('shape.underline'),
               value: 'underline',
               preview: (
                 <svg width="60" height="20" viewBox="0 0 60 20">
@@ -194,7 +196,7 @@ export const ShapeSection = memo(function ShapeSection({ config, onChange }: Sha
               ),
             },
             {
-              label: '药丸',
+              label: t('shape.pill'),
               value: 'pill',
               preview: (
                 <svg width="60" height="20" viewBox="0 0 60 20">
@@ -204,7 +206,7 @@ export const ShapeSection = memo(function ShapeSection({ config, onChange }: Sha
               ),
             },
             {
-              label: '胶囊',
+              label: t('shape.capsule'),
               value: 'capsule',
               preview: (
                 <svg width="60" height="20" viewBox="0 0 60 20">

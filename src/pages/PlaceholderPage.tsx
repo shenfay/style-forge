@@ -4,6 +4,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { useSearchParams, Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { SizePresets } from '../components/Placeholder/SizePresets'
 import { ConfigPanel } from '../components/Placeholder/ConfigPanel'
 import { PreviewArea } from '../components/Placeholder/PreviewArea'
@@ -23,13 +24,14 @@ import {
 import { useSEOMeta } from '../hooks/useSEOMeta'
 
 export default function PlaceholderPage() {
+  const { t: tp } = useTranslation('placeholder')
+  const { t: tc } = useTranslation('common')
   const [searchParams, setSearchParams] = useSearchParams()
   const [config, setConfig] = useState<PlaceholderConfig>(defaultPlaceholderConfig)
   const [imageUrl, setImageUrl] = useState<string | null>(null)
   const [showNotification, setShowNotification] = useState<string | null>(null)
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
 
-  // 从 URL 加载配置
   useEffect(() => {
     const decoded = decodePlaceholderConfig(searchParams)
     if (Object.keys(decoded).length > 0) {
@@ -37,20 +39,16 @@ export default function PlaceholderPage() {
     }
   }, [searchParams])
 
-  // 生成占位图
   useEffect(() => {
     const generateImage = () => {
       if (config.format === 'svg') {
-        // SVG 格式
         const svg = generateSVG(config)
         const blob = new Blob([svg], { type: 'image/svg+xml' })
         const url = URL.createObjectURL(blob)
         setImageUrl(url)
       } else {
-        // Canvas 格式
         const canvas = generatePlaceholderCanvas(config)
         canvasRef.current = canvas
-        
         canvasToBlob(canvas, config.format).then((blob) => {
           if (blob) {
             const url = URL.createObjectURL(blob)
@@ -59,10 +57,7 @@ export default function PlaceholderPage() {
         })
       }
     }
-
     generateImage()
-
-    // 清理旧的 Blob URL
     return () => {
       if (imageUrl && imageUrl.startsWith('blob:')) {
         URL.revokeObjectURL(imageUrl)
@@ -70,49 +65,33 @@ export default function PlaceholderPage() {
     }
   }, [config])
 
-  // 同步配置到 URL
   useEffect(() => {
     const params = encodePlaceholderConfig(config)
     setSearchParams(new URLSearchParams(params), { replace: true })
   }, [config])
 
-  // SEO Meta
   useSEOMeta({
-    title: '占位图生成器 - Style Forge | 免费图片占位符工具',
-    description:
-      '免费在线占位图生成器，支持自定义尺寸、颜色、文字、圆角、边框，一键下载 PNG/JPG/WebP/SVG 格式。',
+    title: `${tp('config.sizePresets.commonSizes')} - ${tc('nav.placeholderGenerator')} | Style Forge`,
+    description: `${tc('nav.placeholderGenerator')} - Style Forge`,
     robots: 'index, follow',
     canonical: 'https://style.atmedia.fun/placeholder/workbench',
     og: {
-      title: '占位图生成器 - Style Forge',
-      description: '免费在线占位图生成器，自定义尺寸/颜色/文字，一键下载多种格式',
+      title: `${tc('nav.placeholderGenerator')} - Style Forge`,
+      description: `${tc('nav.placeholderGenerator')} - Style Forge`,
       image: 'https://style.atmedia.fun/og-image.png',
       url: 'https://style.atmedia.fun/placeholder/workbench',
       type: 'website',
     },
-    jsonLd: {
-      '@context': 'https://schema.org',
-      '@type': 'WebApplication',
-      name: 'Style Forge 占位图生成器',
-      description: '免费在线占位图生成器，支持自定义尺寸、颜色、文字、圆角、边框，一键下载 PNG/JPG/WebP/SVG 格式。',
-      url: 'https://style.atmedia.fun/placeholder/workbench',
-      applicationCategory: 'DesignApplication',
-      operatingSystem: 'Any',
-      offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
-    },
   })
 
-  // 处理配置变更
   const handleConfigChange = (partial: Partial<PlaceholderConfig>) => {
     setConfig((prev) => ({ ...prev, ...partial }))
   }
 
-  // 处理尺寸选择
   const handleSizeSelect = (width: number, height: number) => {
     setConfig((prev) => ({ ...prev, width, height }))
   }
 
-  // 下载图片
   const handleDownload = () => {
     if (config.format === 'svg') {
       const svg = generateSVG(config)
@@ -126,33 +105,29 @@ export default function PlaceholderPage() {
         }
       })
     }
-    showNotificationMessage('下载已开始')
+    showNotificationMessage(tc('notification.downloadStarted'))
   }
 
-  // 复制分享链接
   const handleCopyLink = async () => {
     const url = new URL(window.location.href)
     url.pathname = '/placeholder'
     await navigator.clipboard.writeText(url.toString())
-    showNotificationMessage('分享链接已复制到剪贴板')
+    showNotificationMessage(tc('notification.linkCopied'))
   }
 
-  // 复制图片到剪贴板
   const handleCopyImage = async () => {
     if (!canvasRef.current) {
       const canvas = generatePlaceholderCanvas(config)
       canvasRef.current = canvas
     }
-    
     const success = await copyImageToClipboard(canvasRef.current!)
     if (success) {
-      showNotificationMessage('图片已复制到剪贴板')
+      showNotificationMessage(tc('notification.imageCopied'))
     } else {
-      showNotificationMessage('复制失败，请尝试下载')
+      showNotificationMessage(tc('notification.copyFailed'))
     }
   }
 
-  // 显示通知
   const showNotificationMessage = (message: string) => {
     setShowNotification(message)
     setTimeout(() => setShowNotification(null), 2000)
@@ -160,15 +135,11 @@ export default function PlaceholderPage() {
 
   return (
     <div className="h-screen flex bg-gray-50">
-      {/* 左侧导航 */}
       <aside className="w-60 overflow-y-auto shrink-0 flex flex-col" style={{ backgroundColor: '#FAFAFA', borderRight: '1px solid #E5E4E0' }}>
-        {/* Logo - 点击回到首页 */}
         <Link to="/" className="p-4 flex items-center gap-3" style={{ backgroundColor: '#FAFAFA' }}>
           <img src="/favicon.svg" alt="" className="w-8 h-8" />
           <h1 className="text-base font-medium" style={{ color: '#09090B' }}>Style Forge</h1>
         </Link>
-        
-        {/* 预设尺寸库 */}
         <div className="flex-1 min-h-0">
           <SizePresets
             currentWidth={config.width}
@@ -178,43 +149,29 @@ export default function PlaceholderPage() {
         </div>
       </aside>
 
-      {/* 右侧大布局容器 */}
       <div className="flex-1 flex flex-col overflow-hidden">
-        {/* 顶栏 */}
         <header className="h-15 flex items-center justify-end px-6 shrink-0 border-b" style={{ backgroundColor: '#FFFFFF', borderColor: '#E5E4E0' }}>
           <div className="flex items-center gap-2">
             <button
-              onClick={() => {
-                if (imageUrl) {
-                  window.open(imageUrl, '_blank')
-                }
-              }}
+              onClick={() => { if (imageUrl) { window.open(imageUrl, '_blank') } }}
               className="px-3 py-1.5 text-sm font-medium rounded-[10px] cursor-pointer transition-colors"
               style={{ backgroundColor: '#F0F0F0', color: '#242424' }}
               disabled={!imageUrl}
             >
-              预览
+              {tc('actions.preview')}
             </button>
             <button
               onClick={handleDownload}
               className="px-3 py-1.5 text-sm font-medium rounded-[10px] text-white cursor-pointer transition-colors"
               style={{ backgroundColor: '#373737' }}
             >
-              下载
+              {tc('actions.download')}
             </button>
           </div>
         </header>
 
-        {/* 主体区域 */}
         <div className="flex-1 flex overflow-hidden">
-          {/* 中部预览 */}
-          <PreviewArea
-            imageUrl={imageUrl}
-            width={config.width}
-            height={config.height}
-          />
-
-          {/* 右侧配置面板 */}
+          <PreviewArea imageUrl={imageUrl} width={config.width} height={config.height} />
           <aside className="w-80 overflow-y-auto shrink-0 bg-white" style={{ borderLeft: '1px solid #E5E4E0' }}>
             <ConfigPanel
               config={config}
@@ -226,7 +183,6 @@ export default function PlaceholderPage() {
         </div>
       </div>
 
-      {/* 通知提示 */}
       {showNotification && (
         <div className="fixed bottom-8 left-1/2 -translate-x-1/2 px-6 py-3 bg-gray-900 text-white text-sm font-medium rounded-lg shadow-lg z-50">
           {showNotification}

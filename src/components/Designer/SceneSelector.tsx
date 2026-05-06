@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import type { SceneType, DeviceType, PageType } from '../../types/template'
 
 interface SceneSelectorProps {
@@ -9,17 +10,6 @@ interface SceneSelectorProps {
   onTemplateChange: (template: PageType) => void
 }
 
-const scenes: Array<{ id: SceneType; name: string; icon: string; description: string }> = [
-  { id: 'ecommerce', name: '电商零售', icon: '🛒', description: '商品、购物车、订单' },
-  { id: 'content', name: '内容平台', icon: '✍️', description: '文章、专栏、作者主页' },
-  { id: 'landing', name: '产品落地页', icon: '🚀', description: '产品介绍、定价、CTA' },
-]
-
-const deviceOptions: Array<{ id: DeviceType; name: string; icon: string }> = [
-  { id: 'mobile', name: '移动端', icon: '📱' },
-  { id: 'desktop', name: 'PC 端', icon: '💻' },
-]
-
 export function SceneSelector({
   selectedScene,
   selectedDevice,
@@ -28,6 +18,20 @@ export function SceneSelector({
   onDeviceChange,
   onTemplateChange,
 }: SceneSelectorProps) {
+  const { t } = useTranslation('designer')
+  const { t: tc } = useTranslation('common')
+
+  const scenes: Array<{ id: SceneType; name: string; icon: string; description: string }> = [
+    { id: 'ecommerce', name: t('sceneLabels.ecommerce'), icon: '🛒', description: t('sceneDescriptions.ecommerce') },
+    { id: 'content', name: t('sceneLabels.content'), icon: '✍️', description: t('sceneDescriptions.content') },
+    { id: 'landing', name: t('sceneLabels.landing'), icon: '🚀', description: t('sceneDescriptions.landing') },
+  ]
+
+  const deviceOptions: Array<{ id: DeviceType; name: string; icon: string }> = [
+    { id: 'mobile', name: tc('device.mobile'), icon: '📱' },
+    { id: 'desktop', name: tc('device.desktop'), icon: '💻' },
+  ]
+
   return (
     <div>
       {/* 场景选择 */}

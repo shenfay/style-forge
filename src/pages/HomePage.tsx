@@ -3,18 +3,23 @@
  */
 
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { useSEOMeta } from '../hooks/useSEOMeta'
+import { LanguageSwitcher } from '../i18n/LanguageSwitcher'
 
 export default function HomePage() {
+  const { t } = useTranslation('home')
+  const { t: tc } = useTranslation('common')
+
   useSEOMeta({
-    title: 'Style Forge - 场景化 UI 设计配置器',
+    title: `Style Forge - ${t('hero.title')}`,
     description:
-      '场景化 UI 设计配置器，在真实组件中预览效果，一键导出 Tailwind Config 和 AI 提示词。支持 6 大场景、13+ 模板，移动端/PC 端双端预览。',
+      `${t('hero.title')}，${t('hero.description')} ${t('hero.subDescription')}`,
     robots: 'index, follow',
     canonical: 'https://style.atmedia.fun',
     og: {
-      title: 'Style Forge - 场景化 UI 设计配置器',
-      description: '在真实组件中预览 UI 效果，一键导出 Tailwind Config 和 AI 提示词',
+      title: `Style Forge - ${t('hero.title')}`,
+      description: t('hero.description'),
       image: 'https://style.atmedia.fun/og-image.png',
       url: 'https://style.atmedia.fun',
       type: 'website',
@@ -24,7 +29,7 @@ export default function HomePage() {
       '@type': 'WebApplication',
       name: 'Style Forge',
       description:
-        '场景化 UI 设计配置器，在真实组件中预览效果，一键导出 Tailwind Config 和 AI 提示词',
+        `${t('hero.title')}，${t('hero.description')}`,
       url: 'https://style.atmedia.fun',
       applicationCategory: 'DesignApplication',
       operatingSystem: 'Any',
@@ -34,12 +39,12 @@ export default function HomePage() {
         priceCurrency: 'USD',
       },
       featureList: [
-        '8维配置矩阵',
-        '双端预览（移动端+PC端）',
-        '6大场景13+模板',
-        'Tailwind Config 导出',
-        'AI 提示词导出',
-        'URL 参数分享',
+        t('features.configMatrix.title'),
+        `${t('features.dualPreview.title')}`,
+        `${t('features.scenes.title')}`,
+        'Tailwind Config Export',
+        'AI Prompt Export',
+        'URL Parameter Sharing',
       ],
     },
   })
@@ -51,7 +56,7 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <img src="/favicon.svg" alt="" className="w-8 h-8" />
-            <span className="text-lg font-medium" style={{ color: '#09090B' }}>Style Forge</span>
+            <span className="text-lg font-medium" style={{ color: '#09090B' }}>{tc('nav.styleForge')}</span>
           </div>
           <div className="flex items-center gap-4">
             <a
@@ -59,15 +64,17 @@ export default function HomePage() {
               className="px-4 py-2 text-sm font-medium rounded-lg transition-colors"
               style={{ color: '#242424', backgroundColor: '#F0F0F0' }}
             >
-              占位图生成器
+              {tc('nav.placeholderGenerator')}
             </a>
             <Link
               to="/designer/workbench"
               className="px-5 py-2.5 text-sm font-medium rounded-lg text-white transition-colors"
               style={{ backgroundColor: '#373737' }}
             >
-              开始使用
+              {tc('nav.startUsing')}
             </Link>
+            <div className="border-l h-5" style={{ borderColor: '#E5E4E0' }} />
+            <LanguageSwitcher />
           </div>
         </div>
       </nav>
@@ -76,12 +83,12 @@ export default function HomePage() {
       <section className="py-24 px-6">
         <div className="max-w-5xl mx-auto text-center">
           <h1 className="text-5xl font-bold mb-6" style={{ color: '#09090B', lineHeight: '1.2' }}>
-            场景化 UI 设计配置器
+            {t('hero.title')}
           </h1>
           <p className="text-xl mb-10 max-w-2xl mx-auto" style={{ color: '#71717A', lineHeight: '1.6' }}>
-            在真实组件中预览设计效果，一键导出 Tailwind Config 和 AI 提示词。
+            {t('hero.description')}
             <br />
-            支持 6 大场景、13+ 模板，移动端/PC 端双端预览。
+            {t('hero.subDescription')}
           </p>
           <div className="flex items-center justify-center gap-4">
             <Link
@@ -89,14 +96,14 @@ export default function HomePage() {
               className="px-8 py-3.5 text-base font-medium rounded-lg text-white transition-all hover:shadow-lg"
               style={{ backgroundColor: '#373737' }}
             >
-              立即开始
+              {t('hero.cta')}
             </Link>
             <a
               href="#features"
               className="px-8 py-3.5 text-base font-medium rounded-lg transition-colors"
               style={{ color: '#242424', backgroundColor: '#F5F5F5' }}
             >
-              了解更多
+              {t('hero.secondary')}
             </a>
           </div>
         </div>
@@ -106,7 +113,7 @@ export default function HomePage() {
       <section id="features" className="py-20 px-6" style={{ backgroundColor: '#FAFAFA' }}>
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-16" style={{ color: '#09090B' }}>
-            核心功能
+            {t('features.title')}
           </h2>
           <div className="grid md:grid-cols-3 gap-8">
             {/* 功能 1 */}
@@ -116,9 +123,9 @@ export default function HomePage() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold mb-3" style={{ color: '#09090B' }}>8 维配置矩阵</h3>
+              <h3 className="text-xl font-semibold mb-3" style={{ color: '#09090B' }}>{t('features.configMatrix.title')}</h3>
               <p style={{ color: '#71717A', lineHeight: '1.6' }}>
-                从色彩、形状、间距到文字排版，全方位自定义你的设计系统，实时预览效果。
+                {t('features.configMatrix.description')}
               </p>
             </div>
 
@@ -129,9 +136,9 @@ export default function HomePage() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold mb-3" style={{ color: '#09090B' }}>双端预览</h3>
+              <h3 className="text-xl font-semibold mb-3" style={{ color: '#09090B' }}>{t('features.dualPreview.title')}</h3>
               <p style={{ color: '#71717A', lineHeight: '1.6' }}>
-                同时支持移动端和桌面端预览，确保设计在不同设备上的一致性。
+                {t('features.dualPreview.description')}
               </p>
             </div>
 
@@ -142,9 +149,9 @@ export default function HomePage() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold mb-3" style={{ color: '#09090B' }}>一键导出</h3>
+              <h3 className="text-xl font-semibold mb-3" style={{ color: '#09090B' }}>{t('features.oneClickExport.title')}</h3>
               <p style={{ color: '#71717A', lineHeight: '1.6' }}>
-                导出 Tailwind Config、CSS 变量和 AI 提示词，无缝对接你的开发流程。
+                {t('features.oneClickExport.description')}
               </p>
             </div>
 
@@ -157,9 +164,9 @@ export default function HomePage() {
                   <polyline points="21,15 16,10 5,21" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold mb-3" style={{ color: '#09090B' }}>占位图生成器</h3>
+              <h3 className="text-xl font-semibold mb-3" style={{ color: '#09090B' }}>{t('features.placeholder.title')}</h3>
               <p style={{ color: '#71717A', lineHeight: '1.6' }}>
-                快速生成自定义尺寸、颜色、样式的占位图片，支持 PNG/JPG/WebP/SVG 格式。
+                {t('features.placeholder.description')}
               </p>
             </div>
 
@@ -170,9 +177,9 @@ export default function HomePage() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold mb-3" style={{ color: '#09090B' }}>6 大场景</h3>
+              <h3 className="text-xl font-semibold mb-3" style={{ color: '#09090B' }}>{t('features.scenes.title')}</h3>
               <p style={{ color: '#71717A', lineHeight: '1.6' }}>
-                覆盖电商、数据面板、社交等主流场景，13+ 模板开箱即用。
+                {t('features.scenes.description')}
               </p>
             </div>
 
@@ -183,9 +190,9 @@ export default function HomePage() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold mb-3" style={{ color: '#09090B' }}>URL 分享</h3>
+              <h3 className="text-xl font-semibold mb-3" style={{ color: '#09090B' }}>{t('features.urlShare.title')}</h3>
               <p style={{ color: '#71717A', lineHeight: '1.6' }}>
-                通过 URL 参数分享你的设计配置，团队协作更轻松。
+                {t('features.urlShare.description')}
               </p>
             </div>
           </div>
@@ -196,7 +203,7 @@ export default function HomePage() {
       <section className="py-20 px-6">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-16" style={{ color: '#09090B' }}>
-            三步上手
+            {t('steps.title')}
           </h2>
           <div className="space-y-12">
             {/* 步骤 1 */}
@@ -205,9 +212,9 @@ export default function HomePage() {
                 1
               </div>
               <div>
-                <h3 className="text-xl font-semibold mb-2" style={{ color: '#09090B' }}>选择场景和模板</h3>
+                <h3 className="text-xl font-semibold mb-2" style={{ color: '#09090B' }}>{t('steps.step1.title')}</h3>
                 <p style={{ color: '#71717A', lineHeight: '1.6' }}>
-                  从 6 大场景中选择适合你的业务场景，然后挑选一个初始模板开始定制。
+                  {t('steps.step1.description')}
                 </p>
               </div>
             </div>
@@ -218,9 +225,9 @@ export default function HomePage() {
                 2
               </div>
               <div>
-                <h3 className="text-xl font-semibold mb-2" style={{ color: '#09090B' }}>实时预览调整</h3>
+                <h3 className="text-xl font-semibold mb-2" style={{ color: '#09090B' }}>{t('steps.step2.title')}</h3>
                 <p style={{ color: '#71717A', lineHeight: '1.6' }}>
-                  在右侧面板调整色彩、形状、间距等配置，中部预览区实时展示效果。
+                  {t('steps.step2.description')}
                 </p>
               </div>
             </div>
@@ -231,9 +238,9 @@ export default function HomePage() {
                 3
               </div>
               <div>
-                <h3 className="text-xl font-semibold mb-2" style={{ color: '#09090B' }}>导出配置</h3>
+                <h3 className="text-xl font-semibold mb-2" style={{ color: '#09090B' }}>{t('steps.step3.title')}</h3>
                 <p style={{ color: '#71717A', lineHeight: '1.6' }}>
-                  一键导出 Tailwind Config、CSS 变量或 AI 提示词，直接应用到你的项目中。
+                  {t('steps.step3.description')}
                 </p>
               </div>
             </div>
@@ -245,10 +252,10 @@ export default function HomePage() {
       <section className="py-20 px-6" style={{ backgroundColor: '#09090B' }}>
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-3xl font-bold mb-6 text-white">
-            准备好开始了吗？
+            {t('cta.title')}
           </h2>
           <p className="text-lg mb-10" style={{ color: '#A1A1AA' }}>
-            立即体验 Style Forge，快速构建你的设计系统。
+            {t('cta.description')}
           </p>
           <div className="flex items-center justify-center gap-4">
             <Link
@@ -256,14 +263,14 @@ export default function HomePage() {
               className="px-8 py-3.5 text-base font-medium rounded-lg bg-white transition-all hover:shadow-lg"
               style={{ color: '#09090B' }}
             >
-              开始使用
+              {t('cta.button')}
             </Link>
             <a
               href="/placeholder/workbench"
               className="px-8 py-3.5 text-base font-medium rounded-lg transition-colors"
               style={{ color: '#FFFFFF', backgroundColor: 'rgba(255,255,255,0.1)' }}
             >
-              占位图生成器
+              {t('cta.secondary')}
             </a>
           </div>
         </div>
@@ -277,7 +284,7 @@ export default function HomePage() {
             <span className="text-sm font-medium" style={{ color: '#09090B' }}>Style Forge</span>
           </div>
           <div className="text-sm" style={{ color: '#71717A' }}>
-            © 2026 Style Forge. All rights reserved.
+            {tc('footer.copyright')}
           </div>
         </div>
       </footer>

@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import type { TemplateConfig, PageType } from '../../types/template'
 
 interface TemplateSelectorProps {
@@ -7,9 +8,11 @@ interface TemplateSelectorProps {
 }
 
 export function TemplateSelector({ templates, selectedTemplate, onTemplateChange }: TemplateSelectorProps) {
+  const { t } = useTranslation('designer')
+
   if (templates.length === 0) {
     return (
-      <div className="text-sm" style={{ color: '#999999' }}>暂无可用模板</div>
+      <div className="text-sm" style={{ color: '#999999' }}>{t('templateSection.noTemplate')}</div>
     )
   }
 

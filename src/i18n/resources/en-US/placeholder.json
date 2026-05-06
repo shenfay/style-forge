@@ -1,0 +1,40 @@
+{
+  "config": {
+    "size": "Size",
+    "color": "Color",
+    "text": "Text",
+    "style": "Style",
+    "format": "Format"
+  },
+  "size": {
+    "width": "Width",
+    "height": "Height",
+    "label": "{width} × {height}"
+  },
+  "color": {
+    "bgColor": "Background Color",
+    "textColor": "Text Color",
+    "transparent": "Transparent",
+    "placeholder": "#CCCCCC or transparent",
+    "textPlaceholder": "#666666"
+  },
+  "text": {
+    "content": "Content (supports {braceWidth} {braceHeight})",
+    "fontSize": "Font Size: {size}px"
+  },
+  "style": {
+    "borderRadius": "Border Radius: {radius}px",
+    "borderWidth": "Border Width: {width}px",
+    "borderColor": "Border Color"
+  },
+  "sizePresets": {
+    "socialMedia": "Social Media",
+    "deviceScreen": "Device Screens",
+    "adSlots": "Ad Slots",
+    "commonSizes": "Common Sizes"
+  },
+  "redirect": {
+    "message": "Redirecting to placeholder generator...",
+    "button": "Go to Placeholder Generator"
+  }
+}

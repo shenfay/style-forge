@@ -3,6 +3,7 @@
  */
 
 import React, { memo } from 'react'
+import { useTranslation } from 'react-i18next'
 import type { StyleConfig } from '../../../../types/config'
 import { SectionHeader, ConfigItem } from '../shared'
 import { colors, borderRadius, fontSize } from '../../../../tokens'
@@ -13,6 +14,7 @@ interface TypographySectionProps {
 }
 
 export const TypographySection = memo(function TypographySection({ config, onChange }: TypographySectionProps) {
+  const { t } = useTranslation('designer')
   const updateConfig = (key: keyof StyleConfig, value: string) => {
     onChange(key, value)
   }
@@ -21,7 +23,7 @@ export const TypographySection = memo(function TypographySection({ config, onCha
     <div>
       <SectionHeader
         number="04"
-        title="文字排版"
+        title={t('section.typography')}
         icon={
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ color: '#999999' }}>
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h7" />
@@ -30,12 +32,12 @@ export const TypographySection = memo(function TypographySection({ config, onCha
       />
       <div className="space-y-6">
         {/* 标题字重 */}
-        <ConfigItem label="标题字重">
+        <ConfigItem label={t('typography.titleWeight')}>
           <div className="flex gap-2">
             {[
-              { label: '常规', value: 'normal' },
-              { label: '中等', value: 'medium' },
-              { label: '加粗', value: 'bold' },
+              { label: t('typography.titleWeightNormal'), value: 'normal' },
+              { label: t('typography.titleWeightMedium'), value: 'medium' },
+              { label: t('typography.titleWeightBold'), value: 'bold' },
             ].map((opt) => (
               <button
                 key={opt.value}
@@ -56,13 +58,13 @@ export const TypographySection = memo(function TypographySection({ config, onCha
         </ConfigItem>
 
         {/* 标题装饰 */}
-        <ConfigItem label="标题装饰">
+        <ConfigItem label={t('typography.titleDecoration')}>
           <div className="space-y-2">
             {[
-              { value: 'left-accent', label: '左侧装饰线', icon: '◀' },
-              { value: 'right-accent', label: '右侧装饰线', icon: '▶' },
-              { value: 'bottom-accent', label: '底部装饰线', icon: '▼' },
-              { value: 'plain', label: '无装饰', icon: '—' },
+              { value: 'left-accent', label: t('typography.titleDecorationLeft'), icon: '◀' },
+              { value: 'right-accent', label: t('typography.titleDecorationRight'), icon: '▶' },
+              { value: 'bottom-accent', label: t('typography.titleDecorationBottom'), icon: '▼' },
+              { value: 'plain', label: t('typography.titleDecorationNone'), icon: '—' },
             ].map((opt) => (
               <label
                 key={opt.value}
@@ -100,13 +102,13 @@ export const TypographySection = memo(function TypographySection({ config, onCha
         </ConfigItem>
 
         {/* 标题大小 */}
-        <ConfigItem label="标题大小">
+        <ConfigItem label={t('typography.titleSize')}>
           <div className="space-y-3">
             <div className="grid grid-cols-3 gap-2">
               {[
-                { label: '小', value: 'small', size: '14px' },
-                { label: '中', value: 'medium', size: '16px' },
-                { label: '大', value: 'large', size: '18px' },
+                { label: t('typography.titleSizeSmall'), value: 'small', size: '14px' },
+                { label: t('typography.titleSizeMedium'), value: 'medium', size: '16px' },
+                { label: t('typography.titleSizeLarge'), value: 'large', size: '18px' },
               ].map((opt) => (
                 <button
                   key={opt.value}
@@ -128,7 +130,7 @@ export const TypographySection = memo(function TypographySection({ config, onCha
         </ConfigItem>
 
         {/* 正文字号 */}
-        <ConfigItem label="正文字号">
+        <ConfigItem label={t('typography.bodySize')}>
           <select
             value={config.bodySize}
             onChange={(e) => updateConfig('bodySize', e.target.value)}
@@ -139,14 +141,14 @@ export const TypographySection = memo(function TypographySection({ config, onCha
               backgroundColor: colors.white,
             }}
           >
-            <option value="small">小 (12px)</option>
-            <option value="medium">中 (14px)</option>
-            <option value="large">大 (16px)</option>
+            <option value="small">{t('typography.bodySizeSmall')}</option>
+            <option value="medium">{t('typography.bodySizeMedium')}</option>
+            <option value="large">{t('typography.bodySizeLarge')}</option>
           </select>
         </ConfigItem>
 
         {/* 行高设置 */}
-        <ConfigItem label="行高设置">
+        <ConfigItem label={t('typography.lineHeight')}>
           <div className="flex items-center gap-3">
             <button
               onClick={() => {
@@ -172,7 +174,7 @@ export const TypographySection = memo(function TypographySection({ config, onCha
                 {{ compact: '1.3', medium: '1.5', relaxed: '1.8' }[config.lineHeight]}
               </div>
               <div style={{ fontSize: fontSize.sm, color: colors.text.tertiary }}>
-                {{ compact: '紧凑', medium: '适中', relaxed: '宽松' }[config.lineHeight]}
+                {{ compact: t('typography.lineHeightCompact'), medium: t('typography.lineHeightMedium'), relaxed: t('typography.lineHeightRelaxed') }[config.lineHeight]}
               </div>
             </div>
             <button

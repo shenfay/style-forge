@@ -6,28 +6,28 @@
 
 import { useEffect } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 export default function PlaceholderImagePage() {
+  const { t } = useTranslation('placeholder')
   const [searchParams] = useSearchParams()
   const navigate = useNavigate()
 
   useEffect(() => {
-    // 如果有 width 参数但中间件未处理（非开发环境），重定向到 workbench
     if (searchParams.has('width')) {
       navigate('/placeholder/workbench', { replace: true })
     }
   }, [searchParams, navigate])
 
-  // 无参数时，重定向到 workbench
   return (
     <div className="h-screen flex items-center justify-center bg-gray-100">
       <div className="text-center">
-        <p className="text-gray-600 mb-4">正在重定向到占位图生成器...</p>
+        <p className="text-gray-600 mb-4">{t('redirect.message')}</p>
         <a
           href="/placeholder/workbench"
           className="px-6 py-3 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors"
         >
-          前往占位图生成器
+          {t('redirect.button')}
         </a>
       </div>
     </div>

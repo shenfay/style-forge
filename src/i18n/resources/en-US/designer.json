@@ -1,0 +1,120 @@
+{
+  "menu": {
+    "templateSelect": "Template",
+    "colorSystem": "Colors",
+    "shapeSystem": "Shape",
+    "spacingSystem": "Spacing",
+    "typography": "Typography"
+  },
+  "templateSection": {
+    "scene": "Scene",
+    "template": "Template",
+    "noTemplate": "No templates available"
+  },
+  "export": {
+    "label": "Export",
+    "configCode": "Config Code",
+    "aiLLM": "AI / LLM",
+    "tailwindConfig": "Tailwind Config",
+    "cssVariables": "CSS Variables",
+    "aiPrompt": "AI Prompt",
+    "aiPromptDesc": "Quick chat usage",
+    "skillDoc": "Design Spec",
+    "skillDocDesc": "LLM code generation",
+    "copyPrompt": "Copy Prompt",
+    "copyPreviewLink": "Copy Preview Link"
+  },
+  "topBar": {
+    "project": "Project",
+    "edit": "Edit",
+    "view": "View",
+    "placeholderGenerator": "Placeholder Generator",
+    "preview": "Preview",
+    "export": "Export"
+  },
+  "section": {
+    "colors": "Color System",
+    "shape": "Shape System",
+    "spacing": "Spacing System",
+    "typography": "Typography"
+  },
+  "colors": {
+    "primaryColor": "Primary Color",
+    "backgroundColor": "Background Color",
+    "titleColor": "Title Color"
+  },
+  "shape": {
+    "cornerRadius": "Corner Radius",
+    "cardStyle": "Card Style",
+    "buttonStyle": "Button Style",
+    "badgeStyle": "Badge Style",
+    "titleBarStyle": "Title Bar Style",
+    "switcherStyle": "Switcher Style",
+    "border": "Border",
+    "shadow": "Shadow",
+    "borderless": "Borderless",
+    "gradient": "Gradient",
+    "solid": "Solid",
+    "wireframe": "Wireframe",
+    "rounded": "Rounded",
+    "textOnly": "Text Only",
+    "underline": "Underline",
+    "frostedGlass": "Frosted Glass",
+    "coloredBg": "Colored BG",
+    "pill": "Pill",
+    "capsule": "Capsule"
+  },
+  "spacing": {
+    "padding": "Padding",
+    "cardGap": "Card Gap",
+    "sectionGap": "Section Gap",
+    "elementGap": "Element Gap",
+    "compact": "Compact",
+    "medium": "Medium",
+    "relaxed": "Relaxed",
+    "small": "Small",
+    "medium_opt": "Medium",
+    "large": "Large"
+  },
+  "typography": {
+    "titleWeight": "Title Weight",
+    "titleWeightNormal": "Normal",
+    "titleWeightMedium": "Medium",
+    "titleWeightBold": "Bold",
+    "titleDecoration": "Title Decoration",
+    "titleDecorationLeft": "Left Accent",
+    "titleDecorationRight": "Right Accent",
+    "titleDecorationBottom": "Bottom Accent",
+    "titleDecorationNone": "None",
+    "titleSize": "Title Size",
+    "titleSizeSmall": "Small",
+    "titleSizeMedium": "Medium",
+    "titleSizeLarge": "Large",
+    "bodySize": "Body Size",
+    "bodySizeSmall": "Small (12px)",
+    "bodySizeMedium": "Medium (14px)",
+    "bodySizeLarge": "Large (16px)",
+    "lineHeight": "Line Height",
+    "lineHeightCompact": "Compact",
+    "lineHeightMedium": "Medium",
+    "lineHeightRelaxed": "Relaxed"
+  },
+  "sceneLabels": {
+    "ecommerce": "E-commerce",
+    "content": "Content Platform",
+    "landing": "Landing Page"
+  },
+  "deviceLabels": {
+    "mobile": "Mobile",
+    "desktop": "Desktop"
+  },
+  "sceneDescriptions": {
+    "ecommerce": "Products, cart, orders",
+    "content": "Articles, columns, author profiles",
+    "landing": "Product intro, pricing, CTA"
+  },
+  "previewToolbar": {
+    "dimensions": "1440 × 900",
+    "mobileDimensions": "375 × 812"
+  }
+}

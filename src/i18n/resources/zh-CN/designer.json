@@ -1,0 +1,120 @@
+{
+  "menu": {
+    "templateSelect": "模板选择",
+    "colorSystem": "色彩系统",
+    "shapeSystem": "形状系统",
+    "spacingSystem": "间距系统",
+    "typography": "文字排版"
+  },
+  "templateSection": {
+    "scene": "场景",
+    "template": "模板",
+    "noTemplate": "暂无可用模板"
+  },
+  "export": {
+    "label": "导出",
+    "configCode": "配置代码",
+    "aiLLM": "AI / LLM",
+    "tailwindConfig": "Tailwind 配置",
+    "cssVariables": "CSS 变量",
+    "aiPrompt": "AI 提示词",
+    "aiPromptDesc": "快速对话使用",
+    "skillDoc": "完整设计规范",
+    "skillDocDesc": "LLM 代码生成",
+    "copyPrompt": "复制提示词",
+    "copyPreviewLink": "复制预览链接"
+  },
+  "topBar": {
+    "project": "项目",
+    "edit": "编辑",
+    "view": "视图",
+    "placeholderGenerator": "占位图生成器",
+    "preview": "预览",
+    "export": "导出"
+  },
+  "section": {
+    "colors": "色彩系统",
+    "shape": "形状系统",
+    "spacing": "间距系统",
+    "typography": "文字排版"
+  },
+  "colors": {
+    "primaryColor": "主色",
+    "backgroundColor": "背景色",
+    "titleColor": "标题颜色"
+  },
+  "shape": {
+    "cornerRadius": "圆角半径",
+    "cardStyle": "卡片样式",
+    "buttonStyle": "按钮样式",
+    "badgeStyle": "标签样式",
+    "titleBarStyle": "标题栏样式",
+    "switcherStyle": "切换器样式",
+    "border": "边框",
+    "shadow": "阴影",
+    "borderless": "无边",
+    "gradient": "渐变",
+    "solid": "纯色",
+    "wireframe": "线框",
+    "rounded": "圆角",
+    "textOnly": "文字",
+    "underline": "下划线",
+    "frostedGlass": "毛玻璃",
+    "coloredBg": "背景色",
+    "pill": "药丸",
+    "capsule": "胶囊"
+  },
+  "spacing": {
+    "padding": "内边距",
+    "cardGap": "卡片间距",
+    "sectionGap": "区块间距",
+    "elementGap": "元素间距",
+    "compact": "紧凑",
+    "medium": "适中",
+    "relaxed": "宽松",
+    "small": "小",
+    "medium_opt": "中",
+    "large": "大"
+  },
+  "typography": {
+    "titleWeight": "标题字重",
+    "titleWeightNormal": "常规",
+    "titleWeightMedium": "中等",
+    "titleWeightBold": "加粗",
+    "titleDecoration": "标题装饰",
+    "titleDecorationLeft": "左侧装饰线",
+    "titleDecorationRight": "右侧装饰线",
+    "titleDecorationBottom": "底部装饰线",
+    "titleDecorationNone": "无装饰",
+    "titleSize": "标题大小",
+    "titleSizeSmall": "小",
+    "titleSizeMedium": "中",
+    "titleSizeLarge": "大",
+    "bodySize": "正文字号",
+    "bodySizeSmall": "小 (12px)",
+    "bodySizeMedium": "中 (14px)",
+    "bodySizeLarge": "大 (16px)",
+    "lineHeight": "行高设置",
+    "lineHeightCompact": "紧凑",
+    "lineHeightMedium": "适中",
+    "lineHeightRelaxed": "宽松"
+  },
+  "sceneLabels": {
+    "ecommerce": "电商零售",
+    "content": "内容平台",
+    "landing": "产品落地页"
+  },
+  "deviceLabels": {
+    "mobile": "移动",
+    "desktop": "桌面"
+  },
+  "sceneDescriptions": {
+    "ecommerce": "商品、购物车、订单",
+    "content": "文章、专栏、作者主页",
+    "landing": "产品介绍、定价、CTA"
+  },
+  "previewToolbar": {
+    "dimensions": "1440 × 900",
+    "mobileDimensions": "375 × 812"
+  }
+}

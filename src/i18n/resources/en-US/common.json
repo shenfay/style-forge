@@ -1,0 +1,34 @@
+{
+  "nav": {
+    "styleForge": "Style Forge",
+    "placeholderGenerator": "Placeholder Generator",
+    "startUsing": "Get Started",
+    "learnMore": "Learn More",
+    "getStarted": "Start Now"
+  },
+  "actions": {
+    "preview": "Preview",
+    "export": "Export",
+    "download": "Download",
+    "copyLink": "Copy Link",
+    "copyImage": "Copy Image"
+  },
+  "device": {
+    "mobile": "Mobile",
+    "desktop": "Desktop"
+  },
+  "scene": {
+    "ecommerce": "E-commerce",
+    "content": "Content Platform",
+    "landing": "Landing Page"
+  },
+  "footer": {
+    "copyright": "© 2026 Style Forge. All rights reserved."
+  },
+  "notification": {
+    "downloadStarted": "Download started",
+    "linkCopied": "Share link copied to clipboard",
+    "imageCopied": "Image copied to clipboard",
+    "copyFailed": "Copy failed, please try downloading"
+  }
+}

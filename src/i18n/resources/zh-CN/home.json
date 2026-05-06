@@ -1,0 +1,57 @@
+{
+  "hero": {
+    "title": "场景化 UI 设计配置器",
+    "description": "在真实组件中预览设计效果，一键导出 Tailwind Config 和 AI 提示词。",
+    "subDescription": "支持 6 大场景、13+ 模板，移动端/PC 端双端预览。",
+    "cta": "立即开始",
+    "secondary": "了解更多"
+  },
+  "features": {
+    "title": "核心功能",
+    "configMatrix": {
+      "title": "8 维配置矩阵",
+      "description": "从色彩、形状、间距到文字排版，全方位自定义你的设计系统，实时预览效果。"
+    },
+    "dualPreview": {
+      "title": "双端预览",
+      "description": "同时支持移动端和桌面端预览，确保设计在不同设备上的一致性。"
+    },
+    "oneClickExport": {
+      "title": "一键导出",
+      "description": "导出 Tailwind Config、CSS 变量和 AI 提示词，无缝对接你的开发流程。"
+    },
+    "placeholder": {
+      "title": "占位图生成器",
+      "description": "快速生成自定义尺寸、颜色、样式的占位图片，支持 PNG/JPG/WebP/SVG 格式。"
+    },
+    "scenes": {
+      "title": "6 大场景",
+      "description": "覆盖电商、数据面板、社交等主流场景，13+ 模板开箱即用。"
+    },
+    "urlShare": {
+      "title": "URL 分享",
+      "description": "通过 URL 参数分享你的设计配置，团队协作更轻松。"
+    }
+  },
+  "steps": {
+    "title": "三步上手",
+    "step1": {
+      "title": "选择场景和模板",
+      "description": "从 6 大场景中选择适合你的业务场景，然后挑选一个初始模板开始定制。"
+    },
+    "step2": {
+      "title": "实时预览调整",
+      "description": "在右侧面板调整色彩、形状、间距等配置，中部预览区实时展示效果。"
+    },
+    "step3": {
+      "title": "导出配置",
+      "description": "一键导出 Tailwind Config、CSS 变量或 AI 提示词，直接应用到你的项目中。"
+    }
+  },
+  "cta": {
+    "title": "准备好开始了吗？",
+    "description": "立即体验 Style Forge，快速构建你的设计系统。",
+    "button": "开始使用",
+    "secondary": "占位图生成器"
+  }
+}

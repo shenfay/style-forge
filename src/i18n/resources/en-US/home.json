@@ -1,0 +1,57 @@
+{
+  "hero": {
+    "title": "Scenario-based UI Design Configurator",
+    "description": "Preview design effects in real components, export Tailwind Config and AI prompts in one click.",
+    "subDescription": "6 scenarios, 13+ templates, mobile/desktop dual preview.",
+    "cta": "Start Now",
+    "secondary": "Learn More"
+  },
+  "features": {
+    "title": "Core Features",
+    "configMatrix": {
+      "title": "8-dim Config Matrix",
+      "description": "From colors, shapes, spacing to typography, fully customize your design system with real-time preview."
+    },
+    "dualPreview": {
+      "title": "Dual-Device Preview",
+      "description": "Simultaneously preview on mobile and desktop to ensure design consistency across devices."
+    },
+    "oneClickExport": {
+      "title": "One-Click Export",
+      "description": "Export Tailwind Config, CSS variables and AI prompts, seamlessly integrate into your development workflow."
+    },
+    "placeholder": {
+      "title": "Placeholder Generator",
+      "description": "Quickly generate placeholder images with custom size, color, and style. Supports PNG/JPG/WebP/SVG formats."
+    },
+    "scenes": {
+      "title": "6 Scenarios",
+      "description": "Covering e-commerce, dashboards, social media and more, 13+ templates ready to use."
+    },
+    "urlShare": {
+      "title": "URL Sharing",
+      "description": "Share your design config via URL parameters for easy team collaboration."
+    }
+  },
+  "steps": {
+    "title": "Get Started in 3 Steps",
+    "step1": {
+      "title": "Choose Scene & Template",
+      "description": "Select from 6 scenarios that fit your business, then pick a starting template to customize."
+    },
+    "step2": {
+      "title": "Real-time Preview & Tweak",
+      "description": "Adjust colors, shapes, spacing in the right panel, see instant results in the center preview area."
+    },
+    "step3": {
+      "title": "Export Config",
+      "description": "Export Tailwind Config, CSS variables or AI prompts in one click, apply directly to your project."
+    }
+  },
+  "cta": {
+    "title": "Ready to get started?",
+    "description": "Try Style Forge now and build your design system quickly.",
+    "button": "Get Started",
+    "secondary": "Placeholder Generator"
+  }
+}

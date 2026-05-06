@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import { StyleConfigurator, SceneSelector, TemplateSelector } from './components/Designer'
 import { MobilePreview } from './components/Preview/MobilePreview'
 import { DesktopPreview } from './components/Preview/DesktopPreview'
@@ -9,27 +10,18 @@ import { encodeConfig } from './utils/configEncoder'
 import { generateTailwindConfig, generateCSSVariables } from './utils/tailwindGenerator'
 import { generateAIPrompt } from './utils/promptGenerator'
 import { generateSkillDoc } from './utils/skillGenerator'
+import { LanguageSwitcher } from './i18n/LanguageSwitcher'
 import type { SceneType, DeviceType, PageType } from './types/template'
 
 type ConfigSection = 'template' | 'colors' | 'shape' | 'spacing' | 'typography'
 
-// 将 TemplateStyle 转换为完整的 StyleConfig
 function templateStyleToStyleConfig(templateStyle: any): StyleConfig {
-  return {
-    ...defaultConfig,
-    ...templateStyle,
-  }
+  return { ...defaultConfig, ...templateStyle }
 }
 
-const menuItems: Array<{ id: ConfigSection; name: string; icon: string }> = [
-  { id: 'template', name: '模板选择', icon: '📋' },
-  { id: 'colors', name: '色彩系统', icon: '🎨' },
-  { id: 'shape', name: '形状系统', icon: '◻' },
-  { id: 'spacing', name: '间距系统', icon: '📏' },
-  { id: 'typography', name: '文字排版', icon: '📝' },
-]
-
 export default function App() {
+  const { t } = useTranslation('designer')
+  const { t: tc } = useTranslation('common')
   const [urlConfig] = useUrlConfig()
   const [config, setConfig] = useState<StyleConfig>(defaultConfig)
   const [showExport, setShowExport] = useState<string | null>(null)
@@ -38,23 +30,26 @@ export default function App() {
   const [showLeftPanel, setShowLeftPanel] = useState(true)
   const [activeSection, setActiveSection] = useState<ConfigSection>('template')
 
-  // 当前场景
+  const menuItems: Array<{ id: ConfigSection; name: string; icon: string }> = [
+    { id: 'template', name: t('menu.templateSelect'), icon: '📋' },
+    { id: 'colors', name: t('menu.colorSystem'), icon: '🎨' },
+    { id: 'shape', name: t('menu.shapeSystem'), icon: '◻' },
+    { id: 'spacing', name: t('menu.spacingSystem'), icon: '📏' },
+    { id: 'typography', name: t('menu.typography'), icon: '📝' },
+  ]
+
   const currentScene = urlConfig.scene || 'ecommerce'
 
-  // 加载模板
   useEffect(() => {
     const load = async () => {
       const scene = urlConfig.scene || 'ecommerce'
       const loaded = await loadTemplates(scene)
       setTemplates(loaded)
-
-      // 查找匹配的模板
       const device = urlConfig.device || 'desktop'
       const template = urlConfig.template || 'home'
       const found = findTemplate(scene, device, template as PageType)
       if (found) {
         setCurrentTemplate(found)
-        // 使用模板默认配置
         if (urlConfig.config === undefined) {
           setConfig(templateStyleToStyleConfig(found.defaultStyle))
         }
@@ -63,19 +58,14 @@ export default function App() {
     load()
   }, [urlConfig])
 
-  // 同步配置到URL
   useEffect(() => {
     if (urlConfig.config === undefined || JSON.stringify(urlConfig.config) !== JSON.stringify(config)) {
       const params = new URLSearchParams()
       if (urlConfig.scene) params.set('scene', urlConfig.scene)
       if (urlConfig.device) params.set('device', urlConfig.device)
       if (urlConfig.template) params.set('template', urlConfig.template)
-      
-      // 编码自定义配置
       params.set('config', encodeConfig(config))
-      
-      const newUrl = `${window.location.pathname}?${params.toString()}`
-      window.history.replaceState({}, '', newUrl)
+      window.history.replaceState({}, '', `${window.location.pathname}?${params.toString()}`)
     }
   }, [config])
 
@@ -100,14 +90,11 @@ export default function App() {
   }
 
   const handleTemplateChange = (template: TemplateConfig) => {
-    // 根据当前设备类型查找对应版本的模板
     const currentDevice = urlConfig.device || 'desktop'
     const matchedTemplate = templates.find(
       t => t.type === template.type && t.device === currentDevice
     ) || template
-    
     setCurrentTemplate(matchedTemplate)
-    // 方案A：模板切换保留当前config，不重置为模板默认样式
     const params = new URLSearchParams()
     if (urlConfig.scene) params.set('scene', urlConfig.scene)
     if (urlConfig.device) params.set('device', urlConfig.device)
@@ -120,7 +107,6 @@ export default function App() {
     let content = ''
     let filename = ''
     const mimeType = 'text/plain'
-
     switch (type) {
       case 'tailwind':
         content = generateTailwindConfig(config)
@@ -131,18 +117,14 @@ export default function App() {
         filename = 'style-forge.css'
         break
       case 'prompt':
-        const sceneName = currentTemplate?.name || '设计配置'
-        content = generateAIPrompt(config, sceneName, currentTemplate || undefined)
+        content = generateAIPrompt(config, currentTemplate?.name || 'Style Config', currentTemplate || undefined)
         filename = 'ai-prompt.md'
         break
       case 'skill':
-        const sceneLabel = urlConfig.scene || 'ecommerce'
-        const deviceLabel = urlConfig.device || 'mobile'
-        content = generateSkillDoc(config, sceneLabel, deviceLabel, currentTemplate || undefined)
+        content = generateSkillDoc(config, urlConfig.scene || 'ecommerce', urlConfig.device || 'mobile', currentTemplate || undefined)
         filename = 'design-spec.md'
         break
     }
-
     const blob = new Blob([content], { type: mimeType })
     const url = URL.createObjectURL(blob)
     const a = document.createElement('a')
@@ -155,8 +137,7 @@ export default function App() {
   }
 
   const copyPrompt = async () => {
-    const sceneName = currentTemplate?.name || '设计配置'
-    const prompt = generateAIPrompt(config, sceneName, currentTemplate || undefined)
+    const prompt = generateAIPrompt(config, currentTemplate?.name || 'Style Config', currentTemplate || undefined)
     await navigator.clipboard.writeText(prompt)
     setShowExport('copied')
     setTimeout(() => setShowExport(null), 2000)
@@ -171,53 +152,38 @@ export default function App() {
 
   return (
     <div className="h-screen flex flex-col bg-gray-50">
-      {/* 顶栏 - 简洁全局操作 */}
       <header className="h-14 bg-white flex items-center justify-between px-6 shrink-0 border-b" style={{ borderColor: '#E8E6E1' }}>
         <div className="flex items-center gap-6">
-          <h1 className="text-base font-normal" style={{ color: '#1A1A1A' }}>Style Forge</h1>
+          <h1 className="text-base font-normal" style={{ color: '#1A1A1A' }}>{tc('nav.styleForge')}</h1>
           <nav className="flex items-center gap-1">
             <button className="px-3 py-1.5 text-sm font-normal transition-colors" style={{ color: '#4A4A4A' }}>
-              项目
+              {t('topBar.project')}
             </button>
             <button className="px-3 py-1.5 text-sm font-normal transition-colors" style={{ color: '#4A4A4A' }}>
-              编辑
+              {t('topBar.edit')}
             </button>
             <button className="px-3 py-1.5 text-sm font-normal transition-colors" style={{ color: '#4A4A4A' }}>
-              视图
+              {t('topBar.view')}
             </button>
           </nav>
         </div>
-        
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           <a
             href="/placeholder/workbench"
             className="px-3 py-1.5 text-sm font-medium rounded-lg transition-colors"
             style={{ color: '#242424', backgroundColor: '#F0F0F0' }}
           >
-            占位图生成器
+            {t('topBar.placeholderGenerator')}
           </a>
-          <button className="px-3 py-1.5 text-sm transition-colors" style={{ color: '#4A4A4A' }}>
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-            </svg>
-          </button>
           <button className="px-4 py-2 text-sm font-normal rounded-lg transition-colors text-white" style={{ backgroundColor: '#1A1A1A' }}>
-            导出
+            {tc('actions.export')}
           </button>
-          <div className="w-px h-6" style={{ backgroundColor: '#E8E6E1' }} />
-          <button className="p-2 transition-colors" style={{ color: '#4A4A4A' }}>
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
-          </button>
+          <div className="border-l h-5" style={{ borderColor: '#E5E4E0' }} />
+          <LanguageSwitcher />
         </div>
       </header>
 
-      {/* 主体区域 */}
       <div className="flex-1 flex overflow-hidden relative">
-        {/* 左侧面板切换按钮 - 固定在边框位置 */}
         {showLeftPanel && (
           <button
             onClick={() => setShowLeftPanel(!showLeftPanel)}
@@ -240,10 +206,8 @@ export default function App() {
           </button>
         )}
 
-        {/* 左侧导航 - 配置菜单 */}
         <aside className={`${showLeftPanel ? 'w-56' : 'w-0'} overflow-y-auto shrink-0 transition-all duration-300`} style={{ backgroundColor: '#F5F3EF', borderRight: '1px solid #E8E6E1' }}>
           <div className="p-3 min-w-[224px]">
-            {/* 配置菜单 */}
             <div className="space-y-1">
               {menuItems.map((item) => (
                 <button
@@ -266,10 +230,7 @@ export default function App() {
           </div>
         </aside>
 
-        {/* 中部预览 - 核心画布 */}
         <main className="flex-1 overflow-auto" style={{ backgroundColor: '#FAFAFA' }}>
-
-          {/* 预览工具栏 - 停靠在顶部 */}
           <div className="sticky top-0 z-10 px-6 py-3 border-b" style={{ backgroundColor: '#FAFAFA', borderColor: '#E8E6E1' }}>
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
@@ -277,7 +238,7 @@ export default function App() {
                   {currentTemplate?.name || 'Metrics Grid'}
                 </span>
                 <span className="text-sm" style={{ color: '#999999' }}>
-                  {urlConfig.device === 'desktop' ? '1440 × 900' : '375 × 812'}
+                  {urlConfig.device === 'desktop' ? t('previewToolbar.dimensions') : t('previewToolbar.mobileDimensions')}
                 </span>
                 <span className="text-sm" style={{ color: '#999999' }}>100%</span>
               </div>
@@ -310,41 +271,28 @@ export default function App() {
             </div>
           </div>
 
-          {/* 预览内容 */}
           <div className="flex items-center justify-center min-h-[calc(100vh-8rem)] p-12">
             {urlConfig.device === 'desktop' ? (
               <div className="w-full max-w-5xl bg-white rounded-lg shadow-sm overflow-hidden border border-gray-200">
-                <DesktopPreview 
-                  config={config} 
-                  pageType={currentTemplate?.type || 'home'}
-                  scene={currentScene}
-                />
+                <DesktopPreview config={config} pageType={currentTemplate?.type || 'home'} scene={currentScene} />
               </div>
             ) : (
               <div className="w-[375px] h-[812px] bg-white rounded-[40px] shadow-xl overflow-hidden border-8 border-gray-900 relative flex flex-col">
-                <MobilePreview 
-                  config={config} 
-                  pageType={currentTemplate?.type || 'result'}
-                  scene={currentScene}
-                />
+                <MobilePreview config={config} pageType={currentTemplate?.type || 'result'} scene={currentScene} />
               </div>
             )}
           </div>
         </main>
 
-        {/* 右侧操作面板 - 属性配置 */}
         <aside className="w-80 overflow-y-auto shrink-0 bg-white" style={{ borderLeft: '1px solid #E8E6E1' }}>
           <div className="p-4">
-            {/* 模板选择 */}
             {activeSection === 'template' && (
               <div className="space-y-6">
                 <div>
                   <div className="pb-4 mb-6" style={{ borderBottom: '1px solid #E8E6E1' }}>
                     <div className="flex items-center gap-3">
-                      <div className="flex items-center justify-center w-8 h-8 rounded-lg text-sm font-medium text-white" style={{ backgroundColor: '#1A1A1A' }}>
-                        01
-                      </div>
-                      <div className="text-base font-medium" style={{ color: '#1A1A1A' }}>场景</div>
+                      <div className="flex items-center justify-center w-8 h-8 rounded-lg text-sm font-medium text-white" style={{ backgroundColor: '#1A1A1A' }}>01</div>
+                      <div className="text-base font-medium" style={{ color: '#1A1A1A' }}>{t('templateSection.scene')}</div>
                     </div>
                   </div>
                   <SceneSelector
@@ -356,15 +304,12 @@ export default function App() {
                     onTemplateChange={() => {}}
                   />
                 </div>
-                
                 {templates.length > 0 && (
                   <div>
                     <div className="pb-4 mb-6" style={{ borderBottom: '1px solid #E8E6E1' }}>
                       <div className="flex items-center gap-3">
-                        <div className="flex items-center justify-center w-8 h-8 rounded-lg text-sm font-medium text-white" style={{ backgroundColor: '#1A1A1A' }}>
-                          02
-                        </div>
-                        <div className="text-base font-medium" style={{ color: '#1A1A1A' }}>模板</div>
+                        <div className="flex items-center justify-center w-8 h-8 rounded-lg text-sm font-medium text-white" style={{ backgroundColor: '#1A1A1A' }}>02</div>
+                        <div className="text-base font-medium" style={{ color: '#1A1A1A' }}>{t('templateSection.template')}</div>
                       </div>
                     </div>
                     <TemplateSelector
@@ -376,14 +321,8 @@ export default function App() {
                 )}
               </div>
             )}
-
-            {/* 样式配置 */}
             {activeSection !== 'template' && (
-              <StyleConfigurator 
-                config={config} 
-                onChange={setConfig}
-                activeSection={activeSection as 'colors' | 'shape' | 'spacing' | 'typography'}
-              />
+              <StyleConfigurator config={config} onChange={setConfig} activeSection={activeSection as 'colors' | 'shape' | 'spacing' | 'typography'} />
             )}
           </div>
         </aside>
